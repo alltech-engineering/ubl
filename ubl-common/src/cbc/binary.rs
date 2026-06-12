@@ -49,3 +49,6 @@ define_binary_object!(BinaryObjectType, "A generic embedded binary object.");
 define_binary_object!(EmbeddedDocumentBinaryObject, "An embedded document as binary.");
 define_binary_object!(SignatureBinaryObject, "A digital signature as binary data.");
 
+
+// --- Generated from UBL 2.5 XSD ---
+define_binary_object!(ResponseBinaryObject, "UBL CBC type: ResponseBinaryObject.");

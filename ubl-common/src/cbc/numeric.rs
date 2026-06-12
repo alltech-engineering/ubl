@@ -95,3 +95,27 @@ define_rate!(InsurancePremiumRate, "Insurance premium rate.");
 define_rate!(InterestRate, "Interest rate.");
 
 
+
+// --- Generated from UBL 2.5 XSD ---
+define_numeric!(ExpectedValueNumeric, "UBL CBC type: ExpectedValueNumeric.");
+define_numeric!(FissileCriticalitySafetyIndexNumeric, "UBL CBC type: FissileCriticalitySafetyIndexNumeric.");
+define_numeric!(MaximumLotsAwardedNumeric, "UBL CBC type: MaximumLotsAwardedNumeric.");
+define_numeric!(MaximumLotsSubmittedNumeric, "UBL CBC type: MaximumLotsSubmittedNumeric.");
+define_numeric!(MaximumNumberNumeric, "UBL CBC type: MaximumNumberNumeric.");
+define_numeric!(MaximumOriginalsNumeric, "UBL CBC type: MaximumOriginalsNumeric.");
+define_numeric!(MinimumNumberNumeric, "UBL CBC type: MinimumNumberNumeric.");
+define_numeric!(PackSizeNumeric, "UBL CBC type: PackSizeNumeric.");
+define_numeric!(ResidentOccupantsNumeric, "UBL CBC type: ResidentOccupantsNumeric.");
+define_numeric!(ResponseNumeric, "UBL CBC type: ResponseNumeric.");
+define_numeric!(ScoreNumeric, "UBL CBC type: ScoreNumeric.");
+define_numeric!(SequenceNumeric, "UBL CBC type: SequenceNumeric.");
+define_numeric!(TransportIndexNumeric, "UBL CBC type: TransportIndexNumeric.");
+define_numeric!(ValueFactorNumeric, "UBL CBC type: ValueFactorNumeric.");
+
+// --- Generated from UBL 2.5 XSD ---
+define_percent!(ExchangedPercent, "UBL CBC type: ExchangedPercent.");
+define_percent!(InterestRatePercent, "UBL CBC type: InterestRatePercent.");
+define_percent!(MaximumPercent, "UBL CBC type: MaximumPercent.");
+define_percent!(MinimumPercent, "UBL CBC type: MinimumPercent.");
+define_percent!(RecyclabilityPercent, "UBL CBC type: RecyclabilityPercent.");
+define_percent!(RecycledContentPercent, "UBL CBC type: RecycledContentPercent.");

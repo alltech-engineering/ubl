@@ -48,7 +48,6 @@ pub struct WasteNotification {
 pub struct SenderParty {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub party: Option<ubl_common::cac::Party>,
-    // TODO: Add role-specific fields from UBL 2.5 CAC schema
 }
 
 /// UBL ReceiverParty — a Party playing this specific role.
@@ -56,7 +55,6 @@ pub struct SenderParty {
 pub struct ReceiverParty {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub party: Option<ubl_common::cac::Party>,
-    // TODO: Add role-specific fields from UBL 2.5 CAC schema
 }
 
 /// UBL NotifierParty — a Party playing this specific role.
@@ -64,7 +62,6 @@ pub struct ReceiverParty {
 pub struct NotifierParty {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub party: Option<ubl_common::cac::Party>,
-    // TODO: Add role-specific fields from UBL 2.5 CAC schema
 }
 
 /// UBL CustomsParty — a Party playing this specific role.
@@ -72,7 +69,6 @@ pub struct NotifierParty {
 pub struct CustomsParty {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub party: Option<ubl_common::cac::Party>,
-    // TODO: Add role-specific fields from UBL 2.5 CAC schema
 }
 
 /// UBL DisposalFacilityParty — a Party playing this specific role.
@@ -80,7 +76,6 @@ pub struct CustomsParty {
 pub struct DisposalFacilityParty {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub party: Option<ubl_common::cac::Party>,
-    // TODO: Add role-specific fields from UBL 2.5 CAC schema
 }
 
 /// UBL RecoveryFacilityParty — a Party playing this specific role.
@@ -88,7 +83,6 @@ pub struct DisposalFacilityParty {
 pub struct RecoveryFacilityParty {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub party: Option<ubl_common::cac::Party>,
-    // TODO: Add role-specific fields from UBL 2.5 CAC schema
 }
 
 /// UBL WasteProducerParty — a Party playing this specific role.
@@ -96,5 +90,4 @@ pub struct RecoveryFacilityParty {
 pub struct WasteProducerParty {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub party: Option<ubl_common::cac::Party>,
-    // TODO: Add role-specific fields from UBL 2.5 CAC schema
 }

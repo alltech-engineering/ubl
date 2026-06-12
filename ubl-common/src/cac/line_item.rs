@@ -49,9 +49,12 @@ pub struct LineItem {
     pub delivery: Vec<Delivery>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub delivery_terms: Option<DeliveryTerms>,
-    // TODO: cac:OriginatorParty — Party, not yet wired
-    // TODO: cac:BeneficiaryParty — Party, not yet wired
-    // TODO: cac:OrderedShipment — Shipment, not yet wired
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub originator_party: Option<Party>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub beneficiary_party: Option<Party>,
+    #[serde(skip_serializing_if = "Vec::is_empty", default)]
+    pub ordered_shipment: Vec<OrderedShipment>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub pricing_reference: Option<PricingReference>,
     #[serde(skip_serializing_if = "Vec::is_empty", default)]
@@ -60,19 +63,29 @@ pub struct LineItem {
     pub price: Option<Price>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub item: Option<Item>,
-    // TODO: cac:SubLineItem — recursive LineItem, not yet wired
-    // TODO: cac:WarrantyValidityPeriod — Period, not yet wired
-    // TODO: cac:WarrantyParty — Party, not yet wired
+    #[serde(skip_serializing_if = "Vec::is_empty", default)]
+    pub sub_line_item: Vec<LineItem>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub warranty_validity_period: Option<Period>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub warranty_party: Option<Party>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub tax_total: Option<TaxTotal>,
-    // TODO: cac:ItemPriceExtension — not yet implemented
-    // TODO: cac:LineReference — not yet implemented
+    #[serde(skip_serializing_if = "Vec::is_empty", default)]
+    pub item_price_extension: Vec<ItemPriceExtension>,
+    #[serde(skip_serializing_if = "Vec::is_empty", default)]
+    pub line_reference: Vec<LineReference>,
 }
 
+use super::allowance_charge::AllowanceCharge;
 use super::delivery::Delivery;
 use super::delivery_terms::DeliveryTerms;
-use super::tax::PricingReference;
-use super::allowance_charge::AllowanceCharge;
-use super::price::Price;
 use super::item::Item;
+use super::item_price_extension::ItemPriceExtension;
+use super::line::LineReference;
+use super::line::OrderedShipment;
+use super::party::Party;
+use super::period::Period;
+use super::price::Price;
+use super::tax::PricingReference;
 use super::tax::TaxTotal;

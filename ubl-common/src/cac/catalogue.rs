@@ -9,11 +9,11 @@ use crate::cbc::*;
 
 use crate::cac::item::Item;
 use crate::cac::document::DocumentReference;
-use crate::cac::party::Party;
 use crate::cac::period::Period;
 use crate::cac::customer::CustomerParty;
 use crate::cac::supplier::SupplierParty;
 use crate::cac::address::Address;
+use crate::cac::party::Party;
 
 // ── CatalogueReference ────────────────────────────────────────────
 
@@ -136,38 +136,6 @@ pub struct NominationPeriod {
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 pub struct ContractualDelivery {
     // stub — minimal implementation
-}
-
-// ── Signature ─────────────────────────────────────────────────────
-
-#[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
-pub struct Signature {
-    pub id: ID,
-    pub reason_code: Option<ReasonCode>,
-    pub note: Vec<Note>,
-    pub validation_date: Option<ValidationDate>,
-    pub validation_time: Option<ValidationTime>,
-    pub validator_id: Option<ValidatorID>,
-    pub canonicalization_method: Option<CanonicalizationMethod>,
-    pub signature_method: Option<SignatureMethod>,
-    pub signatory_party: Option<SignatoryParty>,
-    pub digital_signature_attachment: Option<DigitalSignatureAttachment>,
-    pub original_document_reference: Option<OriginalDocumentReference>,
-}
-
-#[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
-pub struct SignatoryParty {
-    pub party: Option<Party>,
-}
-
-#[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
-pub struct DigitalSignatureAttachment {
-    // stub — minimal implementation
-}
-
-#[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
-pub struct OriginalDocumentReference {
-    pub id: Option<ID>,
 }
 
 // ── TradingTerms ──────────────────────────────────────────────────

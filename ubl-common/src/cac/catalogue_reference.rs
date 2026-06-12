@@ -14,9 +14,10 @@ pub struct CatalogueReference {
     pub issue_date: Option<IssueDate>,
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub issue_time: Option<IssueTime>,
-    // TODO: RevisionDate, RevisionTime — not yet defined (use LastRevisionDate, IssueTime instead)
     #[serde(default, skip_serializing_if = "Option::is_none")]
-    pub last_revision_date: Option<LastRevisionDate>,
+    pub revision_date: Option<RevisionDate>,
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub revision_time: Option<RevisionTime>,
     #[serde(default, skip_serializing_if = "Vec::is_empty")]
     pub note: Vec<Note>,
     #[serde(default, skip_serializing_if = "Vec::is_empty")]

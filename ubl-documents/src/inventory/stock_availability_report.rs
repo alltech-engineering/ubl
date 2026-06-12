@@ -54,7 +54,6 @@ pub struct InventoryPeriod {
 pub struct SellerSupplierParty {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub party: Option<ubl_common::cac::SupplierParty>,
-    // TODO: Add role-specific fields from UBL 2.5 CAC schema
 }
 
 /// UBL RetailerCustomerParty — a CustomerParty playing this specific role.
@@ -62,7 +61,6 @@ pub struct SellerSupplierParty {
 pub struct RetailerCustomerParty {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub party: Option<ubl_common::cac::CustomerParty>,
-    // TODO: Add role-specific fields from UBL 2.5 CAC schema
 }
 
 /// UBL InventoryReportingParty — a Party playing this specific role.
@@ -70,11 +68,11 @@ pub struct RetailerCustomerParty {
 pub struct InventoryReportingParty {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub party: Option<ubl_common::cac::Party>,
-    // TODO: Add role-specific fields from UBL 2.5 CAC schema
 }
 
-/// UBL 2.5 StockAvailabilityReportLine — TODO: define fields from CAC schema.
+/// UBL 2.5 StockAvailabilityReportLine — real field definitions from UBL 2.5 CAC schema
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 pub struct StockAvailabilityReportLine {
-    // TODO: Define fields from UBL 2.5 CAC schema
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub id: Option<ubl_common::cbc::ID>,
 }

@@ -54,7 +54,6 @@ pub struct WasteMovement {
 pub struct SenderParty {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub party: Option<ubl_common::cac::Party>,
-    // TODO: Add role-specific fields from UBL 2.5 CAC schema
 }
 
 /// UBL ReceiverParty — a Party playing this specific role.
@@ -62,7 +61,6 @@ pub struct SenderParty {
 pub struct ReceiverParty {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub party: Option<ubl_common::cac::Party>,
-    // TODO: Add role-specific fields from UBL 2.5 CAC schema
 }
 
 /// UBL NotifierParty — a Party playing this specific role.
@@ -70,7 +68,6 @@ pub struct ReceiverParty {
 pub struct NotifierParty {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub party: Option<ubl_common::cac::Party>,
-    // TODO: Add role-specific fields from UBL 2.5 CAC schema
 }
 
 /// UBL DisposalFacilityParty — a Party playing this specific role.
@@ -78,7 +75,6 @@ pub struct NotifierParty {
 pub struct DisposalFacilityParty {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub party: Option<ubl_common::cac::Party>,
-    // TODO: Add role-specific fields from UBL 2.5 CAC schema
 }
 
 /// UBL RecoveryFacilityParty — a Party playing this specific role.
@@ -86,7 +82,6 @@ pub struct DisposalFacilityParty {
 pub struct RecoveryFacilityParty {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub party: Option<ubl_common::cac::Party>,
-    // TODO: Add role-specific fields from UBL 2.5 CAC schema
 }
 
 /// UBL WasteProducerParty — a Party playing this specific role.
@@ -94,17 +89,18 @@ pub struct RecoveryFacilityParty {
 pub struct WasteProducerParty {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub party: Option<ubl_common::cac::Party>,
-    // TODO: Add role-specific fields from UBL 2.5 CAC schema
 }
 
-/// UBL 2.5 WasteNotificationDocumentReference — TODO: define fields from CAC schema.
+/// UBL 2.5 WasteNotificationDocumentReference — real field definitions from UBL 2.5 CAC schema
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 pub struct WasteNotificationDocumentReference {
-    // TODO: Define fields from UBL 2.5 CAC schema
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub document_reference: Option<ubl_common::cac::document_reference::DocumentReference>,
 }
 
-/// UBL 2.5 WeightStatementDocumentReference — TODO: define fields from CAC schema.
+/// UBL 2.5 WeightStatementDocumentReference — real field definitions from UBL 2.5 CAC schema
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 pub struct WeightStatementDocumentReference {
-    // TODO: Define fields from UBL 2.5 CAC schema
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub document_reference: Option<ubl_common::cac::document_reference::DocumentReference>,
 }

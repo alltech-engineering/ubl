@@ -31,27 +31,36 @@ pub struct CreditNoteLine {
     pub invoice_period: Vec<Period>,
     #[serde(skip_serializing_if = "Vec::is_empty", default)]
     pub order_line_reference: Vec<OrderLineReference>,
-    // TODO: cac:DiscrepancyResponse — Response, not yet wired
-    // TODO: cac:DespatchLineReference — not yet implemented
-    // TODO: cac:ReceiptLineReference — not yet implemented
-    // TODO: cac:WorkReportLineReference — not yet implemented
+    #[serde(skip_serializing_if = "Vec::is_empty", default)]
+    pub discrepancy_response: Vec<DiscrepancyResponse>,
+    #[serde(skip_serializing_if = "Vec::is_empty", default)]
+    pub despatch_line_reference: Vec<DespatchLineReference>,
+    #[serde(skip_serializing_if = "Vec::is_empty", default)]
+    pub receipt_line_reference: Vec<ReceiptLineReference>,
+    #[serde(skip_serializing_if = "Vec::is_empty", default)]
+    pub work_report_line_reference: Vec<WorkReportLineReference>,
     #[serde(skip_serializing_if = "Vec::is_empty", default)]
     pub billing_reference: Vec<BillingReference>,
     #[serde(skip_serializing_if = "Vec::is_empty", default)]
     pub document_reference: Vec<DocumentReference>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub pricing_reference: Option<PricingReference>,
-    // TODO: cac:PurchaseReference — not yet implemented
-    // TODO: cac:OriginatorParty — Party
-    // TODO: cac:BeneficiaryParty — Party
-    // TODO: cac:CollectedForParty — Party
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub purchase_reference: Option<PurchaseReference>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub originator_party: Option<Party>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub beneficiary_party: Option<Party>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub collected_for_party: Option<Party>,
     #[serde(skip_serializing_if = "Vec::is_empty", default)]
     pub delivery: Vec<Delivery>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub payment_terms: Option<PaymentTerms>,
     #[serde(skip_serializing_if = "Vec::is_empty", default)]
     pub tax_total: Vec<TaxTotal>,
-    // TODO: cac:WithholdingTaxTotal — TaxTotal variant
+    #[serde(skip_serializing_if = "Vec::is_empty", default)]
+    pub withholding_tax_total: Vec<TaxTotal>,
     #[serde(skip_serializing_if = "Vec::is_empty", default)]
     pub allowance_charge: Vec<AllowanceCharge>,
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -62,17 +71,23 @@ pub struct CreditNoteLine {
     pub delivery_terms: Option<DeliveryTerms>,
     #[serde(skip_serializing_if = "Vec::is_empty", default)]
     pub sub_credit_note_line: Vec<CreditNoteLine>,
-    // TODO: cac:ItemPriceExtension — not yet implemented
+    #[serde(skip_serializing_if = "Vec::is_empty", default)]
+    pub item_price_extension: Vec<ItemPriceExtension>,
 }
 
-use super::period::Period;
-use super::invoice_line::OrderLineReference;
-use super::billing_reference::BillingReference;
-use super::document_reference::DocumentReference;
-use super::tax::{PricingReference, TaxTotal};
-use super::delivery::Delivery;
-use super::payment_terms::PaymentTerms;
 use super::allowance_charge::AllowanceCharge;
-use super::item::Item;
-use super::price::Price;
+use super::billing_reference::BillingReference;
+use super::delivery::Delivery;
 use super::delivery_terms::DeliveryTerms;
+use super::discrepancy_response::DiscrepancyResponse;
+use super::document_reference::DocumentReference;
+use super::invoice_line::OrderLineReference;
+use super::item::Item;
+use super::item_price_extension::ItemPriceExtension;
+use super::line_reference::{DespatchLineReference, ReceiptLineReference, WorkReportLineReference};
+use super::party::Party;
+use super::payment_terms::PaymentTerms;
+use super::period::Period;
+use super::price::Price;
+use super::purchase_reference::PurchaseReference;
+use super::tax::{PricingReference, TaxTotal};

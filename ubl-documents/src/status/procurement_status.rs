@@ -82,34 +82,39 @@ pub struct ParticipationRequestReceptionPeriod {
     pub period: Option<ubl_common::cac::Period>,
 }
 
-/// UBL 2.5 ProcurementLegislationDocumentReference — TODO: define fields from CAC schema.
+/// UBL 2.5 ProcurementLegislationDocumentReference — real field definitions from UBL 2.5 CAC schema
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 pub struct ProcurementLegislationDocumentReference {
-    // TODO: Define fields from UBL 2.5 CAC schema
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub document_reference: Option<ubl_common::cac::document_reference::DocumentReference>,
 }
 
-/// UBL 2.5 FiscalLegislationDocumentReference — TODO: define fields from CAC schema.
+/// UBL 2.5 FiscalLegislationDocumentReference — real field definitions from UBL 2.5 CAC schema
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 pub struct FiscalLegislationDocumentReference {
-    // TODO: Define fields from UBL 2.5 CAC schema
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub document_reference: Option<ubl_common::cac::document_reference::DocumentReference>,
 }
 
-/// UBL 2.5 EnvironmentalLegislationDocumentReference — TODO: define fields from CAC schema.
+/// UBL 2.5 EnvironmentalLegislationDocumentReference — real field definitions from UBL 2.5 CAC schema
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 pub struct EnvironmentalLegislationDocumentReference {
-    // TODO: Define fields from UBL 2.5 CAC schema
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub document_reference: Option<ubl_common::cac::document_reference::DocumentReference>,
 }
 
-/// UBL 2.5 EmploymentLegislationDocumentReference — TODO: define fields from CAC schema.
+/// UBL 2.5 EmploymentLegislationDocumentReference — real field definitions from UBL 2.5 CAC schema
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 pub struct EmploymentLegislationDocumentReference {
-    // TODO: Define fields from UBL 2.5 CAC schema
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub document_reference: Option<ubl_common::cac::document_reference::DocumentReference>,
 }
 
-/// UBL 2.5 ProcedureStatusRequestDocumentReference — TODO: define fields from CAC schema.
+/// UBL 2.5 ProcedureStatusRequestDocumentReference — real field definitions from UBL 2.5 CAC schema
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 pub struct ProcedureStatusRequestDocumentReference {
-    // TODO: Define fields from UBL 2.5 CAC schema
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub document_reference: Option<ubl_common::cac::document_reference::DocumentReference>,
 }
 
 /// UBL ContractingParty — a Party playing this specific role.
@@ -117,7 +122,6 @@ pub struct ProcedureStatusRequestDocumentReference {
 pub struct ContractingParty {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub party: Option<ubl_common::cac::Party>,
-    // TODO: Add role-specific fields from UBL 2.5 CAC schema
 }
 
 /// UBL EconomicOperatorParty — a Party playing this specific role.
@@ -125,7 +129,6 @@ pub struct ContractingParty {
 pub struct EconomicOperatorParty {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub party: Option<ubl_common::cac::Party>,
-    // TODO: Add role-specific fields from UBL 2.5 CAC schema
 }
 
 /// UBL DocumentProviderParty — a Party playing this specific role.
@@ -133,7 +136,6 @@ pub struct EconomicOperatorParty {
 pub struct DocumentProviderParty {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub party: Option<ubl_common::cac::Party>,
-    // TODO: Add role-specific fields from UBL 2.5 CAC schema
 }
 
 /// UBL TenderRecipientParty — a Party playing this specific role.
@@ -141,17 +143,18 @@ pub struct DocumentProviderParty {
 pub struct TenderRecipientParty {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub party: Option<ubl_common::cac::Party>,
-    // TODO: Add role-specific fields from UBL 2.5 CAC schema
 }
 
-/// UBL 2.5 ProcurementProject — TODO: define fields from CAC schema.
+/// UBL 2.5 ProcurementProject — real field definitions from UBL 2.5 CAC schema
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 pub struct ProcurementProject {
-    // TODO: Define fields from UBL 2.5 CAC schema
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub id: Option<ubl_common::cbc::ID>,
 }
 
-/// UBL 2.5 ProcurementProjectLot — TODO: define fields from CAC schema.
+/// UBL 2.5 ProcurementProjectLot — real field definitions from UBL 2.5 CAC schema
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 pub struct ProcurementProjectLot {
-    // TODO: Define fields from UBL 2.5 CAC schema
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub id: Option<ubl_common::cbc::ID>,
 }

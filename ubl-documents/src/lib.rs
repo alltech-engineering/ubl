@@ -7,8 +7,8 @@
 pub mod billing;
 pub mod catalogue;
 pub mod ordering;
-// pub mod quotation;   // TODO: depends on ubl_common::cac::tendering (incomplete)
-// pub mod tendering;   // TODO: depends on ubl_common::cac::tendering (incomplete)
+pub mod quotation;
+pub mod tendering;
 pub mod transportation;
 
 // P8: Remaining Documents — 34 types across 6 categories

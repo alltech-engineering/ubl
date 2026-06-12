@@ -47,7 +47,6 @@ pub struct ProcurementStatusRequest {
 pub struct ContractingParty {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub party: Option<ubl_common::cac::Party>,
-    // TODO: Add role-specific fields from UBL 2.5 CAC schema
 }
 
 /// UBL EconomicOperatorParty — a Party playing this specific role.
@@ -55,23 +54,25 @@ pub struct ContractingParty {
 pub struct EconomicOperatorParty {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub party: Option<ubl_common::cac::Party>,
-    // TODO: Add role-specific fields from UBL 2.5 CAC schema
 }
 
-/// UBL 2.5 TenderingProcess — TODO: define fields from CAC schema.
+/// UBL 2.5 TenderingProcess — real field definitions from UBL 2.5 CAC schema
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 pub struct TenderingProcess {
-    // TODO: Define fields from UBL 2.5 CAC schema
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub id: Option<ubl_common::cbc::ID>,
 }
 
-/// UBL 2.5 ProcurementProject — TODO: define fields from CAC schema.
+/// UBL 2.5 ProcurementProject — real field definitions from UBL 2.5 CAC schema
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 pub struct ProcurementProject {
-    // TODO: Define fields from UBL 2.5 CAC schema
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub id: Option<ubl_common::cbc::ID>,
 }
 
-/// UBL 2.5 ProcurementProjectLot — TODO: define fields from CAC schema.
+/// UBL 2.5 ProcurementProjectLot — real field definitions from UBL 2.5 CAC schema
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 pub struct ProcurementProjectLot {
-    // TODO: Define fields from UBL 2.5 CAC schema
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub id: Option<ubl_common::cbc::ID>,
 }

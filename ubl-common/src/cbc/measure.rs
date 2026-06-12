@@ -58,3 +58,33 @@ define_measure!(ValueMeasure, "A value measure.");
 define_measure!(WeightMeasure, "A weight measure.");
 define_measure!(WidthMeasure, "A width measure.");
 
+
+// --- Generated from UBL 2.5 XSD ---
+define_measure!(ActivityLevelMeasure, "UBL CBC type: ActivityLevelMeasure.");
+define_measure!(AllocatedEnergyMeasure, "UBL CBC type: AllocatedEnergyMeasure.");
+define_measure!(EstimatedGeneratedUntilNextPortMeasure, "UBL CBC type: EstimatedGeneratedUntilNextPortMeasure.");
+define_measure!(FuelConsumptionMeasure, "UBL CBC type: FuelConsumptionMeasure.");
+define_measure!(GrossMassMeasure, "UBL CBC type: GrossMassMeasure.");
+define_measure!(LeadTimeMeasure, "UBL CBC type: LeadTimeMeasure.");
+define_measure!(LoadingLengthMeasure, "UBL CBC type: LoadingLengthMeasure.");
+define_measure!(MaxDedicatedStorageCapacityMeasure, "UBL CBC type: MaxDedicatedStorageCapacityMeasure.");
+define_measure!(MaximumDataLossDurationMeasure, "UBL CBC type: MaximumDataLossDurationMeasure.");
+define_measure!(MaximumIncidentNotificationDurationMeasure, "UBL CBC type: MaximumIncidentNotificationDurationMeasure.");
+define_measure!(MeanTimeToRecoverDurationMeasure, "UBL CBC type: MeanTimeToRecoverDurationMeasure.");
+define_measure!(MinimumDownTimeScheduleDurationMeasure, "UBL CBC type: MinimumDownTimeScheduleDurationMeasure.");
+define_measure!(MinimumResponseTimeDurationMeasure, "UBL CBC type: MinimumResponseTimeDurationMeasure.");
+define_measure!(PostEventNotificationDurationMeasure, "UBL CBC type: PostEventNotificationDurationMeasure.");
+define_measure!(PreEventNotificationDurationMeasure, "UBL CBC type: PreEventNotificationDurationMeasure.");
+define_measure!(RateOfTurnMeasure, "UBL CBC type: RateOfTurnMeasure.");
+define_measure!(ResponseMeasure, "UBL CBC type: ResponseMeasure.");
+define_measure!(RetainedOnBoardMeasure, "UBL CBC type: RetainedOnBoardMeasure.");
+define_measure!(SalinityMeasure, "UBL CBC type: SalinityMeasure.");
+define_measure!(SeaHeightMeasure, "UBL CBC type: SeaHeightMeasure.");
+define_measure!(SegregatedBallastMeasure, "UBL CBC type: SegregatedBallastMeasure.");
+define_measure!(SpeedOverGroundMeasure, "UBL CBC type: SpeedOverGroundMeasure.");
+define_measure!(ToBeDeliveredMeasure, "UBL CBC type: ToBeDeliveredMeasure.");
+define_measure!(TotalBallastWaterCapacityMeasure, "UBL CBC type: TotalBallastWaterCapacityMeasure.");
+define_measure!(TotalBallastWaterOnBoardMeasure, "UBL CBC type: TotalBallastWaterOnBoardMeasure.");
+define_measure!(ValueBaseMeasure, "UBL CBC type: ValueBaseMeasure.");
+define_measure!(VolumeMeasure, "UBL CBC type: VolumeMeasure.");
+define_measure!(WasteMeasure, "UBL CBC type: WasteMeasure.");

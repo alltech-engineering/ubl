@@ -50,7 +50,6 @@ pub struct DigitalAgreement {
 pub struct GovernorParty {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub party: Option<ubl_common::cac::Party>,
-    // TODO: Add role-specific fields from UBL 2.5 CAC schema
 }
 
 /// UBL ParticipantParty — a Party playing this specific role.
@@ -58,29 +57,32 @@ pub struct GovernorParty {
 pub struct ParticipantParty {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub party: Option<ubl_common::cac::Party>,
-    // TODO: Add role-specific fields from UBL 2.5 CAC schema
 }
 
-/// UBL 2.5 AgreementCountry — TODO: define fields from CAC schema.
+/// UBL 2.5 AgreementCountry — real field definitions from UBL 2.5 CAC schema
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 pub struct AgreementCountry {
-    // TODO: Define fields from UBL 2.5 CAC schema
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub country: Option<ubl_common::cac::address::Country>,
 }
 
-/// UBL 2.5 RequiredCertificationDocumentReference — TODO: define fields from CAC schema.
+/// UBL 2.5 RequiredCertificationDocumentReference — real field definitions from UBL 2.5 CAC schema
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 pub struct RequiredCertificationDocumentReference {
-    // TODO: Define fields from UBL 2.5 CAC schema
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub document_reference: Option<ubl_common::cac::document_reference::DocumentReference>,
 }
 
-/// UBL 2.5 DigitalAgreementTerms — TODO: define fields from CAC schema.
+/// UBL 2.5 DigitalAgreementTerms — real field definitions from UBL 2.5 CAC schema
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 pub struct DigitalAgreementTerms {
-    // TODO: Define fields from UBL 2.5 CAC schema
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub description: Vec<ubl_common::cbc::Description>,
 }
 
-/// UBL 2.5 DigitalProcess — TODO: define fields from CAC schema.
+/// UBL 2.5 DigitalProcess — real field definitions from UBL 2.5 CAC schema
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 pub struct DigitalProcess {
-    // TODO: Define fields from UBL 2.5 CAC schema
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub id: Option<ubl_common::cbc::ID>,
 }

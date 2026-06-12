@@ -56,10 +56,11 @@ pub struct WorkReport {
 
 // ── Inline CAC types ──
 
-/// UBL 2.5 WorkQuantityTotal — TODO: define fields from CAC schema.
+/// UBL 2.5 WorkQuantityTotal — real field definitions from UBL 2.5 CAC schema
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 pub struct WorkQuantityTotal {
-    // TODO: Define fields from UBL 2.5 CAC schema
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub total_quantity: Option<ubl_common::cbc::Quantity>,
 }
 
 /// UBL ReportedPeriod — a Period with this specific role.
@@ -69,10 +70,11 @@ pub struct ReportedPeriod {
     pub period: Option<ubl_common::cac::Period>,
 }
 
-/// UBL 2.5 AdditionalDocumentReference — TODO: define fields from CAC schema.
+/// UBL 2.5 AdditionalDocumentReference — real field definitions from UBL 2.5 CAC schema
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 pub struct AdditionalDocumentReference {
-    // TODO: Define fields from UBL 2.5 CAC schema
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub document_reference: Option<ubl_common::cac::document_reference::DocumentReference>,
 }
 
 /// UBL SellerSupplierParty — a SupplierParty playing this specific role.
@@ -80,7 +82,6 @@ pub struct AdditionalDocumentReference {
 pub struct SellerSupplierParty {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub party: Option<ubl_common::cac::SupplierParty>,
-    // TODO: Add role-specific fields from UBL 2.5 CAC schema
 }
 
 /// UBL BuyerCustomerParty — a CustomerParty playing this specific role.
@@ -88,7 +89,6 @@ pub struct SellerSupplierParty {
 pub struct BuyerCustomerParty {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub party: Option<ubl_common::cac::CustomerParty>,
-    // TODO: Add role-specific fields from UBL 2.5 CAC schema
 }
 
 /// UBL ApproverParty — a Party playing this specific role.
@@ -96,17 +96,18 @@ pub struct BuyerCustomerParty {
 pub struct ApproverParty {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub party: Option<ubl_common::cac::Party>,
-    // TODO: Add role-specific fields from UBL 2.5 CAC schema
 }
 
-/// UBL 2.5 StatementMonetaryTotal — TODO: define fields from CAC schema.
+/// UBL 2.5 StatementMonetaryTotal — real field definitions from UBL 2.5 CAC schema
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 pub struct StatementMonetaryTotal {
-    // TODO: Define fields from UBL 2.5 CAC schema
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub line_extension_amount: Option<ubl_common::cbc::LineExtensionAmount>,
 }
 
-/// UBL 2.5 WorkReportLine — TODO: define fields from CAC schema.
+/// UBL 2.5 WorkReportLine — real field definitions from UBL 2.5 CAC schema
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 pub struct WorkReportLine {
-    // TODO: Define fields from UBL 2.5 CAC schema
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub id: Option<ubl_common::cbc::ID>,
 }

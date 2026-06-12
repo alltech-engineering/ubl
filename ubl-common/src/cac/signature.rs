@@ -1,8 +1,11 @@
 // UBL Signature aggregate.
 // A digital or physical signature applied to a document.
+//
+// UBL 2.5 Section 6 — UBL Digital Signatures.
 
 use serde::{Deserialize, Serialize};
 use crate::cbc::*;
+use crate::cac::document::{DocumentReference, ExternalReference};
 use crate::cac::party::Party;
 
 /// A signature applied to a UBL document.
@@ -20,6 +23,20 @@ pub struct Signature {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub signature_method_code: Option<SignatureMethodCode>,
     #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub canonicalization_method: Option<CanonicalizationMethod>,
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub signature_method: Option<SignatureMethod>,
+    #[serde(default, skip_serializing_if = "Option::is_none")]
     pub signatory_party: Option<Party>,
-    // TODO: CanonicalizationMethod, SignatureMethod, DigitalSignatureAttachment, OriginalDocumentReference
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub digital_signature_attachment: Option<DigitalSignatureAttachment>,
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub original_document_reference: Option<Box<DocumentReference>>,
+}
+
+/// External reference to a detached digital signature.
+#[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
+pub struct DigitalSignatureAttachment {
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub external_reference: Option<ExternalReference>,
 }

@@ -1,51 +1,13 @@
-   0.023316083s  INFO prepare_target{force=false package_id=ubl-common v0.1.0 (/Users/stephanus/Github/alltech/ubl/ubl-common) target="ubl_common"}: cargo::core::compiler::fingerprint: fingerprint error for ubl-common v0.1.0 (/Users/stephanus/Github/alltech/ubl/ubl-common)/Check { test: true }/TargetInner { name_inferred: true, ..: lib_target("ubl_common", ["lib"], "/Users/stephanus/Github/alltech/ubl/ubl-common/src/lib.rs", Edition2024) }
-   0.023334417s  INFO prepare_target{force=false package_id=ubl-common v0.1.0 (/Users/stephanus/Github/alltech/ubl/ubl-common) target="ubl_common"}: cargo::core::compiler::fingerprint:     err: failed to read `/Users/stephanus/Github/alltech/ubl/target/debug/.fingerprint/ubl-common-bd21b8476ab6541a/test-lib-ubl_common`
-
-Caused by:
-    No such file or directory (os error 2)
-
-Stack backtrace:
-   0: <std::backtrace::Backtrace>::create
-   1: cargo_util::paths::read_bytes
-   2: cargo_util::paths::read
-   3: cargo::core::compiler::fingerprint::_compare_old_fingerprint
-   4: cargo::core::compiler::fingerprint::prepare_target
-   5: cargo::core::compiler::compile
-   6: <cargo::core::compiler::build_runner::BuildRunner>::compile
-   7: cargo::ops::cargo_compile::compile_ws
-   8: cargo::ops::cargo_compile::compile_with_exec
-   9: cargo::ops::cargo_compile::compile
-  10: cargo::commands::check::exec
-  11: <cargo::cli::Exec>::exec
-  12: cargo::main
-  13: std::sys::backtrace::__rust_begin_short_backtrace::<fn(), ()>
-  14: std::rt::lang_start::<()>::{closure#0}
-  15: std::rt::lang_start_internal
-  16: _main
-   0.025847792s  INFO prepare_target{force=false package_id=ubl-documents v0.1.0 (/Users/stephanus/Github/alltech/ubl/ubl-documents) target="ubl_documents"}: cargo::core::compiler::fingerprint: fingerprint error for ubl-documents v0.1.0 (/Users/stephanus/Github/alltech/ubl/ubl-documents)/Check { test: true }/TargetInner { name_inferred: true, ..: lib_target("ubl_documents", ["lib"], "/Users/stephanus/Github/alltech/ubl/ubl-documents/src/lib.rs", Edition2024) }
-   0.025852708s  INFO prepare_target{force=false package_id=ubl-documents v0.1.0 (/Users/stephanus/Github/alltech/ubl/ubl-documents) target="ubl_documents"}: cargo::core::compiler::fingerprint:     err: failed to read `/Users/stephanus/Github/alltech/ubl/target/debug/.fingerprint/ubl-documents-48e157a89c7a276f/test-lib-ubl_documents`
-
-Caused by:
-    No such file or directory (os error 2)
-
-Stack backtrace:
-   0: <std::backtrace::Backtrace>::create
-   1: cargo_util::paths::read_bytes
-   2: cargo_util::paths::read
-   3: cargo::core::compiler::fingerprint::_compare_old_fingerprint
-   4: cargo::core::compiler::fingerprint::prepare_target
-   5: cargo::core::compiler::compile
-   6: <cargo::core::compiler::build_runner::BuildRunner>::compile
-   7: cargo::ops::cargo_compile::compile_ws
-   8: cargo::ops::cargo_compile::compile_with_exec
-   9: cargo::ops::cargo_compile::compile
-  10: cargo::commands::check::exec
-  11: <cargo::cli::Exec>::exec
-  12: cargo::main
-  13: std::sys::backtrace::__rust_begin_short_backtrace::<fn(), ()>
-  14: std::rt::lang_start::<()>::{closure#0}
-  15: std::rt::lang_start_internal
-  16: _main
+   0.022938084s  INFO prepare_target{force=false package_id=ubl-common v0.1.0 (/Users/stephanus/Github/alltech/ubl/ubl-common) target="ubl_common"}: cargo::core::compiler::fingerprint: stale: changed "/Users/stephanus/Github/alltech/ubl/ubl-common/src/cbc/text.rs"
+   0.022948167s  INFO prepare_target{force=false package_id=ubl-common v0.1.0 (/Users/stephanus/Github/alltech/ubl/ubl-common) target="ubl_common"}: cargo::core::compiler::fingerprint:           (vs) "/Users/stephanus/Github/alltech/ubl/target/debug/.fingerprint/ubl-common-bd21b8476ab6541a/dep-test-lib-ubl_common"
+   0.022950459s  INFO prepare_target{force=false package_id=ubl-common v0.1.0 (/Users/stephanus/Github/alltech/ubl/ubl-common) target="ubl_common"}: cargo::core::compiler::fingerprint:                FileTime { seconds: 1781262255, nanos: 196449673 } < FileTime { seconds: 1781262693, nanos: 257506534 }
+   0.023312834s  INFO prepare_target{force=false package_id=ubl-common v0.1.0 (/Users/stephanus/Github/alltech/ubl/ubl-common) target="ubl_common"}: cargo::core::compiler::fingerprint: fingerprint dirty for ubl-common v0.1.0 (/Users/stephanus/Github/alltech/ubl/ubl-common)/Check { test: true }/TargetInner { name_inferred: true, ..: lib_target("ubl_common", ["lib"], "/Users/stephanus/Github/alltech/ubl/ubl-common/src/lib.rs", Edition2024) }
+   0.023322459s  INFO prepare_target{force=false package_id=ubl-common v0.1.0 (/Users/stephanus/Github/alltech/ubl/ubl-common) target="ubl_common"}: cargo::core::compiler::fingerprint:     dirty: FsStatusOutdated(StaleItem(ChangedFile { reference: "/Users/stephanus/Github/alltech/ubl/target/debug/.fingerprint/ubl-common-bd21b8476ab6541a/dep-test-lib-ubl_common", reference_mtime: FileTime { seconds: 1781262255, nanos: 196449673 }, stale: "/Users/stephanus/Github/alltech/ubl/ubl-common/src/cbc/text.rs", stale_mtime: FileTime { seconds: 1781262693, nanos: 257506534 } }))
+   0.023806584s  INFO prepare_target{force=false package_id=ubl-documents v0.1.0 (/Users/stephanus/Github/alltech/ubl/ubl-documents) target="ubl_documents"}: cargo::core::compiler::fingerprint: dependency on `ubl_common` is newer than we are 1781265562.667494442s > 1781262255.196451882s "/Users/stephanus/Github/alltech/ubl/ubl-documents"
+   0.024070375s  INFO prepare_target{force=false package_id=ubl-documents v0.1.0 (/Users/stephanus/Github/alltech/ubl/ubl-documents) target="ubl_documents"}: cargo::core::compiler::fingerprint: fingerprint dirty for ubl-documents v0.1.0 (/Users/stephanus/Github/alltech/ubl/ubl-documents)/Check { test: true }/TargetInner { name_inferred: true, ..: lib_target("ubl_documents", ["lib"], "/Users/stephanus/Github/alltech/ubl/ubl-documents/src/lib.rs", Edition2024) }
+   0.024074292s  INFO prepare_target{force=false package_id=ubl-documents v0.1.0 (/Users/stephanus/Github/alltech/ubl/ubl-documents) target="ubl_documents"}: cargo::core::compiler::fingerprint:     dirty: FsStatusOutdated(StaleDependency { unit: UnitIndex(25), dep_mtime: FileTime { seconds: 1781265562, nanos: 667494442 }, max_mtime: FileTime { seconds: 1781262255, nanos: 196451882 } })
     Checking ubl-common v0.1.0 (/Users/stephanus/Github/alltech/ubl/ubl-common)
     Checking ubl-documents v0.1.0 (/Users/stephanus/Github/alltech/ubl/ubl-documents)
-    Finished `dev` profile [unoptimized + debuginfo] target(s) in 3.97s
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 4.39s
+warning: the following packages contain code that will be rejected by a future version of Rust: ubl-documents v0.1.0 (/Users/stephanus/Github/alltech/ubl/ubl-documents)
+note: to see what the problems were, use the option `--future-incompat-report`, or run `cargo report future-incompatibilities --id 6`

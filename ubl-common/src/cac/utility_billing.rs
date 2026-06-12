@@ -26,7 +26,7 @@ pub struct MainOnAccountPayment {
 /// A class to describe an on-account payment amount.
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 pub struct OnAccountPayment {
-    pub estimated_consumed_quantity: Option<Quantity>,
+    pub estimated_consumed_quantity: Option<EstimatedConsumedQuantity>,
     pub note: Vec<Note>,
     pub payment_terms: Vec<PaymentTerms>,
     pub payment_means: Vec<PaymentMeans>,

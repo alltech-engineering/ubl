@@ -34,13 +34,45 @@ pub struct DocumentReference {
     pub document_status_code: Option<DocumentStatusCode>,
     #[serde(skip_serializing_if = "Vec::is_empty", default)]
     pub document_description: Vec<DocumentDescription>,
-    // CAC references
-    // TODO: cac:Attachment — not yet implemented
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub attachment: Option<Attachment>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub validity_period: Option<Period>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub issuer_party: Option<Party>,
-    // TODO: cac:ResultOfVerification — not yet implemented
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub result_of_verification: Option<ResultOfVerification>,
+}
+
+/// UBL CAC AttachmentType — embedded or external document attachment
+#[derive(Debug, Clone, PartialEq, serde::Serialize, serde::Deserialize)]
+pub struct Attachment {
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub embedded_document_binary_object: Option<EmbeddedDocumentBinaryObject>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub external_reference: Option<ExternalReference>,
+}
+
+/// UBL CAC ExternalReferenceType — URI or external reference
+#[derive(Debug, Clone, PartialEq, serde::Serialize, serde::Deserialize)]
+pub struct ExternalReference {
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub uri: Option<Text>,
+    #[serde(skip_serializing_if = "Vec::is_empty", default)]
+    pub description: Vec<Description>,
+}
+
+/// UBL CAC ResultOfVerificationType — validation result
+#[derive(Debug, Clone, PartialEq, serde::Serialize, serde::Deserialize)]
+pub struct ResultOfVerification {
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub validator_id: Option<ValidatorID>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub validation_result_code: Option<ValidationResultCode>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub validation_date: Option<ValidationDate>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub validation_time: Option<ValidationTime>,
 }
 
 use super::period::Period;

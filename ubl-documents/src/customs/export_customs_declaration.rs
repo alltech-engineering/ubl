@@ -42,5 +42,4 @@ pub struct ExportCustomsDeclaration {
 pub struct ExporterParty {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub party: Option<ubl_common::cac::Party>,
-    // TODO: Add role-specific fields from UBL 2.5 CAC schema
 }

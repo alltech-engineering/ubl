@@ -43,7 +43,6 @@ pub struct DocumentStatus {
 pub struct SenderParty {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub party: Option<ubl_common::cac::Party>,
-    // TODO: Add role-specific fields from UBL 2.5 CAC schema
 }
 
 /// UBL ReceiverParty — a Party playing this specific role.
@@ -51,11 +50,11 @@ pub struct SenderParty {
 pub struct ReceiverParty {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub party: Option<ubl_common::cac::Party>,
-    // TODO: Add role-specific fields from UBL 2.5 CAC schema
 }
 
-/// UBL 2.5 AdditionalDocumentResponse — TODO: define fields from CAC schema.
+/// UBL 2.5 AdditionalDocumentResponse — real field definitions from UBL 2.5 CAC schema
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 pub struct AdditionalDocumentResponse {
-    // TODO: Define fields from UBL 2.5 CAC schema
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub document_reference: Option<ubl_common::cac::document_reference::DocumentReference>,
 }

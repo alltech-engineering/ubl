@@ -32,19 +32,26 @@ pub struct InvoiceLine {
     pub invoice_period: Vec<Period>,
     #[serde(skip_serializing_if = "Vec::is_empty", default)]
     pub order_line_reference: Vec<OrderLineReference>,
-    // TODO: cac:DespatchLineReference
-    // TODO: cac:ReceiptLineReference
-    // TODO: cac:WorkReportLineReference
+    #[serde(skip_serializing_if = "Vec::is_empty", default)]
+    pub despatch_line_reference: Vec<DespatchLineReference>,
+    #[serde(skip_serializing_if = "Vec::is_empty", default)]
+    pub receipt_line_reference: Vec<ReceiptLineReference>,
+    #[serde(skip_serializing_if = "Vec::is_empty", default)]
+    pub work_report_line_reference: Vec<WorkReportLineReference>,
     #[serde(skip_serializing_if = "Vec::is_empty", default)]
     pub billing_reference: Vec<BillingReference>,
     #[serde(skip_serializing_if = "Vec::is_empty", default)]
     pub document_reference: Vec<DocumentReference>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub pricing_reference: Option<PricingReference>,
-    // TODO: cac:PurchaseReference
-    // TODO: cac:OriginatorParty
-    // TODO: cac:BeneficiaryParty
-    // TODO: cac:CollectedForParty
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub purchase_reference: Option<PurchaseReference>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub originator_party: Option<Party>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub beneficiary_party: Option<Party>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub collected_for_party: Option<Party>,
     #[serde(skip_serializing_if = "Vec::is_empty", default)]
     pub delivery: Vec<Delivery>,
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -53,7 +60,8 @@ pub struct InvoiceLine {
     pub allowance_charge: Vec<AllowanceCharge>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub tax_total: Option<TaxTotal>,
-    // TODO: cac:WithholdingTaxTotal
+    #[serde(skip_serializing_if = "Vec::is_empty", default)]
+    pub withholding_tax_total: Vec<TaxTotal>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub item: Option<Item>,
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -62,19 +70,23 @@ pub struct InvoiceLine {
     pub delivery_terms: Option<DeliveryTerms>,
     #[serde(skip_serializing_if = "Vec::is_empty", default)]
     pub sub_invoice_line: Vec<InvoiceLine>,
-    // TODO: cac:ItemPriceExtension
+    #[serde(skip_serializing_if = "Vec::is_empty", default)]
+    pub item_price_extension: Vec<ItemPriceExtension>,
 }
-
-use super::billing_reference::BillingReference;
-use super::document_reference::DocumentReference;
-use super::period::Period;
-use super::item::Item;
-use super::price::Price;
-use super::delivery::Delivery;
-use super::payment_terms::PaymentTerms;
 use super::allowance_charge::AllowanceCharge;
-use super::tax::{PricingReference, TaxTotal};
+use super::billing_reference::BillingReference;
+use super::delivery::Delivery;
 use super::delivery_terms::DeliveryTerms;
+use super::document_reference::DocumentReference;
+use super::item::Item;
+use super::item_price_extension::ItemPriceExtension;
+use super::line_reference::{DespatchLineReference, ReceiptLineReference, WorkReportLineReference};
+use super::party::Party;
+use super::payment_terms::PaymentTerms;
+use super::period::Period;
+use super::price::Price;
+use super::purchase_reference::PurchaseReference;
+use super::tax::{PricingReference, TaxTotal};
 
 /// A reference to an order line.
 #[derive(Debug, Clone, PartialEq, serde::Serialize, serde::Deserialize)]

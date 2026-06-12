@@ -61,10 +61,11 @@ pub struct BusinessInformation {
 
 // ── Inline CAC types ──
 
-/// UBL 2.5 AdditionalNoticeLanguage — TODO: define fields from CAC schema.
+/// UBL 2.5 AdditionalNoticeLanguage — real field definitions from UBL 2.5 CAC schema
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 pub struct AdditionalNoticeLanguage {
-    // TODO: Define fields from UBL 2.5 CAC schema
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub id: Option<ubl_common::cbc::ID>,
 }
 
 /// UBL SenderParty — a Party playing this specific role.
@@ -72,7 +73,6 @@ pub struct AdditionalNoticeLanguage {
 pub struct SenderParty {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub party: Option<ubl_common::cac::Party>,
-    // TODO: Add role-specific fields from UBL 2.5 CAC schema
 }
 
 /// UBL ReceiverParty — a Party playing this specific role.
@@ -80,7 +80,6 @@ pub struct SenderParty {
 pub struct ReceiverParty {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub party: Option<ubl_common::cac::Party>,
-    // TODO: Add role-specific fields from UBL 2.5 CAC schema
 }
 
 /// UBL BusinessParty — a Party playing this specific role.
@@ -88,25 +87,27 @@ pub struct ReceiverParty {
 pub struct BusinessParty {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub party: Option<ubl_common::cac::Party>,
-    // TODO: Add role-specific fields from UBL 2.5 CAC schema
 }
 
-/// UBL 2.5 BrochureDocumentReference — TODO: define fields from CAC schema.
+/// UBL 2.5 BrochureDocumentReference — real field definitions from UBL 2.5 CAC schema
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 pub struct BrochureDocumentReference {
-    // TODO: Define fields from UBL 2.5 CAC schema
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub document_reference: Option<ubl_common::cac::document_reference::DocumentReference>,
 }
 
-/// UBL 2.5 AdditionalDocumentReference — TODO: define fields from CAC schema.
+/// UBL 2.5 AdditionalDocumentReference — real field definitions from UBL 2.5 CAC schema
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 pub struct AdditionalDocumentReference {
-    // TODO: Define fields from UBL 2.5 CAC schema
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub document_reference: Option<ubl_common::cac::document_reference::DocumentReference>,
 }
 
-/// UBL 2.5 BusinessCapability — TODO: define fields from CAC schema.
+/// UBL 2.5 BusinessCapability — real field definitions from UBL 2.5 CAC schema
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 pub struct BusinessCapability {
-    // TODO: Define fields from UBL 2.5 CAC schema
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub id: Option<ubl_common::cbc::ID>,
 }
 
 /// UBL BusinessPartyGroup — a Party playing this specific role.
@@ -114,17 +115,18 @@ pub struct BusinessCapability {
 pub struct BusinessPartyGroup {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub party: Option<ubl_common::cac::Party>,
-    // TODO: Add role-specific fields from UBL 2.5 CAC schema
 }
 
-/// UBL 2.5 OperationType — TODO: define fields from CAC schema.
+/// UBL 2.5 OperationType — real field definitions from UBL 2.5 CAC schema
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 pub struct OperationType {
-    // TODO: Define fields from UBL 2.5 CAC schema
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub code: Option<ubl_common::cbc::Code>,
 }
 
-/// UBL 2.5 NoticeSubType — TODO: define fields from CAC schema.
+/// UBL 2.5 NoticeSubType — real field definitions from UBL 2.5 CAC schema
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 pub struct NoticeSubType {
-    // TODO: Define fields from UBL 2.5 CAC schema
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub sub_type_code: Option<ubl_common::cbc::SubTypeCode>,
 }

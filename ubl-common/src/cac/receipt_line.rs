@@ -39,14 +39,18 @@ pub struct ReceiptLine {
     // CAC references
     #[serde(skip_serializing_if = "Vec::is_empty", default)]
     pub order_line_reference: Vec<OrderLineReference>,
-    // TODO: cac:DespatchLineReference
+    #[serde(skip_serializing_if = "Vec::is_empty", default)]
+    pub despatch_line_reference: Vec<DespatchLineReference>,
     #[serde(skip_serializing_if = "Vec::is_empty", default)]
     pub document_reference: Vec<DocumentReference>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub item: Option<Item>,
-    // TODO: cac:Shipment
+    #[serde(skip_serializing_if = "Vec::is_empty", default)]
+    pub shipment: Vec<Shipment>,
 }
 
-use super::invoice_line::OrderLineReference;
+use super::delivery::Shipment;
 use super::document_reference::DocumentReference;
+use super::invoice_line::OrderLineReference;
 use super::item::Item;
+use super::line_reference::DespatchLineReference;

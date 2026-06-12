@@ -18,14 +18,17 @@ pub struct OrderLine {
     pub seller_substituted_line_item: Option<LineItem>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub buyer_proposed_substitute_line_item: Option<LineItem>,
-    // TODO: cac:CatalogueLineReference — not yet implemented
-    // TODO: cac:QuotationLineReference — not yet implemented
+    #[serde(skip_serializing_if = "Vec::is_empty", default)]
+    pub catalogue_line_reference: Vec<CatalogueLineReference>,
+    #[serde(skip_serializing_if = "Vec::is_empty", default)]
+    pub quotation_line_reference: Vec<QuotationLineReference>,
     #[serde(skip_serializing_if = "Vec::is_empty", default)]
     pub order_line_reference: Vec<OrderLineReference>,
     #[serde(skip_serializing_if = "Vec::is_empty", default)]
     pub document_reference: Vec<DocumentReference>,
 }
 
-use super::line_item::LineItem;
-use super::invoice_line::OrderLineReference;
 use super::document_reference::DocumentReference;
+use super::invoice_line::OrderLineReference;
+use super::line_item::LineItem;
+use super::line_reference::{CatalogueLineReference, QuotationLineReference};

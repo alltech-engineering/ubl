@@ -121,3 +121,28 @@ define_amount!(TransportServiceProviderSpecialTermsAmount, "Transport service pr
 define_amount!(TresholdAmount, "A threshold amount.");
 define_amount!(PaidAmount, "The amount that has been paid.");
 
+
+// --- Generated from UBL 2.5 XSD ---
+define_amount!(AllowanceTotalTaxInclusiveAmount, "UBL CBC type: AllowanceTotalTaxInclusiveAmount.");
+define_amount!(CashChangeAmount, "UBL CBC type: CashChangeAmount.");
+define_amount!(ChargeTotalTaxInclusiveAmount, "UBL CBC type: ChargeTotalTaxInclusiveAmount.");
+define_amount!(CorrectionUnitAmount, "UBL CBC type: CorrectionUnitAmount.");
+define_amount!(DocumentationFeeAmount, "UBL CBC type: DocumentationFeeAmount.");
+define_amount!(EstimatedAmount, "UBL CBC type: EstimatedAmount.");
+define_amount!(EstimatedMaximumValueAmount, "UBL CBC type: EstimatedMaximumValueAmount.");
+define_amount!(EstimatedOverallFrameworkContractsAmount, "UBL CBC type: EstimatedOverallFrameworkContractsAmount.");
+define_amount!(ExcessAmount, "UBL CBC type: ExcessAmount.");
+define_amount!(ExpectedAmount, "UBL CBC type: ExpectedAmount.");
+define_amount!(InsuredValueAmount, "UBL CBC type: InsuredValueAmount.");
+define_amount!(MaximumAdvertisementAmount, "UBL CBC type: MaximumAdvertisementAmount.");
+define_amount!(MaximumPaidAmount, "UBL CBC type: MaximumPaidAmount.");
+define_amount!(MaximumValueAmount, "UBL CBC type: MaximumValueAmount.");
+define_amount!(PaidCashAmount, "UBL CBC type: PaidCashAmount.");
+define_amount!(PayableAlternativeAmount, "UBL CBC type: PayableAlternativeAmount.");
+define_amount!(ResponseAmount, "UBL CBC type: ResponseAmount.");
+define_amount!(SettlementDiscountAmount, "UBL CBC type: SettlementDiscountAmount.");
+define_amount!(TaxEnergyBalanceAmount, "UBL CBC type: TaxEnergyBalanceAmount.");
+define_amount!(TaxEnergyOnAccountAmount, "UBL CBC type: TaxEnergyOnAccountAmount.");
+define_amount!(TaxInclusiveLineExtensionAmount, "UBL CBC type: TaxInclusiveLineExtensionAmount.");
+define_amount!(TaxInclusivePriceAmount, "UBL CBC type: TaxInclusivePriceAmount.");
+define_amount!(ThresholdAmount, "UBL CBC type: ThresholdAmount.");

@@ -42,7 +42,6 @@ pub struct DigitalCapability {
 pub struct SenderParty {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub party: Option<ubl_common::cac::Party>,
-    // TODO: Add role-specific fields from UBL 2.5 CAC schema
 }
 
 /// UBL ReceiverParty — a Party playing this specific role.
@@ -50,7 +49,6 @@ pub struct SenderParty {
 pub struct ReceiverParty {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub party: Option<ubl_common::cac::Party>,
-    // TODO: Add role-specific fields from UBL 2.5 CAC schema
 }
 
 /// UBL BusinessParty — a Party playing this specific role.
@@ -58,11 +56,11 @@ pub struct ReceiverParty {
 pub struct BusinessParty {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub party: Option<ubl_common::cac::Party>,
-    // TODO: Add role-specific fields from UBL 2.5 CAC schema
 }
 
-/// UBL 2.5 DigitalProcess — TODO: define fields from CAC schema.
+/// UBL 2.5 DigitalProcess — real field definitions from UBL 2.5 CAC schema
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 pub struct DigitalProcess {
-    // TODO: Define fields from UBL 2.5 CAC schema
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub id: Option<ubl_common::cbc::ID>,
 }

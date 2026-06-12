@@ -12,5 +12,17 @@ pub struct ProjectReference {
     pub uuid: Option<UUID>,
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub issue_date: Option<IssueDate>,
-    // TODO: WorkPhaseReference — not yet defined as a CBC type
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub work_phase_reference: Option<WorkPhaseReference>,
+}
+
+/// A reference to a phase of work within a project.
+#[derive(Debug, Clone, PartialEq, serde::Serialize, serde::Deserialize)]
+pub struct WorkPhaseReference {
+    pub id: Option<ID>,
+    pub uuid: Option<UUID>,
+    pub issue_date: Option<IssueDate>,
+    pub issue_time: Option<IssueTime>,
+    pub work_phase_code: Option<WorkPhaseCode>,
+    pub progress_percent: Option<ProgressPercent>,
 }

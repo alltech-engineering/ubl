@@ -35,10 +35,13 @@ pub struct DespatchLine {
     pub document_reference: Vec<DocumentReference>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub item: Option<Item>,
-    // TODO: cac:Shipment — not yet wired
-    // TODO: cac:SubDespatchLine — recursive
+    #[serde(skip_serializing_if = "Vec::is_empty", default)]
+    pub shipment: Vec<Shipment>,
+    #[serde(skip_serializing_if = "Vec::is_empty", default)]
+    pub sub_despatch_line: Vec<DespatchLine>,
 }
 
-use super::invoice_line::OrderLineReference;
+use super::delivery::Shipment;
 use super::document_reference::DocumentReference;
+use super::invoice_line::OrderLineReference;
 use super::item::Item;

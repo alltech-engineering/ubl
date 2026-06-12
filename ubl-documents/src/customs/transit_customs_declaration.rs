@@ -71,28 +71,32 @@ pub struct ValidityPeriod {
     pub period: Option<ubl_common::cac::Period>,
 }
 
-/// UBL 2.5 ExportCustomsExitOfficeLocation — TODO: define fields from CAC schema.
+/// UBL 2.5 ExportCustomsExitOfficeLocation — real field definitions from UBL 2.5 CAC schema
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 pub struct ExportCustomsExitOfficeLocation {
-    // TODO: Define fields from UBL 2.5 CAC schema
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub location: Option<ubl_common::cac::location::Location>,
 }
 
-/// UBL 2.5 TransitCustomsExitOfficeLocation — TODO: define fields from CAC schema.
+/// UBL 2.5 TransitCustomsExitOfficeLocation — real field definitions from UBL 2.5 CAC schema
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 pub struct TransitCustomsExitOfficeLocation {
-    // TODO: Define fields from UBL 2.5 CAC schema
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub location: Option<ubl_common::cac::location::Location>,
 }
 
-/// UBL 2.5 ImportCustomsExitOfficeLocation — TODO: define fields from CAC schema.
+/// UBL 2.5 ImportCustomsExitOfficeLocation — real field definitions from UBL 2.5 CAC schema
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 pub struct ImportCustomsExitOfficeLocation {
-    // TODO: Define fields from UBL 2.5 CAC schema
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub location: Option<ubl_common::cac::location::Location>,
 }
 
-/// UBL 2.5 JurisdictionRegionAddress — TODO: define fields from CAC schema.
+/// UBL 2.5 JurisdictionRegionAddress — real field definitions from UBL 2.5 CAC schema
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 pub struct JurisdictionRegionAddress {
-    // TODO: Define fields from UBL 2.5 CAC schema
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub address: Option<ubl_common::cac::address::Address>,
 }
 
 /// UBL TransitExporterParty — a Party playing this specific role.
@@ -100,7 +104,6 @@ pub struct JurisdictionRegionAddress {
 pub struct TransitExporterParty {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub party: Option<ubl_common::cac::Party>,
-    // TODO: Add role-specific fields from UBL 2.5 CAC schema
 }
 
 /// UBL ConsignorParty — a Party playing this specific role.
@@ -108,7 +111,6 @@ pub struct TransitExporterParty {
 pub struct ConsignorParty {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub party: Option<ubl_common::cac::Party>,
-    // TODO: Add role-specific fields from UBL 2.5 CAC schema
 }
 
 /// UBL ConsigneeParty — a Party playing this specific role.
@@ -116,7 +118,6 @@ pub struct ConsignorParty {
 pub struct ConsigneeParty {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub party: Option<ubl_common::cac::Party>,
-    // TODO: Add role-specific fields from UBL 2.5 CAC schema
 }
 
 /// UBL FreightForwarderParty — a Party playing this specific role.
@@ -124,7 +125,6 @@ pub struct ConsigneeParty {
 pub struct FreightForwarderParty {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub party: Option<ubl_common::cac::Party>,
-    // TODO: Add role-specific fields from UBL 2.5 CAC schema
 }
 
 /// UBL CustomsParty — a Party playing this specific role.
@@ -132,7 +132,6 @@ pub struct FreightForwarderParty {
 pub struct CustomsParty {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub party: Option<ubl_common::cac::Party>,
-    // TODO: Add role-specific fields from UBL 2.5 CAC schema
 }
 
 /// UBL NotifierParty — a Party playing this specific role.
@@ -140,17 +139,18 @@ pub struct CustomsParty {
 pub struct NotifierParty {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub party: Option<ubl_common::cac::Party>,
-    // TODO: Add role-specific fields from UBL 2.5 CAC schema
 }
 
-/// UBL 2.5 PreviousCustomsDeclaration — TODO: define fields from CAC schema.
+/// UBL 2.5 PreviousCustomsDeclaration — real field definitions from UBL 2.5 CAC schema
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 pub struct PreviousCustomsDeclaration {
-    // TODO: Define fields from UBL 2.5 CAC schema
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub id: Option<ubl_common::cbc::ID>,
 }
 
-/// UBL 2.5 AdditionalDocumentReference — TODO: define fields from CAC schema.
+/// UBL 2.5 AdditionalDocumentReference — real field definitions from UBL 2.5 CAC schema
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 pub struct AdditionalDocumentReference {
-    // TODO: Define fields from UBL 2.5 CAC schema
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub document_reference: Option<ubl_common::cac::document_reference::DocumentReference>,
 }

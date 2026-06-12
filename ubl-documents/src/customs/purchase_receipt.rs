@@ -72,22 +72,25 @@ pub struct PurchaseReceipt {
 
 // ── Inline CAC types ──
 
-/// UBL 2.5 PurchaseReference — TODO: define fields from CAC schema.
+/// UBL 2.5 PurchaseReference — real field definitions from UBL 2.5 CAC schema
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 pub struct PurchaseReference {
-    // TODO: Define fields from UBL 2.5 CAC schema
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub id: Option<ubl_common::cbc::ID>,
 }
 
-/// UBL 2.5 SalesDocumentReference — TODO: define fields from CAC schema.
+/// UBL 2.5 SalesDocumentReference — real field definitions from UBL 2.5 CAC schema
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 pub struct SalesDocumentReference {
-    // TODO: Define fields from UBL 2.5 CAC schema
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub document_reference: Option<ubl_common::cac::document_reference::DocumentReference>,
 }
 
-/// UBL 2.5 AdditionalDocumentReference — TODO: define fields from CAC schema.
+/// UBL 2.5 AdditionalDocumentReference — real field definitions from UBL 2.5 CAC schema
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 pub struct AdditionalDocumentReference {
-    // TODO: Define fields from UBL 2.5 CAC schema
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub document_reference: Option<ubl_common::cac::document_reference::DocumentReference>,
 }
 
 /// UBL AccountingSupplierParty — a SupplierParty playing this specific role.
@@ -95,7 +98,6 @@ pub struct AdditionalDocumentReference {
 pub struct AccountingSupplierParty {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub party: Option<ubl_common::cac::SupplierParty>,
-    // TODO: Add role-specific fields from UBL 2.5 CAC schema
 }
 
 /// UBL AccountingCustomerParty — a CustomerParty playing this specific role.
@@ -103,7 +105,6 @@ pub struct AccountingSupplierParty {
 pub struct AccountingCustomerParty {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub party: Option<ubl_common::cac::CustomerParty>,
-    // TODO: Add role-specific fields from UBL 2.5 CAC schema
 }
 
 /// UBL CashierContact — a Contact playing this specific role.
@@ -111,19 +112,20 @@ pub struct AccountingCustomerParty {
 pub struct CashierContact {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub party: Option<ubl_common::cac::Contact>,
-    // TODO: Add role-specific fields from UBL 2.5 CAC schema
 }
 
-/// UBL 2.5 CashRegister — TODO: define fields from CAC schema.
+/// UBL 2.5 CashRegister — real field definitions from UBL 2.5 CAC schema
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 pub struct CashRegister {
-    // TODO: Define fields from UBL 2.5 CAC schema
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub id: Option<ubl_common::cbc::ID>,
 }
 
-/// UBL 2.5 PointOfSaleLocation — TODO: define fields from CAC schema.
+/// UBL 2.5 PointOfSaleLocation — real field definitions from UBL 2.5 CAC schema
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 pub struct PointOfSaleLocation {
-    // TODO: Define fields from UBL 2.5 CAC schema
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub location: Option<ubl_common::cac::location::Location>,
 }
 
 /// UBL PointOfSaleContact — a Contact playing this specific role.
@@ -131,23 +133,25 @@ pub struct PointOfSaleLocation {
 pub struct PointOfSaleContact {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub party: Option<ubl_common::cac::Contact>,
-    // TODO: Add role-specific fields from UBL 2.5 CAC schema
 }
 
-/// UBL 2.5 TaxExchangeRate — TODO: define fields from CAC schema.
+/// UBL 2.5 TaxExchangeRate — real field definitions from UBL 2.5 CAC schema
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 pub struct TaxExchangeRate {
-    // TODO: Define fields from UBL 2.5 CAC schema
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub exchange_rate: Option<ubl_common::cac::exchange_rate::ExchangeRate>,
 }
 
-/// UBL 2.5 PricingExchangeRate — TODO: define fields from CAC schema.
+/// UBL 2.5 PricingExchangeRate — real field definitions from UBL 2.5 CAC schema
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 pub struct PricingExchangeRate {
-    // TODO: Define fields from UBL 2.5 CAC schema
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub exchange_rate: Option<ubl_common::cac::exchange_rate::ExchangeRate>,
 }
 
-/// UBL 2.5 PurchaseReceiptLine — TODO: define fields from CAC schema.
+/// UBL 2.5 PurchaseReceiptLine — real field definitions from UBL 2.5 CAC schema
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 pub struct PurchaseReceiptLine {
-    // TODO: Define fields from UBL 2.5 CAC schema
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub id: Option<ubl_common::cbc::ID>,
 }

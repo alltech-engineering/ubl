@@ -90,3 +90,41 @@ define_quantity!(VarianceQuantity, "Variance quantity.");
 
 // --- Missing ---
 define_quantity!(MaximumQuantity, "The maximum quantity.");
+
+// --- Generated from UBL 2.5 XSD ---
+define_quantity!(ActualTemperatureReductionQuantity, "UBL CBC type: ActualTemperatureReductionQuantity.");
+define_quantity!(BasicConsumedQuantity, "UBL CBC type: BasicConsumedQuantity.");
+define_quantity!(ConsumptionEnergyQuantity, "UBL CBC type: ConsumptionEnergyQuantity.");
+define_quantity!(ConsumptionWaterQuantity, "UBL CBC type: ConsumptionWaterQuantity.");
+define_quantity!(CrewQuantity, "UBL CBC type: CrewQuantity.");
+define_quantity!(DifferenceTemperatureReductionQuantity, "UBL CBC type: DifferenceTemperatureReductionQuantity.");
+define_quantity!(EmployeeQuantity, "UBL CBC type: EmployeeQuantity.");
+define_quantity!(EstimatedConsumedQuantity, "UBL CBC type: EstimatedConsumedQuantity.");
+define_quantity!(EstimatedOverallContractQuantity, "UBL CBC type: EstimatedOverallContractQuantity.");
+define_quantity!(ExpectedOperatorQuantity, "UBL CBC type: ExpectedOperatorQuantity.");
+define_quantity!(ExpectedQuantity, "UBL CBC type: ExpectedQuantity.");
+define_quantity!(GasPressureQuantity, "UBL CBC type: GasPressureQuantity.");
+define_quantity!(LatestMeterQuantity, "UBL CBC type: LatestMeterQuantity.");
+define_quantity!(MaximumOperatorQuantity, "UBL CBC type: MaximumOperatorQuantity.");
+define_quantity!(MaximumVariantQuantity, "UBL CBC type: MaximumVariantQuantity.");
+define_quantity!(MinimumInventoryQuantity, "UBL CBC type: MinimumInventoryQuantity.");
+define_quantity!(NormalTemperatureReductionQuantity, "UBL CBC type: NormalTemperatureReductionQuantity.");
+define_quantity!(OperatingYearsQuantity, "UBL CBC type: OperatingYearsQuantity.");
+define_quantity!(OutstandingQuantity, "UBL CBC type: OutstandingQuantity.");
+define_quantity!(OversupplyQuantity, "UBL CBC type: OversupplyQuantity.");
+define_quantity!(PerformanceValueQuantity, "UBL CBC type: PerformanceValueQuantity.");
+define_quantity!(PreviousMeterQuantity, "UBL CBC type: PreviousMeterQuantity.");
+define_quantity!(ReceivedElectronicTenderQuantity, "UBL CBC type: ReceivedElectronicTenderQuantity.");
+define_quantity!(ReceivedForeignTenderQuantity, "UBL CBC type: ReceivedForeignTenderQuantity.");
+define_quantity!(ReceivedTenderQuantity, "UBL CBC type: ReceivedTenderQuantity.");
+define_quantity!(ResponseQuantity, "UBL CBC type: ResponseQuantity.");
+define_quantity!(ReturnableQuantity, "UBL CBC type: ReturnableQuantity.");
+define_quantity!(TanksExchangedQuantity, "UBL CBC type: TanksExchangedQuantity.");
+define_quantity!(TanksInBallastQuantity, "UBL CBC type: TanksInBallastQuantity.");
+define_quantity!(TanksNotExchangedQuantity, "UBL CBC type: TanksNotExchangedQuantity.");
+define_quantity!(ThresholdQuantity, "UBL CBC type: ThresholdQuantity.");
+define_quantity!(TimeDeltaDaysQuantity, "UBL CBC type: TimeDeltaDaysQuantity.");
+define_quantity!(TotalBallastTanksOnBoardQuantity, "UBL CBC type: TotalBallastTanksOnBoardQuantity.");
+define_quantity!(TotalDeadPersonQuantity, "UBL CBC type: TotalDeadPersonQuantity.");
+define_quantity!(TotalIllPersonQuantity, "UBL CBC type: TotalIllPersonQuantity.");
+define_quantity!(TotalPackageQuantity, "UBL CBC type: TotalPackageQuantity.");

@@ -58,22 +58,25 @@ pub struct ApplicablePeriod {
     pub period: Option<ubl_common::cac::Period>,
 }
 
-/// UBL 2.5 ApplicableRegulation — TODO: define fields from CAC schema.
+/// UBL 2.5 ApplicableRegulation — real field definitions from UBL 2.5 CAC schema
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 pub struct ApplicableRegulation {
-    // TODO: Define fields from UBL 2.5 CAC schema
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub name: Option<ubl_common::cbc::Name>,
 }
 
-/// UBL 2.5 GuaranteeDocumentReference — TODO: define fields from CAC schema.
+/// UBL 2.5 GuaranteeDocumentReference — real field definitions from UBL 2.5 CAC schema
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 pub struct GuaranteeDocumentReference {
-    // TODO: Define fields from UBL 2.5 CAC schema
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub document_reference: Option<ubl_common::cac::document_reference::DocumentReference>,
 }
 
-/// UBL 2.5 ImmobilizedSecurity — TODO: define fields from CAC schema.
+/// UBL 2.5 ImmobilizedSecurity — real field definitions from UBL 2.5 CAC schema
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 pub struct ImmobilizedSecurity {
-    // TODO: Define fields from UBL 2.5 CAC schema
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub id: Option<ubl_common::cbc::ID>,
 }
 
 /// UBL GuarantorParty — a Party playing this specific role.
@@ -81,7 +84,6 @@ pub struct ImmobilizedSecurity {
 pub struct GuarantorParty {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub party: Option<ubl_common::cac::Party>,
-    // TODO: Add role-specific fields from UBL 2.5 CAC schema
 }
 
 /// UBL InterestedParty — a Party playing this specific role.
@@ -89,7 +91,6 @@ pub struct GuarantorParty {
 pub struct InterestedParty {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub party: Option<ubl_common::cac::Party>,
-    // TODO: Add role-specific fields from UBL 2.5 CAC schema
 }
 
 /// UBL BeneficiaryParty — a Party playing this specific role.
@@ -97,5 +98,4 @@ pub struct InterestedParty {
 pub struct BeneficiaryParty {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub party: Option<ubl_common::cac::Party>,
-    // TODO: Add role-specific fields from UBL 2.5 CAC schema
 }
