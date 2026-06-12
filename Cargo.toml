@@ -3,6 +3,7 @@ resolver = "2"
 members = [
     "ubl-common",
     "ubl-documents",
+    "ubl-xml",
 ]
 
 [workspace.dependencies]

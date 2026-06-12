@@ -28,6 +28,7 @@ pub struct Delivery {
     pub carrier_party: Option<Party>,
     pub delivery_party: Option<Party>,
     pub despatch: Option<Despatch>,
+    #[serde(default)]
     pub delivery_terms: Vec<DeliveryTerms>,
     pub shipment: Option<Shipment>,
 }
@@ -35,8 +36,10 @@ pub struct Delivery {
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 pub struct DeliveryTerms {
     pub id: Option<ID>,
+    #[serde(default)]
     pub special_terms: Vec<Text>,
     pub loss_risk_responsibility_code: Option<Code>,
+    #[serde(default)]
     pub loss_risk: Vec<Text>,
     pub amount: Option<Amount>,
     pub delivery_location: Option<Location>,
@@ -55,6 +58,7 @@ pub struct Despatch {
     pub release_id: Option<ReleaseID>,
     pub actual_despatch_date: Option<ActualDespatchDate>,
     pub actual_despatch_time: Option<ActualDespatchTime>,
+    #[serde(default)]
     pub instructions: Vec<Instructions>,
     pub despatch_address: Option<Address>,
     pub despatch_party: Option<Party>,
@@ -67,6 +71,7 @@ pub struct Despatch {
 pub struct Shipment {
     pub id: Option<ID>,
     pub shipping_priority_level_code: Option<ShippingPriorityLevelCode>,
+    #[serde(default)]
     pub information: Vec<Information>,
     pub net_net_weight_measure: Option<NetNetWeightMeasure>,
     pub net_volume_measure: Option<NetVolumeMeasure>,
@@ -76,15 +81,20 @@ pub struct Shipment {
     pub declared_statistics_value_amount: Option<DeclaredStatisticsValueAmount>,
     pub free_on_board_value_amount: Option<FreeOnBoardValueAmount>,
     pub handling_code: Option<HandlingCode>,
+    #[serde(default)]
     pub handling_instructions: Vec<HandlingInstructions>,
     pub gross_weight_measure: Option<GrossWeightMeasure>,
     pub net_weight_measure: Option<NetWeightMeasure>,
     pub gross_volume_measure: Option<GrossVolumeMeasure>,
     pub total_goods_item_quantity: Option<TotalGoodsItemQuantity>,
     pub total_transport_handling_unit_quantity: Option<TotalTransportHandlingUnitQuantity>,
+    #[serde(default)]
     pub goods_item: Vec<GoodsItem>,
+    #[serde(default)]
     pub shipment_stage: Vec<ShipmentStage>,
+    #[serde(default)]
     pub special_instructions: Vec<SpecialInstructions>,
+    #[serde(default)]
     pub delivery_instructions: Vec<DeliveryInstructions>,
     pub split_consignment_indicator: Option<SplitConsignmentIndicator>,
     pub consignment_quantity: Option<ConsignmentQuantity>,
@@ -96,13 +106,16 @@ pub struct ShipmentStage {
     pub transport_mode_code: Option<TransportModeCode>,
     pub transport_means_type_code: Option<TransportMeansTypeCode>,
     pub transit_direction_code: Option<TransitDirectionCode>,
+    #[serde(default)]
     pub instructions: Vec<Instructions>,
 }
 
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 pub struct GoodsItem {
     pub id: Option<ID>,
+    #[serde(default)]
     pub description: Vec<Description>,
+    #[serde(default)]
     pub item: Vec<Item>,
     pub quantity: Option<Quantity>,
 }

@@ -10,7 +10,9 @@ pub struct PaymentMeans {
     pub payment_due_date: Option<PaymentDueDate>,
     pub payment_channel_code: Option<Code>,
     pub instruction_id: Option<InstructionID>,
+    #[serde(default)]
     pub instruction_note: Vec<Text>,
+    #[serde(default)]
     pub payment_id: Vec<PaymentID>,
     pub card_account: Option<CardAccount>,
     pub payer_financial_account: Option<FinancialAccount>,
@@ -42,6 +44,7 @@ pub struct FinancialAccount {
     pub account_type_code: Option<AccountTypeCode>,
     pub account_format_code: Option<AccountFormatCode>,
     pub currency_code: Option<CurrencyCode>,
+    #[serde(default)]
     pub payment_note: Vec<PaymentNote>,
     pub blockchain_id: Option<BlockchainID>,
     pub financial_institution_branch: Option<Branch>,
@@ -85,8 +88,10 @@ use crate::cac::party::Party;
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 pub struct PaymentTerms {
     pub id: Option<ID>,
+    #[serde(default)]
     pub payment_means_id: Vec<PaymentMeansID>,
     pub prepaid_payment_reference_id: Option<PrepaidPaymentReferenceID>,
+    #[serde(default)]
     pub note: Vec<Note>,
     pub reference_event_code: Option<Code>,
     pub settlement_discount_percent: Option<SettlementDiscountPercent>,

@@ -24,6 +24,7 @@ pub struct Contract {
     pub contract_type_code: Option<ContractTypeCode>,
     pub contract_type: Option<ContractType>,
     pub validity_period: Option<Period>,
+    #[serde(default)]
     pub contract_document_reference: Vec<DocumentReference>,
 }
 

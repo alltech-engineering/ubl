@@ -15,6 +15,7 @@ pub struct HazardousGoodsTransit {
     pub hazardous_regulation_code: Option<String>,
     pub inhalation_toxicity_zone_code: Option<String>,
     pub transport_authorization_code: Option<String>,
+    #[serde(default)]
     pub transit_description: Vec<String>,
     // CAC: maximum_temperature: Option<Temperature>
     // CAC: minimum_temperature: Option<Temperature>
@@ -30,5 +31,6 @@ pub struct SecondaryHazard {
     pub placard_notation: Option<String>,
     pub placard_endorsement: Option<String>,
     pub emergency_procedures_code: Option<String>,
+    #[serde(default)]
     pub extension: Vec<String>,
 }

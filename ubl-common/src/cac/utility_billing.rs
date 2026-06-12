@@ -8,11 +8,13 @@ use crate::cbc::*;
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 pub struct SubscriberConsumption {
     pub consumption_id: Option<ConsumptionID>,
+    #[serde(default)]
     pub note: Vec<Note>,
     pub utility_statement_type_code: Option<StatementTypeCode>,
     pub total_consumed_quantity: Option<TotalConsumedQuantity>,
     pub consumption_level_code: Option<Code>,
     pub consumption_level: Option<Text>,
+    #[serde(default)]
     pub description: Vec<Description>,
 }
 
@@ -20,6 +22,7 @@ pub struct SubscriberConsumption {
 /// UBL element: cac:MainOnAccountPayment
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 pub struct MainOnAccountPayment {
+    #[serde(default)]
     pub on_account_payment: Vec<OnAccountPayment>,
 }
 
@@ -27,8 +30,11 @@ pub struct MainOnAccountPayment {
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 pub struct OnAccountPayment {
     pub estimated_consumed_quantity: Option<EstimatedConsumedQuantity>,
+    #[serde(default)]
     pub note: Vec<Note>,
+    #[serde(default)]
     pub payment_terms: Vec<PaymentTerms>,
+    #[serde(default)]
     pub payment_means: Vec<PaymentMeans>,
 }
 

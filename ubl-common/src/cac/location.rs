@@ -11,7 +11,9 @@ use serde::{Deserialize, Serialize};
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 pub struct Location {
     pub id: Option<String>,
+    #[serde(default)]
     pub description: Vec<String>,
+    #[serde(default)]
     pub conditions: Vec<String>,
     pub country_subentity: Option<String>,
     pub country_subentity_code: Option<String>,
@@ -33,6 +35,7 @@ pub struct Location {
 pub struct Dimension {
     pub attribute_id: String, // 1..1 required
     pub measure: Option<f64>,
+    #[serde(default)]
     pub description: Vec<String>,
     pub minimum_measure: Option<f64>,
     pub maximum_measure: Option<f64>,
@@ -47,6 +50,7 @@ pub struct Temperature {
     pub attribute_id: Option<String>,
     pub measure: Option<f64>,
     pub measure_code: Option<String>,
+    #[serde(default)]
     pub description: Vec<String>,
 }
 

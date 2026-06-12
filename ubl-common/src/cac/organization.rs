@@ -17,6 +17,7 @@ pub struct FinancialAccount {
     pub account_format_code: Option<String>,
     pub currency_code: Option<String>,
     pub blockchain_id: Option<String>,
+    #[serde(default)]
     pub payment_note: Vec<String>,
     // CAC: financial_institution_branch: Option<Branch>
     // CAC: country: Option<Country>
@@ -49,6 +50,7 @@ pub struct Person {
     pub name_suffix: Option<String>,
     pub job_title: Option<String>,
     pub nationality_id: Option<String>,
+    #[serde(default)]
     pub national_id: Vec<String>,
     pub nationality_code: Option<String>,
     pub gender_code: Option<String>,

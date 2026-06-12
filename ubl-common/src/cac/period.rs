@@ -10,6 +10,8 @@ pub struct Period {
     pub end_date: Option<EndDate>,
     pub end_time: Option<Time>,
     pub duration_measure: Option<DurationMeasure>,
+    #[serde(default)]
     pub description_code: Vec<Code>,
+    #[serde(default)]
     pub description: Vec<Description>,
 }

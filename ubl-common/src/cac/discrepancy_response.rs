@@ -9,8 +9,10 @@ use crate::cbc::*;
 pub struct DiscrepancyResponse {
     pub reference_id: Option<ReferenceID>,
     pub response_code: Option<ResponseCode>,
+    #[serde(default)]
     pub description: Vec<Description>,
     pub effective_date: Option<EffectiveDate>,
     pub effective_time: Option<EffectiveTime>,
+    #[serde(default)]
     pub note: Vec<Note>,
 }

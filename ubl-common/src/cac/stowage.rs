@@ -11,6 +11,7 @@ use serde::{Deserialize, Serialize};
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 pub struct Stowage {
     pub location_id: Option<String>,
+    #[serde(default)]
     pub location: Vec<String>,
     // CAC: measurement_dimension: Vec<Dimension>
 }

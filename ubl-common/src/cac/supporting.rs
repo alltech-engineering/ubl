@@ -49,6 +49,7 @@ pub struct LocationCoordinate {
 pub struct ClassificationCategory {
     pub name: Option<String>,
     pub code_value: Option<String>,
+    #[serde(default)]
     pub description: Vec<String>,
     // CAC: categorizes_classification_category: Vec<ClassificationCategory>
 }

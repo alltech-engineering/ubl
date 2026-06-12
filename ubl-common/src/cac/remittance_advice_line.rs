@@ -9,6 +9,7 @@ use crate::cbc::*;
 pub struct RemittanceAdviceLine {
     pub id: ID,
     pub uuid: Option<UUID>,
+    #[serde(default)]
     pub note: Vec<Note>,
     pub debit_line_amount: Option<DebitLineAmount>,
     pub credit_line_amount: Option<CreditLineAmount>,
@@ -20,10 +21,14 @@ pub struct RemittanceAdviceLine {
     pub seller_supplier_party: Option<SupplierParty>,
     pub originator_customer_party: Option<CustomerParty>,
     pub payee_party: Option<Party>,
+    #[serde(default)]
     pub invoice_period: Vec<Period>,
+    #[serde(default)]
     pub billing_reference: Vec<BillingReference>,
+    #[serde(default)]
     pub document_reference: Vec<DocumentReference>,
     pub exchange_rate: Option<ExchangeRate>,
+    #[serde(default)]
     pub allowance_charge: Vec<AllowanceCharge>,
 }
 

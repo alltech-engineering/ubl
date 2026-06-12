@@ -7,6 +7,7 @@ use crate::cbc::*;
 pub struct Dimension {
     pub attribute_id: AttributeID,
     pub measure: Option<Measure>,
+    #[serde(default)]
     pub description: Vec<Description>,
     pub minimum_measure: Option<Measure>,
     pub maximum_measure: Option<Measure>,

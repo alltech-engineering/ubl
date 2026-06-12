@@ -11,6 +11,7 @@ pub struct TaxScheme {
     pub tax_type_code: Option<TaxTypeCode>,
     pub currency_code: Option<CurrencyCode>,
     pub name: Option<Name>,
+    #[serde(default)]
     pub jurisdiction_region_address: Vec<Address>,
 }
 
@@ -23,6 +24,7 @@ pub struct TaxCategory {
     pub base_unit_measure: Option<BaseUnitMeasure>,
     pub per_unit_amount: Option<PerUnitAmount>,
     pub tax_exemption_reason_code: Option<TaxExemptionReasonCode>,
+    #[serde(default)]
     pub tax_exemption_reason: Vec<TaxExemptionReason>,
     pub tier_range: Option<TierRange>,
     pub tier_rate_percent: Option<TierRatePercent>,
@@ -51,6 +53,7 @@ pub struct TaxTotal {
     pub tax_evidence_indicator: Option<TaxEvidenceIndicator>,
     pub tax_included_indicator: Option<TaxIncludedIndicator>,
     pub calculation_sequence_numeric: Option<CalculationSequenceNumeric>,
+    #[serde(default)]
     pub tax_subtotal: Vec<TaxSubtotal>,
 }
 
@@ -63,6 +66,7 @@ pub struct TierRange {
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 pub struct PricingReference {
     pub original_item_location_quantity: Option<Quantity>,
+    #[serde(default)]
     pub alternative_condition_price: Vec<Price>,
 }
 

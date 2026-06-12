@@ -22,6 +22,7 @@ pub struct FinancialInstitution {
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 pub struct FinancialGuarantee {
     pub guarantee_type_code: Option<String>,
+    #[serde(default)]
     pub description: Vec<String>,
     pub liability_amount: Option<f64>,
     pub amount_rate: Option<f64>,
@@ -34,6 +35,7 @@ pub struct FinancialGuarantee {
 
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 pub struct TradingTerms {
+    #[serde(default)]
     pub information: Vec<String>,
     pub reference: Option<String>,
     // CAC: applicable_address: Option<Address>

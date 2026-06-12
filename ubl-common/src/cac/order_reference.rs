@@ -26,6 +26,7 @@ pub struct BillingReference {
     pub debit_note_document_reference: Option<Box<DocumentReference>>,
     pub reminder_document_reference: Option<Box<DocumentReference>>,
     pub additional_document_reference: Option<Box<DocumentReference>>,
+    #[serde(default)]
     pub billing_reference_line: Vec<BillingReferenceLine>,
 }
 
@@ -33,6 +34,7 @@ pub struct BillingReference {
 pub struct BillingReferenceLine {
     pub id: ID,
     pub amount: Option<Amount>,
+    #[serde(default)]
     pub allowance_charge: Vec<AllowanceCharge>,
 }
 

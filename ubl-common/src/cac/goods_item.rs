@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 pub struct GoodsItem {
     pub id: Option<String>,
     pub sequence_number_id: Option<String>,
+    #[serde(default)]
     pub description: Vec<String>,
     pub hazardous_risk_indicator: Option<bool>,
     pub declared_customs_value_amount: Option<f64>,
@@ -54,9 +55,11 @@ pub struct HazardousItem {
     pub id: Option<String>,
     pub placard_notation: Option<String>,
     pub placard_endorsement: Option<String>,
+    #[serde(default)]
     pub additional_information: Vec<String>,
     pub undg_code: Option<String>,
     pub un_packing_group_code: Option<String>,
+    #[serde(default)]
     pub un_packing_group: Vec<String>,
     pub emergency_procedures_code: Option<String>,
     pub medical_first_aid_guide_code: Option<String>,
@@ -91,8 +94,10 @@ pub struct ClassificationScheme {
     pub uuid: Option<String>,
     pub last_revision_date: Option<String>,
     pub last_revision_time: Option<String>,
+    #[serde(default)]
     pub note: Vec<String>,
     pub name: Option<String>,
+    #[serde(default)]
     pub description: Vec<String>,
     pub agency_id: Option<String>,
     pub agency_name: Option<String>,
@@ -127,8 +132,10 @@ pub struct ItemProperty {
     pub test_method: Option<String>,
     pub value: Option<String>,
     pub value_quantity: Option<f64>,
+    #[serde(default)]
     pub value_qualifier: Vec<String>,
     pub importance_code: Option<String>,
+    #[serde(default)]
     pub list_value: Vec<String>,
     // CAC: UsabilityPeriod, ItemPropertyGroup, RangeDimension,
     // ItemPropertyRange, StandardPropertyIdentification, SubItemProperty

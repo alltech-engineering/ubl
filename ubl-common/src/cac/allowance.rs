@@ -10,6 +10,7 @@ pub struct AllowanceCharge {
     pub id: Option<ID>,
     pub charge_indicator: ChargeIndicator,
     pub allowance_charge_reason_code: Option<AllowanceChargeReasonCode>,
+    #[serde(default)]
     pub allowance_charge_reason: Vec<AllowanceChargeReason>,
     pub multiplier_factor_numeric: Option<Numeric>,
     pub prepaid_indicator: Option<Indicator>,
@@ -20,8 +21,10 @@ pub struct AllowanceCharge {
     pub accounting_cost_code: Option<AccountingCostCode>,
     pub accounting_cost: Option<AccountingCost>,
     pub per_unit_amount: Option<PerUnitAmount>,
+    #[serde(default)]
     pub tax_category: Vec<TaxCategory>,
     pub tax_total: Option<TaxTotal>,
+    #[serde(default)]
     pub payment_means: Vec<PaymentMeans>,
 }
 

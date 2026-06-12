@@ -9,6 +9,7 @@ use crate::cbc::*;
 pub struct ReminderLine {
     pub id: ID,
     pub uuid: Option<UUID>,
+    #[serde(default)]
     pub note: Vec<Note>,
     pub balance_brought_forward_indicator: Option<Indicator>,
     pub debit_line_amount: Option<DebitLineAmount>,
@@ -17,9 +18,12 @@ pub struct ReminderLine {
     pub accounting_cost: Option<AccountingCost>,
     pub penalty_surcharge_percent: Option<Percent>,
     pub payment_purpose_code: Option<PaymentPurposeCode>,
+    #[serde(default)]
     pub reminder_period: Vec<Period>,
+    #[serde(default)]
     pub billing_reference: Vec<BillingReference>,
     pub exchange_rate: Option<ExchangeRate>,
+    #[serde(default)]
     pub document_reference: Vec<DocumentReference>,
 }
 

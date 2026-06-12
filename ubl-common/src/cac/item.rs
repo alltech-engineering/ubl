@@ -18,18 +18,26 @@ pub struct Item {
     pub warranty_information: Option<WarrantyInformation>,
     pub lifecycle_stage_code: Option<LifecycleStageCode>,
     pub lifecycle_stage_description: Option<LifecycleStageDescription>,
+    #[serde(default)]
     pub keyword: Vec<Keyword>,
+    #[serde(default)]
     pub brand_name: Vec<BrandName>,
+    #[serde(default)]
     pub model_name: Vec<ModelName>,
     pub buyers_item_identification: Option<ItemIdentification>,
     pub sellers_item_identification: Option<ItemIdentification>,
     pub manufacturers_item_identification: Option<ItemIdentification>,
     pub standard_item_identification: Option<ItemIdentification>,
     pub catalogue_item_identification: Option<ItemIdentification>,
+    #[serde(default)]
     pub additional_item_identification: Vec<ItemIdentification>,
+    #[serde(default)]
     pub commodity_classification: Vec<CommodityClassification>,
+    #[serde(default)]
     pub item_instance: Vec<ItemInstance>,
+    #[serde(default)]
     pub item_property: Vec<ItemProperty>,
+    #[serde(default)]
     pub classified_tax_category: Vec<TaxCategory>,
 }
 
@@ -49,6 +57,7 @@ pub struct ItemInstance {
     pub best_before_date: Option<BestBeforeDate>,
     pub registration_id: Option<RegistrationID>,
     pub serial_id: Option<SerialID>,
+    #[serde(default)]
     pub additional_item_property: Vec<ItemProperty>,
     pub lot_identification: Option<LotIdentification>,
 }
@@ -57,6 +66,7 @@ pub struct ItemInstance {
 pub struct LotIdentification {
     pub lot_number_id: Option<LotNumberID>,
     pub expiry_date: Option<ExpiryDate>,
+    #[serde(default)]
     pub additional_item_property: Vec<ItemProperty>,
 }
 
@@ -67,10 +77,13 @@ pub struct ItemProperty {
     pub name_code: Option<Code>,
     pub value: Text,
     pub value_quantity: Option<Quantity>,
+    #[serde(default)]
     pub value_qualifier: Vec<Text>,
     pub importance_code: Option<ImportanceCode>,
+    #[serde(default)]
     pub list_value: Vec<Text>,
     pub usability_period: Option<Period>,
+    #[serde(default)]
     pub item_property_group: Vec<ItemPropertyGroup>,
 }
 

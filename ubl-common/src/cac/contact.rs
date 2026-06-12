@@ -11,6 +11,7 @@ pub struct Contact {
     pub telefax: Option<Telephone>,
     pub electronic_mail: Option<Text>,
     pub note: Option<Note>,
+    #[serde(default)]
     pub other_communication: Vec<Communication>,
     pub job_title: Option<JobTitle>,
     pub department: Option<Department>,

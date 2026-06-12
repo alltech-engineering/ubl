@@ -15,7 +15,9 @@ pub struct Package {
     pub returnable_material_indicator: Option<bool>,
     pub package_level_code: Option<String>,
     pub packaging_type_code: Option<String>,
+    #[serde(default)]
     pub packaging_type: Vec<String>,
+    #[serde(default)]
     pub packing_material: Vec<String>,
     pub trace_id: Option<String>,
     // CAC: contained_package: Vec<Package>
@@ -67,6 +69,7 @@ pub struct Despatch {
     pub guaranteed_despatch_date: Option<String>,
     pub guaranteed_despatch_time: Option<String>,
     pub release_id: Option<String>,
+    #[serde(default)]
     pub instructions: Vec<String>,
     // CAC: despatch_address: Option<Address>
     // CAC: despatch_location: Option<Location>

@@ -15,12 +15,14 @@ pub struct MaritimeTransport {
     pub vessel_name: Option<String>,
     pub radio_call_sign_id: Option<String>,
     pub mmsi_registration_id: Option<String>,
+    #[serde(default)]
     pub ships_requirements: Vec<String>,
     pub gross_tonnage_measure: Option<f64>,
     pub net_tonnage_measure: Option<f64>,
     pub segregated_ballast_measure: Option<f64>,
     pub ship_configuration_code: Option<String>,
     pub inf_ship_class_code: Option<String>,
+    #[serde(default)]
     pub antenna_locus: Vec<String>,
     // CAC: registry_certificate_document_reference: Option<DocumentReference>
     // CAC: registry_port_location: Option<Location>

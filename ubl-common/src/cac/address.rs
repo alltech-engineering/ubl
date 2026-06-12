@@ -31,6 +31,7 @@ pub struct Address {
     pub additional_street_name: Option<AdditionalStreetName>,
     pub country: Option<Country>,
     pub timezone_offset: Option<TimezoneOffset>,
+    #[serde(default)]
     pub address_line: Vec<AddressLine>,
 }
 
@@ -67,6 +68,7 @@ pub struct PostalAddress {
     pub additional_street_name: Option<AdditionalStreetName>,
     pub country: Option<Country>,
     pub timezone_offset: Option<TimezoneOffset>,
+    #[serde(default)]
     pub address_line: Vec<AddressLine>,
 }
 

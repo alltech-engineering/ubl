@@ -25,7 +25,9 @@ pub struct CatalogueReference {
     pub issue_time: Option<IssueTime>,
     pub revision_date: Option<LastRevisionDate>,
     pub revision_time: Option<LastRevisionTime>,
+    #[serde(default)]
     pub note: Vec<Note>,
+    #[serde(default)]
     pub description: Vec<Description>,
     pub version_id: Option<VersionID>,
     pub previous_version_id: Option<PreviousVersionID>,
@@ -39,6 +41,7 @@ pub struct CatalogueLine {
     pub action_code: Option<ActionCode>,
     pub life_cycle_status_code: Option<LifeCycleStatusCode>,
     pub contract_subdivision: Option<ContractSubdivision>,
+    #[serde(default)]
     pub note: Vec<Note>,
     pub orderable_indicator: Option<OrderableIndicator>,
     pub orderable_unit: Option<OrderableUnit>,
@@ -46,6 +49,7 @@ pub struct CatalogueLine {
     pub order_quantity_increment_numeric: Option<OrderQuantityIncrementNumeric>,
     pub minimum_order_quantity: Option<MinimumOrderQuantity>,
     pub maximum_order_quantity: Option<MaximumOrderQuantity>,
+    #[serde(default)]
     pub warranty_information: Vec<WarrantyInformation>,
     pub pack_level_code: Option<PackLevelCode>,
     pub contractor_customer_party: Option<CustomerParty>,
@@ -53,18 +57,29 @@ pub struct CatalogueLine {
     pub warranty_party: Option<WarrantyParty>,
     pub warranty_validity_period: Option<Period>,
     pub line_validity_period: Option<Period>,
+    #[serde(default)]
     pub item_comparison: Vec<ItemComparison>,
+    #[serde(default)]
     pub component_related_item: Vec<ComponentRelatedItem>,
+    #[serde(default)]
     pub accessory_related_item: Vec<AccessoryRelatedItem>,
+    #[serde(default)]
     pub required_related_item: Vec<RequiredRelatedItem>,
+    #[serde(default)]
     pub replacement_related_item: Vec<ReplacementRelatedItem>,
+    #[serde(default)]
     pub complementary_related_item: Vec<ComplementaryRelatedItem>,
+    #[serde(default)]
     pub replaced_related_item: Vec<ReplacedRelatedItem>,
+    #[serde(default)]
     pub required_item_location_quantity: Vec<RequiredItemLocationQuantity>,
+    #[serde(default)]
     pub document_reference: Vec<DocumentReference>,
     pub item: Item,
+    #[serde(default)]
     pub keyword_item_property: Vec<KeywordItemProperty>,
     pub call_for_tenders_line_reference: Option<CallForTendersLineReference>,
+    #[serde(default)]
     pub call_for_tenders_document_reference: Vec<CallForTendersDocumentReference>,
 }
 
@@ -74,8 +89,10 @@ pub struct CatalogueLine {
 pub struct CatalogueRequestLine {
     pub id: ID,
     pub contract_subdivision: Option<ContractSubdivision>,
+    #[serde(default)]
     pub note: Vec<Note>,
     pub line_validity_period: Option<Period>,
+    #[serde(default)]
     pub required_item_location_quantity: Vec<RequiredItemLocationQuantity>,
     pub item: Item,
 }
@@ -97,6 +114,7 @@ pub struct CataloguePricingUpdateLine {
     pub id: ID,
     pub contractor_customer_party: Option<CustomerParty>,
     pub seller_supplier_party: Option<SupplierParty>,
+    #[serde(default)]
     pub required_item_location_quantity: Vec<RequiredItemLocationQuantity>,
 }
 
@@ -111,12 +129,16 @@ pub struct Contract {
     pub nomination_time: Option<NominationTime>,
     pub contract_type_code: Option<ContractTypeCode>,
     pub contract_type: Option<ContractType>,
+    #[serde(default)]
     pub note: Vec<Note>,
     pub version_id: Option<VersionID>,
     pub modification_reason_code: Option<ModificationReasonCode>,
+    #[serde(default)]
     pub modification_reason_description: Vec<ModificationReasonDescription>,
+    #[serde(default)]
     pub description: Vec<Description>,
     pub validity_period: Option<Period>,
+    #[serde(default)]
     pub contract_document_reference: Vec<ContractDocumentReference>,
     pub nomination_period: Option<NominationPeriod>,
     pub contractual_delivery: Option<ContractualDelivery>,
@@ -142,6 +164,7 @@ pub struct ContractualDelivery {
 
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 pub struct TradingTerms {
+    #[serde(default)]
     pub information: Vec<Information>,
     pub reference: Option<Reference>,
     pub applicable_address: Option<Address>,
@@ -155,8 +178,10 @@ pub struct ClassificationScheme {
     pub uuid: Option<UUID>,
     pub last_revision_date: Option<LastRevisionDate>,
     pub last_revision_time: Option<LastRevisionTime>,
+    #[serde(default)]
     pub note: Vec<Note>,
     pub name: Option<Name>,
+    #[serde(default)]
     pub description: Vec<Description>,
     pub agency_id: Option<AgencyID>,
     pub agency_name: Option<AgencyName>,
@@ -164,6 +189,7 @@ pub struct ClassificationScheme {
     pub uri: Option<URI>,
     pub scheme_uri: Option<SchemeURI>,
     pub language_id: Option<LanguageID>,
+    #[serde(default)]
     pub classification_category: Vec<ClassificationCategory>,
 }
 
