@@ -2,7 +2,7 @@
 // A line in a Despatch Advice document.
 use crate::cbc::*;
 
-#[derive(Debug, Clone, PartialEq, serde::Serialize, serde::Deserialize)]
+#[derive(Debug, Clone, Partialserde::Serialize, serde::Deserialize)]
 pub struct DespatchLine {
     #[serde(skip_serializing_if = "Option::is_none")]
     pub id: Option<Id>,

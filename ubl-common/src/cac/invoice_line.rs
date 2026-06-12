@@ -4,7 +4,7 @@ use crate::cbc::*;
 
 /// A line in an invoice.
 /// UBL element: cac:InvoiceLine
-#[derive(Debug, Clone, PartialEq, serde::Serialize, serde::Deserialize)]
+#[derive(Debug, Clone, Partialserde::Serialize, serde::Deserialize)]
 pub struct InvoiceLine {
     #[serde(skip_serializing_if = "Option::is_none")]
     pub id: Option<Id>,
@@ -51,7 +51,7 @@ use super::item::Item;
 use super::price::Price;
 
 /// A reference to an order line.
-#[derive(Debug, Clone, PartialEq, serde::Serialize, serde::Deserialize)]
+#[derive(Debug, Clone, Partialserde::Serialize, serde::Deserialize)]
 pub struct OrderLineReference {
     #[serde(skip_serializing_if = "Option::is_none")]
     pub line_id: Option<Id>,

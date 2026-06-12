@@ -4,7 +4,7 @@ use crate::cbc::*;
 
 /// A line in a business document.
 /// UBL element: cac:LineItem
-#[derive(Debug, Clone, PartialEq, serde::Serialize, serde::Deserialize)]
+#[derive(Debug, Clone, Partialserde::Serialize, serde::Deserialize)]
 pub struct LineItem {
     #[serde(skip_serializing_if = "Option::is_none")]
     pub id: Option<Id>,

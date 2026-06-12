@@ -220,3 +220,13 @@ define_code!(WeightingAlgorithmCode, "A weighting algorithm code.");
 define_code!(WorkPhaseCode, "A work phase code.");
 define_code!(ZoneCode, "A zone code.");
 
+
+// --- Missing types referenced by CAC modules ---
+define_code!(AccountFormatCode, "A code specifying an account format.");
+define_code!(AccountTypeCode, "A code specifying an account type.");
+define_code!(AddressFormatCode, "A code specifying an address format.");
+define_code!(AddressTypeCode, "A code specifying an address type.");
+define_code!(CardChipCode, "A code specifying a card chip type.");
+define_code!(CardTypeCode, "A code specifying a card type.");
+define_code!(CountrySubentityCode, "A code for a country subentity.");
+define_code!(AccountingCostCode, "A code for accounting cost.");

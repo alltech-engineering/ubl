@@ -2,7 +2,7 @@
 // An application-level response to a document.
 use crate::cbc::*;
 
-#[derive(Debug, Clone, PartialEq, serde::Serialize, serde::Deserialize)]
+#[derive(Debug, Clone, Partialserde::Serialize, serde::Deserialize)]
 pub struct Response {
     #[serde(skip_serializing_if = "Option::is_none")]
     pub reference_id: Option<ReferenceID>,

@@ -53,3 +53,6 @@ define_indicator!(ToOrderIndicator, "To-order indicator.");
 define_indicator!(TransitDirectionIndicator, "Transit direction indicator.");
 define_indicator!(VariantConstraintIndicator, "Variant constraint indicator.");
 
+
+// --- Missing ---
+define_indicator!(TaxEvidenceIndicator, "Whether tax evidence is present.");

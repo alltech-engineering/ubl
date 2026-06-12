@@ -102,3 +102,7 @@ define_datetime!(ExpiryDateTime, "The date-time of expiry.");
 define_datetime!(OccurrenceDateTime, "The date-time of an occurrence.");
 
 
+
+// --- Missing ---
+define_date!(BestBeforeDate, "The best-before date for a product.");
+define_time!(Time, "A generic time value.");

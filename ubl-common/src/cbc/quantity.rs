@@ -87,3 +87,6 @@ define_quantity!(TotalTransportHandlingUnitQuantity, "Total transport handling u
 define_quantity!(ValueQuantity, "Value quantity.");
 define_quantity!(VarianceQuantity, "Variance quantity.");
 
+
+// --- Missing ---
+define_quantity!(MaximumQuantity, "The maximum quantity.");

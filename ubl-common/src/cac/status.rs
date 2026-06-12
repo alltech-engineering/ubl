@@ -2,7 +2,7 @@
 // The condition or position of an object.
 use crate::cbc::*;
 
-#[derive(Debug, Clone, PartialEq, serde::Serialize, serde::Deserialize)]
+#[derive(Debug, Clone, Partialserde::Serialize, serde::Deserialize)]
 pub struct Status {
     #[serde(skip_serializing_if = "Option::is_none")]
     pub condition_code: Option<ConditionCode>,

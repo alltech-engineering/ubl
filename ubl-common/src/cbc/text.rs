@@ -111,3 +111,10 @@ define_name!(VesselName, "A vessel name.");
 define_name!(XPath, "An XPath expression.");
 
 
+
+// --- Missing types referenced by CAC modules ---
+define_text!(AdditionalInformation, "Additional information text.");
+define_text!(AllowanceChargeReason, "Reason for an allowance or charge.");
+define_text!(Keyword, "A keyword for searching or classification.");
+define_text!(TaxExemptionReason, "Reason for tax exemption.");
+define_text!(AccountingCost, "The accounting cost.");

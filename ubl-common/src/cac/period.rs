@@ -1,19 +1,15 @@
-// Period — UBL CAC aggregate
-// A date range with start/end.
+// UBL Period aggregate — a date range.
+
+use serde::{Deserialize, Serialize};
 use crate::cbc::*;
 
-#[derive(Debug, Clone, PartialEq, serde::Serialize, serde::Deserialize)]
+#[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 pub struct Period {
-    #[serde(skip_serializing_if = "Option::is_none")]
     pub start_date: Option<StartDate>,
-    #[serde(skip_serializing_if = "Option::is_none")]
     pub start_time: Option<StartTime>,
-    #[serde(skip_serializing_if = "Option::is_none")]
     pub end_date: Option<EndDate>,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub end_time: Option<EndTime>,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub duration_measure: Option<Measure>,
-    #[serde(skip_serializing_if = "Vec::is_empty", default)]
+    pub end_time: Option<Time>,
+    pub duration_measure: Option<DurationMeasure>,
+    pub description_code: Vec<Code>,
     pub description: Vec<Description>,
 }

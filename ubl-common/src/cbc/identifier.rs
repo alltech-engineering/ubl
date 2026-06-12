@@ -139,3 +139,6 @@ define_identifier!(ValidatorID, "A validator identifier.");
 define_identifier!(VariantID, "A variant identifier.");
 define_identifier!(WebsiteURI, "A website URI identifier.");
 
+
+// --- Missing ---
+define_identifier!(ChipApplicationID, "A chip application identifier.");

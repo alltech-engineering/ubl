@@ -1,46 +1,65 @@
-// Tax — UBL CAC aggregate (Tier 1 stubs)
+// UBL Tax aggregates — tax schemes, categories, subtotals, and totals.
+
+use serde::{Deserialize, Serialize};
 use crate::cbc::*;
 
-#[derive(Debug, Clone, PartialEq, serde::Serialize, serde::Deserialize)]
+use crate::cac::address::Address;
+
+#[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
+pub struct TaxScheme {
+    pub id: Option<TaxSchemeID>,
+    pub tax_type_code: Option<TaxTypeCode>,
+    pub name: Option<Name>,
+    pub jurisdiction_region_address: Vec<Address>,
+}
+
+#[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
+pub struct TaxCategory {
+    pub id: Option<ID>,
+    pub name: Option<Name>,
+    pub percent: Option<Percent>,
+    pub base_unit_measure: Option<BaseUnitMeasure>,
+    pub per_unit_amount: Option<PerUnitAmount>,
+    pub tax_exemption_reason_code: Option<TaxExemptionReasonCode>,
+    pub tax_exemption_reason: Vec<TaxExemptionReason>,
+    pub tier_range: Option<TierRange>,
+    pub tier_rate_percent: Option<TierRatePercent>,
+    pub tax_scheme: TaxScheme,
+}
+
+#[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
+pub struct TaxSubtotal {
+    pub taxable_amount: Option<TaxableAmount>,
+    pub tax_amount: TaxAmount,
+    pub calculation_sequence_numeric: Option<CalculationSequenceNumeric>,
+    pub transaction_currency_tax_amount: Option<TransactionCurrencyTaxAmount>,
+    pub percent: Option<Percent>,
+    pub base_unit_measure: Option<BaseUnitMeasure>,
+    pub per_unit_amount: Option<PerUnitAmount>,
+    pub tier_range: Option<TierRange>,
+    pub tier_rate_percent: Option<TierRatePercent>,
+    pub tax_category: TaxCategory,
+}
+
+#[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 pub struct TaxTotal {
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub tax_amount: Option<Amount>,
-    #[serde(skip_serializing_if = "Vec::is_empty", default)]
+    pub tax_amount: TaxAmount,
+    pub rounding_amount: Option<RoundingAmount>,
+    pub tax_evidence_indicator: Option<TaxEvidenceIndicator>,
+    pub tax_included_indicator: Option<TaxIncludedIndicator>,
     pub tax_subtotal: Vec<TaxSubtotal>,
 }
 
-#[derive(Debug, Clone, PartialEq, serde::Serialize, serde::Deserialize)]
-pub struct TaxSubtotal {
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub taxable_amount: Option<Amount>,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub tax_amount: Option<Amount>,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub percent: Option<Percent>,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub tax_category: Option<TaxCategory>,
+#[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
+pub struct TierRange {
+    pub id: Option<ID>,
+    pub description: Option<Description>,
 }
 
-#[derive(Debug, Clone, PartialEq, serde::Serialize, serde::Deserialize)]
-pub struct TaxCategory {
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub id: Option<Id>,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub name: Option<Name>,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub percent: Option<Percent>,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub tax_scheme: Option<TaxScheme>,
+#[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
+pub struct PricingReference {
+    pub original_item_location_quantity: Option<Quantity>,
+    pub alternative_condition_price: Vec<Price>,
 }
 
-#[derive(Debug, Clone, PartialEq, serde::Serialize, serde::Deserialize)]
-pub struct TaxScheme {
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub id: Option<Id>,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub name: Option<TaxSchemeName>,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub tax_type_code: Option<TaxTypeCode>,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub currency_code: Option<CurrencyCode>,
-}
+use crate::cac::price::Price;
