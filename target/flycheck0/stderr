@@ -1,0 +1,59 @@
+   0.022875042s  INFO prepare_target{force=false package_id=ubl-common v0.1.0 (/Users/stephanus/Github/alltech/ubl/ubl-common) target="ubl_common"}: cargo::core::compiler::fingerprint: stale: changed "/Users/stephanus/Github/alltech/ubl/ubl-common/src/cbc/numeric.rs"
+   0.022884959s  INFO prepare_target{force=false package_id=ubl-common v0.1.0 (/Users/stephanus/Github/alltech/ubl/ubl-common) target="ubl_common"}: cargo::core::compiler::fingerprint:           (vs) "/Users/stephanus/Github/alltech/ubl/target/debug/.fingerprint/ubl-common-eb7e7115c03e4ae2/dep-lib-ubl_common"
+   0.022887584s  INFO prepare_target{force=false package_id=ubl-common v0.1.0 (/Users/stephanus/Github/alltech/ubl/ubl-common) target="ubl_common"}: cargo::core::compiler::fingerprint:                FileTime { seconds: 1781259348, nanos: 195340895 } < FileTime { seconds: 1781259397, nanos: 626447302 }
+   0.022944417s  INFO prepare_target{force=false package_id=ubl-common v0.1.0 (/Users/stephanus/Github/alltech/ubl/ubl-common) target="ubl_common"}: cargo::core::compiler::fingerprint: fingerprint dirty for ubl-common v0.1.0 (/Users/stephanus/Github/alltech/ubl/ubl-common)/Check { test: false }/TargetInner { name_inferred: true, ..: lib_target("ubl_common", ["lib"], "/Users/stephanus/Github/alltech/ubl/ubl-common/src/lib.rs", Edition2024) }
+   0.022951500s  INFO prepare_target{force=false package_id=ubl-common v0.1.0 (/Users/stephanus/Github/alltech/ubl/ubl-common) target="ubl_common"}: cargo::core::compiler::fingerprint:     dirty: FsStatusOutdated(StaleItem(ChangedFile { reference: "/Users/stephanus/Github/alltech/ubl/target/debug/.fingerprint/ubl-common-eb7e7115c03e4ae2/dep-lib-ubl_common", reference_mtime: FileTime { seconds: 1781259348, nanos: 195340895 }, stale: "/Users/stephanus/Github/alltech/ubl/ubl-common/src/cbc/numeric.rs", stale_mtime: FileTime { seconds: 1781259397, nanos: 626447302 } }))
+   0.024161459s  INFO prepare_target{force=false package_id=ubl-common v0.1.0 (/Users/stephanus/Github/alltech/ubl/ubl-common) target="ubl_common"}: cargo::core::compiler::fingerprint: fingerprint error for ubl-common v0.1.0 (/Users/stephanus/Github/alltech/ubl/ubl-common)/Check { test: true }/TargetInner { name_inferred: true, ..: lib_target("ubl_common", ["lib"], "/Users/stephanus/Github/alltech/ubl/ubl-common/src/lib.rs", Edition2024) }
+   0.024167792s  INFO prepare_target{force=false package_id=ubl-common v0.1.0 (/Users/stephanus/Github/alltech/ubl/ubl-common) target="ubl_common"}: cargo::core::compiler::fingerprint:     err: failed to read `/Users/stephanus/Github/alltech/ubl/target/debug/.fingerprint/ubl-common-bd21b8476ab6541a/test-lib-ubl_common`
+
+Caused by:
+    No such file or directory (os error 2)
+
+Stack backtrace:
+   0: <std::backtrace::Backtrace>::create
+   1: cargo_util::paths::read_bytes
+   2: cargo_util::paths::read
+   3: cargo::core::compiler::fingerprint::_compare_old_fingerprint
+   4: cargo::core::compiler::fingerprint::prepare_target
+   5: cargo::core::compiler::compile
+   6: <cargo::core::compiler::build_runner::BuildRunner>::compile
+   7: cargo::ops::cargo_compile::compile_ws
+   8: cargo::ops::cargo_compile::compile_with_exec
+   9: cargo::ops::cargo_compile::compile
+  10: cargo::commands::check::exec
+  11: <cargo::cli::Exec>::exec
+  12: cargo::main
+  13: std::sys::backtrace::__rust_begin_short_backtrace::<fn(), ()>
+  14: std::rt::lang_start::<()>::{closure#0}
+  15: std::rt::lang_start_internal
+  16: _main
+   0.026751625s  INFO prepare_target{force=false package_id=ubl-documents v0.1.0 (/Users/stephanus/Github/alltech/ubl/ubl-documents) target="ubl_documents"}: cargo::core::compiler::fingerprint: fingerprint dirty for ubl-documents v0.1.0 (/Users/stephanus/Github/alltech/ubl/ubl-documents)/Check { test: false }/TargetInner { name_inferred: true, ..: lib_target("ubl_documents", ["lib"], "/Users/stephanus/Github/alltech/ubl/ubl-documents/src/lib.rs", Edition2024) }
+   0.026760209s  INFO prepare_target{force=false package_id=ubl-documents v0.1.0 (/Users/stephanus/Github/alltech/ubl/ubl-documents) target="ubl_documents"}: cargo::core::compiler::fingerprint:     dirty: FsStatusOutdated(StaleDepFingerprint { unit: UnitIndex(25) })
+   0.026882625s  INFO prepare_target{force=false package_id=ubl-documents v0.1.0 (/Users/stephanus/Github/alltech/ubl/ubl-documents) target="ubl_documents"}: cargo::core::compiler::fingerprint: fingerprint error for ubl-documents v0.1.0 (/Users/stephanus/Github/alltech/ubl/ubl-documents)/Check { test: true }/TargetInner { name_inferred: true, ..: lib_target("ubl_documents", ["lib"], "/Users/stephanus/Github/alltech/ubl/ubl-documents/src/lib.rs", Edition2024) }
+   0.026888917s  INFO prepare_target{force=false package_id=ubl-documents v0.1.0 (/Users/stephanus/Github/alltech/ubl/ubl-documents) target="ubl_documents"}: cargo::core::compiler::fingerprint:     err: failed to read `/Users/stephanus/Github/alltech/ubl/target/debug/.fingerprint/ubl-documents-6e8645a14b5870f5/test-lib-ubl_documents`
+
+Caused by:
+    No such file or directory (os error 2)
+
+Stack backtrace:
+   0: <std::backtrace::Backtrace>::create
+   1: cargo_util::paths::read_bytes
+   2: cargo_util::paths::read
+   3: cargo::core::compiler::fingerprint::_compare_old_fingerprint
+   4: cargo::core::compiler::fingerprint::prepare_target
+   5: cargo::core::compiler::compile
+   6: <cargo::core::compiler::build_runner::BuildRunner>::compile
+   7: cargo::ops::cargo_compile::compile_ws
+   8: cargo::ops::cargo_compile::compile_with_exec
+   9: cargo::ops::cargo_compile::compile
+  10: cargo::commands::check::exec
+  11: <cargo::cli::Exec>::exec
+  12: cargo::main
+  13: std::sys::backtrace::__rust_begin_short_backtrace::<fn(), ()>
+  14: std::rt::lang_start::<()>::{closure#0}
+  15: std::rt::lang_start_internal
+  16: _main
+    Checking ubl-common v0.1.0 (/Users/stephanus/Github/alltech/ubl/ubl-common)
+error: could not compile `ubl-common` (lib) due to 124 previous errors; 10 warnings emitted
+warning: build failed, waiting for other jobs to finish...
+error: could not compile `ubl-common` (lib test) due to 124 previous errors; 10 warnings emitted

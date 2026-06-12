@@ -2,8 +2,16 @@
 //
 // Reference: https://docs.oasis-open.org/ubl/cs01-UBL-2.5/UBL-2.5.html
 //
-// UBL 2.5 defines 101 document types, supported by:
-//   - CBC: ~200 primitive reusable types (Amount, Code, Date, Identifier, Name, Quantity, Text, etc.)
-//   - CAC: ~80 complex reusable aggregates (Address, Party, Contact, Item, Price, TaxTotal, etc.)
+// This crate provides pure Rust domain types for UBL 2.5:
+//   - cbc: ~200 primitive reusable types (Amount, Code, Date, Identifier, etc.)
+//   - cac: ~80 complex reusable aggregates (Address, Party, Item, TaxTotal, etc.)
 //
-// Implementation status: PLANNING ONLY — no code yet.
+// Design principles:
+//   - Newtype wrappers for type safety
+//   - serde Serialize/Deserialize for JSON representation
+//   - No XML knowledge in the domain layer (XML adapters will be separate)
+//   - No async dependencies
+//   - Edition 2024
+
+pub mod cbc;
+// pub mod cac; — Phase 0-F2 through 0-F4
