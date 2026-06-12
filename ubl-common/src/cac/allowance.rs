@@ -4,7 +4,6 @@ use serde::{Deserialize, Serialize};
 use crate::cbc::*;
 
 use crate::cac::tax::TaxCategory;
-use crate::cac::period::Period;
 
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 pub struct AllowanceCharge {

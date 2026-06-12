@@ -1,6 +1,5 @@
 // BillingReference — UBL CAC aggregate
 // References a billing document (invoice, credit note, etc.)
-use crate::cbc::*;
 
 /// A reference to a billing document.
 /// UBL element: cac:BillingReference

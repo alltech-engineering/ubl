@@ -16,7 +16,6 @@ use ubl_common::cac::delivery::Delivery;
 use ubl_common::cac::delivery::DeliveryTerms;
 use ubl_common::cac::payment::PaymentMeans;
 use ubl_common::cac::payment::PaymentTerms;
-use ubl_common::cac::payment::Payment;
 use ubl_common::cac::allowance::AllowanceCharge;
 use ubl_common::cac::exchange_rate::ExchangeRate;
 use ubl_common::cac::tax::TaxTotal;

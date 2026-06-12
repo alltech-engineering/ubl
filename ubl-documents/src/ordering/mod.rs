@@ -11,4 +11,5 @@ pub use order::Order;
 pub use order_cancellation::OrderCancellation;
 pub use order_change::OrderChange;
 pub use order_response::OrderResponse;
+#[allow(deprecated)]
 pub use order_response_simple::OrderResponseSimple;

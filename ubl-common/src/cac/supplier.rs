@@ -2,9 +2,8 @@
 
 use serde::{Deserialize, Serialize};
 use crate::cbc::*;
-use crate::cac::address::PostalAddress;
 use crate::cac::contact::Contact;
-use crate::cac::party::{Party, PartyIdentification, PartyName, PartyTaxScheme, PartyLegalEntity, Person};
+use crate::cac::party::Party;
 
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 pub struct SupplierParty {

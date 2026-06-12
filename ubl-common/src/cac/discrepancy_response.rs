@@ -3,8 +3,6 @@
 
 use serde::{Deserialize, Serialize};
 use crate::cbc::*;
-use crate::cac::address::Address;
-use crate::cac::party::Party;
 
 /// A class to describe a response to a discrepancy in a business document.
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]

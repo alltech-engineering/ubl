@@ -2,7 +2,6 @@
 
 use serde::{Deserialize, Serialize};
 use crate::cbc::*;
-use crate::cac::address::Address;
 use crate::cac::party::Party;
 
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]

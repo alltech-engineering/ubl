@@ -5,8 +5,8 @@
 
 use serde::{Deserialize, Serialize};
 use ubl_common::cbc::*;
-use ubl_common::cac::*;
 use ubl_common::cac::tendering::*;
+use ubl_common::cac::*;
 
 /// Tender — UBL 2.5 document type.
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
