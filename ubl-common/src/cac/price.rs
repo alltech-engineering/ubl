@@ -8,6 +8,7 @@ use crate::cac::allowance::AllowanceCharge;
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 pub struct Price {
     pub price_amount: PriceAmount,
+    pub tax_inclusive_price_amount: Option<TaxInclusivePriceAmount>,
     pub base_quantity: Option<BaseQuantity>,
     pub price_change_reason: Vec<Text>,
     pub price_type: Option<PriceTypeCode>,

@@ -16,6 +16,7 @@ pub struct AllowanceCharge {
     pub sequence_numeric: Option<Numeric>,
     pub amount: Amount,
     pub base_amount: Option<BaseAmount>,
+    pub tax_inclusive_amount: Option<TaxInclusiveAmount>,
     pub accounting_cost_code: Option<AccountingCostCode>,
     pub accounting_cost: Option<AccountingCost>,
     pub per_unit_amount: Option<PerUnitAmount>,

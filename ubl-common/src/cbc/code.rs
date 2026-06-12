@@ -335,7 +335,6 @@ define_code!(NatureCode, "UBL CBC type: NatureCode.");
 define_code!(NavigationStatusCode, "UBL CBC type: NavigationStatusCode.");
 define_code!(NotificationTypeCode, "UBL CBC type: NotificationTypeCode.");
 define_code!(OneTimeChargeTypeCode, "UBL CBC type: OneTimeChargeTypeCode.");
-define_code!(PackageLevelCode, "UBL CBC type: PackageLevelCode.");
 define_code!(PackingCriteriaCode, "UBL CBC type: PackingCriteriaCode.");
 define_code!(ParentDocumentTypeCode, "UBL CBC type: ParentDocumentTypeCode.");
 define_code!(PaymentChannelCode, "UBL CBC type: PaymentChannelCode.");

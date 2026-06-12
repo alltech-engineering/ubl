@@ -9,7 +9,7 @@ pub struct ExchangeRate {
     pub source_currency_base_rate: Option<SourceCurrencyBaseRate>,
     pub target_currency_code: TargetCurrencyCode,
     pub target_currency_base_rate: Option<TargetCurrencyBaseRate>,
-    pub exchange_market_id: Option<ID>,
+    pub exchange_market_id: Option<ExchangeMarketID>,
     pub calculation_rate: Option<CalculationRate>,
     pub mathematic_operator_code: Option<MathematicOperatorCode>,
     pub date: Option<Date>,

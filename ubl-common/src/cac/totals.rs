@@ -26,4 +26,7 @@ pub struct MonetaryTotal {
     pub payable_rounding_amount: Option<PayableRoundingAmount>,
     pub payable_amount: PayableAmount,
     pub payable_alternative_amount: Option<PayableAmount>,
+    pub allowance_total_tax_inclusive_amount: Option<AllowanceTotalTaxInclusiveAmount>,
+    pub charge_total_tax_inclusive_amount: Option<ChargeTotalTaxInclusiveAmount>,
+    pub withholding_tax_total_amount: Option<WithholdingTaxTotalAmount>,
 }

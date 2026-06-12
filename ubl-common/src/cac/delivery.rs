@@ -18,6 +18,8 @@ pub struct Delivery {
     pub actual_delivery_date: Option<ActualDeliveryDate>,
     pub actual_delivery_time: Option<ActualDeliveryTime>,
     pub latest_delivery_date: Option<LatestDeliveryDate>,
+    pub latest_delivery_time: Option<LatestDeliveryTime>,
+    pub release_id: Option<ReleaseID>,
     pub tracking_id: Option<TrackingID>,
     pub delivery_address: Option<Address>,
     pub requested_delivery_period: Option<Period>,
@@ -44,6 +46,13 @@ pub struct DeliveryTerms {
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 pub struct Despatch {
     pub id: Option<ID>,
+    pub requested_despatch_date: Option<RequestedDespatchDate>,
+    pub requested_despatch_time: Option<RequestedDespatchTime>,
+    pub estimated_despatch_date: Option<EstimatedDespatchDate>,
+    pub estimated_despatch_time: Option<EstimatedDespatchTime>,
+    pub guaranteed_despatch_date: Option<GuaranteedDespatchDate>,
+    pub guaranteed_despatch_time: Option<GuaranteedDespatchTime>,
+    pub release_id: Option<ReleaseID>,
     pub actual_despatch_date: Option<ActualDespatchDate>,
     pub actual_despatch_time: Option<ActualDespatchTime>,
     pub instructions: Vec<Instructions>,
@@ -57,6 +66,15 @@ pub struct Despatch {
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 pub struct Shipment {
     pub id: Option<ID>,
+    pub shipping_priority_level_code: Option<ShippingPriorityLevelCode>,
+    pub information: Vec<Information>,
+    pub net_net_weight_measure: Option<NetNetWeightMeasure>,
+    pub net_volume_measure: Option<NetVolumeMeasure>,
+    pub insurance_value_amount: Option<InsuranceValueAmount>,
+    pub declared_customs_value_amount: Option<DeclaredCustomsValueAmount>,
+    pub declared_for_carriage_value_amount: Option<DeclaredForCarriageValueAmount>,
+    pub declared_statistics_value_amount: Option<DeclaredStatisticsValueAmount>,
+    pub free_on_board_value_amount: Option<FreeOnBoardValueAmount>,
     pub handling_code: Option<HandlingCode>,
     pub handling_instructions: Vec<HandlingInstructions>,
     pub gross_weight_measure: Option<GrossWeightMeasure>,
@@ -66,6 +84,10 @@ pub struct Shipment {
     pub total_transport_handling_unit_quantity: Option<TotalTransportHandlingUnitQuantity>,
     pub goods_item: Vec<GoodsItem>,
     pub shipment_stage: Vec<ShipmentStage>,
+    pub special_instructions: Vec<SpecialInstructions>,
+    pub delivery_instructions: Vec<DeliveryInstructions>,
+    pub split_consignment_indicator: Option<SplitConsignmentIndicator>,
+    pub consignment_quantity: Option<ConsignmentQuantity>,
 }
 
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]

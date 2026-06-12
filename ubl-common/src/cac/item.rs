@@ -14,6 +14,10 @@ pub struct Item {
     pub name: Option<Name>,
     pub hazardous_risk_indicator: Option<HazardousRiskIndicator>,
     pub additional_information: Option<AdditionalInformation>,
+    pub item_type_code: Option<ItemTypeCode>,
+    pub warranty_information: Option<WarrantyInformation>,
+    pub lifecycle_stage_code: Option<LifecycleStageCode>,
+    pub lifecycle_stage_description: Option<LifecycleStageDescription>,
     pub keyword: Vec<Keyword>,
     pub brand_name: Vec<BrandName>,
     pub model_name: Vec<ModelName>,
@@ -34,6 +38,7 @@ pub struct ItemIdentification {
     pub id: ID,
     pub extended_id: Option<ID>,
     pub barcode_symbology_id: Option<BarcodeSymbologyID>,
+    pub issuer_scope_id: Option<IssuerScopeID>,
 }
 
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]

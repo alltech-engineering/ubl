@@ -43,6 +43,7 @@ pub struct FinancialAccount {
     pub account_format_code: Option<AccountFormatCode>,
     pub currency_code: Option<CurrencyCode>,
     pub payment_note: Vec<PaymentNote>,
+    pub blockchain_id: Option<BlockchainID>,
     pub financial_institution_branch: Option<Branch>,
     pub country: Option<Country>,
 }
@@ -85,7 +86,7 @@ use crate::cac::party::Party;
 pub struct PaymentTerms {
     pub id: Option<ID>,
     pub payment_means_id: Vec<PaymentMeansID>,
-    pub prepaid_payment_reference_id: Option<ID>,
+    pub prepaid_payment_reference_id: Option<PrepaidPaymentReferenceID>,
     pub note: Vec<Note>,
     pub reference_event_code: Option<Code>,
     pub settlement_discount_percent: Option<SettlementDiscountPercent>,
@@ -93,6 +94,13 @@ pub struct PaymentTerms {
     pub amount: Option<Amount>,
     pub settlement_period: Option<Period>,
     pub penalty_period: Option<Period>,
+    pub payment_percent: Option<PaymentPercent>,
+    pub settlement_discount_amount: Option<SettlementDiscountAmount>,
+    pub penalty_amount: Option<PenaltyAmount>,
+    pub payment_terms_details_uri: Option<PaymentTermsDetailsURI>,
+    pub payment_due_date: Option<PaymentDueDate>,
+    pub installment_due_date: Option<InstallmentDueDate>,
+    pub invoicing_party_reference: Option<InvoicingPartyReference>,
     pub exchange_rate: Option<ExchangeRate>,
 }
 

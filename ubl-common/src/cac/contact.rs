@@ -12,6 +12,8 @@ pub struct Contact {
     pub electronic_mail: Option<Text>,
     pub note: Option<Note>,
     pub other_communication: Vec<Communication>,
+    pub job_title: Option<JobTitle>,
+    pub department: Option<Department>,
 }
 
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]

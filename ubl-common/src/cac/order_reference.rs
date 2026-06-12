@@ -12,6 +12,7 @@ pub struct OrderReference {
     pub uuid: Option<UUID>,
     pub issue_date: Option<IssueDate>,
     pub issue_time: Option<IssueTime>,
+    pub customer_reference: Option<CustomerReference>,
     pub order_type_code: Option<OrderTypeCode>,
     pub document_reference: Option<Box<DocumentReference>>,
 }
