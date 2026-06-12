@@ -6,3 +6,4 @@ description = "UBL 2.5 Document Types — all 101 business document type definit
 
 [dependencies]
 ubl-common = { path = "../ubl-common" }
+serde = { version = "1", features = ["derive"] }

@@ -98,3 +98,27 @@ pub struct PaymentTerms {
 
 use crate::cac::exchange_rate::ExchangeRate;
 use crate::cac::period::Period;
+
+/// Information about a payment that has been made or will be made.
+/// UBL element: cac:Payment
+#[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
+pub struct Payment {
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub id: Option<ID>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub paid_amount: Option<PaidAmount>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub received_date: Option<ReceivedDate>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub paid_date: Option<PaidDate>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub paid_time: Option<PaidTime>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub instruction_id: Option<InstructionID>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub payment_means: Option<PaymentMeans>,
+    #[serde(skip_serializing_if = "Vec::is_empty", default)]
+    pub note: Vec<Note>,
+}
+
+

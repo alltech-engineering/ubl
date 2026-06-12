@@ -610,6 +610,7 @@ dependencies = [
 name = "ubl-documents"
 version = "0.1.0"
 dependencies = [
+ "serde",
  "ubl-common",
 ]
 

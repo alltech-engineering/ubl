@@ -35,4 +35,11 @@ pub struct BillingReferenceLine {
     pub allowance_charge: Vec<AllowanceCharge>,
 }
 
+#[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
+pub struct ProjectReference {
+    pub id: ID,
+    pub uuid: Option<UUID>,
+    pub issue_date: Option<IssueDate>,
+}
+
 use crate::cac::allowance::AllowanceCharge;

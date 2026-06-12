@@ -58,6 +58,7 @@ define_amount!(UnitPriceAmount, "The unit price amount.");
 define_amount!(TotalAmount, "The total amount.");
 define_amount!(TotalInvoiceAmount, "The total invoice amount.");
 define_amount!(TotalPaymentAmount, "The total payment amount.");
+define_amount!(LiabilityAmount, "The amount of a liability.");
 define_amount!(TotalTaxAmount, "The total tax amount.");
 define_amount!(ValueAmount, "A generic value amount.");
 
@@ -118,4 +119,5 @@ define_amount!(PreferenceCriterionWeight, "Weight for a preference criterion.");
 define_amount!(PreviousCancellationAmount, "Amount from a previous cancellation.");
 define_amount!(TransportServiceProviderSpecialTermsAmount, "Transport service provider special terms amount.");
 define_amount!(TresholdAmount, "A threshold amount.");
+define_amount!(PaidAmount, "The amount that has been paid.");
 

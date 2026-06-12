@@ -47,6 +47,9 @@ define_identifier!(AgencyID, "An agency identifier.");
 define_identifier!(AgencyName, "An agency name identifier.");
 define_identifier!(BuyerReference, "A reference assigned by the buyer.");
 define_identifier!(BuyerEventID, "An event identifier assigned by the buyer.");
+define_identifier!(SellerEventID, "An event identifier assigned by the seller.");
+define_identifier!(GoodsItemPassportID, "A goods item passport identifier.");
+define_identifier!(GoodsItemPassportCounterfoilID, "A goods item passport counterfoil identifier.");
 define_identifier!(CompanyID, "A company registration identifier.");
 define_identifier!(CustomerAssignedAccountID, "An account ID assigned by the customer.");
 define_identifier!(SupplierAssignedAccountID, "An account ID assigned by the supplier.");
@@ -140,6 +143,8 @@ define_identifier!(SpecificationID, "A specification identifier.");
 define_identifier!(ValidatorID, "A validator identifier.");
 define_identifier!(VariantID, "A variant identifier.");
 define_identifier!(WebsiteURI, "A website URI identifier.");
+define_identifier!(SchemeURI, "A URI identifying a classification scheme.");
+define_identifier!(URI, "A generic Uniform Resource Identifier.");
 
 
 // --- Missing ---
@@ -148,3 +153,5 @@ define_identifier!(ReleaseID, "A release identifier.");
 define_identifier!(PaymentMeansID, "A payment means identifier.");
 define_identifier!(SalesOrderLineID, "A sales order line identifier.");
 define_identifier!(RegistrationNationalityID, "A registration nationality identifier.");
+define_identifier!(SequenceNumberID, "A sequence number identifier (e.g., for order change sequencing).");
+define_identifier!(UBLVersionID, "Identifies the earliest version of the UBL 2 schema for this document type.");

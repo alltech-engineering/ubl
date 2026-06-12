@@ -51,6 +51,14 @@ define_text!(PackageLevelCode, "Package level code textual description.");
 define_text!(PreviousMeterReadingMethod, "Previous meter reading method text.");
 define_text!(SpecialTerms, "Special terms text.");
 define_text!(TransportServiceProviderRemarks, "Transport service provider remarks.");
+define_text!(OrderableUnit, "The unit that an item can be ordered in (e.g., Each, Box).");
+define_text!(CanonicalizationMethod, "The canonicalization method for a digital signature.");
+define_text!(SignatureMethod, "The signature method for a digital signature.");
+define_text!(ModificationReasonDescription, "A description of the reason for a modification.");
+define_text!(Reference, "A reference to associated information.");
+define_text!(Purpose, "A textual statement of purpose.");
+define_text!(BriefDescription, "A brief description.");
+define_text!(RetailEventName, "The name of a retail event.");
 
 // Name types
 macro_rules! define_name {
@@ -125,3 +133,6 @@ define_text!(WarrantyInformation, "Text describing warranty terms.");
 define_text!(CustomerReference, "A customer-specific reference.");
 define_text!(RejectReason, "The reason for rejection.");
 define_text!(TimingComplaint, "A complaint about timing.");
+define_text!(RegulatoryDomain, "The regulatory domain for a procurement procedure.");
+define_text!(WeightScoringMethodologyNote, "A note describing the weight scoring methodology.");
+define_name!(EconomicOperatorGroupName, "The name of an economic operator group.");

@@ -2,6 +2,9 @@
 
 use serde::{Deserialize, Serialize};
 use crate::cbc::*;
+use crate::cac::document::DocumentReference;
+use crate::cac::line::LineReference;
+use crate::cac::party::Party;
 
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 pub struct Response {
@@ -25,4 +28,24 @@ pub struct Status {
     pub text: Vec<Text>,
     pub indication_indicator: Option<Indicator>,
     pub percent: Option<Percent>,
+}
+
+/// UBL DocumentResponse — response to a specific document.
+#[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
+pub struct DocumentResponse {
+    pub response: Response,
+    pub document_reference: Vec<DocumentReference>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub issuer_party: Vec<Party>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub recipient_party: Vec<Party>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub line_response: Vec<LineResponse>,
+}
+
+/// UBL LineResponse — response to a specific line.
+#[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
+pub struct LineResponse {
+    pub line_reference: LineReference,
+    pub response: Vec<Response>,
 }

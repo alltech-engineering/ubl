@@ -1,0 +1,14 @@
+pub mod inventory_report;
+pub use inventory_report::InventoryReport;
+pub mod stock_availability_report;
+pub use stock_availability_report::StockAvailabilityReport;
+pub mod product_activity;
+pub use product_activity::ProductActivity;
+pub mod item_information_request;
+pub use item_information_request::ItemInformationRequest;
+pub mod forecast;
+pub use forecast::Forecast;
+pub mod forecast_revision;
+pub use forecast_revision::ForecastRevision;
+pub mod trade_item_location_profile;
+pub use trade_item_location_profile::TradeItemLocationProfile;

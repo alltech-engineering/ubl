@@ -43,6 +43,7 @@ define_date!(AwardDate, "The date of award.");
 define_date!(BirthDate, "A person's birth date.");
 define_date!(Date, "A generic date.");
 define_date!(LastRevisionDate, "The date of last revision.");
+define_date!(RevisionDate, "The date of revision.");
 define_date!(ManufactureDate, "The date of manufacture.");
 define_date!(OccurrenceDate, "The date of an occurrence.");
 define_date!(PaidDate, "The date payment was made.");
@@ -59,6 +60,7 @@ define_date!(SignatureDate, "The date of signature.");
 define_date!(GuaranteedDespatchDate, "The guaranteed despatch date.");
 define_date!(OpenTenderDate, "The open tender date.");
 define_date!(PlannedDate, "A planned date.");
+define_date!(NominationDate, "The nomination date.");
 
 // --- Time types ---
 macro_rules! define_time {
@@ -88,6 +90,9 @@ define_time!(ValidationTime, "The time of validation.");
 define_time!(LatestDeliveryTime, "The latest acceptable delivery time.");
 define_time!(EffectiveTime, "The time something becomes effective.");
 define_time!(ReceivedTime, "The time something was received.");
+define_time!(NominationTime, "The nomination time.");
+define_time!(LastRevisionTime, "The time of last revision.");
+define_time!(RevisionTime, "The time of revision.");
 
 // --- DateTime types ---
 macro_rules! define_datetime {
@@ -106,6 +111,18 @@ define_datetime!(OccurrenceDateTime, "The date-time of an occurrence.");
 
 
 
+// --- Tendering-specific dates & times ---
+define_date!(LatestReplyDate, "The latest date for a reply.");
+define_date!(RegisteredDate, "The date of registration.");
+define_date!(RequestedPublicationDate, "The requested publication date.");
+define_time!(LatestReplyTime, "The latest time for a reply.");
+define_time!(RegisteredTime, "The time of registration.");
+
 // --- Missing ---
 define_date!(BestBeforeDate, "The best-before date for a product.");
+define_date!(RequestDate, "The date of a request.");
+define_date!(PurchaseDate, "The date of purchase.");
+define_time!(RequestTime, "The time of a request.");
+define_time!(TransactionTime, "The time of a transaction.");
+define_time!(PurchaseTime, "The time of purchase.");
 define_time!(Time, "A generic time value.");

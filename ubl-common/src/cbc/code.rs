@@ -55,6 +55,17 @@ define_code!(ContractTypeCode, "A code specifying the type of contract.");
 define_code!(StatementTypeCode, "A code specifying the type of statement.");
 define_code!(ReminderTypeCode, "A code specifying reminder type.");
 define_code!(RemittanceAdviceTypeCode, "A code specifying remittance advice type.");
+define_code!(ModificationReasonCode, "A code specifying the reason for a modification.");
+define_code!(ReasonCode, "A code specifying a reason.");
+define_code!(PurposeCode, "A code specifying a purpose.");
+define_code!(ExportTypeCode, "A code specifying the type of export.");
+define_code!(SubTypeCode, "A code specifying a sub-type.");
+define_code!(ConstitutionCode, "A code specifying the constitution type.");
+define_code!(AgreementTypeCode, "A code specifying the type of agreement.");
+define_code!(RequiredResponseMessageLevelCode, "A code specifying the required response message level.");
+define_code!(WasteMovementTypeCode, "A code specifying the type of waste movement.");
+define_code!(WasteNotificationTypeCode, "A code specifying the type of waste notification.");
+define_code!(WeightStatementTypeCode, "A code specifying the type of weight statement.");
 
 // Industry standard codes
 define_code!(CurrencyCode, "An ISO 4217 currency code (e.g., EUR, USD, ZAR).");
@@ -234,3 +245,20 @@ define_code!(DocumentStatusCode, "A code specifying the status of a document.");
 define_code!(RejectActionCode, "A code specifying the action to take on rejection.");
 define_code!(StatusReasonCode, "A code specifying the reason for a status.");
 define_code!(ContractType, "A type of contract.");
+
+// --- Tendering-specific code types ---
+define_code!(NoticeTypeCode, "A code specifying the type of notice.");
+define_code!(NoticeLanguageCode, "A code specifying the language of a notice.");
+define_code!(QualificationApplicationTypeCode, "A code specifying the qualification application type.");
+define_code!(WeightingTypeCode, "A code specifying the type of weighting.");
+define_code!(TenderLanguageLocaleCode, "A locale code for tender language.");
+define_code!(PreferredLanguageLocaleCode, "A locale code for preferred language.");
+
+// --- Currency code variants used by document types ---
+define_code!(DocumentCurrencyCode, "A code signifying the default currency for a document.");
+define_code!(PricingCurrencyCode, "A code signifying the currency used for prices in a document.");
+define_code!(PaymentCurrencyCode, "A code signifying the currency used for payment.");
+define_code!(PaymentAlternativeCurrencyCode, "A code signifying the alternative currency used for payment.");
+define_code!(RequestedInvoiceCurrencyCode, "A code signifying the currency requested for amount totals in Invoices.");
+define_code!(DefaultLanguageCode, "A code signifying the default natural language for a document.");
+define_code!(DiscrepancyResponseCode, "A code specifying the response to a discrepancy.");

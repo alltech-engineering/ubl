@@ -24,6 +24,7 @@ define_indicator!(CopyIndicator, "Whether this is a copy of the original documen
 define_indicator!(BackOrderAllowedIndicator, "Whether back orders are allowed.");
 define_indicator!(CatalogueIndicator, "Whether a catalogue is referenced.");
 define_indicator!(CompletionIndicator, "Whether something is complete.");
+define_indicator!(ItemUpdateRequestIndicator, "Whether an item specification update is requested.");
 define_indicator!(ConsolidatableIndicator, "Whether goods can be consolidated.");
 define_indicator!(ConsolidatedIndicator, "Whether goods are consolidated.");
 define_indicator!(ContainerizedIndicator, "Whether goods are containerized.");
@@ -57,4 +58,7 @@ define_indicator!(VariantConstraintIndicator, "Variant constraint indicator.");
 // --- Missing ---
 define_indicator!(TaxEvidenceIndicator, "Whether tax evidence is present.");
 define_indicator!(FreeOfChargeIndicator, "Indicates whether something is free of charge (true = free).");
+define_indicator!(BasedOnConsensusIndicator, "Whether a forecast is based on consensus.");
 define_indicator!(IndicationIndicator, "A generic indicator flag.");
+define_indicator!(PublishAwardIndicator, "Whether the award should be published.");
+define_indicator!(WithdrawOfferIndicator, "Whether an offer/tender is withdrawn.");

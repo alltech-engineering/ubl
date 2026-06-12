@@ -227,6 +227,24 @@ pub struct Package {
     pub goods_item: Vec<GoodsItem>,
 }
 
+/// InstructionForReturnsLine — a line on an InstructionForReturns.
+#[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
+pub struct InstructionForReturnsLine {
+    pub id: ID,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub uuid: Option<UUID>,
+    #[serde(skip_serializing_if = "Vec::is_empty", default)]
+    pub note: Vec<Note>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub quantity: Option<Quantity>,
+    #[serde(skip_serializing_if = "Vec::is_empty", default)]
+    pub order_line_reference: Vec<OrderLineReference>,
+    #[serde(skip_serializing_if = "Vec::is_empty", default)]
+    pub document_reference: Vec<DocumentReference>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub item: Option<Item>,
+}
+
 // Cross-module imports
 use crate::cac::delivery::{DeliveryTerms, GoodsItem, Shipment};
 use crate::cac::document::DocumentReference;

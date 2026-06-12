@@ -1,4 +1,4 @@
-// UBL 2.5 CAC Tier 3: Location, Dimension, Temperature, Country
+// UBL 2.5 CAC Tier 3: Location, Dimension, Temperature, LocationCountry
 //
 // Reference: UBL-CommonAggregateComponents-2.5.xsd
 
@@ -50,12 +50,12 @@ pub struct Temperature {
     pub description: Vec<String>,
 }
 
-// ─── Country ─────────────────────────────────────────────────────────
-// XSD: CountryType
-// A country (used in addresses, trade, customs)
+// ─── LocationCountry ──────────────────────────────────────────────────
+// XSD: CountryType (used within LocationType)
+// A country associated with a location (origin, destination, transit, etc.)
 
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
-pub struct Country {
+pub struct LocationCountry {
     pub identification_code: Option<String>,
     pub name: Option<String>,
 }

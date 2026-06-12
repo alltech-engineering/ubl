@@ -41,3 +41,42 @@ pub struct ResultOfVerification {
 
 use crate::cac::party::Party;
 use crate::cac::period::Period;
+
+// ─── Signature ───────────────────────────────────────────────────────
+// UBL CAC SignatureType
+
+#[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
+pub struct Signature {
+    pub id: ID,
+    #[serde(skip_serializing_if = "Vec::is_empty", default)]
+    pub note: Vec<Note>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub validation_date: Option<ValidationDate>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub validation_time: Option<ValidationTime>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub validator_id: Option<ValidatorID>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub canonicalization_method: Option<Text>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub signature_method: Option<Text>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub signatory_party: Option<Party>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub digital_signature_attachment: Option<Attachment>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub original_document_reference: Option<Box<DocumentReference>>,
+}
+
+// ─── DocumentDistribution ─────────────────────────────────────────────
+// UBL CAC DocumentDistributionType
+
+#[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
+pub struct DocumentDistribution {
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub print_qualifier: Option<Text>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub maximum_copies_numeric: Option<MaximumCopiesNumeric>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub party: Option<Party>,
+}

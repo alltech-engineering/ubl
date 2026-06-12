@@ -20,7 +20,7 @@ pub struct DocumentReference {
     pub document_type_code: Option<DocumentTypeCode>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub document_type: Option<DocumentType>,
-    #[serde(skip_serializing_if = "Option::is_none", default)]
+    #[serde(skip_serializing_if = "Vec::is_empty", default)]
     pub xpath: Vec<XPath>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub referenced_document_internal_address: Option<ReferencedDocumentInternalAddress>,
@@ -32,7 +32,7 @@ pub struct DocumentReference {
     pub version_id: Option<VersionID>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub document_status_code: Option<DocumentStatusCode>,
-    #[serde(skip_serializing_if = "Option::is_none", default)]
+    #[serde(skip_serializing_if = "Vec::is_empty", default)]
     pub document_description: Vec<DocumentDescription>,
     // CAC references
     // TODO: cac:Attachment — not yet implemented
