@@ -1,0 +1,8 @@
+[package]
+name = "ubl-documents"
+version = "0.1.0"
+edition = "2024"
+description = "UBL 2.5 Document Types — all 101 business document type definitions"
+
+[dependencies]
+ubl-common = { path = "../ubl-common" }
