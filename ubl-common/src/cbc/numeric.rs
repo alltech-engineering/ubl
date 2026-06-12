@@ -31,6 +31,7 @@ define_numeric!(FrozenPeriodDaysNumeric, "Frozen period days numeric.");
 define_numeric!(LineCountNumeric, "Line count numeric.");
 define_numeric!(MaximumCopiesNumeric, "Maximum copies numeric.");
 define_numeric!(ReminderSequenceNumeric, "Reminder sequence numeric.");
+define_numeric!(MultiplierFactorNumeric, "A multiplier factor expressed as a numeric value.");
 
 // --- Percent types ---
 macro_rules! define_percent {

@@ -4,14 +4,14 @@ use crate::cbc::*;
 
 /// A line in a business document.
 /// UBL element: cac:LineItem
-#[derive(Debug, Clone, Partialserde::Serialize, serde::Deserialize)]
+#[derive(Debug, Clone, PartialEq, serde::Serialize, serde::Deserialize)]
 pub struct LineItem {
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub id: Option<Id>,
+    pub id: Option<ID>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub sales_order_id: Option<SalesOrderID>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub uuid: Option<Uuid>,
+    pub uuid: Option<UUID>,
     #[serde(skip_serializing_if = "Vec::is_empty", default)]
     pub note: Vec<Note>,
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -20,6 +20,8 @@ pub struct LineItem {
     pub quantity: Option<Quantity>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub line_extension_amount: Option<Amount>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub tax_inclusive_line_extension_amount: Option<Amount>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub total_tax_amount: Option<Amount>,
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -42,4 +44,35 @@ pub struct LineItem {
     pub accounting_cost: Option<AccountingCost>,
     #[serde(skip_serializing_if = "Vec::is_empty", default)]
     pub warranty_information: Vec<WarrantyInformation>,
+    // CAC references
+    #[serde(skip_serializing_if = "Vec::is_empty", default)]
+    pub delivery: Vec<Delivery>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub delivery_terms: Option<DeliveryTerms>,
+    // TODO: cac:OriginatorParty — Party, not yet wired
+    // TODO: cac:BeneficiaryParty — Party, not yet wired
+    // TODO: cac:OrderedShipment — Shipment, not yet wired
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub pricing_reference: Option<PricingReference>,
+    #[serde(skip_serializing_if = "Vec::is_empty", default)]
+    pub allowance_charge: Vec<AllowanceCharge>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub price: Option<Price>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub item: Option<Item>,
+    // TODO: cac:SubLineItem — recursive LineItem, not yet wired
+    // TODO: cac:WarrantyValidityPeriod — Period, not yet wired
+    // TODO: cac:WarrantyParty — Party, not yet wired
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub tax_total: Option<TaxTotal>,
+    // TODO: cac:ItemPriceExtension — not yet implemented
+    // TODO: cac:LineReference — not yet implemented
 }
+
+use super::delivery::Delivery;
+use super::delivery_terms::DeliveryTerms;
+use super::tax::PricingReference;
+use super::allowance_charge::AllowanceCharge;
+use super::price::Price;
+use super::item::Item;
+use super::tax::TaxTotal;

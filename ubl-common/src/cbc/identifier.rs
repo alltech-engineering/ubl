@@ -111,6 +111,8 @@ define_identifier!(SettlementID, "A settlement identifier.");
 define_identifier!(TaxID, "A tax identifier (e.g., VAT number).");
 define_identifier!(TaxSchemeID, "A tax scheme identifier.");
 define_identifier!(MandateID, "A mandate identifier (e.g., SEPA mandate).");
+define_identifier!(LanguageID, "A language identifier (e.g., en, fr, de).");
+define_identifier!(ReferenceID, "A generic reference identifier.");
 define_identifier!(TransactionID, "A transaction identifier.");
 define_identifier!(BudgetAccountID, "A budget account identifier.");
 
@@ -142,3 +144,7 @@ define_identifier!(WebsiteURI, "A website URI identifier.");
 
 // --- Missing ---
 define_identifier!(ChipApplicationID, "A chip application identifier.");
+define_identifier!(ReleaseID, "A release identifier.");
+define_identifier!(PaymentMeansID, "A payment means identifier.");
+define_identifier!(SalesOrderLineID, "A sales order line identifier.");
+define_identifier!(RegistrationNationalityID, "A registration nationality identifier.");

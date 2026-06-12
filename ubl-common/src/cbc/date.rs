@@ -85,6 +85,9 @@ define_time!(ResponseTime, "The time of a response.");
 define_time!(StartTime, "The start time.");
 define_time!(SubmissionTime, "The time of submission.");
 define_time!(ValidationTime, "The time of validation.");
+define_time!(LatestDeliveryTime, "The latest acceptable delivery time.");
+define_time!(EffectiveTime, "The time something becomes effective.");
+define_time!(ReceivedTime, "The time something was received.");
 
 // --- DateTime types ---
 macro_rules! define_datetime {

@@ -230,3 +230,7 @@ define_code!(CardChipCode, "A code specifying a card chip type.");
 define_code!(CardTypeCode, "A code specifying a card type.");
 define_code!(CountrySubentityCode, "A code for a country subentity.");
 define_code!(AccountingCostCode, "A code for accounting cost.");
+define_code!(DocumentStatusCode, "A code specifying the status of a document.");
+define_code!(RejectActionCode, "A code specifying the action to take on rejection.");
+define_code!(StatusReasonCode, "A code specifying the reason for a status.");
+define_code!(ContractType, "A type of contract.");

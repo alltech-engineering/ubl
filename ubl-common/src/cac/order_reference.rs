@@ -1,29 +1,38 @@
-// OrderReference — UBL CAC aggregate
-// References an order document.
-use crate::cbc::*;
+// UBL Order and Billing Reference aggregates.
 
-/// A reference to an order.
-/// UBL element: cac:OrderReference
-#[derive(Debug, Clone, Partialserde::Serialize, serde::Deserialize)]
+use serde::{Deserialize, Serialize};
+use crate::cbc::*;
+use crate::cac::document::DocumentReference;
+
+#[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 pub struct OrderReference {
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub id: Option<Id>,
-    #[serde(skip_serializing_if = "Option::is_none")]
+    pub id: Option<ID>,
     pub sales_order_id: Option<SalesOrderID>,
-    #[serde(skip_serializing_if = "Option::is_none")]
     pub copy_indicator: Option<CopyIndicator>,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub uuid: Option<Uuid>,
-    #[serde(skip_serializing_if = "Option::is_none")]
+    pub uuid: Option<UUID>,
     pub issue_date: Option<IssueDate>,
-    #[serde(skip_serializing_if = "Option::is_none")]
     pub issue_time: Option<IssueTime>,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub customer_reference: Option<CustomerReference>,
-    #[serde(skip_serializing_if = "Option::is_none")]
     pub order_type_code: Option<OrderTypeCode>,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub document_reference: Option<DocumentReference>,
+    pub document_reference: Option<Box<DocumentReference>>,
 }
 
-use super::document_reference::DocumentReference;
+#[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
+pub struct BillingReference {
+    pub invoice_document_reference: Option<Box<DocumentReference>>,
+    pub self_billed_invoice_document_reference: Option<Box<DocumentReference>>,
+    pub credit_note_document_reference: Option<Box<DocumentReference>>,
+    pub self_billed_credit_note_document_reference: Option<Box<DocumentReference>>,
+    pub debit_note_document_reference: Option<Box<DocumentReference>>,
+    pub reminder_document_reference: Option<Box<DocumentReference>>,
+    pub additional_document_reference: Option<Box<DocumentReference>>,
+    pub billing_reference_line: Vec<BillingReferenceLine>,
+}
+
+#[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
+pub struct BillingReferenceLine {
+    pub id: ID,
+    pub amount: Option<Amount>,
+    pub allowance_charge: Vec<AllowanceCharge>,
+}
+
+use crate::cac::allowance::AllowanceCharge;

@@ -4,7 +4,7 @@ use crate::cbc::*;
 
 /// A reference to a billing document.
 /// UBL element: cac:BillingReference
-#[derive(Debug, Clone, Partialserde::Serialize, serde::Deserialize)]
+#[derive(Debug, Clone, PartialEq, serde::Serialize, serde::Deserialize)]
 pub struct BillingReference {
     #[serde(skip_serializing_if = "Option::is_none")]
     pub invoice_document_reference: Option<DocumentReference>,

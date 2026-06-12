@@ -56,3 +56,5 @@ define_indicator!(VariantConstraintIndicator, "Variant constraint indicator.");
 
 // --- Missing ---
 define_indicator!(TaxEvidenceIndicator, "Whether tax evidence is present.");
+define_indicator!(FreeOfChargeIndicator, "Indicates whether something is free of charge (true = free).");
+define_indicator!(IndicationIndicator, "A generic indicator flag.");

@@ -80,3 +80,21 @@ pub struct PaymentMandate {
 
 use crate::cac::address::{Address, Country};
 use crate::cac::party::Party;
+
+#[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
+pub struct PaymentTerms {
+    pub id: Option<ID>,
+    pub payment_means_id: Vec<PaymentMeansID>,
+    pub prepaid_payment_reference_id: Option<ID>,
+    pub note: Vec<Note>,
+    pub reference_event_code: Option<Code>,
+    pub settlement_discount_percent: Option<SettlementDiscountPercent>,
+    pub penalty_surcharge_percent: Option<PenaltySurchargePercent>,
+    pub amount: Option<Amount>,
+    pub settlement_period: Option<Period>,
+    pub penalty_period: Option<Period>,
+    pub exchange_rate: Option<ExchangeRate>,
+}
+
+use crate::cac::exchange_rate::ExchangeRate;
+use crate::cac::period::Period;

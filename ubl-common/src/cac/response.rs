@@ -1,20 +1,28 @@
-// Response — UBL CAC aggregate
-// An application-level response to a document.
+// UBL Response and Status aggregates.
+
+use serde::{Deserialize, Serialize};
 use crate::cbc::*;
 
-#[derive(Debug, Clone, Partialserde::Serialize, serde::Deserialize)]
+#[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 pub struct Response {
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub reference_id: Option<ReferenceID>,
-    #[serde(skip_serializing_if = "Option::is_none")]
+    pub reference_id: Option<ID>,
     pub response_code: Option<ResponseCode>,
-    #[serde(skip_serializing_if = "Vec::is_empty", default)]
     pub description: Vec<Description>,
-    #[serde(skip_serializing_if = "Option::is_none")]
     pub effective_date: Option<EffectiveDate>,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub effective_time: Option<EffectiveTime>,
-    #[serde(skip_serializing_if = "Vec::is_empty", default)]
+    pub effective_time: Option<Time>,
     pub status: Vec<Status>,
 }
-use super::status::Status;
+
+#[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
+pub struct Status {
+    pub condition_code: Option<ConditionCode>,
+    pub reference_date: Option<ReferenceDate>,
+    pub reference_time: Option<ReferenceTime>,
+    pub description: Vec<Description>,
+    pub status_reason_code: Option<Code>,
+    pub status_reason: Vec<Text>,
+    pub sequence_id: Option<SequenceID>,
+    pub text: Vec<Text>,
+    pub indication_indicator: Option<Indicator>,
+    pub percent: Option<Percent>,
+}

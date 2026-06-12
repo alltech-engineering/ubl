@@ -1,11 +1,13 @@
-// UBL Delivery aggregates — delivery terms, delivery info.
+// UBL Delivery aggregates — delivery terms, despatch, shipment.
 
 use serde::{Deserialize, Serialize};
 use crate::cbc::*;
-
 use crate::cac::address::Address;
-use crate::cac::party::Party;
+use crate::cac::contact::Contact;
 use crate::cac::period::Period;
+use crate::cac::party::Party;
+use crate::cac::allowance::AllowanceCharge;
+use crate::cac::item::Item;
 
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 pub struct Delivery {
@@ -16,10 +18,8 @@ pub struct Delivery {
     pub actual_delivery_date: Option<ActualDeliveryDate>,
     pub actual_delivery_time: Option<ActualDeliveryTime>,
     pub latest_delivery_date: Option<LatestDeliveryDate>,
-    pub latest_delivery_time: Option<Time>,
     pub tracking_id: Option<TrackingID>,
     pub delivery_address: Option<Address>,
-    pub alternative_delivery_location: Option<Location>,
     pub requested_delivery_period: Option<Period>,
     pub promised_delivery_period: Option<Period>,
     pub estimated_delivery_period: Option<Period>,
@@ -64,8 +64,8 @@ pub struct Shipment {
     pub gross_volume_measure: Option<GrossVolumeMeasure>,
     pub total_goods_item_quantity: Option<TotalGoodsItemQuantity>,
     pub total_transport_handling_unit_quantity: Option<TotalTransportHandlingUnitQuantity>,
-    pub shipment_stage: Vec<ShipmentStage>,
     pub goods_item: Vec<GoodsItem>,
+    pub shipment_stage: Vec<ShipmentStage>,
 }
 
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
@@ -73,15 +73,14 @@ pub struct ShipmentStage {
     pub id: Option<ID>,
     pub transport_mode_code: Option<TransportModeCode>,
     pub transport_means_type_code: Option<TransportMeansTypeCode>,
+    pub transit_direction_code: Option<TransitDirectionCode>,
+    pub instructions: Vec<Instructions>,
 }
 
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 pub struct GoodsItem {
     pub id: Option<ID>,
-    pub description: Option<Description>,
+    pub description: Vec<Description>,
     pub item: Vec<Item>,
+    pub quantity: Option<Quantity>,
 }
-
-use crate::cac::allowance::AllowanceCharge;
-use crate::cac::contact::Contact;
-use crate::cac::item::Item;

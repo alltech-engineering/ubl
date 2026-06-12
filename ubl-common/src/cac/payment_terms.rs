@@ -1,10 +1,10 @@
 // PaymentTerms — UBL CAC aggregate (Tier 1 stub)
 use crate::cbc::*;
 
-#[derive(Debug, Clone, Partialserde::Serialize, serde::Deserialize)]
+#[derive(Debug, Clone, PartialEq, serde::Serialize, serde::Deserialize)]
 pub struct PaymentTerms {
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub id: Option<Id>,
+    pub id: Option<ID>,
     #[serde(skip_serializing_if = "Vec::is_empty")]
     pub note: Vec<Note>,
 }

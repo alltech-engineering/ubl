@@ -1,69 +1,238 @@
-// UBL 2.5 CAC Tier 4: Catalogue Line, Tender Line
-//
-// Reference: UBL-CommonAggregateComponents-2.5.xsd
+// UBL Line aggregates — document line items for various document types.
 
 use serde::{Deserialize, Serialize};
+use crate::cbc::*;
+use crate::cac::allowance::AllowanceCharge;
+use crate::cac::delivery::Delivery;
+use crate::cac::item::Item;
+use crate::cac::period::Period;
+use crate::cac::price::Price;
+use crate::cac::tax::TaxTotal;
 
-// ─── CatalogueLine ───────────────────────────────────────────────────
-// XSD: CatalogueLineType
-// A line in a catalogue describing a product or service
-
+/// The universal LineItem — used by Order, Catalogue, Quotation, Tender.
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
-pub struct CatalogueLine {
-    pub id: String, // 1..1 required
-    pub action_code: Option<String>,
-    pub life_cycle_status_code: Option<String>,
-    pub contract_subdivision: Option<String>,
-    pub note: Vec<String>,
-    pub orderable_indicator: Option<bool>,
-    pub orderable_unit: Option<String>,
-    pub content_unit_quantity: Option<f64>,
-    pub order_quantity_increment_numeric: Option<f64>,
-    pub minimum_order_quantity: Option<f64>,
-    pub maximum_order_quantity: Option<f64>,
-    pub warranty_information: Vec<String>,
-    pub pack_level_code: Option<String>,
-    // CAC: contractor_customer_party: Option<CustomerParty>
-    // CAC: seller_supplier_party: Option<SupplierParty>
-    // CAC: warranty_party: Option<Party>
-    // CAC: warranty_validity_period: Option<Period>
-    // CAC: line_validity_period: Option<Period>
-    // CAC: item_comparison: Vec<ItemComparison>
-    // CAC: component/accessory/required/replacement/complementary/replaced_related_item
-    // CAC: required_item_location_quantity
-    // CAC: document_reference: Vec<DocumentReference>
-    // CAC: item: Item  // 1..1 required
-    // CAC: keyword_item_property: Vec<ItemProperty>
-    // CAC: call_for_tenders_line_reference
-    // CAC: call_for_tenders_document_reference: Vec<DocumentReference>
+pub struct LineItem {
+    pub id: ID,
+    pub sales_order_id: Option<SalesOrderID>,
+    pub uuid: Option<UUID>,
+    pub note: Vec<Note>,
+    pub line_status_code: Option<LineStatusCode>,
+    pub quantity: Option<Quantity>,
+    pub line_extension_amount: Option<LineExtensionAmount>,
+    pub total_tax_amount: Option<TotalTaxAmount>,
+    pub minimum_quantity: Option<MinimumQuantity>,
+    pub maximum_quantity: Option<MaximumQuantity>,
+    pub minimum_backorder_quantity: Option<MinimumBackorderQuantity>,
+    pub maximum_backorder_quantity: Option<MaximumBackorderQuantity>,
+    pub inspection_method_code: Option<InspectionMethodCode>,
+    pub partial_delivery_indicator: Option<PartialDeliveryIndicator>,
+    pub back_order_allowed_indicator: Option<BackOrderAllowedIndicator>,
+    pub accounting_cost_code: Option<AccountingCostCode>,
+    pub accounting_cost: Option<AccountingCost>,
+    pub delivery: Vec<Delivery>,
+    pub delivery_terms: Vec<DeliveryTerms>,
+    pub originator_party: Option<Party>,
+    pub ordered_shipment: Vec<OrderedShipment>,
+    pub pricing_reference: Option<PricingReference>,
+    pub allowance_charge: Vec<AllowanceCharge>,
+    pub price: Option<Price>,
+    pub item: Item,
 }
 
-// ─── TenderLine ──────────────────────────────────────────────────────
-// XSD: TenderLineType
-// A line in a tender document
+/// InvoiceLine — a line on an invoice.
+#[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
+pub struct InvoiceLine {
+    pub id: ID,
+    pub uuid: Option<UUID>,
+    pub note: Vec<Note>,
+    pub invoiced_quantity: Option<InvoicedQuantity>,
+    pub line_extension_amount: LineExtensionAmount,
+    pub tax_point_date: Option<TaxPointDate>,
+    pub accounting_cost_code: Option<AccountingCostCode>,
+    pub accounting_cost: Option<AccountingCost>,
+    pub payment_purpose_code: Option<PaymentPurposeCode>,
+    pub free_of_charge_indicator: Option<Indicator>,
+    pub invoice_period: Vec<Period>,
+    pub order_line_reference: Vec<OrderLineReference>,
+    pub despatch_line_reference: Vec<LineReference>,
+    pub receipt_line_reference: Vec<LineReference>,
+    pub billing_reference: Vec<BillingReference>,
+    pub document_reference: Vec<DocumentReference>,
+    pub pricing_reference: Option<PricingReference>,
+    pub originator_party: Option<Party>,
+    pub delivery: Vec<Delivery>,
+    pub payment_terms: Vec<PaymentTerms>,
+    pub allowance_charge: Vec<AllowanceCharge>,
+    pub tax_total: Vec<TaxTotal>,
+    pub withholding_tax_total: Vec<TaxTotal>,
+    pub item: Item,
+    pub price: Option<Price>,
+    pub delivery_terms: Option<DeliveryTerms>,
+    pub sub_invoice_line: Vec<Box<InvoiceLine>>,
+    pub price_adjustment: Option<Price>,
+}
+
+/// CreditNoteLine — a line on a credit note.
+#[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
+pub struct CreditNoteLine {
+    pub id: ID,
+    pub uuid: Option<UUID>,
+    pub note: Vec<Note>,
+    pub credited_quantity: Option<CreditedQuantity>,
+    pub line_extension_amount: Option<LineExtensionAmount>,
+    pub tax_point_date: Option<TaxPointDate>,
+    pub accounting_cost_code: Option<AccountingCostCode>,
+    pub accounting_cost: Option<AccountingCost>,
+    pub payment_purpose_code: Option<PaymentPurposeCode>,
+    pub free_of_charge_indicator: Option<Indicator>,
+    pub invoice_period: Vec<Period>,
+    pub order_line_reference: Vec<OrderLineReference>,
+    pub despatch_line_reference: Vec<LineReference>,
+    pub receipt_line_reference: Vec<LineReference>,
+    pub billing_reference: Vec<BillingReference>,
+    pub document_reference: Vec<DocumentReference>,
+    pub pricing_reference: Option<PricingReference>,
+    pub originator_party: Option<Party>,
+    pub delivery: Vec<Delivery>,
+    pub payment_terms: Vec<PaymentTerms>,
+    pub allowance_charge: Vec<AllowanceCharge>,
+    pub tax_total: Vec<TaxTotal>,
+    pub item: Item,
+    pub price: Option<Price>,
+}
+
+/// DebitNoteLine — a line on a debit note.
+#[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
+pub struct DebitNoteLine {
+    pub id: ID,
+    pub uuid: Option<UUID>,
+    pub note: Vec<Note>,
+    pub debited_quantity: Option<DebitedQuantity>,
+    pub line_extension_amount: Option<LineExtensionAmount>,
+    pub tax_point_date: Option<TaxPointDate>,
+    pub accounting_cost_code: Option<AccountingCostCode>,
+    pub accounting_cost: Option<AccountingCost>,
+    pub payment_purpose_code: Option<PaymentPurposeCode>,
+    pub invoice_period: Vec<Period>,
+    pub order_line_reference: Vec<OrderLineReference>,
+    pub despatch_line_reference: Vec<LineReference>,
+    pub receipt_line_reference: Vec<LineReference>,
+    pub billing_reference: Vec<BillingReference>,
+    pub document_reference: Vec<DocumentReference>,
+    pub pricing_reference: Option<PricingReference>,
+    pub originator_party: Option<Party>,
+    pub delivery: Vec<Delivery>,
+    pub payment_terms: Vec<PaymentTerms>,
+    pub allowance_charge: Vec<AllowanceCharge>,
+    pub tax_total: Vec<TaxTotal>,
+    pub item: Item,
+    pub price: Option<Price>,
+}
+
+/// OrderLine — a line on an order.
+#[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
+pub struct OrderLine {
+    pub id: ID,
+    pub sales_order_id: Option<SalesOrderID>,
+    pub uuid: Option<UUID>,
+    pub note: Vec<Note>,
+    pub line_status_code: Option<LineStatusCode>,
+    pub quantity: Option<Quantity>,
+    pub line_extension_amount: Option<LineExtensionAmount>,
+    pub total_tax_amount: Option<TotalTaxAmount>,
+    pub minimum_quantity: Option<MinimumQuantity>,
+    pub maximum_quantity: Option<MaximumQuantity>,
+    pub minimum_backorder_quantity: Option<MinimumBackorderQuantity>,
+    pub maximum_backorder_quantity: Option<MaximumBackorderQuantity>,
+    pub inspection_method_code: Option<InspectionMethodCode>,
+    pub partial_delivery_indicator: Option<PartialDeliveryIndicator>,
+    pub back_order_allowed_indicator: Option<BackOrderAllowedIndicator>,
+    pub accounting_cost_code: Option<AccountingCostCode>,
+    pub accounting_cost: Option<AccountingCost>,
+    pub delivery: Vec<Delivery>,
+    pub delivery_terms: Vec<DeliveryTerms>,
+    pub originator_party: Option<Party>,
+    pub ordered_shipment: Vec<OrderedShipment>,
+    pub pricing_reference: Option<PricingReference>,
+    pub allowance_charge: Vec<AllowanceCharge>,
+    pub price: Option<Price>,
+    pub item: Item,
+    pub line_reference: Vec<LineReference>,
+    pub document_reference: Vec<DocumentReference>,
+}
+
+/// DespatchLine — a line on a despatch advice.
+#[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
+pub struct DespatchLine {
+    pub id: ID,
+    pub uuid: Option<UUID>,
+    pub note: Vec<Note>,
+    pub line_status_code: Option<LineStatusCode>,
+    pub delivered_quantity: Option<DeliveredQuantity>,
+    pub outstanding_quantity: Option<Quantity>,
+    pub outstanding_reason: Vec<OutstandingReason>,
+    pub order_line_reference: Vec<OrderLineReference>,
+    pub document_reference: Vec<DocumentReference>,
+    pub item: Item,
+    pub shipment: Vec<Shipment>,
+}
+
+/// ReceiptLine — a line on a receipt advice.
+#[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
+pub struct ReceiptLine {
+    pub id: ID,
+    pub uuid: Option<UUID>,
+    pub note: Vec<Note>,
+    pub received_quantity: Option<ReceivedQuantity>,
+    pub rejected_quantity: Option<RejectedQuantity>,
+    pub reject_reason_code: Option<RejectReasonCode>,
+    pub reject_reason: Vec<RejectionNote>,
+    pub order_line_reference: Vec<OrderLineReference>,
+    pub despatch_line_reference: Vec<LineReference>,
+    pub document_reference: Vec<DocumentReference>,
+    pub item: Item,
+}
+
+// --- Support types ---
 
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
-pub struct TenderLine {
-    pub id: Option<String>,
-    pub note: Vec<String>,
-    pub quantity: Option<f64>,
-    pub line_extension_amount: Option<f64>,
-    pub tax_inclusive_line_extension_amount: Option<f64>,
-    pub total_tax_amount: Option<f64>,
-    pub orderable_unit: Option<String>,
-    pub content_unit_quantity: Option<f64>,
-    pub order_quantity_increment_numeric: Option<f64>,
-    pub minimum_order_quantity: Option<f64>,
-    pub maximum_order_quantity: Option<f64>,
-    pub warranty_information: Vec<String>,
-    pub pack_level_code: Option<String>,
-    // CAC: document_reference: Vec<DocumentReference>
-    // CAC: item: Option<Item>
-    // CAC: offered_item_location_quantity
-    // CAC: replacement_related_item: Vec<RelatedItem>
-    // CAC: warranty_party: Option<Party>
-    // CAC: warranty_validity_period: Option<Period>
-    // CAC: sub_tender_line: Vec<TenderLine>
-    // CAC: call_for_tenders_line_reference
-    // CAC: call_for_tenders_document_reference: Vec<DocumentReference>
+pub struct LineReference {
+    pub line_id: LineID,
+    pub line_status_code: Option<LineStatusCode>,
+    pub document_reference: Option<DocumentReference>,
 }
+
+#[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
+pub struct OrderLineReference {
+    pub line_id: LineID,
+    pub sales_order_line_id: Option<SalesOrderLineID>,
+    pub uuid: Option<UUID>,
+    pub line_status_code: Option<LineStatusCode>,
+    pub order_reference: Option<OrderReference>,
+}
+
+#[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
+pub struct OrderedShipment {
+    pub shipment: Shipment,
+    pub package: Vec<Package>,
+}
+
+#[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
+pub struct Package {
+    pub id: Option<ID>,
+    pub quantity: Option<Quantity>,
+    pub returnable_material_indicator: Option<ReturnableMaterialIndicator>,
+    pub package_level_code: Option<Code>,
+    pub packaging_type_code: Option<PackagingTypeCode>,
+    pub goods_item: Vec<GoodsItem>,
+}
+
+// Cross-module imports
+use crate::cac::delivery::{DeliveryTerms, GoodsItem, Shipment};
+use crate::cac::document::DocumentReference;
+use crate::cac::party::Party;
+use crate::cac::payment::PaymentTerms;
+
+// Additional imports
+use crate::cac::order_reference::{BillingReference, OrderReference};
+use crate::cac::tax::PricingReference;
