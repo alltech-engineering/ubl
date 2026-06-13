@@ -124,8 +124,12 @@ impl ToXml for cac::TaxCategory {
 
 impl ToXml for cac::TaxSubtotal {
     fn to_xml(&self, w: &mut Writer<Cursor<Vec<u8>>>) -> Result<()> {
-        el(w,"tax_amount",&format!("{:.2}",self.tax_amount.value()))?;
-        if let Some(ref ta) = self.taxable_amount { el(w,"taxable_amount",&format!("{:.2}",ta.value()))?; }
+        // XSD sequence: TaxableAmount?, TaxAmount, TaxInclusiveAmount?,
+        //   CalculationSequenceNumeric?, TransactionCurrencyTaxAmount?,
+        //   Percent?, BaseUnitMeasure?, PerUnitAmount?, TierRange?,
+        //   TierRatePercent?, TaxCategory
+        if let Some(ref ta) = self.taxable_amount { el_attr(w,"taxable_amount",&format!("{:.2}",ta.value()),&[("currencyID",ta.currency_id())])?; }
+        el_attr(w,"tax_amount",&format!("{:.2}",self.tax_amount.value()),&[("currencyID",self.tax_amount.currency_id())])?;
         if let Some(ref p) = self.percent { el(w,"percent",&p.0.to_string())?; }
         open(w,"TaxCategory")?; self.tax_category.to_xml(w)?; close(w,"TaxCategory")?;
         Ok(())
@@ -134,7 +138,7 @@ impl ToXml for cac::TaxSubtotal {
 
 impl ToXml for cac::TaxTotal {
     fn to_xml(&self, w: &mut Writer<Cursor<Vec<u8>>>) -> Result<()> {
-        el(w,"tax_amount",&format!("{:.2}",self.tax_amount.value()))?;
+        el_attr(w,"tax_amount",&format!("{:.2}",self.tax_amount.value()),&[("currencyID",self.tax_amount.currency_id())])?;
         cac_vec(w,"TaxSubtotal",&self.tax_subtotal)?;
         Ok(())
     }
@@ -142,10 +146,10 @@ impl ToXml for cac::TaxTotal {
 
 impl ToXml for cac::LegalTotal {
     fn to_xml(&self, w: &mut Writer<Cursor<Vec<u8>>>) -> Result<()> {
-        el(w,"line_extension_amount",&format!("{:.2}",self.line_extension_amount.value()))?;
+        el_attr(w,"line_extension_amount",&format!("{:.2}",self.line_extension_amount.value()),&[("currencyID",self.line_extension_amount.currency_id())])?;
         let te = format!("{:.2}",self.tax_exclusive_amount.as_ref().map(|a|*a.value()).unwrap_or(*self.line_extension_amount.value()));
-        el(w,"tax_exclusive_amount",&te)?;
-        el(w,"payable_amount",&format!("{:.2}",self.payable_amount.value()))?;
+        el_attr(w,"tax_exclusive_amount",&te,&[("currencyID",self.line_extension_amount.currency_id())])?;
+        el_attr(w,"payable_amount",&format!("{:.2}",self.payable_amount.value()),&[("currencyID",self.payable_amount.currency_id())])?;
         Ok(())
     }
 }
@@ -170,12 +174,16 @@ impl ToXml for cac::Period {
 
 impl ToXml for Invoice {
     fn to_xml(&self, w: &mut Writer<Cursor<Vec<u8>>>) -> Result<()> {
+        // XSD sequence: ID, IssueDate, DueDate?, InvoiceTypeCode?,
+        //   Note*, TaxPointDate?, DocumentCurrencyCode?,
+        //   AccountingSupplierParty, AccountingCustomerParty?,
+        //   PaymentMeans*, TaxTotal*, LegalMonetaryTotal, InvoiceLine*
         el(w,"id",self.id.value())?;
         el(w,"issue_date",&self.issue_date.0.format("%Y-%m-%d").to_string())?;
-        if let Some(ref n) = self.note.first() { el(w,"note",n.value())?; }
         if let Some(ref d) = self.due_date { el(w,"due_date",&d.0.format("%Y-%m-%d").to_string())?; }
-        if let Some(ref tpd) = self.tax_point_date { el(w,"tax_point_date",&tpd.0.format("%Y-%m-%d").to_string())?; }
         el_opt(w,"invoice_type_code",self.invoice_type_code.as_ref().map(|c| c.value()))?;
+        for n in &self.note { el(w,"note",n.value())?; }
+        if let Some(ref tpd) = self.tax_point_date { el(w,"tax_point_date",&tpd.0.format("%Y-%m-%d").to_string())?; }
         el_opt(w,"document_currency_code",self.document_currency_code.as_ref().map(|c| c.value()))?;
         cac_opt(w,"AccountingSupplierParty",Some(&self.accounting_supplier_party))?;
         cac_opt(w,"AccountingCustomerParty",self.accounting_customer_party.as_ref())?;
@@ -186,7 +194,7 @@ impl ToXml for Invoice {
             open(w,"InvoiceLine")?;
             el(w,"id",line.id.value())?;
             if let Some(ref q) = line.invoiced_quantity { el(w,"invoiced_quantity",&q.value().to_string())?; }
-            el(w,"line_extension_amount",&format!("{:.2}",line.line_extension_amount.value()))?;
+            el_attr(w,"line_extension_amount",&format!("{:.2}",line.line_extension_amount.value()),&[("currencyID",line.line_extension_amount.currency_id())])?;
             cac_opt(w,"Item",Some(&line.item))?;
             cac_vec(w,"TaxTotal",&line.tax_total)?;
             close(w,"InvoiceLine")?;
