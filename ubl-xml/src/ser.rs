@@ -35,6 +35,16 @@ fn el(w: &mut Writer<Cursor<Vec<u8>>>, name: &str, val: &str) -> Result<()> {
 fn el_opt(w: &mut Writer<Cursor<Vec<u8>>>, name: &str, val: Option<&str>) -> Result<()> {
     if let Some(v) = val { el(w, name, v)?; } Ok(())
 }
+/// Write a CBC element with XML attributes (e.g., currencyID on Amount types)
+fn el_attr(w: &mut Writer<Cursor<Vec<u8>>>, name: &str, val: &str, attrs: &[(&str, &str)]) -> Result<()> {
+    let t = format!("cbc:{}", to_element_name(name));
+    let mut start = BytesStart::new(t.as_str());
+    for (k, v) in attrs { start.push_attribute((*k, *v)); }
+    w.write_event(Event::Start(start))?;
+    w.write_event(Event::Text(BytesText::new(val)))?;
+    w.write_event(Event::End(BytesEnd::new(t.as_str())))?;
+    Ok(())
+}
 fn open(w: &mut Writer<Cursor<Vec<u8>>>, name: &str) -> Result<()> {
     w.write_event(Event::Start(BytesStart::new(format!("cac:{}",to_element_name(name)).as_str())))?; Ok(())
 }

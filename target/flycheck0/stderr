@@ -1,5 +1,5 @@
-   0.073563834s  INFO prepare_target{force=false package_id=ubl-documents v0.1.0 (/Users/stephanus/Github/alltech/ubl/ubl-documents) target="ubl_documents"}: cargo::core::compiler::fingerprint: fingerprint error for ubl-documents v0.1.0 (/Users/stephanus/Github/alltech/ubl/ubl-documents)/Check { test: true }/TargetInner { name_inferred: true, ..: lib_target("ubl_documents", ["lib"], "/Users/stephanus/Github/alltech/ubl/ubl-documents/src/lib.rs", Edition2024) }
-   0.073579167s  INFO prepare_target{force=false package_id=ubl-documents v0.1.0 (/Users/stephanus/Github/alltech/ubl/ubl-documents) target="ubl_documents"}: cargo::core::compiler::fingerprint:     err: failed to read `/Users/stephanus/Github/alltech/ubl/target/debug/.fingerprint/ubl-documents-bfde0418b900a888/test-lib-ubl_documents`
+   0.071334917s  INFO prepare_target{force=false package_id=ubl-xml v0.1.0 (/Users/stephanus/Github/alltech/ubl/ubl-xml) target="gen_invoice"}: cargo::core::compiler::fingerprint: fingerprint error for ubl-xml v0.1.0 (/Users/stephanus/Github/alltech/ubl/ubl-xml)/Check { test: false }/TargetInner { kind: "example", name: "gen_invoice", tested: false, benched: false, ..: with_path("/Users/stephanus/Github/alltech/ubl/ubl-xml/../examples/gen_invoice.rs", Edition2024) }
+   0.071348167s  INFO prepare_target{force=false package_id=ubl-xml v0.1.0 (/Users/stephanus/Github/alltech/ubl/ubl-xml) target="gen_invoice"}: cargo::core::compiler::fingerprint:     err: failed to read `/Users/stephanus/Github/alltech/ubl/target/debug/.fingerprint/ubl-xml-261867138b8b3a57/example-gen_invoice`
 
 Caused by:
     No such file or directory (os error 2)
@@ -22,7 +22,7 @@ Stack backtrace:
   14: std::rt::lang_start::<()>::{closure#0}
   15: std::rt::lang_start_internal
   16: _main
-    Checking ubl-documents v0.1.0 (/Users/stephanus/Github/alltech/ubl/ubl-documents)
-    Finished `dev` profile [unoptimized + debuginfo] target(s) in 3.74s
+    Checking ubl-xml v0.1.0 (/Users/stephanus/Github/alltech/ubl/ubl-xml)
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 0.11s
 warning: the following packages contain code that will be rejected by a future version of Rust: ubl-documents v0.1.0 (/Users/stephanus/Github/alltech/ubl/ubl-documents)
 note: to see what the problems were, use the option `--future-incompat-report`, or run `cargo report future-incompatibilities --id 10`
