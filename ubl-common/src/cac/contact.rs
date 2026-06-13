@@ -23,3 +23,22 @@ pub struct Communication {
     pub channel: Option<Channel>,
     pub value: Option<Text>,
 }
+
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn test_contact_roundtrip() {
+        let c = Contact {
+            id: None, department: None, electronic_mail: Some(Text { value: "john@example.com".into(), language_id: None }),
+            job_title: None, name: Some(Name::new("John Doe")), note: None,
+            telefax: None, telephone: Some(Telephone::new("+27 21 555 1234")),
+            other_communication: vec![],
+        };
+        let json = serde_json::to_string(&c).unwrap();
+        let c2: Contact = serde_json::from_str(&json).unwrap();
+        assert_eq!(c.name.unwrap().0, c2.name.unwrap().0);
+    }
+}

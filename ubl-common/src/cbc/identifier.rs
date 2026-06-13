@@ -230,3 +230,37 @@ define_identifier!(UpperOrangeHazardPlacardID, "UBL CBC type: UpperOrangeHazardP
 define_identifier!(ValidatedCriterionPropertyID, "UBL CBC type: ValidatedCriterionPropertyID.");
 define_identifier!(WeighingDeviceID, "UBL CBC type: WeighingDeviceID.");
 define_identifier!(WorkItemID, "UBL CBC type: WorkItemID.");
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn test_id_roundtrip() {
+        let id = ID::new("INV-001");
+        let json = serde_json::to_string(&id).unwrap();
+        let id2: ID = serde_json::from_str(&json).unwrap();
+        assert_eq!(id.value(), id2.value());
+    }
+
+    #[test]
+    fn test_id_with_scheme() {
+        let mut ident = Identifier::new("12345");
+        ident.scheme_id = Some("GLN".into());
+        let id = ID(ident);
+        let json = serde_json::to_string(&id).unwrap();
+        assert!(json.contains("GLN"));
+    }
+
+    #[test]
+    fn test_company_id() {
+        let cid = CompanyID::new("9876543210");
+        assert_eq!(cid.value(), "9876543210");
+    }
+
+    #[test]
+    fn test_uuid() {
+        let u = UUID::new("550e8400-e29b-41d4-a716-446655440000");
+        assert_eq!(u.value(), "550e8400-e29b-41d4-a716-446655440000");
+    }
+}

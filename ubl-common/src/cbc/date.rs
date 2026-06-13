@@ -168,3 +168,29 @@ define_time!(RequiredDeliveryTime, "UBL CBC type: RequiredDeliveryTime.");
 define_time!(ResolutionTime, "UBL CBC type: ResolutionTime.");
 define_time!(SourceForecastIssueTime, "UBL CBC type: SourceForecastIssueTime.");
 define_time!(WeighingTime, "UBL CBC type: WeighingTime.");
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn test_issue_date_roundtrip() {
+        let d = IssueDate::new(chrono::NaiveDate::from_ymd_opt(2026, 6, 12).unwrap());
+        let json = serde_json::to_string(&d).unwrap();
+        let d2: IssueDate = serde_json::from_str(&json).unwrap();
+        assert_eq!(d.0, d2.0);
+    }
+
+    #[test]
+    fn test_due_date() {
+        let d = DueDate::new(chrono::NaiveDate::from_ymd_opt(2026, 7, 12).unwrap());
+        assert_eq!(d.0.format("%Y-%m-%d").to_string(), "2026-07-12");
+    }
+
+    #[test]
+    fn test_start_date_end_date() {
+        let sd = StartDate::new(chrono::NaiveDate::from_ymd_opt(2026, 1, 1).unwrap());
+        let ed = EndDate::new(chrono::NaiveDate::from_ymd_opt(2026, 12, 31).unwrap());
+        assert!(sd.0 < ed.0);
+    }
+}

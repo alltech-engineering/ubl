@@ -88,3 +88,22 @@ define_measure!(TotalBallastWaterOnBoardMeasure, "UBL CBC type: TotalBallastWate
 define_measure!(ValueBaseMeasure, "UBL CBC type: ValueBaseMeasure.");
 define_measure!(VolumeMeasure, "UBL CBC type: VolumeMeasure.");
 define_measure!(WasteMeasure, "UBL CBC type: WasteMeasure.");
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn test_measure_roundtrip() {
+        let m = GrossWeightMeasure::new(rust_decimal::Decimal::new(1500, 2), "KGM");
+        let json = serde_json::to_string(&m).unwrap();
+        let m2: GrossWeightMeasure = serde_json::from_str(&json).unwrap();
+        assert_eq!(*m.value(), *m2.value());
+    }
+
+    #[test]
+    fn test_net_weight_measure() {
+        let m = NetWeightMeasure::new(rust_decimal::Decimal::new(1200, 2), "KGM");
+        assert_eq!(m.unit_code(), "KGM");
+    }
+}

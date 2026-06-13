@@ -331,3 +331,46 @@ define_text!(WeightingConsiderationDescription, "UBL CBC type: WeightingConsider
 define_text!(WorkItemDescription, "UBL CBC type: WorkItemDescription.");
 define_text!(WorkPhase, "UBL CBC type: WorkPhase.");
 define_text!(WorkTypeDescription, "UBL CBC type: WorkTypeDescription.");
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn test_note_roundtrip() {
+        let n = Note::new("Thank you for your business");
+        let json = serde_json::to_string(&n).unwrap();
+        let n2: Note = serde_json::from_str(&json).unwrap();
+        assert_eq!(n.value(), n2.value());
+    }
+
+    #[test]
+    fn test_name_roundtrip() {
+        let n = Name::new("Acme Corp");
+        let json = serde_json::to_string(&n).unwrap();
+        assert!(json.contains("Acme Corp"));
+        let n2: Name = serde_json::from_str(&json).unwrap();
+        assert_eq!(n.0, n2.0);
+    }
+
+    #[test]
+    fn test_description() {
+        let d = Description::new("Widget, Model X");
+        assert_eq!(d.value(), "Widget, Model X");
+    }
+
+    #[test]
+    fn test_street_name() {
+        let s = StreetName::new("123 Main St");
+        assert_eq!(s.0, "123 Main St");
+    }
+
+    #[test]
+    fn test_text_with_language() {
+        let mut t = Text { value: "Bonjour".into(), language_id: Some("fr".into()) };
+        let json = serde_json::to_string(&t).unwrap();
+        assert!(json.contains("fr"));
+        let t2: Text = serde_json::from_str(&json).unwrap();
+        assert_eq!(t2.language_id, Some("fr".into()));
+    }
+}

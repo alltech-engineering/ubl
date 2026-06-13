@@ -119,3 +119,28 @@ define_percent!(MaximumPercent, "UBL CBC type: MaximumPercent.");
 define_percent!(MinimumPercent, "UBL CBC type: MinimumPercent.");
 define_percent!(RecyclabilityPercent, "UBL CBC type: RecyclabilityPercent.");
 define_percent!(RecycledContentPercent, "UBL CBC type: RecycledContentPercent.");
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn test_percent_roundtrip() {
+        let p = Percent::new(rust_decimal::Decimal::new(15, 0));
+        let json = serde_json::to_string(&p).unwrap();
+        let p2: Percent = serde_json::from_str(&json).unwrap();
+        assert_eq!(p.0, p2.0);
+    }
+
+    #[test]
+    fn test_percent_zero() {
+        let p = Percent::new(rust_decimal::Decimal::ZERO);
+        assert_eq!(p.0.to_string(), "0");
+    }
+
+    #[test]
+    fn test_rate() {
+        let r = SourceCurrencyBaseRate::new(rust_decimal::Decimal::new(1875, 2)); // 18.75
+        assert_eq!(r.0.to_string(), "18.75");
+    }
+}

@@ -1,5 +1,5 @@
-   0.024100334s  INFO prepare_target{force=false package_id=ubl-xml v0.1.0 (/Users/stephanus/Github/alltech/ubl/ubl-xml) target="ubl_xml"}: cargo::core::compiler::fingerprint: fingerprint error for ubl-xml v0.1.0 (/Users/stephanus/Github/alltech/ubl/ubl-xml)/Check { test: false }/TargetInner { name_inferred: true, ..: lib_target("ubl_xml", ["lib"], "/Users/stephanus/Github/alltech/ubl/ubl-xml/src/lib.rs", Edition2024) }
-   0.024116084s  INFO prepare_target{force=false package_id=ubl-xml v0.1.0 (/Users/stephanus/Github/alltech/ubl/ubl-xml) target="ubl_xml"}: cargo::core::compiler::fingerprint:     err: failed to read `/Users/stephanus/Github/alltech/ubl/target/debug/.fingerprint/ubl-xml-aa8dd842dde2e755/lib-ubl_xml`
+   0.073563834s  INFO prepare_target{force=false package_id=ubl-documents v0.1.0 (/Users/stephanus/Github/alltech/ubl/ubl-documents) target="ubl_documents"}: cargo::core::compiler::fingerprint: fingerprint error for ubl-documents v0.1.0 (/Users/stephanus/Github/alltech/ubl/ubl-documents)/Check { test: true }/TargetInner { name_inferred: true, ..: lib_target("ubl_documents", ["lib"], "/Users/stephanus/Github/alltech/ubl/ubl-documents/src/lib.rs", Edition2024) }
+   0.073579167s  INFO prepare_target{force=false package_id=ubl-documents v0.1.0 (/Users/stephanus/Github/alltech/ubl/ubl-documents) target="ubl_documents"}: cargo::core::compiler::fingerprint:     err: failed to read `/Users/stephanus/Github/alltech/ubl/target/debug/.fingerprint/ubl-documents-bfde0418b900a888/test-lib-ubl_documents`
 
 Caused by:
     No such file or directory (os error 2)
@@ -22,111 +22,7 @@ Stack backtrace:
   14: std::rt::lang_start::<()>::{closure#0}
   15: std::rt::lang_start_internal
   16: _main
-   0.026851584s  INFO prepare_target{force=false package_id=ubl-xml v0.1.0 (/Users/stephanus/Github/alltech/ubl/ubl-xml) target="ubl_xml"}: cargo::core::compiler::fingerprint: fingerprint error for ubl-xml v0.1.0 (/Users/stephanus/Github/alltech/ubl/ubl-xml)/Check { test: true }/TargetInner { name_inferred: true, ..: lib_target("ubl_xml", ["lib"], "/Users/stephanus/Github/alltech/ubl/ubl-xml/src/lib.rs", Edition2024) }
-   0.026857375s  INFO prepare_target{force=false package_id=ubl-xml v0.1.0 (/Users/stephanus/Github/alltech/ubl/ubl-xml) target="ubl_xml"}: cargo::core::compiler::fingerprint:     err: failed to read `/Users/stephanus/Github/alltech/ubl/target/debug/.fingerprint/ubl-xml-bb8ae2e41448679f/test-lib-ubl_xml`
-
-Caused by:
-    No such file or directory (os error 2)
-
-Stack backtrace:
-   0: <std::backtrace::Backtrace>::create
-   1: cargo_util::paths::read_bytes
-   2: cargo_util::paths::read
-   3: cargo::core::compiler::fingerprint::_compare_old_fingerprint
-   4: cargo::core::compiler::fingerprint::prepare_target
-   5: cargo::core::compiler::compile
-   6: <cargo::core::compiler::build_runner::BuildRunner>::compile
-   7: cargo::ops::cargo_compile::compile_ws
-   8: cargo::ops::cargo_compile::compile_with_exec
-   9: cargo::ops::cargo_compile::compile
-  10: cargo::commands::check::exec
-  11: <cargo::cli::Exec>::exec
-  12: cargo::main
-  13: std::sys::backtrace::__rust_begin_short_backtrace::<fn(), ()>
-  14: std::rt::lang_start::<()>::{closure#0}
-  15: std::rt::lang_start_internal
-  16: _main
-   0.027035000s  INFO prepare_target{force=false package_id=serde_json v1.0.150 target="serde_json"}: cargo::core::compiler::fingerprint: fingerprint error for serde_json v1.0.150/Check { test: false }/TargetInner { ..: lib_target("serde_json", ["lib"], "/Users/stephanus/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/serde_json-1.0.150/src/lib.rs", Edition2021) }
-   0.027039375s  INFO prepare_target{force=false package_id=serde_json v1.0.150 target="serde_json"}: cargo::core::compiler::fingerprint:     err: failed to read `/Users/stephanus/Github/alltech/ubl/target/debug/.fingerprint/serde_json-c89b6614936eedc5/lib-serde_json`
-
-Caused by:
-    No such file or directory (os error 2)
-
-Stack backtrace:
-   0: <std::backtrace::Backtrace>::create
-   1: cargo_util::paths::read_bytes
-   2: cargo_util::paths::read
-   3: cargo::core::compiler::fingerprint::_compare_old_fingerprint
-   4: cargo::core::compiler::fingerprint::prepare_target
-   5: cargo::core::compiler::compile
-   6: cargo::core::compiler::compile
-   7: <cargo::core::compiler::build_runner::BuildRunner>::compile
-   8: cargo::ops::cargo_compile::compile_ws
-   9: cargo::ops::cargo_compile::compile_with_exec
-  10: cargo::ops::cargo_compile::compile
-  11: cargo::commands::check::exec
-  12: <cargo::cli::Exec>::exec
-  13: cargo::main
-  14: std::sys::backtrace::__rust_begin_short_backtrace::<fn(), ()>
-  15: std::rt::lang_start::<()>::{closure#0}
-  16: std::rt::lang_start_internal
-  17: _main
-   0.027199584s  INFO prepare_target{force=false package_id=itoa v1.0.18 target="itoa"}: cargo::core::compiler::fingerprint: fingerprint error for itoa v1.0.18/Check { test: false }/TargetInner { ..: lib_target("itoa", ["lib"], "/Users/stephanus/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/itoa-1.0.18/src/lib.rs", Edition2021) }
-   0.027202667s  INFO prepare_target{force=false package_id=itoa v1.0.18 target="itoa"}: cargo::core::compiler::fingerprint:     err: failed to read `/Users/stephanus/Github/alltech/ubl/target/debug/.fingerprint/itoa-2d2baf64329ab09f/lib-itoa`
-
-Caused by:
-    No such file or directory (os error 2)
-
-Stack backtrace:
-   0: <std::backtrace::Backtrace>::create
-   1: cargo_util::paths::read_bytes
-   2: cargo_util::paths::read
-   3: cargo::core::compiler::fingerprint::_compare_old_fingerprint
-   4: cargo::core::compiler::fingerprint::prepare_target
-   5: cargo::core::compiler::compile
-   6: cargo::core::compiler::compile
-   7: cargo::core::compiler::compile
-   8: <cargo::core::compiler::build_runner::BuildRunner>::compile
-   9: cargo::ops::cargo_compile::compile_ws
-  10: cargo::ops::cargo_compile::compile_with_exec
-  11: cargo::ops::cargo_compile::compile
-  12: cargo::commands::check::exec
-  13: <cargo::cli::Exec>::exec
-  14: cargo::main
-  15: std::sys::backtrace::__rust_begin_short_backtrace::<fn(), ()>
-  16: std::rt::lang_start::<()>::{closure#0}
-  17: std::rt::lang_start_internal
-  18: _main
-   0.027462959s  INFO prepare_target{force=false package_id=zmij v1.0.21 target="zmij"}: cargo::core::compiler::fingerprint: fingerprint error for zmij v1.0.21/Check { test: false }/TargetInner { ..: lib_target("zmij", ["lib"], "/Users/stephanus/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/zmij-1.0.21/src/lib.rs", Edition2021) }
-   0.027465875s  INFO prepare_target{force=false package_id=zmij v1.0.21 target="zmij"}: cargo::core::compiler::fingerprint:     err: failed to read `/Users/stephanus/Github/alltech/ubl/target/debug/.fingerprint/zmij-1c2946e49c0d7246/lib-zmij`
-
-Caused by:
-    No such file or directory (os error 2)
-
-Stack backtrace:
-   0: <std::backtrace::Backtrace>::create
-   1: cargo_util::paths::read_bytes
-   2: cargo_util::paths::read
-   3: cargo::core::compiler::fingerprint::_compare_old_fingerprint
-   4: cargo::core::compiler::fingerprint::prepare_target
-   5: cargo::core::compiler::compile
-   6: cargo::core::compiler::compile
-   7: cargo::core::compiler::compile
-   8: <cargo::core::compiler::build_runner::BuildRunner>::compile
-   9: cargo::ops::cargo_compile::compile_ws
-  10: cargo::ops::cargo_compile::compile_with_exec
-  11: cargo::ops::cargo_compile::compile
-  12: cargo::commands::check::exec
-  13: <cargo::cli::Exec>::exec
-  14: cargo::main
-  15: std::sys::backtrace::__rust_begin_short_backtrace::<fn(), ()>
-  16: std::rt::lang_start::<()>::{closure#0}
-  17: std::rt::lang_start_internal
-  18: _main
-    Checking itoa v1.0.18
-    Checking zmij v1.0.21
-    Checking ubl-xml v0.1.0 (/Users/stephanus/Github/alltech/ubl/ubl-xml)
-    Checking serde_json v1.0.150
-error: could not compile `ubl-xml` (lib) due to 4 previous errors; 1 warning emitted
-warning: build failed, waiting for other jobs to finish...
-error: could not compile `ubl-xml` (lib test) due to 4 previous errors; 1 warning emitted
+    Checking ubl-documents v0.1.0 (/Users/stephanus/Github/alltech/ubl/ubl-documents)
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 3.74s
+warning: the following packages contain code that will be rejected by a future version of Rust: ubl-documents v0.1.0 (/Users/stephanus/Github/alltech/ubl/ubl-documents)
+note: to see what the problems were, use the option `--future-incompat-report`, or run `cargo report future-incompatibilities --id 10`

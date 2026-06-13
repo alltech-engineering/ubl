@@ -173,3 +173,73 @@ pub struct Invoice {
     #[serde(default)]
     pub invoice_line: Vec<InvoiceLine>,
 }
+
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+    use ubl_common::cbc;
+    use ubl_common::cac;
+
+    fn make_minimal_invoice() -> Invoice {
+        Invoice {
+            id: cbc::ID::new("INV-001"),
+            uuid: None, copy_indicator: None,
+            issue_date: cbc::IssueDate::new(chrono::NaiveDate::from_ymd_opt(2026, 6, 12).unwrap()),
+            issue_time: None, note: vec![],
+            tax_point_date: None, due_date: None,
+            invoice_type_code: None, document_currency_code: None,
+            tax_currency_code: None, pricing_currency_code: None,
+            payment_currency_code: None, payment_alternative_currency_code: None,
+            accounting_cost_code: None, accounting_cost: None,
+            line_count_numeric: None, buyer_reference: None,
+            default_language_code: None, ubl_version_id: None,
+            customization_id: None, profile_id: None, profile_execution_id: None,
+            invoice_period: vec![], order_reference: None,
+            billing_reference: vec![], despatch_document_reference: vec![],
+            delivery_note_document_reference: vec![], work_report_document_reference: vec![],
+            receipt_document_reference: vec![], statement_document_reference: vec![],
+            originator_document_reference: vec![], contract_document_reference: vec![],
+            additional_document_reference: vec![],
+            accounting_supplier_party: cac::SupplierParty {
+                customer_assigned_account_id: None, additional_account_id: vec![],
+                data_sending_capability: None, party: None,
+                despatch_contact: None, accounting_contact: None, seller_contact: None,
+            },
+            accounting_customer_party: None, payee_party: None,
+            buyer_customer_party: None, seller_supplier_party: None,
+            originator_customer_party: None, beneficiary_party: vec![],
+            tax_representative_party: None,
+            delivery: vec![], delivery_terms: None,
+            payment_means: vec![], payment_terms: vec![],
+            prepaid_payment: vec![], allowance_charge: vec![],
+            tax_exchange_rate: None, pricing_exchange_rate: None,
+            payment_exchange_rate: None, payment_alternative_exchange_rate: None,
+            tax_total: vec![],
+            legal_monetary_total: cac::LegalTotal {
+                line_extension_amount: cbc::LineExtensionAmount::new(rust_decimal::Decimal::ZERO, "ZAR"),
+                tax_exclusive_amount: None, tax_inclusive_amount: None,
+                allowance_total_amount: None, charge_total_amount: None,
+                prepaid_amount: None, payable_rounding_amount: None,
+                payable_amount: cbc::PayableAmount::new(rust_decimal::Decimal::ZERO, "ZAR"),
+            },
+            invoice_line: vec![],
+        }
+    }
+
+    #[test]
+    fn test_invoice_roundtrip() {
+        let inv = make_minimal_invoice();
+        let json = serde_json::to_string(&inv).unwrap();
+        let inv2: Invoice = serde_json::from_str(&json).unwrap();
+        assert_eq!(inv.id.value(), inv2.id.value());
+        assert_eq!(inv.issue_date.0, inv2.issue_date.0);
+    }
+
+    #[test]
+    fn test_invoice_json_contains_id() {
+        let inv = make_minimal_invoice();
+        let json = serde_json::to_string(&inv).unwrap();
+        assert!(json.contains("INV-001"));
+    }
+}

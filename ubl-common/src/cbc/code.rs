@@ -385,3 +385,36 @@ define_code!(ValueCurrencyCode, "UBL CBC type: ValueCurrencyCode.");
 define_code!(ValueUnitCode, "UBL CBC type: ValueUnitCode.");
 define_code!(WeekDayCode, "UBL CBC type: WeekDayCode.");
 define_code!(WeighingMethodCode, "UBL CBC type: WeighingMethodCode.");
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn test_code_roundtrip() {
+        let c = InvoiceTypeCode::new("380");
+        let json = serde_json::to_string(&c).unwrap();
+        let c2: InvoiceTypeCode = serde_json::from_str(&json).unwrap();
+        assert_eq!(c.value(), c2.value());
+    }
+
+    #[test]
+    fn test_code_with_list() {
+        let c = CountryCode::new("ZA");
+        assert_eq!(c.value(), "ZA");
+    }
+
+    #[test]
+    fn test_document_currency_code() {
+        let c = DocumentCurrencyCode::new("EUR");
+        let json = serde_json::to_string(&c).unwrap();
+        let c2: DocumentCurrencyCode = serde_json::from_str(&json).unwrap();
+        assert_eq!(c.value(), c2.value());
+    }
+
+    #[test]
+    fn test_payment_means_code() {
+        let c = PaymentMeansCode::new("30");
+        assert_eq!(c.value(), "30");
+    }
+}

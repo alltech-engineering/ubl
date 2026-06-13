@@ -52,3 +52,16 @@ define_binary_object!(SignatureBinaryObject, "A digital signature as binary data
 
 // --- Generated from UBL 2.5 XSD ---
 define_binary_object!(ResponseBinaryObject, "UBL CBC type: ResponseBinaryObject.");
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn test_binary_object_roundtrip() {
+        let b = EmbeddedDocumentBinaryObject::new(b"hello".to_vec(), "application/octet-stream");
+        let json = serde_json::to_string(&b).unwrap();
+        let b2: EmbeddedDocumentBinaryObject = serde_json::from_str(&json).unwrap();
+        assert_eq!(b.0.value, b2.0.value);
+    }
+}

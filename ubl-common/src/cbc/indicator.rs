@@ -138,3 +138,28 @@ define_indicator!(UnknownPriceIndicator, "UBL CBC type: UnknownPriceIndicator.")
 define_indicator!(ValidISSCIndicator, "UBL CBC type: ValidISSCIndicator.");
 define_indicator!(ValidSanitationCertificateOnBoardIndicator, "UBL CBC type: ValidSanitationCertificateOnBoardIndicator.");
 define_indicator!(WednesdayAvailabilityIndicator, "UBL CBC type: WednesdayAvailabilityIndicator.");
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn test_indicator_roundtrip() {
+        let i = CopyIndicator::new(true);
+        let json = serde_json::to_string(&i).unwrap();
+        let i2: CopyIndicator = serde_json::from_str(&json).unwrap();
+        assert_eq!(i.0, i2.0);
+    }
+
+    #[test]
+    fn test_indicator_false() {
+        let i = CopyIndicator::new(false);
+        assert!(!i.0);
+    }
+
+    #[test]
+    fn test_charge_indicator() {
+        let i = ChargeIndicator::new(true);
+        assert!(i.0);
+    }
+}

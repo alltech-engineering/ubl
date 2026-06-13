@@ -128,3 +128,28 @@ define_quantity!(TotalBallastTanksOnBoardQuantity, "UBL CBC type: TotalBallastTa
 define_quantity!(TotalDeadPersonQuantity, "UBL CBC type: TotalDeadPersonQuantity.");
 define_quantity!(TotalIllPersonQuantity, "UBL CBC type: TotalIllPersonQuantity.");
 define_quantity!(TotalPackageQuantity, "UBL CBC type: TotalPackageQuantity.");
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn test_invoiced_quantity_roundtrip() {
+        let q = InvoicedQuantity::new(rust_decimal::Decimal::new(5, 0));
+        let json = serde_json::to_string(&q).unwrap();
+        let q2: InvoicedQuantity = serde_json::from_str(&json).unwrap();
+        assert_eq!(q.value(), q2.value());
+    }
+
+    #[test]
+    fn test_quantity_defaults() {
+        let q = InvoicedQuantity::new(rust_decimal::Decimal::new(100, 0));
+        assert_eq!(q.value().to_string(), "100");
+    }
+
+    #[test]
+    fn test_quantity_fractional() {
+        let q = InvoicedQuantity::new(rust_decimal::Decimal::new(25, 1)); // 2.5
+        assert_eq!(q.value().to_string(), "2.5");
+    }
+}

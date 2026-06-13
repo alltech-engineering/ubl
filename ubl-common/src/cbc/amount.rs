@@ -146,3 +146,40 @@ define_amount!(TaxEnergyOnAccountAmount, "UBL CBC type: TaxEnergyOnAccountAmount
 define_amount!(TaxInclusiveLineExtensionAmount, "UBL CBC type: TaxInclusiveLineExtensionAmount.");
 define_amount!(TaxInclusivePriceAmount, "UBL CBC type: TaxInclusivePriceAmount.");
 define_amount!(ThresholdAmount, "UBL CBC type: ThresholdAmount.");
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn test_amount_roundtrip() {
+        let a = TaxAmount::new(rust_decimal::Decimal::new(1500, 2), "ZAR");
+        let json = serde_json::to_string(&a).unwrap();
+        let b: TaxAmount = serde_json::from_str(&json).unwrap();
+        assert_eq!(*a.value(), *b.value());
+        assert_eq!(a.currency_id(), b.currency_id());
+    }
+
+    #[test]
+    fn test_line_extension_amount() {
+        let a = LineExtensionAmount::new(rust_decimal::Decimal::new(9999, 2), "USD");
+        let json = serde_json::to_string(&a).unwrap();
+        let b: LineExtensionAmount = serde_json::from_str(&json).unwrap();
+        assert_eq!(*a.value(), *b.value());
+    }
+
+    #[test]
+    fn test_payable_amount() {
+        let a = PayableAmount::new(rust_decimal::Decimal::new(11500, 2), "ZAR");
+        assert_eq!(a.value().to_string(), "115.00");
+        assert_eq!(a.currency_id(), "ZAR");
+    }
+
+    #[test]
+    fn test_amount_defaults() {
+        let a = TaxAmount::new(rust_decimal::Decimal::ZERO, "XXX");
+        let json = serde_json::to_string(&a).unwrap();
+        assert!(json.contains("0"));
+        assert!(json.contains("XXX"));
+    }
+}
