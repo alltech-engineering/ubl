@@ -13,5 +13,5 @@
 //   - No async dependencies
 //   - Edition 2024
 
-pub mod cbc;
 pub mod cac;
+pub mod cbc;

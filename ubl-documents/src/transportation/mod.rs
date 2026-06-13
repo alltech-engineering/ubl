@@ -11,14 +11,13 @@ use ubl_common::cbc::*;
 // CAC types — declared modules
 use ubl_common::cac::delivery::{GoodsItem, Shipment};
 use ubl_common::cac::document::{DocumentDistribution, DocumentReference, Signature};
-use ubl_common::cac::exchange_rate::{ExchangeRate, Contract as ExchangeRateContract};
+use ubl_common::cac::exchange_rate::{Contract as ExchangeRateContract, ExchangeRate};
 use ubl_common::cac::party::{Location, Party};
 use ubl_common::cac::payment::PaymentTerms as PaymentTermsType;
 use ubl_common::cac::period::Period;
 use ubl_common::cac::transport::{
-    CertificateOfOriginApplication, Consignment, Endorsement,
-    GoodsItemPassportCounterfoil, Package, TransportEquipment,
-    TransportEvent, TransportExecutionTerms, TransportMeans,
+    CertificateOfOriginApplication, Consignment, Endorsement, GoodsItemPassportCounterfoil,
+    Package, TransportEquipment, TransportEvent, TransportExecutionTerms, TransportMeans,
     TransportSchedule, TransportationSegment, TransportationService,
 };
 

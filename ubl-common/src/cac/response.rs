@@ -1,10 +1,10 @@
 // UBL Response and Status aggregates.
 
-use serde::{Deserialize, Serialize};
-use crate::cbc::*;
 use crate::cac::document::DocumentReference;
 use crate::cac::line::LineReference;
 use crate::cac::party::Party;
+use crate::cbc::*;
+use serde::{Deserialize, Serialize};
 
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 pub struct Response {

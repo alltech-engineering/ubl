@@ -4,11 +4,11 @@
 // Reference: xsd/maindoc/UBL-OrderResponse-2.5.xsd
 
 use serde::{Deserialize, Serialize};
-use ubl_common::cbc::*;
 use ubl_common::cac::*;
+use ubl_common::cbc::*;
 // Disambiguate types present in both cbc and cac, or duplicated within cac.
-use ubl_common::cac::exchange_rate::ExchangeRate;
 use ubl_common::cac::address::Country;
+use ubl_common::cac::exchange_rate::ExchangeRate;
 
 /// A response to a Purchase Order (line-level detail).
 /// UBL element: OrderResponse

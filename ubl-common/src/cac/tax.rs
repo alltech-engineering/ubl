@@ -1,7 +1,7 @@
 // UBL Tax aggregates — tax schemes, categories, subtotals, and totals.
 
-use serde::{Deserialize, Serialize};
 use crate::cbc::*;
+use serde::{Deserialize, Serialize};
 
 use crate::cac::address::Address;
 
@@ -77,7 +77,13 @@ mod tests {
     use super::*;
 
     fn empty_tax_scheme() -> TaxScheme {
-        TaxScheme { id: None, tax_type_code: None, currency_code: None, name: None, jurisdiction_region_address: vec![] }
+        TaxScheme {
+            id: None,
+            tax_type_code: None,
+            currency_code: None,
+            name: None,
+            jurisdiction_region_address: vec![],
+        }
     }
 
     #[test]
@@ -96,11 +102,15 @@ mod tests {
         ts.id = Some(ID::new("VAT"));
         let tc = TaxCategory {
             id: Some(ID::new("S")),
-            supply_type_code: None, name: None,
+            supply_type_code: None,
+            name: None,
             percent: Some(Percent::new(rust_decimal::Decimal::new(15, 0))),
-            base_unit_measure: None, per_unit_amount: None,
-            tax_exemption_reason_code: None, tax_exemption_reason: vec![],
-            tier_range: None, tier_rate_percent: None,
+            base_unit_measure: None,
+            per_unit_amount: None,
+            tax_exemption_reason_code: None,
+            tax_exemption_reason: vec![],
+            tier_range: None,
+            tier_rate_percent: None,
             tax_scheme: ts,
         };
         let json = serde_json::to_string(&tc).unwrap();
@@ -114,22 +124,32 @@ mod tests {
         use rust_decimal::Decimal;
         let tt = TaxTotal {
             tax_amount: TaxAmount::new(Decimal::new(1500, 2), "ZAR"),
-            rounding_amount: None, tax_evidence_indicator: None, tax_included_indicator: None,
+            rounding_amount: None,
+            tax_evidence_indicator: None,
+            tax_included_indicator: None,
             calculation_sequence_numeric: None,
             tax_subtotal: vec![TaxSubtotal {
                 tax_amount: TaxAmount::new(Decimal::new(1500, 2), "ZAR"),
                 taxable_amount: Some(TaxableAmount::new(Decimal::new(10000, 2), "ZAR")),
-                calculation_sequence_numeric: None, transaction_currency_tax_amount: None,
+                calculation_sequence_numeric: None,
+                transaction_currency_tax_amount: None,
                 percent: Some(Percent::new(Decimal::new(15, 0))),
-                base_unit_measure: None, per_unit_amount: None,
-                tier_range: None, tier_rate_percent: None,
+                base_unit_measure: None,
+                per_unit_amount: None,
+                tier_range: None,
+                tier_rate_percent: None,
                 tax_inclusive_amount: None,
                 tax_category: TaxCategory {
-                    id: None, supply_type_code: None, name: None,
+                    id: None,
+                    supply_type_code: None,
+                    name: None,
                     percent: Some(Percent::new(Decimal::new(15, 0))),
-                    base_unit_measure: None, per_unit_amount: None,
-                    tax_exemption_reason_code: None, tax_exemption_reason: vec![],
-                    tier_range: None, tier_rate_percent: None,
+                    base_unit_measure: None,
+                    per_unit_amount: None,
+                    tax_exemption_reason_code: None,
+                    tax_exemption_reason: vec![],
+                    tier_range: None,
+                    tier_rate_percent: None,
                     tax_scheme: empty_tax_scheme(),
                 },
             }],

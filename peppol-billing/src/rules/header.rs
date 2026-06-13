@@ -149,7 +149,10 @@ pub fn add_rules(engine: &mut RuleEngine, inv: &Arc<Invoice>) {
             let inv = Arc::clone(inv);
             Box::new(move || {
                 if inv.due_date.is_none() {
-                    Err("Payment due date is missing — should be provided when payment terms apply".into())
+                    Err(
+                        "Payment due date is missing — should be provided when payment terms apply"
+                            .into(),
+                    )
                 } else {
                     Ok(())
                 }
@@ -168,9 +171,15 @@ pub fn add_rules(engine: &mut RuleEngine, inv: &Arc<Invoice>) {
                 // Notes are optional — only warn if notes exist but are all empty,
                 // or if there are no notes at all (informational).
                 if inv.note.is_empty() {
-                    Err("No invoice notes provided — consider adding context about the invoice".into())
+                    Err(
+                        "No invoice notes provided — consider adding context about the invoice"
+                            .into(),
+                    )
                 } else if inv.note.iter().all(|n| n.value().trim().is_empty()) {
-                    Err("Invoice notes are present but all are empty — provide meaningful context".into())
+                    Err(
+                        "Invoice notes are present but all are empty — provide meaningful context"
+                            .into(),
+                    )
                 } else {
                     Ok(())
                 }
@@ -297,7 +306,9 @@ mod tests {
     #[test]
     fn test_r001_profile_present_passes() {
         let mut inv = minimal_invoice();
-        inv.profile_id = Some(cbc::ProfileID::new("urn:fdc:peppol.eu:2017:poacc:billing:01:1.0"));
+        inv.profile_id = Some(cbc::ProfileID::new(
+            "urn:fdc:peppol.eu:2017:poacc:billing:01:1.0",
+        ));
         let mut engine = RuleEngine::new();
         add_rules(&mut engine, &Arc::new(inv));
         let failures = engine.evaluate_failures();
@@ -310,8 +321,11 @@ mod tests {
         let mut engine = RuleEngine::new();
         add_rules(&mut engine, &Arc::new(inv));
         let failures = engine.evaluate_failures();
-        assert!(failures.iter().any(|f| f.rule_id == "PEPPOL-EN16931-R004"
-            && f.severity == Some(Severity::Fatal)));
+        assert!(
+            failures
+                .iter()
+                .any(|f| f.rule_id == "PEPPOL-EN16931-R004" && f.severity == Some(Severity::Fatal))
+        );
     }
 
     #[test]
@@ -382,8 +396,12 @@ mod tests {
         let mut engine = RuleEngine::new();
         add_rules(&mut engine, &Arc::new(inv));
         let failures = engine.evaluate_failures();
-        assert!(failures.iter().any(|f| f.rule_id == "PEPPOL-EN16931-BT007"
-            && f.severity == Some(Severity::Warning)));
+        assert!(
+            failures
+                .iter()
+                .any(|f| f.rule_id == "PEPPOL-EN16931-BT007"
+                    && f.severity == Some(Severity::Warning))
+        );
     }
 
     #[test]
@@ -404,8 +422,12 @@ mod tests {
         let mut engine = RuleEngine::new();
         add_rules(&mut engine, &Arc::new(inv));
         let failures = engine.evaluate_failures();
-        assert!(failures.iter().any(|f| f.rule_id == "PEPPOL-EN16931-BT009"
-            && f.severity == Some(Severity::Warning)));
+        assert!(
+            failures
+                .iter()
+                .any(|f| f.rule_id == "PEPPOL-EN16931-BT009"
+                    && f.severity == Some(Severity::Warning))
+        );
     }
 
     #[test]

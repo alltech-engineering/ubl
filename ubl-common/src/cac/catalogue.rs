@@ -4,16 +4,16 @@
 //   Catalogue, CatalogueRequest, CatalogueItemSpecificationUpdate,
 //   CataloguePricingUpdate, CatalogueDeletion
 
-use serde::{Deserialize, Serialize};
 use crate::cbc::*;
+use serde::{Deserialize, Serialize};
 
-use crate::cac::item::Item;
-use crate::cac::document::DocumentReference;
-use crate::cac::period::Period;
-use crate::cac::customer::CustomerParty;
-use crate::cac::supplier::SupplierParty;
 use crate::cac::address::Address;
+use crate::cac::customer::CustomerParty;
+use crate::cac::document::DocumentReference;
+use crate::cac::item::Item;
 use crate::cac::party::Party;
+use crate::cac::period::Period;
+use crate::cac::supplier::SupplierParty;
 
 // ── CatalogueReference ────────────────────────────────────────────
 

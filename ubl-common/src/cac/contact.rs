@@ -1,7 +1,7 @@
 // UBL Contact aggregate — person or department contact information.
 
-use serde::{Deserialize, Serialize};
 use crate::cbc::*;
+use serde::{Deserialize, Serialize};
 
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 pub struct Contact {
@@ -24,7 +24,6 @@ pub struct Communication {
     pub value: Option<Text>,
 }
 
-
 #[cfg(test)]
 mod tests {
     use super::*;
@@ -32,9 +31,17 @@ mod tests {
     #[test]
     fn test_contact_roundtrip() {
         let c = Contact {
-            id: None, department: None, electronic_mail: Some(Text { value: "john@example.com".into(), language_id: None }),
-            job_title: None, name: Some(Name::new("John Doe")), note: None,
-            telefax: None, telephone: Some(Telephone::new("+27 21 555 1234")),
+            id: None,
+            department: None,
+            electronic_mail: Some(Text {
+                value: "john@example.com".into(),
+                language_id: None,
+            }),
+            job_title: None,
+            name: Some(Name::new("John Doe")),
+            note: None,
+            telefax: None,
+            telephone: Some(Telephone::new("+27 21 555 1234")),
             other_communication: vec![],
         };
         let json = serde_json::to_string(&c).unwrap();

@@ -1,13 +1,13 @@
 // UBL Delivery aggregates — delivery terms, despatch, shipment.
 
-use serde::{Deserialize, Serialize};
-use crate::cbc::*;
 use crate::cac::address::Address;
-use crate::cac::contact::Contact;
-use crate::cac::period::Period;
-use crate::cac::party::Party;
 use crate::cac::allowance::AllowanceCharge;
+use crate::cac::contact::Contact;
 use crate::cac::item::Item;
+use crate::cac::party::Party;
+use crate::cac::period::Period;
+use crate::cbc::*;
+use serde::{Deserialize, Serialize};
 
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 pub struct Delivery {

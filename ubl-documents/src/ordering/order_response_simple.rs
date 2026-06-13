@@ -4,8 +4,8 @@
 // Reference: xsd/maindoc/UBL-OrderResponseSimple-2.5.xsd
 
 use serde::{Deserialize, Serialize};
-use ubl_common::cbc::*;
 use ubl_common::cac::*;
+use ubl_common::cbc::*;
 
 /// (Deprecated) Simple accept/reject response to an Order.
 /// Use OrderResponse without OrderLines instead.

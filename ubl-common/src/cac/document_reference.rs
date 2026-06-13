@@ -75,5 +75,5 @@ pub struct ResultOfVerification {
     pub validation_time: Option<ValidationTime>,
 }
 
-use super::period::Period;
 use super::party::Party;
+use super::period::Period;

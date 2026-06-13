@@ -1,9 +1,9 @@
 // UBL Supplier Party aggregate.
 
-use serde::{Deserialize, Serialize};
-use crate::cbc::*;
 use crate::cac::contact::Contact;
 use crate::cac::party::Party;
+use crate::cbc::*;
+use serde::{Deserialize, Serialize};
 
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 pub struct SupplierParty {

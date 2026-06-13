@@ -1,7 +1,7 @@
 // UBL Payment aggregates — payment means, terms, and financial account.
 
-use serde::{Deserialize, Serialize};
 use crate::cbc::*;
+use serde::{Deserialize, Serialize};
 
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 pub struct PaymentMeans {
@@ -133,5 +133,3 @@ pub struct Payment {
     #[serde(skip_serializing_if = "Vec::is_empty", default)]
     pub note: Vec<Note>,
 }
-
-

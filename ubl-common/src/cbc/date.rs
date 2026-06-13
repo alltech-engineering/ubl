@@ -12,7 +12,11 @@ macro_rules! define_date {
         #[derive(Debug, Clone, PartialEq, Eq, PartialOrd, Ord, Serialize, Deserialize)]
         #[serde(transparent)]
         pub struct $name(pub NaiveDate);
-        impl $name { pub fn new(date: NaiveDate) -> Self { Self(date) } }
+        impl $name {
+            pub fn new(date: NaiveDate) -> Self {
+                Self(date)
+            }
+        }
     };
 }
 
@@ -36,7 +40,10 @@ define_date!(ValidityEndDate, "The end of the validity period.");
 define_date!(RegistrationDate, "The date of registration.");
 define_date!(ExpiryDate, "The expiry date.");
 define_date!(EffectiveDate, "The date something becomes effective.");
-define_date!(EffectiveEndDate, "The date something ceases to be effective.");
+define_date!(
+    EffectiveEndDate,
+    "The date something ceases to be effective."
+);
 define_date!(ApprovalDate, "The date of approval.");
 define_date!(ApplicationDate, "The date of application.");
 define_date!(AwardDate, "The date of award.");
@@ -69,7 +76,11 @@ macro_rules! define_time {
         #[derive(Debug, Clone, PartialEq, Eq, PartialOrd, Ord, Serialize, Deserialize)]
         #[serde(transparent)]
         pub struct $name(pub NaiveTime);
-        impl $name { pub fn new(time: NaiveTime) -> Self { Self(time) } }
+        impl $name {
+            pub fn new(time: NaiveTime) -> Self {
+                Self(time)
+            }
+        }
     };
 }
 
@@ -101,15 +112,17 @@ macro_rules! define_datetime {
         #[derive(Debug, Clone, PartialEq, Eq, PartialOrd, Ord, Serialize, Deserialize)]
         #[serde(transparent)]
         pub struct $name(pub NaiveDateTime);
-        impl $name { pub fn new(dt: NaiveDateTime) -> Self { Self(dt) } }
+        impl $name {
+            pub fn new(dt: NaiveDateTime) -> Self {
+                Self(dt)
+            }
+        }
     };
 }
 
 define_datetime!(DateTime, "A generic date-time.");
 define_datetime!(ExpiryDateTime, "The date-time of expiry.");
 define_datetime!(OccurrenceDateTime, "The date-time of an occurrence.");
-
-
 
 // --- Tendering-specific dates & times ---
 define_date!(LatestReplyDate, "The latest date for a reply.");
@@ -130,43 +143,97 @@ define_time!(Time, "A generic time value.");
 // --- Generated from UBL 2.5 XSD ---
 define_date!(AvailabilityDate, "UBL CBC type: AvailabilityDate.");
 define_date!(CallDate, "UBL CBC type: CallDate.");
-define_date!(ComparisonForecastIssueDate, "UBL CBC type: ComparisonForecastIssueDate.");
+define_date!(
+    ComparisonForecastIssueDate,
+    "UBL CBC type: ComparisonForecastIssueDate."
+);
 define_date!(EarliestPickupDate, "UBL CBC type: EarliestPickupDate.");
-define_date!(EstimatedDespatchDate, "UBL CBC type: EstimatedDespatchDate.");
-define_date!(FinalReexportationDate, "UBL CBC type: FinalReexportationDate.");
-define_date!(FirstShipmentAvailabilityDate, "UBL CBC type: FirstShipmentAvailabilityDate.");
-define_date!(FirstShipmentAvailibilityDate, "UBL CBC type: FirstShipmentAvailibilityDate.");
+define_date!(
+    EstimatedDespatchDate,
+    "UBL CBC type: EstimatedDespatchDate."
+);
+define_date!(
+    FinalReexportationDate,
+    "UBL CBC type: FinalReexportationDate."
+);
+define_date!(
+    FirstShipmentAvailabilityDate,
+    "UBL CBC type: FirstShipmentAvailabilityDate."
+);
+define_date!(
+    FirstShipmentAvailibilityDate,
+    "UBL CBC type: FirstShipmentAvailibilityDate."
+);
 define_date!(ISSCExpiryDate, "UBL CBC type: ISSCExpiryDate.");
 define_date!(InstallmentDueDate, "UBL CBC type: InstallmentDueDate.");
 define_date!(JoinedShipDate, "UBL CBC type: JoinedShipDate.");
-define_date!(LastDrinkingWaterAnalysisDate, "UBL CBC type: LastDrinkingWaterAnalysisDate.");
-define_date!(LatestMeterReadingDate, "UBL CBC type: LatestMeterReadingDate.");
+define_date!(
+    LastDrinkingWaterAnalysisDate,
+    "UBL CBC type: LastDrinkingWaterAnalysisDate."
+);
+define_date!(
+    LatestMeterReadingDate,
+    "UBL CBC type: LatestMeterReadingDate."
+);
 define_date!(LatestPickupDate, "UBL CBC type: LatestPickupDate.");
-define_date!(LatestProposalAcceptanceDate, "UBL CBC type: LatestProposalAcceptanceDate.");
-define_date!(LatestSecurityClearanceDate, "UBL CBC type: LatestSecurityClearanceDate.");
+define_date!(
+    LatestProposalAcceptanceDate,
+    "UBL CBC type: LatestProposalAcceptanceDate."
+);
+define_date!(
+    LatestSecurityClearanceDate,
+    "UBL CBC type: LatestSecurityClearanceDate."
+);
 define_date!(OnsetDate, "UBL CBC type: OnsetDate.");
-define_date!(PreviousMeterReadingDate, "UBL CBC type: PreviousMeterReadingDate.");
-define_date!(RegistrationExpirationDate, "UBL CBC type: RegistrationExpirationDate.");
+define_date!(
+    PreviousMeterReadingDate,
+    "UBL CBC type: PreviousMeterReadingDate."
+);
+define_date!(
+    RegistrationExpirationDate,
+    "UBL CBC type: RegistrationExpirationDate."
+);
 define_date!(RequiredDeliveryDate, "UBL CBC type: RequiredDeliveryDate.");
 define_date!(ResolutionDate, "UBL CBC type: ResolutionDate.");
-define_date!(SourceForecastIssueDate, "UBL CBC type: SourceForecastIssueDate.");
+define_date!(
+    SourceForecastIssueDate,
+    "UBL CBC type: SourceForecastIssueDate."
+);
 define_date!(VisitDate, "UBL CBC type: VisitDate.");
 define_date!(WeighingDate, "UBL CBC type: WeighingDate.");
 
 // --- Generated from UBL 2.5 XSD ---
 define_time!(CallTime, "UBL CBC type: CallTime.");
-define_time!(ComparisonForecastIssueTime, "UBL CBC type: ComparisonForecastIssueTime.");
+define_time!(
+    ComparisonForecastIssueTime,
+    "UBL CBC type: ComparisonForecastIssueTime."
+);
 define_time!(EarliestPickupTime, "UBL CBC type: EarliestPickupTime.");
 define_time!(EndTime, "UBL CBC type: EndTime.");
-define_time!(EstimatedDeliveryTime, "UBL CBC type: EstimatedDeliveryTime.");
-define_time!(EstimatedDespatchTime, "UBL CBC type: EstimatedDespatchTime.");
-define_time!(GuaranteedDespatchTime, "UBL CBC type: GuaranteedDespatchTime.");
+define_time!(
+    EstimatedDeliveryTime,
+    "UBL CBC type: EstimatedDeliveryTime."
+);
+define_time!(
+    EstimatedDespatchTime,
+    "UBL CBC type: EstimatedDespatchTime."
+);
+define_time!(
+    GuaranteedDespatchTime,
+    "UBL CBC type: GuaranteedDespatchTime."
+);
 define_time!(LatestPickupTime, "UBL CBC type: LatestPickupTime.");
 define_time!(ManufactureTime, "UBL CBC type: ManufactureTime.");
-define_time!(RequestedDespatchTime, "UBL CBC type: RequestedDespatchTime.");
+define_time!(
+    RequestedDespatchTime,
+    "UBL CBC type: RequestedDespatchTime."
+);
 define_time!(RequiredDeliveryTime, "UBL CBC type: RequiredDeliveryTime.");
 define_time!(ResolutionTime, "UBL CBC type: ResolutionTime.");
-define_time!(SourceForecastIssueTime, "UBL CBC type: SourceForecastIssueTime.");
+define_time!(
+    SourceForecastIssueTime,
+    "UBL CBC type: SourceForecastIssueTime."
+);
 define_time!(WeighingTime, "UBL CBC type: WeighingTime.");
 
 #[cfg(test)]

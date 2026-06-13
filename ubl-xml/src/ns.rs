@@ -82,7 +82,10 @@ mod tests {
         assert_eq!(to_element_name("uuid"), "UUID");
         assert_eq!(to_element_name("issue_date"), "IssueDate");
         assert_eq!(to_element_name("invoice_type_code"), "InvoiceTypeCode");
-        assert_eq!(to_element_name("line_extension_amount"), "LineExtensionAmount");
+        assert_eq!(
+            to_element_name("line_extension_amount"),
+            "LineExtensionAmount"
+        );
         assert_eq!(to_element_name("website_uri"), "WebsiteURI");
         assert_eq!(to_element_name("tax_amount"), "TaxAmount");
     }

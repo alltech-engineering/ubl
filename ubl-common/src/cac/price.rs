@@ -1,7 +1,7 @@
 // UBL Price aggregate — price with amount and quantity context.
 
-use serde::{Deserialize, Serialize};
 use crate::cbc::*;
+use serde::{Deserialize, Serialize};
 
 use crate::cac::allowance::AllowanceCharge;
 

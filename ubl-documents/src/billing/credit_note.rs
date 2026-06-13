@@ -4,23 +4,23 @@
 // Reference: UBL 2.5 XSD maindoc/UBL-CreditNote-2.5.xsd
 
 use serde::{Deserialize, Serialize};
-use ubl_common::cac::line::CreditNoteLine;
-use ubl_common::cac::discrepancy_response::DiscrepancyResponse;
-use ubl_common::cac::party::Party;
-use ubl_common::cac::supplier::SupplierParty;
+use ubl_common::cac::allowance::AllowanceCharge;
 use ubl_common::cac::customer::CustomerParty;
 use ubl_common::cac::delivery::Delivery;
 use ubl_common::cac::delivery::DeliveryTerms;
+use ubl_common::cac::discrepancy_response::DiscrepancyResponse;
+use ubl_common::cac::document::DocumentReference;
+use ubl_common::cac::exchange_rate::ExchangeRate;
+use ubl_common::cac::line::CreditNoteLine;
+use ubl_common::cac::order_reference::BillingReference;
+use ubl_common::cac::order_reference::OrderReference;
+use ubl_common::cac::party::Party;
 use ubl_common::cac::payment::PaymentMeans;
 use ubl_common::cac::payment::PaymentTerms;
-use ubl_common::cac::allowance::AllowanceCharge;
-use ubl_common::cac::exchange_rate::ExchangeRate;
+use ubl_common::cac::period::Period;
+use ubl_common::cac::supplier::SupplierParty;
 use ubl_common::cac::tax::TaxTotal;
 use ubl_common::cac::totals::LegalTotal;
-use ubl_common::cac::order_reference::OrderReference;
-use ubl_common::cac::order_reference::BillingReference;
-use ubl_common::cac::document::DocumentReference;
-use ubl_common::cac::period::Period;
 use ubl_common::cbc::*;
 
 /// A document used to reduce the amount of a previously issued invoice.

@@ -11,9 +11,9 @@
 //   - CatalogueDeletion: Cancels an entire catalogue.
 
 use serde::{Deserialize, Serialize};
-use ubl_common::cbc::*;
 use ubl_common::cac::catalogue::*;
 use ubl_common::cac::*;
+use ubl_common::cbc::*;
 
 // ── Catalogue (Document #22) ──────────────────────────────────────
 

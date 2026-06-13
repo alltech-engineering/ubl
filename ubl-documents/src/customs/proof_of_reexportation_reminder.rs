@@ -29,7 +29,8 @@ pub struct ProofOfReexportationReminder {
     pub version_id: Option<ubl_common::cbc::VersionID>,
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub goods_item_passport_id: Option<ubl_common::cbc::GoodsItemPassportID>,
-    pub proof_of_reexportation_request_document_reference: ProofOfReexportationRequestDocumentReference,
+    pub proof_of_reexportation_request_document_reference:
+        ProofOfReexportationRequestDocumentReference,
     pub importing_guarantor_party: ImportingGuarantorParty,
     pub exporting_guarantor_party: ExportingGuarantorParty,
     #[serde(default, skip_serializing_if = "Option::is_none")]

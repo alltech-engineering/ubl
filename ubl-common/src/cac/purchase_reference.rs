@@ -3,8 +3,8 @@
 //
 // UBL element: cac:PurchaseReference
 
-use serde::{Deserialize, Serialize};
 use crate::cbc::*;
+use serde::{Deserialize, Serialize};
 
 /// A reference to a purchase order (used for purchase-based lines).
 /// UBL element: cac:PurchaseReference

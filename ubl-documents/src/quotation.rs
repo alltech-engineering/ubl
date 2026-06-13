@@ -4,9 +4,9 @@
 // Generated from the authoritative XSD element declarations.
 
 use serde::{Deserialize, Serialize};
-use ubl_common::cbc::*;
 use ubl_common::cac::tendering::*;
 use ubl_common::cac::*;
+use ubl_common::cbc::*;
 
 /// RequestForQuotation — A document used to request a Quotation for goods and services from a Seller.
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]

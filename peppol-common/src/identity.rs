@@ -50,24 +50,16 @@ pub mod identities {
     /// Build a Billing 3.0 identity for a specific document type.
     pub fn billing_3_0(doc_type: &str) -> DocumentIdentity {
         DocumentIdentity {
-            customization_id: format!(
-                "urn:fdc:peppol.eu:2017:poacc:billing:3.0::2.1"
-            ),
-            profile_id: format!(
-                "urn:fdc:peppol.eu:2017:poacc:billing:01:1.0"
-            ),
+            customization_id: format!("urn:fdc:peppol.eu:2017:poacc:billing:3.0::2.1"),
+            profile_id: format!("urn:fdc:peppol.eu:2017:poacc:billing:01:1.0"),
         }
     }
 
     /// Build an Ordering 3.0 identity for a specific document type.
     pub fn ordering_3_0(doc_type: &str) -> DocumentIdentity {
         DocumentIdentity {
-            customization_id: format!(
-                "urn:fdc:peppol.eu:2017:poacc:ordering:3.0::2.1"
-            ),
-            profile_id: format!(
-                "urn:fdc:peppol.eu:2017:poacc:ordering:01:1.0"
-            ),
+            customization_id: format!("urn:fdc:peppol.eu:2017:poacc:ordering:3.0::2.1"),
+            profile_id: format!("urn:fdc:peppol.eu:2017:poacc:ordering:01:1.0"),
         }
     }
 }

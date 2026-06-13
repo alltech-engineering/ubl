@@ -1,8 +1,8 @@
 // UBL PrepaidPayment aggregate — payment made in advance.
 // UBL element: cac:PrepaidPayment
 
-use serde::{Deserialize, Serialize};
 use crate::cbc::*;
+use serde::{Deserialize, Serialize};
 
 /// A class to describe a prepaid payment.
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]

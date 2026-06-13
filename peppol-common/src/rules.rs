@@ -170,11 +170,15 @@ mod tests {
     fn test_engine() {
         let mut engine = RuleEngine::new();
         engine.add_rule(Rule {
-            id: "A".into(), description: "p".into(), severity: Severity::Error,
+            id: "A".into(),
+            description: "p".into(),
+            severity: Severity::Error,
             check: Box::new(|| Ok(())),
         });
         engine.add_rule(Rule {
-            id: "B".into(), description: "f".into(), severity: Severity::Warning,
+            id: "B".into(),
+            description: "f".into(),
+            severity: Severity::Warning,
             check: Box::new(|| Err("oops".into())),
         });
 

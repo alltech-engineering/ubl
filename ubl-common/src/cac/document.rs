@@ -6,13 +6,15 @@
 // backward compatibility with existing imports.
 // Signature is defined canonically in signature.rs.
 
-use serde::{Deserialize, Serialize};
 use crate::cbc::*;
+use serde::{Deserialize, Serialize};
 
 // Re-export the canonical definitions from document_reference
-pub use super::document_reference::{DocumentReference, Attachment, ExternalReference, ResultOfVerification};
+pub use super::document_reference::{
+    Attachment, DocumentReference, ExternalReference, ResultOfVerification,
+};
 // Re-export Signature from its canonical module
-pub use super::signature::{Signature, DigitalSignatureAttachment};
+pub use super::signature::{DigitalSignatureAttachment, Signature};
 
 // ─── DocumentDistribution ─────────────────────────────────────────────
 // UBL CAC DocumentDistributionType

@@ -1,7 +1,7 @@
 // UBL Address aggregates — physical, postal, and address lines.
 
-use serde::{Deserialize, Serialize};
 use crate::cbc::*;
+use serde::{Deserialize, Serialize};
 
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 pub struct Address {
@@ -78,21 +78,39 @@ pub struct Country {
     pub name: Option<CountryName>,
 }
 
-
 #[cfg(test)]
 mod tests {
     use super::*;
 
     fn empty_postal() -> PostalAddress {
         PostalAddress {
-            street_name: None, city_name: None, postal_zone: None, country: None,
-            id: None, address_format_code: None, address_type_code: None,
-            block_name: None, building_name: None, building_number: None,
-            city_subdivision_name: None, country_subentity: None, country_subentity_code: None,
-            department: None, description: None, district: None,
-            floor: None, inhouse_mail: None, mark_attention: None, mark_care: None,
-            plot_identification: None, postbox: None, region: None, room: None,
-            additional_street_name: None, timezone_offset: None, address_line: vec![],
+            street_name: None,
+            city_name: None,
+            postal_zone: None,
+            country: None,
+            id: None,
+            address_format_code: None,
+            address_type_code: None,
+            block_name: None,
+            building_name: None,
+            building_number: None,
+            city_subdivision_name: None,
+            country_subentity: None,
+            country_subentity_code: None,
+            department: None,
+            description: None,
+            district: None,
+            floor: None,
+            inhouse_mail: None,
+            mark_attention: None,
+            mark_care: None,
+            plot_identification: None,
+            postbox: None,
+            region: None,
+            room: None,
+            additional_street_name: None,
+            timezone_offset: None,
+            address_line: vec![],
         }
     }
 
@@ -103,7 +121,8 @@ mod tests {
         addr.city_name = Some(CityName::new("Cape Town"));
         addr.postal_zone = Some(PostalZone::new("8001"));
         addr.country = Some(Country {
-            identification_code: Some(CountryCode::new("ZA")), name: None,
+            identification_code: Some(CountryCode::new("ZA")),
+            name: None,
         });
         let json = serde_json::to_string(&addr).unwrap();
         let addr2: PostalAddress = serde_json::from_str(&json).unwrap();
@@ -112,9 +131,15 @@ mod tests {
 
     #[test]
     fn test_country_roundtrip() {
-        let c = Country { identification_code: Some(CountryCode::new("ZA")), name: None };
+        let c = Country {
+            identification_code: Some(CountryCode::new("ZA")),
+            name: None,
+        };
         let json = serde_json::to_string(&c).unwrap();
         let c2: Country = serde_json::from_str(&json).unwrap();
-        assert_eq!(c.identification_code.unwrap().value(), c2.identification_code.unwrap().value());
+        assert_eq!(
+            c.identification_code.unwrap().value(),
+            c2.identification_code.unwrap().value()
+        );
     }
 }

@@ -1,7 +1,7 @@
 // UBL Allowance and Charge aggregate.
 
-use serde::{Deserialize, Serialize};
 use crate::cbc::*;
+use serde::{Deserialize, Serialize};
 
 use crate::cac::tax::TaxCategory;
 
@@ -28,5 +28,5 @@ pub struct AllowanceCharge {
     pub payment_means: Vec<PaymentMeans>,
 }
 
-use crate::cac::tax::TaxTotal;
 use crate::cac::payment::PaymentMeans;
+use crate::cac::tax::TaxTotal;

@@ -59,10 +59,7 @@ pub fn add_rules(engine: &mut RuleEngine, inv: &Arc<Invoice>) {
             Box::new(move || {
                 for (i, line) in inv.invoice_line.iter().enumerate() {
                     if line.item.name.is_none() {
-                        return Err(format!(
-                            "Invoice line {} is missing an item name",
-                            i + 1
-                        ));
+                        return Err(format!("Invoice line {} is missing an item name", i + 1));
                     }
                 }
                 Ok(())

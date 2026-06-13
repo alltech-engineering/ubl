@@ -404,7 +404,9 @@ pub fn add_rules(engine: &mut RuleEngine, inv: &Arc<Invoice>) {
         check: {
             let inv = Arc::clone(inv);
             Box::new(move || match &inv.profile_id {
-                None => Err("ProfileID is missing — must declare a Peppol BIS Billing profile".into()),
+                None => {
+                    Err("ProfileID is missing — must declare a Peppol BIS Billing profile".into())
+                }
                 Some(pid) => {
                     let v = pid.value();
                     let known = [
@@ -433,16 +435,32 @@ pub fn add_rules(engine: &mut RuleEngine, inv: &Arc<Invoice>) {
             let inv = Arc::clone(inv);
             Box::new(move || {
                 let mut empty: Vec<&str> = Vec::new();
-                if inv.invoice_type_code.as_ref().map_or(false, |c| c.value().is_empty()) {
+                if inv
+                    .invoice_type_code
+                    .as_ref()
+                    .map_or(false, |c| c.value().is_empty())
+                {
                     empty.push("InvoiceTypeCode");
                 }
-                if inv.document_currency_code.as_ref().map_or(false, |c| c.value().is_empty()) {
+                if inv
+                    .document_currency_code
+                    .as_ref()
+                    .map_or(false, |c| c.value().is_empty())
+                {
                     empty.push("DocumentCurrencyCode");
                 }
-                if inv.customization_id.as_ref().map_or(false, |c| c.value().is_empty()) {
+                if inv
+                    .customization_id
+                    .as_ref()
+                    .map_or(false, |c| c.value().is_empty())
+                {
                     empty.push("CustomizationID");
                 }
-                if inv.profile_id.as_ref().map_or(false, |c| c.value().is_empty()) {
+                if inv
+                    .profile_id
+                    .as_ref()
+                    .map_or(false, |c| c.value().is_empty())
+                {
                     empty.push("ProfileID");
                 }
                 // Check note elements
@@ -648,7 +666,8 @@ pub fn add_rules(engine: &mut RuleEngine, inv: &Arc<Invoice>) {
                             if *unit != unit.to_uppercase() {
                                 return Err(format!(
                                     "Invoice line {} unit code '{}' should be uppercase",
-                                    i + 1, unit
+                                    i + 1,
+                                    unit
                                 ));
                             }
                         }
@@ -670,10 +689,7 @@ pub fn add_rules(engine: &mut RuleEngine, inv: &Arc<Invoice>) {
                 for (i, line) in inv.invoice_line.iter().enumerate() {
                     if let Some(ref qty) = line.invoiced_quantity {
                         if qty.0.unit_code.as_deref() == Some("") {
-                            return Err(format!(
-                                "Invoice line {} has an empty unit code",
-                                i + 1
-                            ));
+                            return Err(format!("Invoice line {} has an empty unit code", i + 1));
                         }
                     }
                 }
@@ -693,10 +709,7 @@ pub fn add_rules(engine: &mut RuleEngine, inv: &Arc<Invoice>) {
                 // Check that invoiced quantity unit code is present
                 for (i, line) in inv.invoice_line.iter().enumerate() {
                     if line.invoiced_quantity.is_none() {
-                        return Err(format!(
-                            "Invoice line {} has no invoiced quantity",
-                            i + 1
-                        ));
+                        return Err(format!("Invoice line {} has no invoiced quantity", i + 1));
                     }
                 }
                 Ok(())
@@ -718,7 +731,8 @@ pub fn add_rules(engine: &mut RuleEngine, inv: &Arc<Invoice>) {
                             if unit.len() > 5 {
                                 return Err(format!(
                                     "Invoice line {} unit code '{}' is too long (max 5 characters)",
-                                    i + 1, unit
+                                    i + 1,
+                                    unit
                                 ));
                             }
                         }
@@ -968,41 +982,36 @@ pub fn add_rules(engine: &mut RuleEngine, inv: &Arc<Invoice>) {
     // ── CL008: EndpointID scheme must be from EAS code list ─────────────
     engine.add_rule(Rule {
         id: "PEPPOL-EN16931-CL008".into(),
-        description: "EndpointID scheme must be a valid EAS (Electronic Address Scheme) code".into(),
+        description: "EndpointID scheme must be a valid EAS (Electronic Address Scheme) code"
+            .into(),
         severity: Severity::Fatal,
         check: {
             let inv = Arc::clone(inv);
             Box::new(move || {
                 // EAS code list (subset of commonly used Peppol identifiers)
                 let valid_eas = [
-                    "0002", "0009", "0037", "0051", "0057", "0060",
-                    "0088", "0096", "0097", "0106", "0130", "0135",
-                    "0141", "0183", "0184", "0190", "0191", "0192",
-                    "0193", "0195", "0196", "0198", "0199", "0200",
-                    "0201", "0202", "0203", "0204", "0205", "0206",
-                    "0207", "0208", "0209", "0210", "0211", "0212",
-                    "0213", "0214", "0215", "0216", "9906", "9907",
-                    "9910", "9913", "9914", "9915", "9918", "9919",
-                    "9920", "9922", "9923", "9924", "9925", "9926",
-                    "9927", "9928", "9929", "9930", "9931", "9932",
-                    "9933", "9934", "9935", "9936", "9937", "9938",
-                    "9939", "9940", "9941", "9942", "9943", "9944",
-                    "9945", "9946", "9947", "9948", "9949", "9950",
-                    "9951", "9952", "9953", "9954", "9955", "9956",
-                    "9957",
+                    "0002", "0009", "0037", "0051", "0057", "0060", "0088", "0096", "0097", "0106",
+                    "0130", "0135", "0141", "0183", "0184", "0190", "0191", "0192", "0193", "0195",
+                    "0196", "0198", "0199", "0200", "0201", "0202", "0203", "0204", "0205", "0206",
+                    "0207", "0208", "0209", "0210", "0211", "0212", "0213", "0214", "0215", "0216",
+                    "9906", "9907", "9910", "9913", "9914", "9915", "9918", "9919", "9920", "9922",
+                    "9923", "9924", "9925", "9926", "9927", "9928", "9929", "9930", "9931", "9932",
+                    "9933", "9934", "9935", "9936", "9937", "9938", "9939", "9940", "9941", "9942",
+                    "9943", "9944", "9945", "9946", "9947", "9948", "9949", "9950", "9951", "9952",
+                    "9953", "9954", "9955", "9956", "9957",
                 ];
-                let check_endpoint = |epid: &ubl_common::cbc::EndpointID, role: &str|
-                    -> Result<(), String> {
-                    if let Some(ref scheme) = epid.0.scheme_id {
-                        if !scheme.is_empty() && !valid_eas.contains(&scheme.as_str()) {
-                            return Err(format!(
-                                "{} EndpointID scheme '{}' is not a valid EAS code",
-                                role, scheme
-                            ));
+                let check_endpoint =
+                    |epid: &ubl_common::cbc::EndpointID, role: &str| -> Result<(), String> {
+                        if let Some(ref scheme) = epid.0.scheme_id {
+                            if !scheme.is_empty() && !valid_eas.contains(&scheme.as_str()) {
+                                return Err(format!(
+                                    "{} EndpointID scheme '{}' is not a valid EAS code",
+                                    role, scheme
+                                ));
+                            }
                         }
-                    }
-                    Ok(())
-                };
+                        Ok(())
+                    };
                 if let Some(ref party) = inv.accounting_supplier_party.party {
                     if let Some(ref epid) = party.endpoint_id {
                         check_endpoint(epid, "Supplier")?;

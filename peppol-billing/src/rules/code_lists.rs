@@ -4,8 +4,7 @@
 // Rules reference: EN16931 Schematron and Peppol BIS Billing 3.0 specification.
 
 use peppol_common::codes::{
-    currency_codes, invoice_type_codes, payment_means_codes, tax_category_codes,
-    uncl2005_codes,
+    currency_codes, invoice_type_codes, payment_means_codes, tax_category_codes, uncl2005_codes,
 };
 use peppol_common::participant::IcdCode;
 use peppol_common::rules::{Rule, RuleEngine, Severity};

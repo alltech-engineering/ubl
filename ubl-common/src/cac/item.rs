@@ -1,7 +1,7 @@
 // UBL Item aggregates — the item of sale/trade, its identification, and properties.
 
-use serde::{Deserialize, Serialize};
 use crate::cbc::*;
+use serde::{Deserialize, Serialize};
 
 use crate::cac::tax::TaxCategory;
 
@@ -102,24 +102,36 @@ pub struct CommodityClassification {
 
 use crate::cac::period::Period;
 
-
 #[cfg(test)]
 mod tests {
     use super::*;
 
     fn empty_item() -> Item {
         Item {
-            description: None, pack_quantity: None, pack_size_numeric: None,
-            catalogue_indicator: None, name: None, hazardous_risk_indicator: None,
-            additional_information: None, keyword: vec![], brand_name: vec![],
-            model_name: vec![], buyers_item_identification: None,
-            sellers_item_identification: None, manufacturers_item_identification: None,
-            standard_item_identification: None, catalogue_item_identification: None,
-            additional_item_identification: vec![], commodity_classification: vec![],
-            item_instance: vec![], item_property: vec![],
+            description: None,
+            pack_quantity: None,
+            pack_size_numeric: None,
+            catalogue_indicator: None,
+            name: None,
+            hazardous_risk_indicator: None,
+            additional_information: None,
+            keyword: vec![],
+            brand_name: vec![],
+            model_name: vec![],
+            buyers_item_identification: None,
+            sellers_item_identification: None,
+            manufacturers_item_identification: None,
+            standard_item_identification: None,
+            catalogue_item_identification: None,
+            additional_item_identification: vec![],
+            commodity_classification: vec![],
+            item_instance: vec![],
+            item_property: vec![],
             classified_tax_category: vec![],
-            item_type_code: None, warranty_information: None,
-            lifecycle_stage_code: None, lifecycle_stage_description: None,
+            item_type_code: None,
+            warranty_information: None,
+            lifecycle_stage_code: None,
+            lifecycle_stage_description: None,
         }
     }
 
@@ -130,6 +142,9 @@ mod tests {
         item.name = Some(Name::new("Widget"));
         let json = serde_json::to_string(&item).unwrap();
         let item2: Item = serde_json::from_str(&json).unwrap();
-        assert_eq!(item.description.unwrap().value(), item2.description.unwrap().value());
+        assert_eq!(
+            item.description.unwrap().value(),
+            item2.description.unwrap().value()
+        );
     }
 }

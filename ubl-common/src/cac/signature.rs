@@ -3,10 +3,10 @@
 //
 // UBL 2.5 Section 6 — UBL Digital Signatures.
 
-use serde::{Deserialize, Serialize};
-use crate::cbc::*;
 use crate::cac::document::{DocumentReference, ExternalReference};
 use crate::cac::party::Party;
+use crate::cbc::*;
+use serde::{Deserialize, Serialize};
 
 /// A signature applied to a UBL document.
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]

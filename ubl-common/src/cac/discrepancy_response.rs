@@ -1,8 +1,8 @@
 // UBL DiscrepancyResponse aggregate — response to a discrepancy.
 // UBL element: cac:DiscrepancyResponse
 
-use serde::{Deserialize, Serialize};
 use crate::cbc::*;
+use serde::{Deserialize, Serialize};
 
 /// A class to describe a response to a discrepancy in a business document.
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]

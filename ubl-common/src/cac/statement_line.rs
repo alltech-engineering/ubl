@@ -1,8 +1,8 @@
 // UBL Statement line — a line on an account statement document.
 // UBL element: cac:StatementLine
 
-use serde::{Deserialize, Serialize};
 use crate::cbc::*;
+use serde::{Deserialize, Serialize};
 
 /// A class to define a line in a Statement document.
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]

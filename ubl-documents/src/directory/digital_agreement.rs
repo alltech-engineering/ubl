@@ -26,7 +26,8 @@ pub struct DigitalAgreement {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub previous_version_id: Option<ubl_common::cbc::PreviousVersionID>,
     #[serde(default, skip_serializing_if = "Option::is_none")]
-    pub required_response_message_level_code: Option<ubl_common::cbc::RequiredResponseMessageLevelCode>,
+    pub required_response_message_level_code:
+        Option<ubl_common::cbc::RequiredResponseMessageLevelCode>,
     #[serde(default, skip_serializing_if = "Vec::is_empty")]
     pub signature: Vec<ubl_common::cac::Signature>,
     #[serde(default, skip_serializing_if = "Option::is_none")]

@@ -40,7 +40,8 @@ pub struct ProcurementStatus {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub fiscal_legislation_document_reference: Option<FiscalLegislationDocumentReference>,
     #[serde(default, skip_serializing_if = "Option::is_none")]
-    pub environmental_legislation_document_reference: Option<EnvironmentalLegislationDocumentReference>,
+    pub environmental_legislation_document_reference:
+        Option<EnvironmentalLegislationDocumentReference>,
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub employment_legislation_document_reference: Option<EmploymentLegislationDocumentReference>,
     #[serde(default, skip_serializing_if = "Vec::is_empty")]

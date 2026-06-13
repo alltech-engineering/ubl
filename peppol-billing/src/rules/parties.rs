@@ -162,14 +162,18 @@ pub fn add_rules(engine: &mut RuleEngine, inv: &Arc<Invoice>) {
             Box::new(move || match &inv.accounting_supplier_party.party {
                 None => Err("Supplier party is missing — VAT number cannot be verified".into()),
                 Some(party) => {
-                    let has_vat = party
-                        .party_tax_scheme
-                        .iter()
-                        .any(|pts| pts.company_id.as_ref().map_or(false, |cid| !cid.value().is_empty()));
+                    let has_vat = party.party_tax_scheme.iter().any(|pts| {
+                        pts.company_id
+                            .as_ref()
+                            .map_or(false, |cid| !cid.value().is_empty())
+                    });
                     if has_vat {
                         Ok(())
                     } else {
-                        Err("Supplier has no VAT number in PartyTaxScheme — should be provided".into())
+                        Err(
+                            "Supplier has no VAT number in PartyTaxScheme — should be provided"
+                                .into(),
+                        )
                     }
                 }
             })
@@ -187,7 +191,10 @@ pub fn add_rules(engine: &mut RuleEngine, inv: &Arc<Invoice>) {
                 None => Err("Supplier party is missing — legal entity cannot be verified".into()),
                 Some(party) => {
                     if party.party_legal_entity.is_empty() {
-                        Err("Supplier legal entity registration is missing — should be provided".into())
+                        Err(
+                            "Supplier legal entity registration is missing — should be provided"
+                                .into(),
+                        )
                     } else {
                         Ok(())
                     }
@@ -210,7 +217,8 @@ pub fn add_rules(engine: &mut RuleEngine, inv: &Arc<Invoice>) {
                         match &pts.tax_scheme.id {
                             None => {
                                 return Err(
-                                    "PartyTaxScheme TaxScheme ID is missing — must be \"VAT\"".into()
+                                    "PartyTaxScheme TaxScheme ID is missing — must be \"VAT\""
+                                        .into(),
                                 );
                             }
                             Some(id) if id.value() != "VAT" => {

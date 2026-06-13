@@ -1,8 +1,8 @@
 // UBL Project Reference aggregate.
 // A reference to a project to which a business document relates.
 
-use serde::{Deserialize, Serialize};
 use crate::cbc::*;
+use serde::{Deserialize, Serialize};
 
 /// A reference to a project.
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]

@@ -10,6 +10,6 @@ use crate::error::Result;
 /// Not yet implemented — returns an error.
 pub fn from_str<T>(_xml: &str) -> Result<T> {
     Err(crate::error::Error::UnexpectedStructure(
-        "XML deserialization not yet implemented".into()
+        "XML deserialization not yet implemented".into(),
     ))
 }

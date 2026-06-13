@@ -1,9 +1,9 @@
 // UBL Transaction Conditions aggregate.
 // Conditions of sale, delivery, or payment that apply to a transaction.
 
-use serde::{Deserialize, Serialize};
-use crate::cbc::*;
 use crate::cac::document::DocumentReference;
+use crate::cbc::*;
+use serde::{Deserialize, Serialize};
 
 /// Conditions that apply to the whole transaction (sale, delivery, payment).
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]

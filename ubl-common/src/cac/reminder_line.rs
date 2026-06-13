@@ -1,8 +1,8 @@
 // UBL Reminder line — a line on a payment reminder document.
 // UBL element: cac:ReminderLine
 
-use serde::{Deserialize, Serialize};
 use crate::cbc::*;
+use serde::{Deserialize, Serialize};
 
 /// A class to define a line in a Reminder document.
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]

@@ -3,8 +3,8 @@
 //
 // UBL element: cac:ItemPriceExtension
 
-use serde::{Deserialize, Serialize};
 use crate::cbc::*;
+use serde::{Deserialize, Serialize};
 
 /// Price extension for a line item — additional price detail.
 /// UBL element: cac:ItemPriceExtension

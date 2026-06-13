@@ -11,17 +11,30 @@ macro_rules! define_numeric {
         #[serde(transparent)]
         pub struct $name(pub Decimal);
         impl $name {
-            pub fn new(value: Decimal) -> Self { Self(value) }
-            pub fn value(&self) -> &Decimal { &self.0 }
+            pub fn new(value: Decimal) -> Self {
+                Self(value)
+            }
+            pub fn value(&self) -> &Decimal {
+                &self.0
+            }
         }
     };
 }
 
 define_numeric!(Numeric, "A generic numeric value.");
 define_numeric!(CalculationSequenceNumeric, "A calculation sequence number.");
-define_numeric!(OrderQuantityIncrementNumeric, "Order quantity increment numeric.");
-define_numeric!(OrderIntervalDaysNumeric, "The number of days between orders.");
-define_numeric!(MaximumPaymentInstructionsNumeric, "Maximum payment instructions numeric.");
+define_numeric!(
+    OrderQuantityIncrementNumeric,
+    "Order quantity increment numeric."
+);
+define_numeric!(
+    OrderIntervalDaysNumeric,
+    "The number of days between orders."
+);
+define_numeric!(
+    MaximumPaymentInstructionsNumeric,
+    "Maximum payment instructions numeric."
+);
 define_numeric!(MaximumValueNumeric, "Maximum value numeric.");
 define_numeric!(MinimumValueNumeric, "Minimum value numeric.");
 define_numeric!(LineNumberNumeric, "Line number numeric.");
@@ -31,7 +44,10 @@ define_numeric!(FrozenPeriodDaysNumeric, "Frozen period days numeric.");
 define_numeric!(LineCountNumeric, "Line count numeric.");
 define_numeric!(MaximumCopiesNumeric, "Maximum copies numeric.");
 define_numeric!(ReminderSequenceNumeric, "Reminder sequence numeric.");
-define_numeric!(MultiplierFactorNumeric, "A multiplier factor expressed as a numeric value.");
+define_numeric!(
+    MultiplierFactorNumeric,
+    "A multiplier factor expressed as a numeric value."
+);
 
 // --- Percent types ---
 macro_rules! define_percent {
@@ -41,8 +57,12 @@ macro_rules! define_percent {
         #[serde(transparent)]
         pub struct $name(pub Decimal);
         impl $name {
-            pub fn new(value: Decimal) -> Self { Self(value) }
-            pub fn value(&self) -> &Decimal { &self.0 }
+            pub fn new(value: Decimal) -> Self {
+                Self(value)
+            }
+            pub fn value(&self) -> &Decimal {
+                &self.0
+            }
         }
     };
 }
@@ -50,11 +70,17 @@ macro_rules! define_percent {
 define_percent!(Percent, "A generic percentage.");
 define_percent!(CompletionPercent, "The completion percentage.");
 define_percent!(ParticipationPercent, "The participation percentage.");
-define_percent!(PartecipationPercent, "Deprecated — use ParticipationPercent.");
+define_percent!(
+    PartecipationPercent,
+    "Deprecated — use ParticipationPercent."
+);
 define_percent!(PaymentPercent, "The payment percentage.");
 define_percent!(ProgressPercent, "The progress percentage.");
 define_percent!(ReliabilityPercent, "The reliability percentage.");
-define_percent!(SettlementDiscountPercent, "The settlement discount percentage.");
+define_percent!(
+    SettlementDiscountPercent,
+    "The settlement discount percentage."
+);
 define_percent!(TargetServicePercent, "The target service percentage.");
 define_percent!(AirFlowPercent, "Air flow percentage.");
 define_percent!(AvailabilityTimePercent, "Availability time percentage.");
@@ -72,8 +98,12 @@ macro_rules! define_rate {
         #[serde(transparent)]
         pub struct $name(pub Decimal);
         impl $name {
-            pub fn new(value: Decimal) -> Self { Self(value) }
-            pub fn value(&self) -> &Decimal { &self.0 }
+            pub fn new(value: Decimal) -> Self {
+                Self(value)
+            }
+            pub fn value(&self) -> &Decimal {
+                &self.0
+            }
         }
     };
 }
@@ -85,7 +115,10 @@ define_rate!(ExchangeRate, "An exchange rate.");
 define_rate!(SourceCurrencyBaseRate, "The source currency base rate.");
 define_rate!(TargetCurrencyBaseRate, "The target currency base rate.");
 define_rate!(OrderableUnitFactorRate, "Orderable unit factor rate.");
-define_rate!(PaymentAlternativeExchangeRate, "Payment alternative exchange rate.");
+define_rate!(
+    PaymentAlternativeExchangeRate,
+    "Payment alternative exchange rate."
+);
 define_rate!(PaymentExchangeRate, "Payment exchange rate.");
 define_rate!(PriceChangeRate, "Price change rate.");
 define_rate!(TaxRate, "Tax rate.");
@@ -94,22 +127,38 @@ define_rate!(ForeignExchangeRate, "Foreign exchange rate.");
 define_rate!(InsurancePremiumRate, "Insurance premium rate.");
 define_rate!(InterestRate, "Interest rate.");
 
-
-
 // --- Generated from UBL 2.5 XSD ---
 define_numeric!(ExpectedValueNumeric, "UBL CBC type: ExpectedValueNumeric.");
-define_numeric!(FissileCriticalitySafetyIndexNumeric, "UBL CBC type: FissileCriticalitySafetyIndexNumeric.");
-define_numeric!(MaximumLotsAwardedNumeric, "UBL CBC type: MaximumLotsAwardedNumeric.");
-define_numeric!(MaximumLotsSubmittedNumeric, "UBL CBC type: MaximumLotsSubmittedNumeric.");
+define_numeric!(
+    FissileCriticalitySafetyIndexNumeric,
+    "UBL CBC type: FissileCriticalitySafetyIndexNumeric."
+);
+define_numeric!(
+    MaximumLotsAwardedNumeric,
+    "UBL CBC type: MaximumLotsAwardedNumeric."
+);
+define_numeric!(
+    MaximumLotsSubmittedNumeric,
+    "UBL CBC type: MaximumLotsSubmittedNumeric."
+);
 define_numeric!(MaximumNumberNumeric, "UBL CBC type: MaximumNumberNumeric.");
-define_numeric!(MaximumOriginalsNumeric, "UBL CBC type: MaximumOriginalsNumeric.");
+define_numeric!(
+    MaximumOriginalsNumeric,
+    "UBL CBC type: MaximumOriginalsNumeric."
+);
 define_numeric!(MinimumNumberNumeric, "UBL CBC type: MinimumNumberNumeric.");
 define_numeric!(PackSizeNumeric, "UBL CBC type: PackSizeNumeric.");
-define_numeric!(ResidentOccupantsNumeric, "UBL CBC type: ResidentOccupantsNumeric.");
+define_numeric!(
+    ResidentOccupantsNumeric,
+    "UBL CBC type: ResidentOccupantsNumeric."
+);
 define_numeric!(ResponseNumeric, "UBL CBC type: ResponseNumeric.");
 define_numeric!(ScoreNumeric, "UBL CBC type: ScoreNumeric.");
 define_numeric!(SequenceNumeric, "UBL CBC type: SequenceNumeric.");
-define_numeric!(TransportIndexNumeric, "UBL CBC type: TransportIndexNumeric.");
+define_numeric!(
+    TransportIndexNumeric,
+    "UBL CBC type: TransportIndexNumeric."
+);
 define_numeric!(ValueFactorNumeric, "UBL CBC type: ValueFactorNumeric.");
 
 // --- Generated from UBL 2.5 XSD ---
@@ -118,7 +167,10 @@ define_percent!(InterestRatePercent, "UBL CBC type: InterestRatePercent.");
 define_percent!(MaximumPercent, "UBL CBC type: MaximumPercent.");
 define_percent!(MinimumPercent, "UBL CBC type: MinimumPercent.");
 define_percent!(RecyclabilityPercent, "UBL CBC type: RecyclabilityPercent.");
-define_percent!(RecycledContentPercent, "UBL CBC type: RecycledContentPercent.");
+define_percent!(
+    RecycledContentPercent,
+    "UBL CBC type: RecycledContentPercent."
+);
 
 #[cfg(test)]
 mod tests {

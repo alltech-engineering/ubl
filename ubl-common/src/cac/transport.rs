@@ -1,8 +1,8 @@
 // UBL Transport aggregates — equipment, handling units, means, and services.
 
-use serde::{Deserialize, Serialize};
-use crate::cbc::*;
 use crate::cac::party::Party;
+use crate::cbc::*;
+use serde::{Deserialize, Serialize};
 
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 pub struct TransportEquipment {
@@ -255,9 +255,9 @@ pub struct NotificationRequirement {
 }
 
 // ─── Forward declarations for cross-module types ─────────────────────
+use crate::cac::address::Country;
 use crate::cac::delivery::GoodsItem;
 use crate::cac::delivery::Shipment;
-use crate::cac::document::{DocumentReference, DocumentDistribution, Signature};
+use crate::cac::document::{DocumentDistribution, DocumentReference, Signature};
 use crate::cac::party::Location;
 use crate::cac::period::Period;
-use crate::cac::address::Country;

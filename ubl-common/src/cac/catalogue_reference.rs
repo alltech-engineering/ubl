@@ -1,8 +1,8 @@
 // UBL Catalogue Reference aggregate.
 // A reference to a Catalogue document.
 
-use serde::{Deserialize, Serialize};
 use crate::cbc::*;
+use serde::{Deserialize, Serialize};
 
 /// A reference to a Catalogue document on which a business document is based.
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]

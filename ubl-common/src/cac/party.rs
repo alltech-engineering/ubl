@@ -1,8 +1,8 @@
 // UBL Party aggregate — an individual, group, or body in a business function.
 // One of the most heavily used aggregates across all UBL document types.
 
-use serde::{Deserialize, Serialize};
 use crate::cbc::*;
+use serde::{Deserialize, Serialize};
 
 // Sibling CAC types used by Party
 use crate::cac::address::{Address, PostalAddress};
@@ -120,27 +120,37 @@ pub struct Person {
     pub role_code: Option<RoleCode>,
 }
 
-
 #[cfg(test)]
 mod tests {
     use super::*;
 
     fn empty_party() -> Party {
         Party {
-            mark_care_indicator: None, mark_attention_indicator: None,
-            website_uri: None, logo_reference_id: None, endpoint_id: None,
+            mark_care_indicator: None,
+            mark_attention_indicator: None,
+            website_uri: None,
+            logo_reference_id: None,
+            endpoint_id: None,
             industry_classification_code: None,
-            party_identification: vec![], party_name: vec![],
-            language: None, postal_address: None, physical_location: None,
-            party_tax_scheme: vec![], party_legal_entity: vec![],
-            contact: None, person: None, agent_party: None,
+            party_identification: vec![],
+            party_name: vec![],
+            language: None,
+            postal_address: None,
+            physical_location: None,
+            party_tax_scheme: vec![],
+            party_legal_entity: vec![],
+            contact: None,
+            person: None,
+            agent_party: None,
         }
     }
 
     #[test]
     fn test_party_roundtrip() {
         let mut party = empty_party();
-        party.party_name = vec![PartyName { name: Name::new("Acme Corp") }];
+        party.party_name = vec![PartyName {
+            name: Name::new("Acme Corp"),
+        }];
         let json = serde_json::to_string(&party).unwrap();
         let party2: Party = serde_json::from_str(&json).unwrap();
         assert_eq!(party.party_name[0].name.0, party2.party_name[0].name.0);
@@ -149,21 +159,34 @@ mod tests {
     #[test]
     fn test_party_with_tax_scheme() {
         let mut party = empty_party();
-        party.party_name = vec![PartyName { name: Name::new("Acme Corp") }];
+        party.party_name = vec![PartyName {
+            name: Name::new("Acme Corp"),
+        }];
         party.party_tax_scheme = vec![PartyTaxScheme {
             registration_name: Some(RegistrationName::new("Acme Corp")),
             company_id: Some(CompanyID::new("9876543210")),
-            tax_level_code: None, exemption_reason_code: None, exemption_reason: None,
+            tax_level_code: None,
+            exemption_reason_code: None,
+            exemption_reason: None,
             tax_scheme: TaxScheme {
                 id: Some(ID::new("VAT")),
                 name: Some(Name::new("VAT")),
-                tax_type_code: None, currency_code: None,
+                tax_type_code: None,
+                currency_code: None,
                 jurisdiction_region_address: vec![],
             },
         }];
         let json = serde_json::to_string(&party).unwrap();
         assert!(json.contains("VAT"));
         let party2: Party = serde_json::from_str(&json).unwrap();
-        assert_eq!(party2.party_tax_scheme[0].tax_scheme.name.as_ref().unwrap().0, "VAT");
+        assert_eq!(
+            party2.party_tax_scheme[0]
+                .tax_scheme
+                .name
+                .as_ref()
+                .unwrap()
+                .0,
+            "VAT"
+        );
     }
 }

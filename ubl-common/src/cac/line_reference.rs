@@ -4,9 +4,9 @@
 // UBL elements: cac:DespatchLineReference, cac:ReceiptLineReference,
 //   cac:WorkReportLineReference, cac:CatalogueLineReference, cac:QuotationLineReference
 
-use serde::{Deserialize, Serialize};
-use crate::cbc::*;
 use crate::cac::document_reference::DocumentReference;
+use crate::cbc::*;
+use serde::{Deserialize, Serialize};
 
 /// A reference to a Despatch Line.
 /// UBL element: cac:DespatchLineReference

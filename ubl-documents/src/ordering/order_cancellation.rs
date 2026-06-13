@@ -3,8 +3,8 @@
 // Reference: xsd/maindoc/UBL-OrderCancellation-2.5.xsd
 
 use serde::{Deserialize, Serialize};
-use ubl_common::cbc::*;
 use ubl_common::cac::*;
+use ubl_common::cbc::*;
 
 /// A cancellation of an existing Purchase Order.
 /// UBL element: OrderCancellation

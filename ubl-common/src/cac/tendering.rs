@@ -5,8 +5,8 @@
 //
 // Reference: UBL-CommonAggregateComponents-2.5.xsd
 
-use serde::{Deserialize, Serialize};
 use crate::cbc::*;
+use serde::{Deserialize, Serialize};
 
 // ─── UBL Extensions (common to all documents) ─────────────────────
 
@@ -51,8 +51,14 @@ macro_rules! party_wrapper {
 }
 
 party_wrapper!(TendererParty, "Party submitting a tender.");
-party_wrapper!(ContractingParty, "Party issuing the tender / awarding the contract.");
-party_wrapper!(EconomicOperatorParty, "Economic operator participating in the procedure.");
+party_wrapper!(
+    ContractingParty,
+    "Party issuing the tender / awarding the contract."
+);
+party_wrapper!(
+    EconomicOperatorParty,
+    "Economic operator participating in the procedure."
+);
 party_wrapper!(SubcontractorParty, "Subcontractor party.");
 party_wrapper!(OriginatorCustomerParty, "Party originating the document.");
 party_wrapper!(BeneficiaryParty, "Beneficiary party.");
@@ -60,7 +66,10 @@ party_wrapper!(BuyerCustomerParty, "Buyer / customer party.");
 party_wrapper!(SellerSupplierParty, "Seller / supplier party.");
 party_wrapper!(SenderParty, "Party sending the document.");
 party_wrapper!(ReceiverParty, "Party receiving the document.");
-party_wrapper!(DocumentProviderParty, "Party providing access to documents.");
+party_wrapper!(
+    DocumentProviderParty,
+    "Party providing access to documents."
+);
 party_wrapper!(TenderRecipientParty, "Party designated to receive tenders.");
 party_wrapper!(RequestorParty, "Party making the request.");
 party_wrapper!(ResponderParty, "Party responding to the request.");
@@ -79,29 +88,83 @@ macro_rules! doc_ref_newtype {
     };
 }
 
-doc_ref_newtype!(CallForTenderDocumentReference, "Reference to a CallForTenders document.");
+doc_ref_newtype!(
+    CallForTenderDocumentReference,
+    "Reference to a CallForTenders document."
+);
 doc_ref_newtype!(TenderDocumentReference, "Reference to a Tender document.");
-doc_ref_newtype!(TenderNotificationDocumentReference, "Reference to a tender notification.");
-doc_ref_newtype!(TenderStatusInquiryDocumentReference, "Reference to a tender status inquiry.");
-doc_ref_newtype!(TendererQualificationDocumentReference, "Reference to a qualification document.");
-doc_ref_newtype!(ProcurementLegislationDocumentReference, "Reference to procurement legislation.");
-doc_ref_newtype!(FiscalLegislationDocumentReference, "Reference to fiscal legislation.");
-doc_ref_newtype!(EnvironmentalLegislationDocumentReference, "Reference to environmental legislation.");
-doc_ref_newtype!(EmploymentLegislationDocumentReference, "Reference to employment legislation.");
+doc_ref_newtype!(
+    TenderNotificationDocumentReference,
+    "Reference to a tender notification."
+);
+doc_ref_newtype!(
+    TenderStatusInquiryDocumentReference,
+    "Reference to a tender status inquiry."
+);
+doc_ref_newtype!(
+    TendererQualificationDocumentReference,
+    "Reference to a qualification document."
+);
+doc_ref_newtype!(
+    ProcurementLegislationDocumentReference,
+    "Reference to procurement legislation."
+);
+doc_ref_newtype!(
+    FiscalLegislationDocumentReference,
+    "Reference to fiscal legislation."
+);
+doc_ref_newtype!(
+    EnvironmentalLegislationDocumentReference,
+    "Reference to environmental legislation."
+);
+doc_ref_newtype!(
+    EmploymentLegislationDocumentReference,
+    "Reference to employment legislation."
+);
 doc_ref_newtype!(LegalDocumentReference, "Reference to a legal document.");
-doc_ref_newtype!(TechnicalDocumentReference, "Reference to a technical document.");
-doc_ref_newtype!(RequiredDocumentReference, "Reference to a required document.");
-doc_ref_newtype!(ProvidedDocumentReference, "Reference to a provided document.");
-doc_ref_newtype!(ResolutionDocumentReference, "Reference to a resolution document.");
-doc_ref_newtype!(RequestForQuotationDocumentReference, "Reference to a RequestForQuotation.");
+doc_ref_newtype!(
+    TechnicalDocumentReference,
+    "Reference to a technical document."
+);
+doc_ref_newtype!(
+    RequiredDocumentReference,
+    "Reference to a required document."
+);
+doc_ref_newtype!(
+    ProvidedDocumentReference,
+    "Reference to a provided document."
+);
+doc_ref_newtype!(
+    ResolutionDocumentReference,
+    "Reference to a resolution document."
+);
+doc_ref_newtype!(
+    RequestForQuotationDocumentReference,
+    "Reference to a RequestForQuotation."
+);
 doc_ref_newtype!(MinutesDocumentReference, "Reference to meeting minutes.");
-doc_ref_newtype!(PreviousDocumentReference, "Reference to a previous document.");
-doc_ref_newtype!(AdditionalDocumentReference, "Reference to an additional supporting document.");
+doc_ref_newtype!(
+    PreviousDocumentReference,
+    "Reference to a previous document."
+);
+doc_ref_newtype!(
+    AdditionalDocumentReference,
+    "Reference to an additional supporting document."
+);
 doc_ref_newtype!(ParentDocumentReference, "Reference to the parent document.");
-doc_ref_newtype!(ExpressionOfInterestDocumentReference, "Reference to an ExpressionOfInterest.");
-doc_ref_newtype!(UnsubscribeToProcedureDocumentReference, "Reference to an unsubscribe document.");
+doc_ref_newtype!(
+    ExpressionOfInterestDocumentReference,
+    "Reference to an ExpressionOfInterest."
+);
+doc_ref_newtype!(
+    UnsubscribeToProcedureDocumentReference,
+    "Reference to an unsubscribe document."
+);
 doc_ref_newtype!(CatalogueDocumentReference, "Reference to a Catalogue.");
-doc_ref_newtype!(ContractDocumentReference, "Reference to a Contract document.");
+doc_ref_newtype!(
+    ContractDocumentReference,
+    "Reference to a Contract document."
+);
 
 // ─── Period specializations ──────────────────────────────────────────
 
@@ -118,9 +181,18 @@ macro_rules! period_newtype {
 
 period_newtype!(ValidityPeriod, "Period during which something is valid.");
 period_newtype!(RequestedValidityPeriod, "Requested validity period.");
-period_newtype!(TenderSubmissionDeadlinePeriod, "Deadline for tender submission.");
-period_newtype!(InvitationSubmissionPeriod, "Period for submitting invitations.");
-period_newtype!(ParticipationRequestReceptionPeriod, "Period for receiving participation requests.");
+period_newtype!(
+    TenderSubmissionDeadlinePeriod,
+    "Deadline for tender submission."
+);
+period_newtype!(
+    InvitationSubmissionPeriod,
+    "Period for submitting invitations."
+);
+period_newtype!(
+    ParticipationRequestReceptionPeriod,
+    "Period for receiving participation requests."
+);
 period_newtype!(FrequencyPeriod, "Frequency period for notices.");
 period_newtype!(NominationPeriod, "Nomination period.");
 

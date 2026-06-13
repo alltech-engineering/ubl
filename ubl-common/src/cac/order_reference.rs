@@ -1,8 +1,8 @@
 // UBL Order and Billing Reference aggregates.
 
-use serde::{Deserialize, Serialize};
-use crate::cbc::*;
 use crate::cac::document::DocumentReference;
+use crate::cbc::*;
+use serde::{Deserialize, Serialize};
 
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 pub struct OrderReference {

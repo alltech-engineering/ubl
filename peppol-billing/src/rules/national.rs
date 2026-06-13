@@ -38,7 +38,9 @@ pub fn add_rules(engine: &mut RuleEngine, inv: &Arc<Invoice>) {
                     return Ok(());
                 }
                 match &inv.accounting_supplier_party.party {
-                    None => Err("DK supplier party is missing — CVR number cannot be verified".into()),
+                    None => {
+                        Err("DK supplier party is missing — CVR number cannot be verified".into())
+                    }
                     Some(party) => {
                         let has_cvr = party.party_legal_entity.iter().any(|ple| {
                             ple.company_id
@@ -156,7 +158,8 @@ pub fn add_rules(engine: &mut RuleEngine, inv: &Arc<Invoice>) {
                         None => Ok(()),
                         Some(party) => {
                             if party.party_identification.is_empty() {
-                                Err("DK customer party present but missing PartyIdentification".into())
+                                Err("DK customer party present but missing PartyIdentification"
+                                    .into())
                             } else {
                                 Ok(())
                             }
@@ -472,7 +475,10 @@ pub fn add_rules(engine: &mut RuleEngine, inv: &Arc<Invoice>) {
                         if has_vat {
                             Ok(())
                         } else {
-                            Err("IT supplier must have VAT number (Partita IVA) in PartyTaxScheme".into())
+                            Err(
+                                "IT supplier must have VAT number (Partita IVA) in PartyTaxScheme"
+                                    .into(),
+                            )
                         }
                     }
                 }
@@ -557,11 +563,34 @@ pub fn add_rules(engine: &mut RuleEngine, inv: &Arc<Invoice>) {
                         // Italian FatturaPA type codes: TD01-TD28
                         let valid = matches!(
                             code,
-                            "TD01" | "TD02" | "TD03" | "TD04" | "TD05" | "TD06"
-                                | "TD07" | "TD08" | "TD09" | "TD10" | "TD11" | "TD12"
-                                | "TD13" | "TD14" | "TD15" | "TD16" | "TD17" | "TD18"
-                                | "TD19" | "TD20" | "TD21" | "TD22" | "TD23" | "TD24"
-                                | "TD25" | "TD26" | "TD27" | "TD28"
+                            "TD01"
+                                | "TD02"
+                                | "TD03"
+                                | "TD04"
+                                | "TD05"
+                                | "TD06"
+                                | "TD07"
+                                | "TD08"
+                                | "TD09"
+                                | "TD10"
+                                | "TD11"
+                                | "TD12"
+                                | "TD13"
+                                | "TD14"
+                                | "TD15"
+                                | "TD16"
+                                | "TD17"
+                                | "TD18"
+                                | "TD19"
+                                | "TD20"
+                                | "TD21"
+                                | "TD22"
+                                | "TD23"
+                                | "TD24"
+                                | "TD25"
+                                | "TD26"
+                                | "TD27"
+                                | "TD28"
                         );
                         if valid {
                             Ok(())
@@ -603,7 +632,10 @@ pub fn add_rules(engine: &mut RuleEngine, inv: &Arc<Invoice>) {
                         if has_orgnr {
                             Ok(())
                         } else {
-                            Err("NO supplier must have organisation number in PartyLegalEntity".into())
+                            Err(
+                                "NO supplier must have organisation number in PartyLegalEntity"
+                                    .into(),
+                            )
                         }
                     }
                 }
@@ -868,8 +900,10 @@ pub fn add_rules(engine: &mut RuleEngine, inv: &Arc<Invoice>) {
                             Some(zone) => {
                                 let v = zone.value();
                                 // Swedish postal codes: 5 digits, may have space (e.g., "123 45")
-                                let digits: String = v.chars().filter(|c| !c.is_whitespace()).collect();
-                                if digits.len() != 5 || !digits.chars().all(|c| c.is_ascii_digit()) {
+                                let digits: String =
+                                    v.chars().filter(|c| !c.is_whitespace()).collect();
+                                if digits.len() != 5 || !digits.chars().all(|c| c.is_ascii_digit())
+                                {
                                     Err(format!(
                                         "SE postal zone '{}' is invalid — must be 5 digits",
                                         v
@@ -1129,9 +1163,28 @@ pub fn add_rules(engine: &mut RuleEngine, inv: &Arc<Invoice>) {
                     Some(tc) => {
                         let code = tc.value();
                         // Greek MyData invoice types
-                        let valid = matches!(code, "1.1" | "1.2" | "1.3" | "1.4" | "1.5" | "1.6"
-                            | "2.1" | "2.2" | "2.3" | "2.4" | "5.1" | "5.2"
-                            | "380" | "381" | "383" | "384" | "385" | "386" | "388");
+                        let valid = matches!(
+                            code,
+                            "1.1"
+                                | "1.2"
+                                | "1.3"
+                                | "1.4"
+                                | "1.5"
+                                | "1.6"
+                                | "2.1"
+                                | "2.2"
+                                | "2.3"
+                                | "2.4"
+                                | "5.1"
+                                | "5.2"
+                                | "380"
+                                | "381"
+                                | "383"
+                                | "384"
+                                | "385"
+                                | "386"
+                                | "388"
+                        );
                         if valid {
                             Ok(())
                         } else {
@@ -1428,7 +1481,8 @@ pub fn add_rules(engine: &mut RuleEngine, inv: &Arc<Invoice>) {
                                     // Icelandic VAT: 5 or 6 digits
                                     let digits_only: String =
                                         v.chars().filter(|c| !c.is_whitespace()).collect();
-                                    if digits_only.len() < 5 || digits_only.len() > 6
+                                    if digits_only.len() < 5
+                                        || digits_only.len() > 6
                                         || !digits_only.chars().all(|c| c.is_ascii_digit())
                                     {
                                         return Err(format!(
@@ -1969,9 +2023,7 @@ mod tests {
     use rust_decimal::Decimal;
     use std::sync::Arc;
     use ubl_common::cac::address::{Country, PostalAddress};
-    use ubl_common::cac::party::{
-        Party, PartyIdentification, PartyLegalEntity, PartyTaxScheme,
-    };
+    use ubl_common::cac::party::{Party, PartyIdentification, PartyLegalEntity, PartyTaxScheme};
     use ubl_common::cac::tax::TaxScheme;
     use ubl_common::cbc;
     use ubl_common::cbc::*;
@@ -2172,8 +2224,11 @@ mod tests {
         let mut engine = RuleEngine::new();
         add_rules(&mut engine, &Arc::new(inv));
         let failures = engine.evaluate_failures();
-        assert!(failures.iter().any(|f| f.rule_id == "PEPPOL-DK-R-002"
-            && f.severity == Some(Severity::Fatal)));
+        assert!(
+            failures
+                .iter()
+                .any(|f| f.rule_id == "PEPPOL-DK-R-002" && f.severity == Some(Severity::Fatal))
+        );
     }
 
     #[test]

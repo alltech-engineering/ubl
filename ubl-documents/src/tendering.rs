@@ -4,9 +4,9 @@
 // Generated from the authoritative XSD element declarations.
 
 use serde::{Deserialize, Serialize};
-use ubl_common::cbc::*;
 use ubl_common::cac::tendering::*;
 use ubl_common::cac::*;
+use ubl_common::cbc::*;
 
 /// Tender — UBL 2.5 document type.
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
@@ -138,7 +138,8 @@ pub struct TenderStatus {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub fiscal_legislation_document_reference: Option<FiscalLegislationDocumentReference>,
     #[serde(default, skip_serializing_if = "Option::is_none")]
-    pub environmental_legislation_document_reference: Option<EnvironmentalLegislationDocumentReference>,
+    pub environmental_legislation_document_reference:
+        Option<EnvironmentalLegislationDocumentReference>,
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub employment_legislation_document_reference: Option<EmploymentLegislationDocumentReference>,
     #[serde(default, skip_serializing_if = "Vec::is_empty")]
@@ -968,7 +969,8 @@ pub struct UnsubscribeFromProcedureResponse {
     #[serde(default, skip_serializing_if = "Vec::is_empty")]
     pub note: Vec<Note>,
     #[serde(default, skip_serializing_if = "Option::is_none")]
-    pub unsubscribe_to_procedure_document_reference: Option<UnsubscribeToProcedureDocumentReference>,
+    pub unsubscribe_to_procedure_document_reference:
+        Option<UnsubscribeToProcedureDocumentReference>,
     #[serde(default, skip_serializing_if = "Vec::is_empty")]
     pub signature: Vec<Signature>,
     pub economic_operator_party: EconomicOperatorParty,
@@ -1051,4 +1053,3 @@ pub struct EnquiryResponse {
     #[serde(default, skip_serializing_if = "Vec::is_empty")]
     pub attachment: Vec<Attachment>,
 }
-

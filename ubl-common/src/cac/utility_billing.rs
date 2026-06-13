@@ -1,8 +1,8 @@
 // UBL SubscriberConsumption — consumption data for utility billing.
 // UBL element: cac:SubscriberConsumption
 
-use serde::{Deserialize, Serialize};
 use crate::cbc::*;
+use serde::{Deserialize, Serialize};
 
 /// A class to describe the consumption of a utility by a subscriber.
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]

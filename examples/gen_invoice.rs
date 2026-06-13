@@ -1,5 +1,5 @@
-use ubl_xml::ser::to_string;
 use ubl_documents::billing::Invoice;
+use ubl_xml::ser::to_string;
 
 fn main() {
     let json = r#"{

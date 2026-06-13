@@ -1,8 +1,8 @@
 // UBL RemittanceAdvice line — a line on a remittance advice document.
 // UBL element: cac:RemittanceAdviceLine
 
-use serde::{Deserialize, Serialize};
 use crate::cbc::*;
+use serde::{Deserialize, Serialize};
 
 /// A class to define a line in a RemittanceAdvice document.
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
