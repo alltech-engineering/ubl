@@ -6,6 +6,7 @@ members = [
     "ubl-xml",
     "peppol-common",
     "peppol-billing",
+    "peppol-ordering",
 ]
 
 [workspace.dependencies]
