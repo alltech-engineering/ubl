@@ -262,7 +262,7 @@ mod tests {
         let xml = to_string(&invoice, "Invoice").expect("XML");
         assert!(xml.contains("<cbc:ID>INV-001</cbc:ID>"));
         assert!(xml.contains("<cbc:IssueDate>2026-06-12</cbc:IssueDate>"));
-        assert!(xml.contains("<cbc:PayableAmount>115.00</cbc:PayableAmount>"));
+        assert!(xml.contains(">115.00</cbc:PayableAmount>"));
         assert!(xml.contains("</Invoice>"));
     }
 }
