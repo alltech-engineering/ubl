@@ -5,7 +5,9 @@
 
 use peppol_common::codes::{
     currency_codes, invoice_type_codes, payment_means_codes, tax_category_codes,
+    uncl2005_codes,
 };
+use peppol_common::participant::IcdCode;
 use peppol_common::rules::{Rule, RuleEngine, Severity};
 use std::sync::Arc;
 use ubl_documents::billing::Invoice;
@@ -116,6 +118,98 @@ pub fn add_rules(engine: &mut RuleEngine, inv: &Arc<Invoice>) {
                         ))
                     }
                 }
+            })
+        },
+    });
+
+    // ── CL006: InvoicePeriod DescriptionCode from UNCL2005 subset ─────────
+    engine.add_rule(Rule {
+        id: "PEPPOL-EN16931-CL006".into(),
+        description: "InvoicePeriod DescriptionCode must be from UNCL2005 subset".into(),
+        severity: Severity::Fatal,
+        check: {
+            let inv = Arc::clone(inv);
+            Box::new(move || {
+                for (i, period) in inv.invoice_period.iter().enumerate() {
+                    for (j, dc) in period.description_code.iter().enumerate() {
+                        if !uncl2005_codes().is_valid(&dc.value) {
+                            return Err(format!(
+                                "InvoicePeriod[{}].DescriptionCode[{}] '{}' is not a valid UNCL2005 code",
+                                i + 1,
+                                j + 1,
+                                dc.value
+                            ));
+                        }
+                    }
+                }
+                Ok(())
+            })
+        },
+    });
+
+    // ── CL007: InvoicePeriod DescriptionCode format validation ────────────
+    // UNCL2005 codes must be numeric-only values.
+    engine.add_rule(Rule {
+        id: "PEPPOL-EN16931-CL007".into(),
+        description: "InvoicePeriod DescriptionCode must be numeric".into(),
+        severity: Severity::Fatal,
+        check: {
+            let inv = Arc::clone(inv);
+            Box::new(move || {
+                for (i, period) in inv.invoice_period.iter().enumerate() {
+                    for (j, dc) in period.description_code.iter().enumerate() {
+                        if !dc.value.chars().all(|c| c.is_ascii_digit()) {
+                            return Err(format!(
+                                "InvoicePeriod[{}].DescriptionCode[{}] '{}' is not numeric (UNCL2005 codes are numeric)",
+                                i + 1,
+                                j + 1,
+                                dc.value
+                            ));
+                        }
+                    }
+                }
+                Ok(())
+            })
+        },
+    });
+
+    // ── CL008: EndpointID schemeID must be from EAS code list ────────────
+    engine.add_rule(Rule {
+        id: "PEPPOL-EN16931-CL008".into(),
+        description: "EndpointID @schemeID must be a valid EAS code".into(),
+        severity: Severity::Fatal,
+        check: {
+            let inv = Arc::clone(inv);
+            Box::new(move || {
+                // Check supplier party endpoint_id
+                if let Some(ref party) = inv.accounting_supplier_party.party {
+                    if let Some(ref epid) = party.endpoint_id {
+                        if let Some(ref scheme_id) = epid.0.scheme_id {
+                            if IcdCode::by_eas(scheme_id).is_none() {
+                                return Err(format!(
+                                    "Supplier EndpointID schemeID '{}' is not a valid EAS code",
+                                    scheme_id
+                                ));
+                            }
+                        }
+                    }
+                }
+                // Check customer party endpoint_id
+                if let Some(ref customer) = inv.accounting_customer_party {
+                    if let Some(ref party) = customer.party {
+                        if let Some(ref epid) = party.endpoint_id {
+                            if let Some(ref scheme_id) = epid.0.scheme_id {
+                                if IcdCode::by_eas(scheme_id).is_none() {
+                                    return Err(format!(
+                                        "Customer EndpointID schemeID '{}' is not a valid EAS code",
+                                        scheme_id
+                                    ));
+                                }
+                            }
+                        }
+                    }
+                }
+                Ok(())
             })
         },
     });

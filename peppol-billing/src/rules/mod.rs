@@ -4,8 +4,10 @@
 // Rules use Arc<Invoice> for zero-copy evaluation.
 
 pub mod code_lists;
+pub mod constraints;
 pub mod header;
 pub mod lines;
+pub mod national;
 pub mod parties;
 pub mod tax_calc;
 pub mod za;
@@ -24,6 +26,8 @@ pub fn billing_rules(invoice: &Invoice) -> RuleEngine {
     lines::add_rules(&mut engine, &inv);
     tax_calc::add_rules(&mut engine, &inv);
     code_lists::add_rules(&mut engine, &inv);
+    constraints::add_rules(&mut engine, &inv);
+    national::add_rules(&mut engine, &inv);
     za::add_rules(&mut engine, &inv);
 
     engine

@@ -107,4 +107,87 @@ pub fn add_rules(engine: &mut RuleEngine, inv: &Arc<Invoice>) {
             })
         },
     });
+
+    // ── R044: Document-level AllowanceCharge must have reason code ──────
+    engine.add_rule(Rule {
+        id: "PEPPOL-EN16931-R044".into(),
+        description: "Document-level AllowanceCharge must have a reason code".into(),
+        severity: Severity::Fatal,
+        check: {
+            let inv = Arc::clone(inv);
+            Box::new(move || {
+                for (i, ac) in inv.allowance_charge.iter().enumerate() {
+                    if ac.allowance_charge_reason_code.is_none() {
+                        return Err(format!(
+                            "AllowanceCharge[{}] is missing a reason code",
+                            i + 1
+                        ));
+                    }
+                }
+                Ok(())
+            })
+        },
+    });
+
+    // ── R046: Document-level Charge must have reason code ────────────────
+    // Only applies to charges (charge_indicator = true)
+    engine.add_rule(Rule {
+        id: "PEPPOL-EN16931-R046".into(),
+        description: "Document-level Charge must have a reason code".into(),
+        severity: Severity::Fatal,
+        check: {
+            let inv = Arc::clone(inv);
+            Box::new(move || {
+                for (i, ac) in inv.allowance_charge.iter().enumerate() {
+                    if ac.charge_indicator.is_true() {
+                        if ac.allowance_charge_reason_code.is_none() {
+                            return Err(format!(
+                                "AllowanceCharge[{}] is a charge but is missing a reason code",
+                                i + 1
+                            ));
+                        }
+                    }
+                }
+                Ok(())
+            })
+        },
+    });
+
+    // ── R080: CreditNote must reference original invoice ─────────────────
+    // When InvoiceTypeCode is 381 (Credit Note), a BillingReference with
+    // an InvoiceDocumentReference ID must be present.
+    engine.add_rule(Rule {
+        id: "PEPPOL-EN16931-R080".into(),
+        description: "CreditNote must reference the original invoice via BillingReference".into(),
+        severity: Severity::Fatal,
+        check: {
+            let inv = Arc::clone(inv);
+            Box::new(move || {
+                // Only applies to credit notes
+                let is_credit_note = inv
+                    .invoice_type_code
+                    .as_ref()
+                    .map_or(false, |tc| tc.value() == "381");
+                if !is_credit_note {
+                    return Ok(());
+                }
+                // Check that at least one billing_reference has an
+                // invoice_document_reference with a non-empty ID.
+                let has_ref = inv.billing_reference.iter().any(|br| {
+                    br.invoice_document_reference
+                        .as_ref()
+                        .and_then(|dr| dr.id.as_ref())
+                        .map_or(false, |id| !id.value().is_empty())
+                });
+                if has_ref {
+                    Ok(())
+                } else {
+                    Err(
+                        "CreditNote must reference the original invoice via BillingReference/InvoiceDocumentReference/ID"
+                            .into(),
+                    )
+                }
+            })
+        },
+    });
 }

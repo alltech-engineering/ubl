@@ -91,6 +91,15 @@ pub fn payment_means_codes() -> CodeList {
     ])
 }
 
+/// UNCL 2005 — Date/Time/Period Qualifier Codes (Peppol Billing 3.0 subset)
+pub fn uncl2005_codes() -> CodeList {
+    CodeList::new("UNCL2005-DateTimePeriodQualifier", vec![
+        CodeEntry { code: "3".into(), name: "Invoice period".into(), description: None },
+        CodeEntry { code: "35".into(), name: "Delivery date/time, actual".into(), description: None },
+        CodeEntry { code: "432".into(), name: "Paid to date".into(), description: None },
+    ])
+}
+
 /// ISO 4217 Currency Codes (most commonly used subset)
 pub fn currency_codes() -> CodeList {
     CodeList::new("ISO4217-Currency", vec![
