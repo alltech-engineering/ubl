@@ -7,13 +7,22 @@
 // These rules go beyond XSD validation — they check business logic,
 // cross-field consistency, and Peppol-specific requirements.
 
+use std::sync::Arc;
 use peppol_common::rules::{Rule, RuleEngine, Severity};
 use ubl_documents::billing::Invoice;
 
 /// Build the complete rule set for Peppol BIS Billing 3.0.
 pub fn billing_rules(invoice: &Invoice) -> RuleEngine {
     let mut engine = RuleEngine::new();
+    let inv = Arc::new(invoice.clone());
 
+    add_en16931_rules(&mut engine, &inv);
+    add_peppol_rules(&mut engine, &inv);
+
+    engine
+}
+
+fn add_en16931_rules(engine: &mut RuleEngine, inv: &Arc<Invoice>) {
     // ── EN 16931 Core Rules ──
 
     // BT-1: Invoice number MUST be present
@@ -22,9 +31,9 @@ pub fn billing_rules(invoice: &Invoice) -> RuleEngine {
         description: "Invoice number must be present".into(),
         severity: Severity::Fatal,
         check: {
-            let id = invoice.id.clone();
+            let inv = Arc::clone(inv);
             Box::new(move || {
-                if id.value().is_empty() {
+                if inv.id.value().is_empty() {
                     Err("Invoice ID is empty".into())
                 } else {
                     Ok(())
@@ -47,9 +56,9 @@ pub fn billing_rules(invoice: &Invoice) -> RuleEngine {
         description: "Document currency code must be present".into(),
         severity: Severity::Fatal,
         check: {
-            let dcc = invoice.document_currency_code.clone();
+            let inv = Arc::clone(inv);
             Box::new(move || {
-                match &dcc {
+                match &inv.document_currency_code {
                     Some(c) if !c.value().is_empty() => Ok(()),
                     _ => Err("Document currency code is missing or empty".into()),
                 }
@@ -63,9 +72,9 @@ pub fn billing_rules(invoice: &Invoice) -> RuleEngine {
         description: "Invoice type code should be present for clarity".into(),
         severity: Severity::Warning,
         check: {
-            let itc = invoice.invoice_type_code.clone();
+            let inv = Arc::clone(inv);
             Box::new(move || {
-                match &itc {
+                match &inv.invoice_type_code {
                     Some(_) => Ok(()),
                     None => Err("Invoice type code is not specified".into()),
                 }
@@ -79,9 +88,9 @@ pub fn billing_rules(invoice: &Invoice) -> RuleEngine {
         description: "Seller name must be present".into(),
         severity: Severity::Fatal,
         check: {
-            let party = invoice.accounting_supplier_party.clone();
+            let inv = Arc::clone(inv);
             Box::new(move || {
-                if let Some(ref p) = party.party {
+                if let Some(ref p) = inv.accounting_supplier_party.party {
                     if p.party_name.is_empty() {
                         Err("Supplier has no party name".into())
                     } else {
@@ -93,7 +102,9 @@ pub fn billing_rules(invoice: &Invoice) -> RuleEngine {
             })
         },
     });
+}
 
+fn add_peppol_rules(engine: &mut RuleEngine, inv: &Arc<Invoice>) {
     // ── Peppol BIS Billing 3.0 Specific Rules ──
 
     // PEPPOL-1: AccountingSupplierParty MUST have a PartyIdentification with scheme
@@ -102,9 +113,9 @@ pub fn billing_rules(invoice: &Invoice) -> RuleEngine {
         description: "Supplier must have a Peppol participant identifier".into(),
         severity: Severity::Error,
         check: {
-            let party = invoice.accounting_supplier_party.clone();
+            let inv = Arc::clone(inv);
             Box::new(move || {
-                if let Some(ref p) = party.party {
+                if let Some(ref p) = inv.accounting_supplier_party.party {
                     if p.party_identification.is_empty() {
                         Err("Supplier has no party identification (Peppol participant ID required)".into())
                     } else {
@@ -123,9 +134,9 @@ pub fn billing_rules(invoice: &Invoice) -> RuleEngine {
         description: "Customer should have a Peppol participant identifier".into(),
         severity: Severity::Warning,
         check: {
-            let party = invoice.accounting_customer_party.clone();
+            let inv = Arc::clone(inv);
             Box::new(move || {
-                if let Some(ref cp) = party {
+                if let Some(ref cp) = inv.accounting_customer_party {
                     if let Some(ref p) = cp.party {
                         if p.party_identification.is_empty() {
                             Err("Customer has no party identification".into())
@@ -148,20 +159,19 @@ pub fn billing_rules(invoice: &Invoice) -> RuleEngine {
         description: "Invoice total must match sum of line extension amounts".into(),
         severity: Severity::Error,
         check: {
-            let total = invoice.legal_monetary_total.clone();
-            let lines = invoice.invoice_line.clone();
+            let inv = Arc::clone(inv);
             Box::new(move || {
-                let sum: rust_decimal::Decimal = lines
+                let sum: rust_decimal::Decimal = inv.invoice_line
                     .iter()
                     .map(|l| *l.line_extension_amount.value())
                     .sum();
-                if sum == *total.line_extension_amount.value() {
+                if sum == *inv.legal_monetary_total.line_extension_amount.value() {
                     Ok(())
                 } else {
                     Err(format!(
                         "Line total sum ({:.2}) does not match invoice total ({:.2})",
                         sum,
-                        total.line_extension_amount.value()
+                        inv.legal_monetary_total.line_extension_amount.value()
                     ))
                 }
             })
@@ -174,9 +184,9 @@ pub fn billing_rules(invoice: &Invoice) -> RuleEngine {
         description: "Payment means code must be valid".into(),
         severity: Severity::Error,
         check: {
-            let pms = invoice.payment_means.clone();
+            let inv = Arc::clone(inv);
             Box::new(move || {
-                for pm in &pms {
+                for pm in &inv.payment_means {
                     let code = pm.payment_means_code.value();
                     // Simple validation — full validation uses CodeList
                     if code.is_empty() {
@@ -194,9 +204,9 @@ pub fn billing_rules(invoice: &Invoice) -> RuleEngine {
         description: "Invoice must have at least one line item".into(),
         severity: Severity::Fatal,
         check: {
-            let lines = invoice.invoice_line.clone();
+            let inv = Arc::clone(inv);
             Box::new(move || {
-                if lines.is_empty() {
+                if inv.invoice_line.is_empty() {
                     Err("Invoice has no line items".into())
                 } else {
                     Ok(())
@@ -211,9 +221,9 @@ pub fn billing_rules(invoice: &Invoice) -> RuleEngine {
         description: "Tax total breakdown should be provided".into(),
         severity: Severity::Warning,
         check: {
-            let tax_total = invoice.tax_total.clone();
+            let inv = Arc::clone(inv);
             Box::new(move || {
-                if tax_total.is_empty() {
+                if inv.tax_total.is_empty() {
                     Err("No tax total breakdown present".into())
                 } else {
                     Ok(())
@@ -221,8 +231,6 @@ pub fn billing_rules(invoice: &Invoice) -> RuleEngine {
             })
         },
     });
-
-    engine
 }
 
 #[cfg(test)]
@@ -230,7 +238,7 @@ mod tests {
     use super::*;
 
     #[test]
-    fn test_billing_rules_valid_invoice() {
+    fn test_valid_invoice_passes_all_rules() {
         let json = r#"{
             "id": {"value": "INV-001"},
             "issue_date": "2026-06-12",
