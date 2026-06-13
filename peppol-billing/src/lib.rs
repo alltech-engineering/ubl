@@ -6,8 +6,6 @@
 // Reference: https://docs.peppol.eu/poacc/billing/3.0/
 
 pub mod rules;
-pub mod validation;
-pub mod za;
 
 use peppol_common::identity::identities::billing_3_0;
 use peppol_common::identity::{self, BisDocument, DocumentIdentity};
