@@ -4,6 +4,8 @@ members = [
     "ubl-common",
     "ubl-documents",
     "ubl-xml",
+    "peppol-common",
+    "peppol-billing",
 ]
 
 [workspace.dependencies]

@@ -1,5 +1,5 @@
-   0.071334917s  INFO prepare_target{force=false package_id=ubl-xml v0.1.0 (/Users/stephanus/Github/alltech/ubl/ubl-xml) target="gen_invoice"}: cargo::core::compiler::fingerprint: fingerprint error for ubl-xml v0.1.0 (/Users/stephanus/Github/alltech/ubl/ubl-xml)/Check { test: false }/TargetInner { kind: "example", name: "gen_invoice", tested: false, benched: false, ..: with_path("/Users/stephanus/Github/alltech/ubl/ubl-xml/../examples/gen_invoice.rs", Edition2024) }
-   0.071348167s  INFO prepare_target{force=false package_id=ubl-xml v0.1.0 (/Users/stephanus/Github/alltech/ubl/ubl-xml) target="gen_invoice"}: cargo::core::compiler::fingerprint:     err: failed to read `/Users/stephanus/Github/alltech/ubl/target/debug/.fingerprint/ubl-xml-261867138b8b3a57/example-gen_invoice`
+   0.024798083s  INFO prepare_target{force=false package_id=peppol-billing v0.1.0 (/Users/stephanus/Github/alltech/ubl/peppol-billing) target="peppol_billing"}: cargo::core::compiler::fingerprint: fingerprint error for peppol-billing v0.1.0 (/Users/stephanus/Github/alltech/ubl/peppol-billing)/Check { test: false }/TargetInner { name_inferred: true, ..: lib_target("peppol_billing", ["lib"], "/Users/stephanus/Github/alltech/ubl/peppol-billing/src/lib.rs", Edition2024) }
+   0.024816750s  INFO prepare_target{force=false package_id=peppol-billing v0.1.0 (/Users/stephanus/Github/alltech/ubl/peppol-billing) target="peppol_billing"}: cargo::core::compiler::fingerprint:     err: failed to read `/Users/stephanus/Github/alltech/ubl/target/debug/.fingerprint/peppol-billing-d16c996769ff0a60/lib-peppol_billing`
 
 Caused by:
     No such file or directory (os error 2)
@@ -22,7 +22,80 @@ Stack backtrace:
   14: std::rt::lang_start::<()>::{closure#0}
   15: std::rt::lang_start_internal
   16: _main
-    Checking ubl-xml v0.1.0 (/Users/stephanus/Github/alltech/ubl/ubl-xml)
-    Finished `dev` profile [unoptimized + debuginfo] target(s) in 0.11s
-warning: the following packages contain code that will be rejected by a future version of Rust: ubl-documents v0.1.0 (/Users/stephanus/Github/alltech/ubl/ubl-documents)
-note: to see what the problems were, use the option `--future-incompat-report`, or run `cargo report future-incompatibilities --id 10`
+   0.028304208s  INFO prepare_target{force=false package_id=peppol-common v0.1.0 (/Users/stephanus/Github/alltech/ubl/peppol-common) target="peppol_common"}: cargo::core::compiler::fingerprint: fingerprint error for peppol-common v0.1.0 (/Users/stephanus/Github/alltech/ubl/peppol-common)/Check { test: false }/TargetInner { name_inferred: true, ..: lib_target("peppol_common", ["lib"], "/Users/stephanus/Github/alltech/ubl/peppol-common/src/lib.rs", Edition2024) }
+   0.028311291s  INFO prepare_target{force=false package_id=peppol-common v0.1.0 (/Users/stephanus/Github/alltech/ubl/peppol-common) target="peppol_common"}: cargo::core::compiler::fingerprint:     err: failed to read `/Users/stephanus/Github/alltech/ubl/target/debug/.fingerprint/peppol-common-823c685601f25314/lib-peppol_common`
+
+Caused by:
+    No such file or directory (os error 2)
+
+Stack backtrace:
+   0: <std::backtrace::Backtrace>::create
+   1: cargo_util::paths::read_bytes
+   2: cargo_util::paths::read
+   3: cargo::core::compiler::fingerprint::_compare_old_fingerprint
+   4: cargo::core::compiler::fingerprint::prepare_target
+   5: cargo::core::compiler::compile
+   6: cargo::core::compiler::compile
+   7: <cargo::core::compiler::build_runner::BuildRunner>::compile
+   8: cargo::ops::cargo_compile::compile_ws
+   9: cargo::ops::cargo_compile::compile_with_exec
+  10: cargo::ops::cargo_compile::compile
+  11: cargo::commands::check::exec
+  12: <cargo::cli::Exec>::exec
+  13: cargo::main
+  14: std::sys::backtrace::__rust_begin_short_backtrace::<fn(), ()>
+  15: std::rt::lang_start::<()>::{closure#0}
+  16: std::rt::lang_start_internal
+  17: _main
+   0.029079583s  INFO prepare_target{force=false package_id=peppol-billing v0.1.0 (/Users/stephanus/Github/alltech/ubl/peppol-billing) target="peppol_billing"}: cargo::core::compiler::fingerprint: fingerprint error for peppol-billing v0.1.0 (/Users/stephanus/Github/alltech/ubl/peppol-billing)/Check { test: true }/TargetInner { name_inferred: true, ..: lib_target("peppol_billing", ["lib"], "/Users/stephanus/Github/alltech/ubl/peppol-billing/src/lib.rs", Edition2024) }
+   0.029084000s  INFO prepare_target{force=false package_id=peppol-billing v0.1.0 (/Users/stephanus/Github/alltech/ubl/peppol-billing) target="peppol_billing"}: cargo::core::compiler::fingerprint:     err: failed to read `/Users/stephanus/Github/alltech/ubl/target/debug/.fingerprint/peppol-billing-1fea0b74a4424dde/test-lib-peppol_billing`
+
+Caused by:
+    No such file or directory (os error 2)
+
+Stack backtrace:
+   0: <std::backtrace::Backtrace>::create
+   1: cargo_util::paths::read_bytes
+   2: cargo_util::paths::read
+   3: cargo::core::compiler::fingerprint::_compare_old_fingerprint
+   4: cargo::core::compiler::fingerprint::prepare_target
+   5: cargo::core::compiler::compile
+   6: <cargo::core::compiler::build_runner::BuildRunner>::compile
+   7: cargo::ops::cargo_compile::compile_ws
+   8: cargo::ops::cargo_compile::compile_with_exec
+   9: cargo::ops::cargo_compile::compile
+  10: cargo::commands::check::exec
+  11: <cargo::cli::Exec>::exec
+  12: cargo::main
+  13: std::sys::backtrace::__rust_begin_short_backtrace::<fn(), ()>
+  14: std::rt::lang_start::<()>::{closure#0}
+  15: std::rt::lang_start_internal
+  16: _main
+   0.029534541s  INFO prepare_target{force=false package_id=peppol-common v0.1.0 (/Users/stephanus/Github/alltech/ubl/peppol-common) target="peppol_common"}: cargo::core::compiler::fingerprint: fingerprint error for peppol-common v0.1.0 (/Users/stephanus/Github/alltech/ubl/peppol-common)/Check { test: true }/TargetInner { name_inferred: true, ..: lib_target("peppol_common", ["lib"], "/Users/stephanus/Github/alltech/ubl/peppol-common/src/lib.rs", Edition2024) }
+   0.029540125s  INFO prepare_target{force=false package_id=peppol-common v0.1.0 (/Users/stephanus/Github/alltech/ubl/peppol-common) target="peppol_common"}: cargo::core::compiler::fingerprint:     err: failed to read `/Users/stephanus/Github/alltech/ubl/target/debug/.fingerprint/peppol-common-c08816ceb6f67ffb/test-lib-peppol_common`
+
+Caused by:
+    No such file or directory (os error 2)
+
+Stack backtrace:
+   0: <std::backtrace::Backtrace>::create
+   1: cargo_util::paths::read_bytes
+   2: cargo_util::paths::read
+   3: cargo::core::compiler::fingerprint::_compare_old_fingerprint
+   4: cargo::core::compiler::fingerprint::prepare_target
+   5: cargo::core::compiler::compile
+   6: <cargo::core::compiler::build_runner::BuildRunner>::compile
+   7: cargo::ops::cargo_compile::compile_ws
+   8: cargo::ops::cargo_compile::compile_with_exec
+   9: cargo::ops::cargo_compile::compile
+  10: cargo::commands::check::exec
+  11: <cargo::cli::Exec>::exec
+  12: cargo::main
+  13: std::sys::backtrace::__rust_begin_short_backtrace::<fn(), ()>
+  14: std::rt::lang_start::<()>::{closure#0}
+  15: std::rt::lang_start_internal
+  16: _main
+    Checking peppol-common v0.1.0 (/Users/stephanus/Github/alltech/ubl/peppol-common)
+error: could not compile `peppol-common` (lib) due to 132 previous errors; 1 warning emitted
+warning: build failed, waiting for other jobs to finish...
+error: could not compile `peppol-common` (lib test) due to 132 previous errors; 1 warning emitted
