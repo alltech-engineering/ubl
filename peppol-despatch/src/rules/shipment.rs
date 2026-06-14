@@ -124,7 +124,7 @@ pub fn add_rules(engine: &mut RuleEngine, inv: &Arc<DespatchAdvice>) {
                             .despatch_line
                             .iter()
                             .filter_map(|l| l.delivered_quantity.as_ref())
-                            .map(|q| q.value)
+                            .map(|q| *q.value())
                             .sum();
                         if total_qty.value() != &sum {
                             return Err(format!(

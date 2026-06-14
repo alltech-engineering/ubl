@@ -24,17 +24,29 @@ pub fn add_rules(engine: &mut RuleEngine, inv: &Arc<DespatchAdvice>) {
         },
     });
 
-    // ── DESP-R024 (Fatal): Each line must have an item ───────────────────
+    // ── DESP-R024 (Fatal): Each line item must have a non-empty name ─────
     engine.add_rule(Rule {
         id: "DESP-R024".into(),
-        description: "Each despatch line must have an item".into(),
+        description: "Each despatch line item must have a non-empty name".into(),
         severity: Severity::Fatal,
         check: {
             let inv = Arc::clone(inv);
             Box::new(move || {
                 for (i, line) in inv.despatch_line.iter().enumerate() {
-                    if line.item.is_none() {
-                        return Err(format!("Despatch line {} has no item", i + 1));
+                    match &line.item.name {
+                        None => {
+                            return Err(format!(
+                                "Despatch line {} item has no name",
+                                i + 1
+                            ));
+                        }
+                        Some(name) if name.value().is_empty() => {
+                            return Err(format!(
+                                "Despatch line {} item has an empty name",
+                                i + 1
+                            ));
+                        }
+                        Some(_) => {}
                     }
                 }
                 Ok(())
@@ -63,29 +75,20 @@ pub fn add_rules(engine: &mut RuleEngine, inv: &Arc<DespatchAdvice>) {
         },
     });
 
-    // ── DESP-R026 (Fatal): Each line ID must be present and non-empty ────
+    // ── DESP-R026 (Fatal): Each line ID must be non-empty ────────────────
     engine.add_rule(Rule {
         id: "DESP-R026".into(),
-        description: "Each despatch line ID must be present and non-empty".into(),
+        description: "Each despatch line ID must be non-empty".into(),
         severity: Severity::Fatal,
         check: {
             let inv = Arc::clone(inv);
             Box::new(move || {
                 for (i, line) in inv.despatch_line.iter().enumerate() {
-                    match &line.id {
-                        None => {
-                            return Err(format!(
-                                "Despatch line {} has no ID — a line identifier is required",
-                                i + 1
-                            ));
-                        }
-                        Some(id) if id.value().is_empty() => {
-                            return Err(format!(
-                                "Despatch line {} has an empty ID",
-                                i + 1
-                            ));
-                        }
-                        Some(_) => {}
+                    if line.id.value().is_empty() {
+                        return Err(format!(
+                            "Despatch line {} has an empty ID",
+                            i + 1
+                        ));
                     }
                 }
                 Ok(())
@@ -114,7 +117,7 @@ pub fn add_rules(engine: &mut RuleEngine, inv: &Arc<DespatchAdvice>) {
         },
     });
 
-    // ── DESP-R028 (Fatal): OrderLineReference LineID must be present ─────
+    // ── DESP-R028 (Fatal): OrderLineReference LineID must be non-empty ───
     engine.add_rule(Rule {
         id: "DESP-R028".into(),
         description: "Each OrderLineReference must have a non-empty LineID".into(),
@@ -124,22 +127,12 @@ pub fn add_rules(engine: &mut RuleEngine, inv: &Arc<DespatchAdvice>) {
             Box::new(move || {
                 for (i, line) in inv.despatch_line.iter().enumerate() {
                     for (j, olr) in line.order_line_reference.iter().enumerate() {
-                        match &olr.line_id {
-                            None => {
-                                return Err(format!(
-                                    "Despatch line {}, OrderLineReference {} has no LineID",
-                                    i + 1,
-                                    j + 1
-                                ));
-                            }
-                            Some(line_id) if line_id.value().is_empty() => {
-                                return Err(format!(
-                                    "Despatch line {}, OrderLineReference {} has an empty LineID",
-                                    i + 1,
-                                    j + 1
-                                ));
-                            }
-                            Some(_) => {}
+                        if olr.line_id.value().is_empty() {
+                            return Err(format!(
+                                "Despatch line {}, OrderLineReference {} has an empty LineID",
+                                i + 1,
+                                j + 1
+                            ));
                         }
                     }
                 }
@@ -158,11 +151,12 @@ pub fn add_rules(engine: &mut RuleEngine, inv: &Arc<DespatchAdvice>) {
             Box::new(move || {
                 for (i, line) in inv.despatch_line.iter().enumerate() {
                     if let Some(ref qty) = line.delivered_quantity {
-                        if qty.value.is_zero() || qty.value.is_sign_negative() {
+                        let val = qty.value();
+                        if val.is_zero() || val.is_sign_negative() {
                             return Err(format!(
                                 "Despatch line {} has a non-positive delivered quantity ({})",
                                 i + 1,
-                                qty.value
+                                val
                             ));
                         }
                     }
@@ -173,6 +167,8 @@ pub fn add_rules(engine: &mut RuleEngine, inv: &Arc<DespatchAdvice>) {
     });
 
     // ── DESP-R030 (Fatal): Each line item name must be present ───────────
+    // (Already covered by DESP-R024 with the type-enforced Item)
+    // Kept as a separate rule for spec compliance.
     engine.add_rule(Rule {
         id: "DESP-R030".into(),
         description: "Each line item must have a non-empty name".into(),
@@ -181,22 +177,21 @@ pub fn add_rules(engine: &mut RuleEngine, inv: &Arc<DespatchAdvice>) {
             let inv = Arc::clone(inv);
             Box::new(move || {
                 for (i, line) in inv.despatch_line.iter().enumerate() {
-                    if let Some(ref item) = line.item {
-                        match &item.name {
-                            None => {
-                                return Err(format!(
-                                    "Despatch line {} item has no name",
-                                    i + 1
-                                ));
-                            }
-                            Some(name) if name.value().is_empty() => {
-                                return Err(format!(
-                                    "Despatch line {} item has an empty name",
-                                    i + 1
-                                ));
-                            }
-                            Some(_) => {}
+                    let item = &line.item;
+                    match &item.name {
+                        None => {
+                            return Err(format!(
+                                "Despatch line {} item has no name",
+                                i + 1
+                            ));
                         }
+                        Some(name) if name.value().is_empty() => {
+                            return Err(format!(
+                                "Despatch line {} item has an empty name",
+                                i + 1
+                            ));
+                        }
+                        Some(_) => {}
                     }
                 }
                 Ok(())
@@ -227,31 +222,7 @@ pub fn add_rules(engine: &mut RuleEngine, inv: &Arc<DespatchAdvice>) {
         },
     });
 
-    // ── DESP-R032 (Warning): Backorder quantity should not be negative ───
-    engine.add_rule(Rule {
-        id: "DESP-R032".into(),
-        description: "Backorder quantity should not be negative".into(),
-        severity: Severity::Warning,
-        check: {
-            let inv = Arc::clone(inv);
-            Box::new(move || {
-                for (i, line) in inv.despatch_line.iter().enumerate() {
-                    if let Some(ref qty) = line.backorder_quantity {
-                        if qty.value.is_sign_negative() {
-                            return Err(format!(
-                                "Despatch line {} has a negative backorder quantity ({})",
-                                i + 1,
-                                qty.value
-                            ));
-                        }
-                    }
-                }
-                Ok(())
-            })
-        },
-    });
-
-    // ── DESP-R033 (Warning): Outstanding quantity should not be negative ─
+    // ── DESP-R033 (Warning): Outstanding quantity should not be negative ──
     engine.add_rule(Rule {
         id: "DESP-R033".into(),
         description: "Outstanding quantity should not be negative".into(),
@@ -334,9 +305,9 @@ mod tests {
     }
 
     #[test]
-    fn test_line_no_item_fails() {
+    fn test_line_no_item_name_fails() {
         let mut despatch = minimal_despatch();
-        despatch.despatch_line[0].item = None;
+        despatch.despatch_line[0].item.name = None;
         let mut engine = RuleEngine::new();
         add_rules(&mut engine, &Arc::new(despatch));
         let failures = engine.evaluate_failures();
