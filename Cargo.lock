@@ -324,6 +324,19 @@ dependencies = [
 ]
 
 [[package]]
+name = "peppol-despatch"
+version = "0.1.0"
+dependencies = [
+ "chrono",
+ "peppol-common",
+ "rust_decimal",
+ "serde",
+ "serde_json",
+ "ubl-common",
+ "ubl-documents",
+]
+
+[[package]]
 name = "peppol-ordering"
 version = "0.1.0"
 dependencies = [

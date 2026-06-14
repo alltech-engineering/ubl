@@ -62,6 +62,14 @@ pub mod identities {
             profile_id: format!("urn:fdc:peppol.eu:2017:poacc:ordering:01:1.0"),
         }
     }
+
+    /// Build a Despatch 3.0 identity for a specific document type.
+    pub fn despatch_3_0(doc_type: &str) -> DocumentIdentity {
+        DocumentIdentity {
+            customization_id: format!("urn:fdc:peppol.eu:2017:poacc:despatch:3.0::2.1"),
+            profile_id: format!("urn:fdc:peppol.eu:2017:poacc:despatch:01:1.0"),
+        }
+    }
 }
 
 #[cfg(test)]

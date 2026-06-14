@@ -6,6 +6,7 @@
 
 pub mod billing;
 pub mod catalogue;
+pub mod despatch;
 pub mod ordering;
 pub mod quotation;
 pub mod tendering;

@@ -11,8 +11,8 @@
 //   - InstructionForReturns: Instructions for returning goods
 
 use serde::{Deserialize, Serialize};
-use ubl_common::cbc::*;
 use ubl_common::cac::*;
+use ubl_common::cbc::*;
 
 // ══════════════════════════════════════════════════════════════════════
 // DespatchAdvice
