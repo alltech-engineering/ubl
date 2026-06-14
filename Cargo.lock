@@ -350,6 +350,19 @@ dependencies = [
 ]
 
 [[package]]
+name = "peppol-xml"
+version = "0.1.0"
+dependencies = [
+ "peppol-common",
+ "quick-xml",
+ "serde",
+ "serde_json",
+ "ubl-common",
+ "ubl-documents",
+ "ubl-xml",
+]
+
+[[package]]
 name = "pin-project-lite"
 version = "0.2.17"
 source = "registry+https://github.com/rust-lang/crates.io-index"

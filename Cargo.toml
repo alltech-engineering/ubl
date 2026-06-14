@@ -8,6 +8,7 @@ members = [
     "peppol-billing",
     "peppol-ordering",
     "peppol-despatch",
+    "peppol-xml",
 ]
 
 [workspace.dependencies]
