@@ -1,0 +1,26 @@
+[package]
+name = "peppol-api"
+version = "0.1.0"
+edition = "2024"
+description = "Peppol BIS REST API — Axum server exposing Peppol validation rules"
+
+[dependencies]
+axum = "0.8"
+tokio = { version = "1", features = ["full"] }
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+peppol-billing = { path = "../peppol-billing" }
+peppol-ordering = { path = "../peppol-ordering" }
+peppol-despatch = { path = "../peppol-despatch" }
+peppol-mlr = { path = "../peppol-mlr" }
+peppol-imr = { path = "../peppol-imr" }
+peppol-catalogue = { path = "../peppol-catalogue" }
+peppol-common = { path = "../peppol-common" }
+peppol-storage = { path = "../peppol-storage" }
+peppol-xml = { path = "../peppol-xml" }
+ubl-common = { path = "../ubl-common" }
+ubl-documents = { path = "../ubl-documents" }
+uuid = { version = "1", features = ["v4", "serde"] }
+chrono = { workspace = true }
+tracing = "0.1"
+tracing-subscriber = "0.3"

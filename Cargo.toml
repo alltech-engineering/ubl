@@ -10,10 +10,14 @@ members = [
     "peppol-despatch",
     "peppol-catalogue",
     "peppol-mlr",
+    "peppol-imr",
     "peppol-xml",
+    "peppol-storage",
+    "peppol-api",
 ]
 
 [workspace.dependencies]
 serde = { version = "1", features = ["derive"] }
 chrono = { version = "0.4", features = ["serde"] }
 rust_decimal = { version = "1", features = ["serde"] }
+thiserror = "2"

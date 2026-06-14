@@ -29,6 +29,6 @@ pub struct OrderLine {
 }
 
 use super::document_reference::DocumentReference;
-use super::invoice_line::OrderLineReference;
+use super::line::OrderLineReference;
 use super::line_item::LineItem;
 use super::line_reference::{CatalogueLineReference, QuotationLineReference};

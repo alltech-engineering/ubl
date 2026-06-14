@@ -86,6 +86,14 @@ pub mod identities {
             profile_id: "urn:fdc:peppol.eu:2017:poacc:mlr:01:1.0".into(),
         }
     }
+
+    /// Build an IMR 3.0 identity.
+    pub fn imr_3_0() -> DocumentIdentity {
+        DocumentIdentity {
+            customization_id: "urn:fdc:peppol.eu:2017:poacc:imr:3.0::2.1".into(),
+            profile_id: "urn:fdc:peppol.eu:2017:poacc:imr:01:1.0".into(),
+        }
+    }
 }
 
 #[cfg(test)]
