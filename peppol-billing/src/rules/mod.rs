@@ -5,6 +5,7 @@
 
 pub mod code_lists;
 pub mod constraints;
+pub mod credit_note;
 pub mod header;
 pub mod lines;
 pub mod national;
@@ -14,7 +15,7 @@ pub mod za;
 
 use peppol_common::rules::RuleEngine;
 use std::sync::Arc;
-use ubl_documents::billing::Invoice;
+use ubl_documents::billing::{CreditNote, Invoice};
 
 /// Build the complete rule set for Peppol BIS Billing 3.0.
 pub fn billing_rules(invoice: &Invoice) -> RuleEngine {
@@ -29,6 +30,16 @@ pub fn billing_rules(invoice: &Invoice) -> RuleEngine {
     constraints::add_rules(&mut engine, &inv);
     national::add_rules(&mut engine, &inv);
     za::add_rules(&mut engine, &inv);
+
+    engine
+}
+
+/// Build the complete rule set for a Peppol BIS Billing 3.0 CreditNote.
+pub fn credit_note_rules(cn: &CreditNote) -> RuleEngine {
+    let mut engine = RuleEngine::new();
+    let cn = Arc::new(cn.clone());
+
+    credit_note::add_rules(&mut engine, &cn);
 
     engine
 }

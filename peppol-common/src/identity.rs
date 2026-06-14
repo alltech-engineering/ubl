@@ -70,6 +70,22 @@ pub mod identities {
             profile_id: format!("urn:fdc:peppol.eu:2017:poacc:despatch:01:1.0"),
         }
     }
+
+    /// Build a Catalogue 3.0 identity for a specific document type.
+    pub fn catalogue_3_0(doc_type: &str) -> DocumentIdentity {
+        DocumentIdentity {
+            customization_id: format!("urn:fdc:peppol.eu:2017:poacc:catalogue:3.0::2.1"),
+            profile_id: format!("urn:fdc:peppol.eu:2017:poacc:catalogue:01:1.0"),
+        }
+    }
+
+    /// Build an MLR 3.0 identity.
+    pub fn mlr_3_0() -> DocumentIdentity {
+        DocumentIdentity {
+            customization_id: "urn:fdc:peppol.eu:2017:poacc:mlr:3.0::2.1".into(),
+            profile_id: "urn:fdc:peppol.eu:2017:poacc:mlr:01:1.0".into(),
+        }
+    }
 }
 
 #[cfg(test)]

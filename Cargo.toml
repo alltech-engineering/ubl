@@ -8,6 +8,8 @@ members = [
     "peppol-billing",
     "peppol-ordering",
     "peppol-despatch",
+    "peppol-catalogue",
+    "peppol-mlr",
     "peppol-xml",
 ]
 

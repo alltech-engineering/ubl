@@ -32,22 +32,31 @@ pub struct Catalogue {
     pub issue_time: Option<IssueTime>,
     pub revision_date: Option<RevisionDate>,
     pub revision_time: Option<RevisionTime>,
+    #[serde(default)]
     pub note: Vec<Note>,
+    #[serde(default)]
     pub description: Vec<Description>,
     pub version_id: Option<VersionID>,
     pub previous_version_id: Option<PreviousVersionID>,
     pub line_count_numeric: Option<LineCountNumeric>,
+    #[serde(default)]
     pub validity_period: Vec<Period>,
+    #[serde(default)]
     pub referenced_contract: Vec<Contract>,
     pub source_catalogue_reference: Option<CatalogueReference>,
+    #[serde(default)]
     pub document_reference: Vec<DocumentReference>,
+    #[serde(default)]
     pub applicable_territory_address: Vec<Address>,
+    #[serde(default)]
     pub signature: Vec<Signature>,
     pub provider_party: Party,
     pub receiver_party: Party,
     pub seller_supplier_party: Option<SupplierParty>,
     pub contractor_customer_party: Option<CustomerParty>,
+    #[serde(default)]
     pub trading_terms: Vec<TradingTerms>,
+    #[serde(default)]
     pub catalogue_line: Vec<CatalogueLine>,
 }
 

@@ -13,6 +13,7 @@ use crate::cac::document::DocumentReference;
 use crate::cac::item::Item;
 use crate::cac::party::Party;
 use crate::cac::period::Period;
+use crate::cac::price::Price;
 use crate::cac::supplier::SupplierParty;
 
 // ── CatalogueReference ────────────────────────────────────────────
@@ -76,6 +77,7 @@ pub struct CatalogueLine {
     #[serde(default)]
     pub document_reference: Vec<DocumentReference>,
     pub item: Item,
+    pub price: Option<Price>,
     #[serde(default)]
     pub keyword_item_property: Vec<KeywordItemProperty>,
     pub call_for_tenders_line_reference: Option<CallForTendersLineReference>,
