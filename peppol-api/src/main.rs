@@ -8,15 +8,26 @@ use std::sync::Arc;
 use tracing_subscriber;
 
 use peppol_api::state::AppState;
+use peppol_storage::file::FileStore;
 use peppol_storage::memory::InMemoryStore;
+use peppol_storage::Storage;
 
 #[tokio::main]
 async fn main() {
     // Initialize tracing
     tracing_subscriber::fmt::init();
 
-    // Create the in-memory storage backend
-    let store = Arc::new(InMemoryStore::new());
+    // Try FileStore first, fall back to InMemoryStore
+    let store: Arc<dyn Storage> = match FileStore::new("./orders/").await {
+        Ok(fs) => {
+            tracing::info!("Using FileStore at ./orders/");
+            Arc::new(fs)
+        }
+        Err(e) => {
+            tracing::warn!("FileStore unavailable: {e} — falling back to InMemoryStore");
+            Arc::new(InMemoryStore::new())
+        }
+    };
 
     // Build shared application state
     let state = AppState::new(store);

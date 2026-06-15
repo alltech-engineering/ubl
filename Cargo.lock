@@ -1211,11 +1211,15 @@ version = "0.1.0"
 dependencies = [
  "async-trait",
  "chrono",
+ "peppol-common",
+ "peppol-xml",
  "serde",
  "serde_json",
  "sqlx",
  "thiserror",
  "tokio",
+ "ubl-documents",
+ "ubl-xml",
  "uuid",
 ]
 

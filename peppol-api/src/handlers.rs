@@ -6,7 +6,7 @@
 use axum::Json;
 use axum::extract::{Path, State};
 use axum::http::StatusCode;
-use axum::response::IntoResponse;
+use axum::response::{Html, IntoResponse};
 use chrono::Utc;
 use peppol_common::rules::Severity;
 use peppol_storage::StoredDocument;
@@ -118,6 +118,41 @@ validate_handler!(validate_despatch, DespatchAdvice, despatch_rules, "DespatchAd
 validate_handler!(validate_mlr, ApplicationResponse, mlr_rules, "MLR");
 validate_handler!(validate_imr, ApplicationResponse, imr_rules, "IMR");
 validate_handler!(validate_catalogue, Catalogue, catalogue_rules, "Catalogue");
+
+// ── Order form ─────────────────────────────────────────────────────────
+
+/// Serve the HTML order form.
+pub async fn order_form() -> Html<&'static str> {
+    Html(include_str!("../order_form.html"))
+}
+
+// ── Submit order ───────────────────────────────────────────────────────
+
+/// Accept a JSON Order, validate it, store it, and return the result.
+pub async fn submit_order(
+    State(state): State<AppState>,
+    Json(order): Json<Order>,
+) -> impl IntoResponse {
+    let doc_id = order.id.value().to_string();
+    let payload = serde_json::to_value(&order).unwrap_or_default();
+    let outcomes = ordering_rules(&order).evaluate_all();
+    let stored_id = store(
+        state.storage.as_ref(),
+        "Order".into(),
+        doc_id,
+        payload,
+        &outcomes,
+    )
+    .await
+    .unwrap_or_else(|_| Uuid::nil());
+    let response = build_validation(outcomes, stored_id);
+    let status = if response.valid {
+        StatusCode::OK
+    } else {
+        StatusCode::UNPROCESSABLE_ENTITY
+    };
+    (status, Json(response))
+}
 
 // ── Document retrieval ─────────────────────────────────────────────────
 

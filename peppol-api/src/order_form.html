@@ -1,0 +1,1151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Peppol Order Form</title>
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --bg: #0d1117;
+  --bg2: #161b22;
+  --bg3: #21262d;
+  --border: #30363d;
+  --text: #c9d1d9;
+  --text2: #8b949e;
+  --accent: #58a6ff;
+  --accent-hover: #79c0ff;
+  --danger: #f85149;
+  --success: #3fb950;
+  --warning: #d2991d;
+  --input-bg: #0d1117;
+  --radius: 6px;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Fira Code', monospace;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.5;
+  padding: 20px;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+h1 {
+  font-size: 1.6rem;
+  color: var(--accent);
+  margin-bottom: 4px;
+  font-weight: 600;
+}
+.subtitle { color: var(--text2); margin-bottom: 24px; font-size: 0.9rem; }
+
+/* ── Sections ──────────────────────────────── */
+.section {
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  margin-bottom: 12px;
+  overflow: hidden;
+}
+.section-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 14px 18px;
+  cursor: pointer;
+  user-select: none;
+  background: var(--bg2);
+  border-bottom: 1px solid transparent;
+  transition: background 0.15s;
+}
+.section-header:hover { background: var(--bg3); }
+.section-header .arrow {
+  font-size: 0.7rem;
+  transition: transform 0.2s;
+  color: var(--text2);
+  min-width: 12px;
+  text-align: center;
+}
+.section.open .section-header .arrow { transform: rotate(90deg); }
+.section-header h2 {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--accent);
+}
+.section-header .required-badge {
+  font-size: 0.7rem;
+  background: var(--danger);
+  color: #fff;
+  padding: 1px 6px;
+  border-radius: 3px;
+  font-weight: 600;
+}
+.section-body {
+  display: none;
+  padding: 18px;
+  border-top: 1px solid var(--border);
+}
+.section.open .section-body { display: block; }
+.section.open .section-header { border-bottom-color: var(--border); }
+
+/* ── Form fields ───────────────────────────── */
+.field-row {
+  display: grid;
+  grid-template-columns: 200px 1fr;
+  gap: 12px;
+  align-items: start;
+  margin-bottom: 12px;
+}
+.field-row.span { grid-template-columns: 1fr; }
+.field-row label {
+  padding-top: 8px;
+  font-size: 0.85rem;
+  color: var(--text2);
+  text-align: right;
+}
+.field-row.span label { text-align: left; padding-top: 0; margin-bottom: 4px; }
+.field-row label .req { color: var(--danger); margin-left: 1px; }
+.field-row .input-group { display: flex; flex-direction: column; gap: 4px; }
+.field-row .inline-row { display: flex; gap: 10px; align-items: center; }
+.field-row .inline-row input { flex: 1; }
+.field-row .hint { font-size: 0.72rem; color: var(--text2); }
+
+input, select, textarea {
+  background: var(--input-bg);
+  color: var(--text);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 8px 10px;
+  font-family: inherit;
+  font-size: 0.88rem;
+  width: 100%;
+  transition: border-color 0.15s;
+}
+input:focus, select:focus, textarea:focus {
+  outline: none;
+  border-color: var(--accent);
+  box-shadow: 0 0 0 2px rgba(88,166,255,0.15);
+}
+textarea { resize: vertical; min-height: 60px; }
+
+.add-btn, .remove-btn, .submit-btn {
+  background: var(--bg3);
+  color: var(--text);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 6px 14px;
+  cursor: pointer;
+  font-family: inherit;
+  font-size: 0.82rem;
+  transition: all 0.15s;
+}
+.add-btn:hover { background: var(--accent); color: #fff; border-color: var(--accent); }
+.remove-btn:hover { background: var(--danger); color: #fff; border-color: var(--danger); }
+.submit-btn {
+  background: var(--accent);
+  color: #fff;
+  border: none;
+  padding: 12px 32px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  margin-top: 16px;
+}
+.submit-btn:hover { background: var(--accent-hover); }
+.submit-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+
+/* ── Line Items ────────────────────────────── */
+.line-item {
+  background: var(--bg3);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 16px;
+  margin-bottom: 12px;
+  position: relative;
+}
+.line-item-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+}
+.line-item-header h3 { font-size: 0.85rem; color: var(--accent); font-weight: 600; }
+.line-item-fields { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+
+/* ── Validation results ───────────────────── */
+#validation-results {
+  margin-top: 20px;
+  display: none;
+}
+.result-banner {
+  padding: 12px 16px;
+  border-radius: var(--radius);
+  margin-bottom: 10px;
+  font-weight: 600;
+}
+.result-banner.success { background: rgba(63,185,80,0.15); border: 1px solid var(--success); color: var(--success); }
+.result-banner.error { background: rgba(248,81,73,0.15); border: 1px solid var(--danger); color: var(--danger); }
+.result-list { margin-top: 8px; }
+.result-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  padding: 6px 0;
+  border-bottom: 1px solid var(--border);
+  font-size: 0.83rem;
+}
+.result-item .sev {
+  font-weight: 700;
+  font-size: 0.7rem;
+  padding: 2px 6px;
+  border-radius: 3px;
+  white-space: nowrap;
+  margin-top: 2px;
+}
+.sev-error { background: rgba(248,81,73,0.2); color: var(--danger); }
+.sev-warning { background: rgba(210,153,29,0.2); color: var(--warning); }
+.result-item .msg { flex: 1; }
+.result-item .rid { color: var(--text2); font-size: 0.72rem; }
+
+/* ── Multi-value notes ─────────────────────── */
+.note-list { display: flex; flex-direction: column; gap: 6px; }
+.note-entry { display: flex; gap: 6px; }
+.note-entry input { flex: 1; }
+
+/* ── Responsive ────────────────────────────── */
+@media (max-width: 700px) {
+  .field-row { grid-template-columns: 1fr; }
+  .field-row label { text-align: left; }
+  .line-item-fields { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+
+<h1>&#9998; Peppol Order</h1>
+<p class="subtitle">UBL 2.5 Order document &mdash; all fields marked <span style="color:var(--danger)">*</span> are required</p>
+
+<form id="order-form" novalidate>
+
+<!-- ════════════════════════════════════════════ DOCUMENT METADATA ═══════ -->
+<div class="section open" id="sec-metadata">
+  <div class="section-header" onclick="toggleSection('sec-metadata')">
+    <span class="arrow">▶</span>
+    <h2>Document Metadata</h2>
+    <span class="required-badge">REQUIRED</span>
+  </div>
+  <div class="section-body">
+    <div class="field-row">
+      <label>Order ID <span class="req">*</span></label>
+      <div class="input-group">
+        <input type="text" id="order-id" required placeholder="e.g. ORD-2025-001">
+        <span class="hint">Sender-assigned document identifier</span>
+      </div>
+    </div>
+    <div class="field-row">
+      <label>Sales Order ID</label>
+      <input type="text" id="sales-order-id" placeholder="e.g. SO-12345">
+    </div>
+    <div class="field-row">
+      <label>UUID</label>
+      <input type="text" id="order-uuid" placeholder="auto-generated if empty">
+    </div>
+    <div class="field-row">
+      <label>Issue Date <span class="req">*</span></label>
+      <input type="date" id="issue-date" required>
+    </div>
+    <div class="field-row">
+      <label>Issue Time</label>
+      <input type="time" id="issue-time" step="1">
+    </div>
+    <div class="field-row">
+      <label>Order Type Code</label>
+      <input type="text" id="order-type-code" placeholder="e.g. 220 (Purchase Order)">
+    </div>
+    <div class="field-row">
+      <label>UBL Version ID</label>
+      <input type="text" id="ubl-version-id" value="2.5" placeholder="e.g. 2.5">
+    </div>
+    <div class="field-row">
+      <label>Customization ID</label>
+      <input type="text" id="customization-id" placeholder="e.g. urn:fdc:peppol.eu:poacc:trns:order:3">
+    </div>
+    <div class="field-row">
+      <label>Profile ID</label>
+      <input type="text" id="profile-id" placeholder="e.g. urn:fdc:peppol.eu:poacc:bis:order_only:3">
+    </div>
+    <div class="field-row span">
+      <label>Notes</label>
+      <div class="note-list" id="order-notes">
+        <div class="note-entry">
+          <input type="text" placeholder="Enter a note...">
+          <button type="button" class="remove-btn" onclick="removeNoteEntry(this)" style="display:none">✕</button>
+        </div>
+      </div>
+      <button type="button" class="add-btn" style="margin-top:6px" onclick="addNoteEntry('order-notes')">+ Add Note</button>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════════ CURRENCY ═══════ -->
+<div class="section" id="sec-currency">
+  <div class="section-header" onclick="toggleSection('sec-currency')">
+    <span class="arrow">▶</span>
+    <h2>Currency Codes</h2>
+  </div>
+  <div class="section-body">
+    <div class="field-row">
+      <label>Document Currency</label>
+      <input type="text" id="document-currency-code" maxlength="3" placeholder="EUR">
+    </div>
+    <div class="field-row">
+      <label>Invoice Currency</label>
+      <input type="text" id="requested-invoice-currency-code" maxlength="3" placeholder="EUR">
+    </div>
+    <div class="field-row">
+      <label>Pricing Currency</label>
+      <input type="text" id="pricing-currency-code" maxlength="3" placeholder="EUR">
+    </div>
+    <div class="field-row">
+      <label>Tax Currency</label>
+      <input type="text" id="tax-currency-code" maxlength="3" placeholder="EUR">
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════════ REFERENCES ═══════ -->
+<div class="section" id="sec-references">
+  <div class="section-header" onclick="toggleSection('sec-references')">
+    <span class="arrow">▶</span>
+    <h2>References &amp; Accounting</h2>
+  </div>
+  <div class="section-body">
+    <div class="field-row">
+      <label>Customer Reference</label>
+      <input type="text" id="customer-reference" placeholder="e.g. Project code or PO number">
+    </div>
+    <div class="field-row">
+      <label>Accounting Cost Code</label>
+      <input type="text" id="accounting-cost-code" placeholder="e.g. CC-001">
+    </div>
+    <div class="field-row">
+      <label>Accounting Cost</label>
+      <input type="text" id="accounting-cost" placeholder="e.g. Cost Center East">
+    </div>
+    <div class="field-row">
+      <label>Line Count Numeric</label>
+      <input type="number" id="line-count-numeric" placeholder="e.g. 3" min="1" step="1">
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════════ BUYER PARTY ═══════ -->
+<div class="section" id="sec-buyer">
+  <div class="section-header" onclick="toggleSection('sec-buyer')">
+    <span class="arrow">▶</span>
+    <h2>Buyer Party</h2>
+    <span class="required-badge">REQUIRED</span>
+  </div>
+  <div class="section-body">
+    <div class="field-row">
+      <label>Account ID</label>
+      <input type="text" id="buyer-account-id" placeholder="e.g. BUYER-001">
+    </div>
+    <div class="field-row">
+      <label>Party Name <span class="req">*</span></label>
+      <input type="text" id="buyer-party-name" placeholder="e.g. Buyer Corp" required>
+    </div>
+    <div class="field-row">
+      <label>Party ID</label>
+      <input type="text" id="buyer-party-id" placeholder="e.g. VAT or GLN number">
+    </div>
+    <div class="field-row">
+      <label>Endpoint ID</label>
+      <input type="text" id="buyer-endpoint-id" placeholder="e.g. peppol participant ID">
+    </div>
+    <div class="field-row">
+      <label>Street</label>
+      <input type="text" id="buyer-street" placeholder="e.g. 123 Main St">
+    </div>
+    <div class="field-row">
+      <label>City</label>
+      <input type="text" id="buyer-city" placeholder="e.g. Amsterdam">
+    </div>
+    <div class="field-row">
+      <label>Postal Code</label>
+      <input type="text" id="buyer-postal" placeholder="e.g. 1012 AB">
+    </div>
+    <div class="field-row">
+      <label>Country Code</label>
+      <input type="text" id="buyer-country-code" maxlength="2" placeholder="e.g. NL">
+    </div>
+    <div class="field-row">
+      <label>Country Name</label>
+      <input type="text" id="buyer-country-name" placeholder="e.g. Netherlands">
+    </div>
+    <div class="field-row">
+      <label>Buyer Contact Name</label>
+      <input type="text" id="buyer-contact-name" placeholder="e.g. John Doe">
+    </div>
+    <div class="field-row">
+      <label>Buyer Contact Email</label>
+      <input type="email" id="buyer-contact-email" placeholder="e.g. buyer@example.com">
+    </div>
+    <div class="field-row">
+      <label>Buyer Contact Phone</label>
+      <input type="text" id="buyer-contact-phone" placeholder="e.g. +31 20 123 4567">
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════════ SELLER PARTY ═══════ -->
+<div class="section" id="sec-seller">
+  <div class="section-header" onclick="toggleSection('sec-seller')">
+    <span class="arrow">▶</span>
+    <h2>Seller Party</h2>
+    <span class="required-badge">REQUIRED</span>
+  </div>
+  <div class="section-body">
+    <div class="field-row">
+      <label>Account ID</label>
+      <input type="text" id="seller-account-id" placeholder="e.g. SELLER-001">
+    </div>
+    <div class="field-row">
+      <label>Party Name <span class="req">*</span></label>
+      <input type="text" id="seller-party-name" placeholder="e.g. Supplier Ltd" required>
+    </div>
+    <div class="field-row">
+      <label>Party ID</label>
+      <input type="text" id="seller-party-id" placeholder="e.g. VAT or GLN number">
+    </div>
+    <div class="field-row">
+      <label>Endpoint ID</label>
+      <input type="text" id="seller-endpoint-id" placeholder="e.g. peppol participant ID">
+    </div>
+    <div class="field-row">
+      <label>Street</label>
+      <input type="text" id="seller-street" placeholder="e.g. 456 Trade Ave">
+    </div>
+    <div class="field-row">
+      <label>City</label>
+      <input type="text" id="seller-city" placeholder="e.g. Berlin">
+    </div>
+    <div class="field-row">
+      <label>Postal Code</label>
+      <input type="text" id="seller-postal" placeholder="e.g. 10115">
+    </div>
+    <div class="field-row">
+      <label>Country Code</label>
+      <input type="text" id="seller-country-code" maxlength="2" placeholder="e.g. DE">
+    </div>
+    <div class="field-row">
+      <label>Country Name</label>
+      <input type="text" id="seller-country-name" placeholder="e.g. Germany">
+    </div>
+    <div class="field-row">
+      <label>Seller Contact Name</label>
+      <input type="text" id="seller-contact-name" placeholder="e.g. Jane Smith">
+    </div>
+    <div class="field-row">
+      <label>Seller Contact Email</label>
+      <input type="email" id="seller-contact-email" placeholder="e.g. sales@supplier.com">
+    </div>
+    <div class="field-row">
+      <label>Seller Contact Phone</label>
+      <input type="text" id="seller-contact-phone" placeholder="e.g. +49 30 123456">
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════════ DELIVERY ═══════ -->
+<div class="section" id="sec-delivery">
+  <div class="section-header" onclick="toggleSection('sec-delivery')">
+    <span class="arrow">▶</span>
+    <h2>Delivery</h2>
+  </div>
+  <div class="section-body">
+    <div class="field-row">
+      <label>Delivery ID</label>
+      <input type="text" id="delivery-id" placeholder="e.g. DEL-001">
+    </div>
+    <div class="field-row">
+      <label>Quantity Value</label>
+      <div class="inline-row">
+        <input type="text" id="delivery-qty-value" placeholder="e.g. 100">
+        <select id="delivery-qty-unit" style="max-width:120px">
+          <option value="">-- unit --</option>
+          <option value="KGM">Kilogram (KGM)</option>
+          <option value="MTK">Square metre (MTK)</option>
+          <option value="MTR">Metre (MTR)</option>
+          <option value="LTR">Litre (LTR)</option>
+          <option value="EA">Each (EA)</option>
+          <option value="BX">Box (BX)</option>
+          <option value="PK">Pack (PK)</option>
+        </select>
+      </div>
+    </div>
+    <h4 style="font-size:0.82rem;color:var(--text2);margin:12px 0 8px">Delivery Address</h4>
+    <div class="field-row">
+      <label>Street</label>
+      <input type="text" id="delivery-street" placeholder="e.g. 789 Ship St">
+    </div>
+    <div class="field-row">
+      <label>City</label>
+      <input type="text" id="delivery-city" placeholder="e.g. Rotterdam">
+    </div>
+    <div class="field-row">
+      <label>Postal Code</label>
+      <input type="text" id="delivery-postal" placeholder="e.g. 3011 AA">
+    </div>
+    <div class="field-row">
+      <label>Country Code</label>
+      <input type="text" id="delivery-country-code" maxlength="2" placeholder="e.g. NL">
+    </div>
+    <div class="field-row">
+      <label>Country Name</label>
+      <input type="text" id="delivery-country-name" placeholder="e.g. Netherlands">
+    </div>
+    <h4 style="font-size:0.82rem;color:var(--text2);margin:12px 0 8px">Requested Delivery Period</h4>
+    <div class="field-row">
+      <label>Start Date</label>
+      <input type="date" id="delivery-start-date">
+    </div>
+    <div class="field-row">
+      <label>End Date</label>
+      <input type="date" id="delivery-end-date">
+    </div>
+    <div class="field-row">
+      <label>Latest Delivery Date</label>
+      <input type="date" id="latest-delivery-date">
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════════ PAYMENT ═══════ -->
+<div class="section" id="sec-payment">
+  <div class="section-header" onclick="toggleSection('sec-payment')">
+    <span class="arrow">▶</span>
+    <h2>Payment</h2>
+  </div>
+  <div class="section-body">
+    <div class="field-row">
+      <label>Payment Means Code</label>
+      <select id="payment-means-code" style="max-width:250px">
+        <option value="">-- select --</option>
+        <option value="1">1 - Instrument not defined</option>
+        <option value="30">30 - Credit transfer</option>
+        <option value="31">31 - Debit transfer</option>
+        <option value="42">42 - Payment to bank account</option>
+        <option value="48">48 - Bank card</option>
+        <option value="58">58 - SEPA credit transfer</option>
+        <option value="97">97 - Clearing between partners</option>
+      </select>
+    </div>
+    <div class="field-row">
+      <label>Payment Due Date</label>
+      <input type="date" id="payment-due-date">
+    </div>
+    <div class="field-row">
+      <label>Payment Channel Code</label>
+      <input type="text" id="payment-channel-code" placeholder="e.g. SWIFT">
+    </div>
+    <div class="field-row">
+      <label>Instruction Note</label>
+      <input type="text" id="payment-instruction-note" placeholder="e.g. Pay to IBAN NL91ABNA...">
+    </div>
+    <div class="field-row span">
+      <label>Payment Terms Notes</label>
+      <div class="note-list" id="payment-terms-notes">
+        <div class="note-entry">
+          <input type="text" placeholder="e.g. Net 30 days">
+          <button type="button" class="remove-btn" onclick="removeNoteEntry(this)" style="display:none">✕</button>
+        </div>
+      </div>
+      <button type="button" class="add-btn" style="margin-top:6px" onclick="addNoteEntry('payment-terms-notes')">+ Add Note</button>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════════ ORDER LINES ═══════ -->
+<div class="section open" id="sec-lines">
+  <div class="section-header" onclick="toggleSection('sec-lines')">
+    <span class="arrow">▶</span>
+    <h2>Order Lines</h2>
+    <span class="required-badge">REQUIRED</span>
+  </div>
+  <div class="section-body">
+    <div id="order-lines-container">
+      <!-- Line items added dynamically -->
+    </div>
+    <button type="button" class="add-btn" onclick="addOrderLine()" style="margin-top:8px">+ Add Line</button>
+  </div>
+</div>
+
+<!-- ── Submit ─────────────────────────────────── -->
+<div style="display:flex; gap:12px; align-items:center; margin-top:16px">
+  <button type="submit" class="submit-btn" id="submit-btn">Validate &amp; Submit Order</button>
+  <span id="submit-status" style="font-size:0.82rem;color:var(--text2)"></span>
+</div>
+
+</form>
+
+<!-- ── Validation results ────────────────────── -->
+<div id="validation-results"></div>
+
+
+<!-- ════════════════════════════════════════════════ SCRIPTS ═══ -->
+<script>
+// ── Section toggle ─────────────────────────────────────────────
+function toggleSection(id) {
+  document.getElementById(id).classList.toggle('open');
+}
+
+// ── Note helpers ───────────────────────────────────────────────
+function addNoteEntry(containerId) {
+  const container = document.getElementById(containerId);
+  const entry = document.createElement('div');
+  entry.className = 'note-entry';
+  entry.innerHTML = `
+    <input type="text" placeholder="Enter a note...">
+    <button type="button" class="remove-btn" onclick="removeNoteEntry(this)">✕</button>
+  `;
+  container.appendChild(entry);
+  // always show remove button on existing and new entries
+  container.querySelectorAll('.note-entry .remove-btn').forEach(b => b.style.display = '');
+}
+
+function removeNoteEntry(btn) {
+  const container = btn.closest('.note-list');
+  const entries = container.querySelectorAll('.note-entry');
+  if (entries.length <= 1) {
+    // last one: clear it instead of removing
+    entries[0].querySelector('input').value = '';
+    btn.style.display = 'none';
+  } else {
+    btn.closest('.note-entry').remove();
+  }
+}
+
+// ── Order Lines ────────────────────────────────────────────────
+let lineCounter = 0;
+
+function createLineTemplate(index) {
+  return `
+  <div class="line-item" data-line-index="${index}">
+    <div class="line-item-header">
+      <h3>Line #${index + 1}</h3>
+      <button type="button" class="remove-btn" onclick="removeOrderLine(this)">✕ Remove</button>
+    </div>
+    <div class="line-item-fields">
+      <div class="input-group">
+        <label style="color:var(--text2);font-size:0.75rem">Line Item ID <span class="req">*</span></label>
+        <input type="text" class="line-id" placeholder="e.g. 1" required>
+      </div>
+      <div class="input-group">
+        <label style="color:var(--text2);font-size:0.75rem">Item Name <span class="req">*</span></label>
+        <input type="text" class="line-item-name" placeholder="e.g. Widget A" required>
+      </div>
+      <div class="input-group">
+        <label style="color:var(--text2);font-size:0.75rem">Quantity Value <span class="req">*</span></label>
+        <input type="text" class="line-qty-value" placeholder="e.g. 10" required>
+      </div>
+      <div class="input-group">
+        <label style="color:var(--text2);font-size:0.75rem">Unit Code <span class="req">*</span></label>
+        <select class="line-qty-unit" required style="max-width:none">
+          <option value="">-- select --</option>
+          <option value="EA">Each (EA)</option>
+          <option value="KGM">Kilogram (KGM)</option>
+          <option value="MTR">Metre (MTR)</option>
+          <option value="LTR">Litre (LTR)</option>
+          <option value="BX">Box (BX)</option>
+          <option value="PK">Pack (PK)</option>
+          <option value="HUR">Hour (HUR)</option>
+          <option value="DAY">Day (DAY)</option>
+          <option value="MTK">Square metre (MTK)</option>
+        </select>
+      </div>
+      <div class="input-group">
+        <label style="color:var(--text2);font-size:0.75rem">Line Extension Amount <span class="req">*</span></label>
+        <input type="text" class="line-ext-value" placeholder="e.g. 500.00" required>
+      </div>
+      <div class="input-group">
+        <label style="color:var(--text2);font-size:0.75rem">Extension Currency</label>
+        <input type="text" class="line-ext-currency" maxlength="3" placeholder="EUR">
+      </div>
+      <div class="input-group">
+        <label style="color:var(--text2);font-size:0.75rem">Price Amount <span class="req">*</span></label>
+        <input type="text" class="line-price-value" placeholder="e.g. 100.00" required>
+      </div>
+      <div class="input-group">
+        <label style="color:var(--text2);font-size:0.75rem">Price Currency</label>
+        <input type="text" class="line-price-currency" maxlength="3" placeholder="EUR">
+      </div>
+    </div>
+  </div>`;
+}
+
+function addOrderLine() {
+  const container = document.getElementById('order-lines-container');
+  container.insertAdjacentHTML('beforeend', createLineTemplate(lineCounter));
+  lineCounter++;
+  updateRemoveButtons();
+}
+
+function removeOrderLine(btn) {
+  const container = document.getElementById('order-lines-container');
+  const items = container.querySelectorAll('.line-item');
+  if (items.length <= 1) {
+    // keep at least one, just clear fields
+    const inputs = items[0].querySelectorAll('input');
+    inputs.forEach(inp => inp.value = '');
+    const selects = items[0].querySelectorAll('select');
+    selects.forEach(sel => sel.selectedIndex = 0);
+  } else {
+    btn.closest('.line-item').remove();
+  }
+  updateRemoveButtons();
+}
+
+function updateRemoveButtons() {
+  const container = document.getElementById('order-lines-container');
+  const items = container.querySelectorAll('.line-item');
+  items.forEach(item => {
+    const btn = item.querySelector('.remove-btn');
+    if (items.length <= 1) {
+      btn.style.display = 'none';
+    } else {
+      btn.style.display = '';
+    }
+  });
+}
+
+// ── Build JSON payload ────────────────────────────────────────
+function valOf(id) {
+  const el = document.getElementById(id);
+  return el ? el.value.trim() : '';
+}
+
+function maybeCbc(value) {
+  // Wrap a non-empty string in {value: "..."}
+  return value ? { value: value } : undefined;
+}
+
+function maybeCbcNum(value) {
+  // Attempt numeric conversion for types expecting numeric values
+  if (!value) return undefined;
+  const n = parseFloat(value);
+  if (isNaN(n)) return { value: value };
+  return { value: n };
+}
+
+function buildTextList(containerId) {
+  const container = document.getElementById(containerId);
+  const inputs = container.querySelectorAll('input');
+  const notes = [];
+  inputs.forEach(inp => {
+    if (inp.value.trim()) {
+      notes.push({ value: inp.value.trim() });
+    }
+  });
+  return notes.length > 0 ? notes : undefined;
+}
+
+function buildParty(side) {
+  // side = 'buyer' or 'seller'
+  const partyName = valOf(side + '-party-name');
+  if (!partyName) return undefined;
+
+  const party = {};
+
+  const accountId = valOf(side + '-account-id');
+  if (accountId) {
+    if (side === 'buyer') {
+      party.customer_assigned_account_id = { value: accountId };
+    } else {
+      party.customer_assigned_account_id = { value: accountId };
+    }
+  }
+
+  const partyId = valOf(side + '-party-id');
+  const endpointId = valOf(side + '-endpoint-id');
+
+  const partyObj = {};
+
+  if (partyId) {
+    partyObj.party_identification = [{ id: { value: partyId } }];
+  }
+
+  partyObj.party_name = [{ name: { value: partyName } }];
+
+  if (endpointId) {
+    partyObj.endpoint_id = { value: endpointId };
+  }
+
+  // postal address
+  const street = valOf(side + '-street');
+  const city = valOf(side + '-city');
+  const postal = valOf(side + '-postal');
+  const countryCode = valOf(side + '-country-code');
+  const countryName = valOf(side + '-country-name');
+
+  if (street || city || postal || countryCode || countryName) {
+    const addr = {};
+    if (street) addr.street_name = { value: street };
+    if (city) addr.city_name = { value: city };
+    if (postal) addr.postal_zone = { value: postal };
+    if (countryCode || countryName) {
+      addr.country = {};
+      if (countryCode) addr.country.identification_code = { value: countryCode };
+      if (countryName) addr.country.name = { value: countryName };
+    }
+    partyObj.postal_address = addr;
+  }
+
+  party.party = partyObj;
+
+  // contacts
+  const contactName = valOf(side + '-contact-name');
+  const contactEmail = valOf(side + '-contact-email');
+  const contactPhone = valOf(side + '-contact-phone');
+
+  if (contactName || contactEmail || contactPhone) {
+    const contact = {};
+    if (contactName) contact.name = { value: contactName };
+    if (contactEmail) contact.electronic_mail = { value: contactEmail };
+    if (contactPhone) contact.telephone = { value: contactPhone };
+
+    if (side === 'buyer') {
+      party.buyer_contact = contact;
+    } else {
+      party.seller_contact = contact;
+    }
+  }
+
+  return party;
+}
+
+function buildDelivery() {
+  const id = valOf('delivery-id');
+  const qtyVal = valOf('delivery-qty-value');
+  const qtyUnit = valOf('delivery-qty-unit');
+  const street = valOf('delivery-street');
+  const city = valOf('delivery-city');
+  const postal = valOf('delivery-postal');
+  const countryCode = valOf('delivery-country-code');
+  const countryName = valOf('delivery-country-name');
+  const startDate = valOf('delivery-start-date');
+  const endDate = valOf('delivery-end-date');
+  const latestDate = valOf('latest-delivery-date');
+
+  if (!id && !qtyVal && !street && !city && !startDate && !endDate && !latestDate) {
+    return undefined; // no delivery data
+  }
+
+  const delivery = {};
+
+  if (id) delivery.id = { value: id };
+  if (qtyVal) {
+    delivery.quantity = { value: qtyVal };
+    if (qtyUnit) delivery.quantity.unit_code = qtyUnit;
+  }
+
+  if (street || city || postal || countryCode || countryName) {
+    const addr = {};
+    if (street) addr.street_name = { value: street };
+    if (city) addr.city_name = { value: city };
+    if (postal) addr.postal_zone = { value: postal };
+    if (countryCode || countryName) {
+      addr.country = {};
+      if (countryCode) addr.country.identification_code = { value: countryCode };
+      if (countryName) addr.country.name = { value: countryName };
+    }
+    delivery.delivery_address = addr;
+  }
+
+  if (startDate || endDate) {
+    const period = {};
+    if (startDate) period.start_date = startDate;
+    if (endDate) period.end_date = endDate;
+    delivery.requested_delivery_period = period;
+  }
+
+  if (latestDate) {
+    delivery.latest_delivery_date = latestDate;
+  }
+
+  return delivery;
+}
+
+function buildPaymentMeans() {
+  const code = valOf('payment-means-code');
+  const dueDate = valOf('payment-due-date');
+  const channel = valOf('payment-channel-code');
+  const instruction = valOf('payment-instruction-note');
+
+  if (!code && !dueDate && !channel && !instruction) return undefined;
+
+  const pm = {};
+  if (code) pm.payment_means_code = { value: code };
+  if (dueDate) pm.payment_due_date = dueDate;
+  if (channel) pm.payment_channel_code = { value: channel };
+  if (instruction) pm.instruction_note = [{ value: instruction }];
+
+  return [pm];
+}
+
+function buildPaymentTerms() {
+  const notes = buildTextList('payment-terms-notes');
+  if (!notes) return undefined;
+  return [{ note: notes }];
+}
+
+function buildOrderLines() {
+  const container = document.getElementById('order-lines-container');
+  const items = container.querySelectorAll('.line-item');
+  const lines = [];
+
+  items.forEach(item => {
+    const id = item.querySelector('.line-id').value.trim();
+    const name = item.querySelector('.line-item-name').value.trim();
+    const qtyValue = item.querySelector('.line-qty-value').value.trim();
+    const qtyUnit = item.querySelector('.line-qty-unit').value;
+    const extValue = item.querySelector('.line-ext-value').value.trim();
+    const extCurrency = item.querySelector('.line-ext-currency').value.trim();
+    const priceValue = item.querySelector('.line-price-value').value.trim();
+    const priceCurrency = item.querySelector('.line-price-currency').value.trim();
+
+    if (!id && !name && !qtyValue && !extValue && !priceValue) return; // skip empty
+
+    const lineItem = {};
+
+    if (id) lineItem.id = { value: id };
+
+    if (qtyValue) {
+      lineItem.quantity = { value: qtyValue };
+      if (qtyUnit) lineItem.quantity.unit_code = qtyUnit;
+    }
+
+    if (extValue) {
+      lineItem.line_extension_amount = {
+        value: extValue,
+        currency_id: extCurrency || 'EUR'
+      };
+    }
+
+    if (name) {
+      lineItem.item = { name: { value: name } };
+    }
+
+    if (priceValue) {
+      lineItem.price = {
+        price_amount: {
+          value: priceValue,
+          currency_id: priceCurrency || 'EUR'
+        }
+      };
+    }
+
+    const orderLine = { line_item: lineItem };
+    lines.push(orderLine);
+  });
+
+  return lines;
+}
+
+function buildOrderJson() {
+  const order = {};
+
+  // ── Metadata ──
+  order.id = { value: valOf('order-id') };
+  const soid = valOf('sales-order-id');
+  if (soid) order.sales_order_id = { value: soid };
+  const uuid = valOf('order-uuid');
+  if (uuid) order.uuid = { value: uuid };
+
+  order.issue_date = valOf('issue-date');
+  const issueTime = valOf('issue-time');
+  if (issueTime) order.issue_time = issueTime;
+
+  const otc = valOf('order-type-code');
+  if (otc) order.order_type_code = { value: otc };
+
+  const ublv = valOf('ubl-version-id');
+  if (ublv) order.ubl_version_id = { value: ublv };
+  const custId = valOf('customization-id');
+  if (custId) order.customization_id = { value: custId };
+  const profId = valOf('profile-id');
+  if (profId) order.profile_id = { value: profId };
+
+  const notes = buildTextList('order-notes');
+  if (notes) order.note = notes;
+
+  // ── Currency ──
+  const docCurr = valOf('document-currency-code');
+  if (docCurr) order.document_currency_code = { value: docCurr };
+  const invCurr = valOf('requested-invoice-currency-code');
+  if (invCurr) order.requested_invoice_currency_code = { value: invCurr };
+  const priceCurr = valOf('pricing-currency-code');
+  if (priceCurr) order.pricing_currency_code = { value: priceCurr };
+  const taxCurr = valOf('tax-currency-code');
+  if (taxCurr) order.tax_currency_code = { value: taxCurr };
+
+  // ── References ──
+  const custRef = valOf('customer-reference');
+  if (custRef) order.customer_reference = { value: custRef };
+  const accCode = valOf('accounting-cost-code');
+  if (accCode) order.accounting_cost_code = { value: accCode };
+  const accCost = valOf('accounting-cost');
+  if (accCost) order.accounting_cost = { value: accCost };
+  const lineCount = valOf('line-count-numeric');
+  if (lineCount) order.line_count_numeric = { value: parseInt(lineCount) || lineCount };
+
+  // ── Parties ──
+  const buyer = buildParty('buyer');
+  if (buyer) order.buyer_customer_party = buyer;
+
+  const seller = buildParty('seller');
+  if (seller) order.seller_supplier_party = seller;
+
+  // ── Delivery ──
+  const delivery = buildDelivery();
+  if (delivery) order.delivery = [delivery];
+
+  // ── Payment ──
+  const paymentMeans = buildPaymentMeans();
+  if (paymentMeans) order.payment_means = paymentMeans;
+
+  const paymentTerms = buildPaymentTerms();
+  if (paymentTerms) order.payment_terms = paymentTerms;
+
+  // ── Order Lines ──
+  order.order_line = buildOrderLines();
+
+  return order;
+}
+
+// ── Form submission ───────────────────────────────────────────
+document.getElementById('order-form').addEventListener('submit', async function(e) {
+  e.preventDefault();
+
+  const submitBtn = document.getElementById('submit-btn');
+  const statusEl = document.getElementById('submit-status');
+  const resultsDiv = document.getElementById('validation-results');
+  resultsDiv.style.display = 'none';
+
+  // Basic client-side validation
+  const errors = [];
+
+  const orderId = valOf('order-id');
+  if (!orderId) errors.push('Order ID is required');
+
+  const issueDate = valOf('issue-date');
+  if (!issueDate) errors.push('Issue Date is required');
+
+  const buyerName = valOf('buyer-party-name');
+  if (!buyerName) errors.push('Buyer Party Name is required');
+
+  const sellerName = valOf('seller-party-name');
+  if (!sellerName) errors.push('Seller Party Name is required');
+
+  const lines = document.getElementById('order-lines-container').querySelectorAll('.line-item');
+  let hasValidLine = false;
+  lines.forEach(line => {
+    const id = line.querySelector('.line-id').value.trim();
+    const name = line.querySelector('.line-item-name').value.trim();
+    if (id && name) hasValidLine = true;
+  });
+  if (!hasValidLine) errors.push('At least one Order Line with ID and Item Name is required');
+
+  if (errors.length > 0) {
+    resultsDiv.style.display = 'block';
+    resultsDiv.innerHTML = `
+      <div class="result-banner error">⚠ Validation Failed</div>
+      <div class="result-list">
+        ${errors.map(e => `<div class="result-item"><span class="sev sev-error">ERROR</span><span class="msg">${e}</span></div>`).join('')}
+      </div>
+    `;
+    return;
+  }
+
+  const payload = buildOrderJson();
+
+  submitBtn.disabled = true;
+  statusEl.textContent = 'Submitting...';
+
+  try {
+    const response = await fetch('/api/validate/order', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload)
+    });
+
+    const result = await response.json();
+
+    resultsDiv.style.display = 'block';
+
+    if (result.valid) {
+      resultsDiv.innerHTML = `
+        <div class="result-banner success">✓ Order validated successfully</div>
+        <div class="result-list">
+          <div class="result-item">
+            <span class="msg">Stored ID: <code>${escapeHtml(result.stored_id)}</code></span>
+          </div>
+        </div>
+      `;
+      statusEl.textContent = '✓ Submitted';
+    } else {
+      let html = `<div class="result-banner error">✗ Validation failed</div><div class="result-list">`;
+
+      if (result.errors && result.errors.length > 0) {
+        result.errors.forEach(err => {
+          html += `<div class="result-item"><span class="sev sev-error">ERROR</span><span class="rid">[${escapeHtml(err.rule_id)}]</span><span class="msg">${escapeHtml(err.message)}</span></div>`;
+        });
+      }
+
+      if (result.warnings && result.warnings.length > 0) {
+        result.warnings.forEach(warn => {
+          html += `<div class="result-item"><span class="sev sev-warning">WARN</span><span class="rid">[${escapeHtml(warn.rule_id)}]</span><span class="msg">${escapeHtml(warn.message)}</span></div>`;
+        });
+      }
+
+      html += '</div>';
+      resultsDiv.innerHTML = html;
+      statusEl.textContent = '✗ Failed validation';
+    }
+
+    // scroll to results
+    resultsDiv.scrollIntoView({ behavior: 'smooth', block: 'start' });
+
+  } catch (err) {
+    resultsDiv.style.display = 'block';
+    resultsDiv.innerHTML = `
+      <div class="result-banner error">⚠ Network Error</div>
+      <div class="result-list">
+        <div class="result-item"><span class="msg">${escapeHtml(err.message)}</span></div>
+      </div>
+    `;
+    statusEl.textContent = '✗ Error';
+  } finally {
+    submitBtn.disabled = false;
+  }
+});
+
+function escapeHtml(str) {
+  if (!str) return '';
+  const div = document.createElement('div');
+  div.textContent = str;
+  return div.innerHTML;
+}
+
+// ── Initialise ─────────────────────────────────────────────────
+document.addEventListener('DOMContentLoaded', function() {
+  // Set default issue date to today
+  document.getElementById('issue-date').value = new Date().toISOString().split('T')[0];
+  // Add first order line
+  addOrderLine();
+});
+</script>
+
+</body>
+</html>
