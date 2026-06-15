@@ -123,7 +123,7 @@ validate_handler!(validate_catalogue, Catalogue, catalogue_rules, "Catalogue");
 
 /// Serve the HTML order form.
 pub async fn order_form() -> Html<&'static str> {
-    Html(include_str!("../order_form.html"))
+    Html(include_str!("order_form.html"))
 }
 
 // ── Submit order ───────────────────────────────────────────────────────
