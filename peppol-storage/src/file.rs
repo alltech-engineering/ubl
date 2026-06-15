@@ -202,18 +202,30 @@ struct PeppolWrapped {
 /// Returns `Ok(xml_string)` when the payload contains Peppol identity
 /// markers *and* we know how to deserialize the document type.
 fn try_peppol_serialize(doc: &StoredDocument) -> Result<String, StorageError> {
-    // Quick pre-check: does the JSON have an "identity" key?
-    if !doc.payload.as_object().map_or(false, |o| o.contains_key("identity")) {
+    // For Order documents, always produce proper UBL XML even without Peppol identity.
+    // For other types, require Peppol identity markers.
+    let is_order = doc.document_type == "Order";
+
+    let has_identity = doc
+        .payload
+        .as_object()
+        .map_or(false, |o| o.contains_key("identity"));
+
+    if !has_identity && !is_order {
         return Err(StorageError::Internal("no Peppol identity in payload".into()));
     }
 
-    // Deserialize the full wrapped payload to extract identity.
-    let wrapped: PeppolWrapped = serde_json::from_value(doc.payload.clone())
-        .map_err(|e| StorageError::Internal(format!("deserialize wrapped payload: {}", e)))?;
-
-    let identity = wrapped
-        .identity
-        .ok_or_else(|| StorageError::Internal("identity field missing".into()))?;
+    // For non-Order with identity, extract it. For Order without identity, use defaults.
+    let identity = if has_identity {
+        let wrapped: PeppolWrapped = serde_json::from_value(doc.payload.clone())
+            .map_err(|e| StorageError::Internal(format!("deserialize wrapped payload: {e}")))?;
+        wrapped
+            .identity
+            .unwrap_or_else(|| peppol_common::identity::identities::ordering_3_0("Order"))
+    } else {
+        // Order without explicit identity — use Ordering BIS defaults
+        peppol_common::identity::identities::ordering_3_0("Order")
+    };
 
     // Match on document type
     match doc.document_type.as_str() {

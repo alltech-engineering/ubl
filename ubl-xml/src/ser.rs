@@ -671,7 +671,7 @@ impl ToXml for Order {
         // 14. cac:AllowanceCharge*
         for ac in &self.allowance_charge {
             open(w, "AllowanceCharge")?;
-            let ci = &ac.charge_indicator {
+            let ci = &ac.charge_indicator;
                 el(w, "charge_indicator", if ci.0 { "true" } else { "false" })?;
             }
             el_attr(w, "amount", &format!("{:.2}", ac.amount.value), &[("currencyID", ac.amount.currency_id())])?;
