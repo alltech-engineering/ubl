@@ -215,12 +215,12 @@ fn try_peppol_serialize(doc: &StoredDocument) -> Result<String, StorageError> {
         .identity
         .ok_or_else(|| StorageError::Internal("identity field missing".into()))?;
 
-    // Match on document type; currently only Invoice has a ToXml impl.
+    // Match on document type
     match doc.document_type.as_str() {
         "Invoice" => {
             let invoice: ubl_documents::billing::Invoice =
                 serde_json::from_value(doc.payload.clone())
-                    .map_err(|e| StorageError::Internal(format!("deserialize Invoice: {}", e)))?;
+                    .map_err(|e| StorageError::Internal(format!("deserialize Invoice: {e}")))?;
             let peppol = peppol_xml::PeppolDocument {
                 document: invoice,
                 identity,
@@ -228,7 +228,20 @@ fn try_peppol_serialize(doc: &StoredDocument) -> Result<String, StorageError> {
                 root_namespace: "urn:oasis:names:specification:ubl:schema:xsd:Invoice-2",
             };
             peppol_xml::to_peppol_xml(&peppol)
-                .map_err(|e| StorageError::Internal(format!("peppol xml: {}", e)))
+                .map_err(|e| StorageError::Internal(format!("peppol xml: {e}")))
+        }
+        "Order" => {
+            let order: ubl_documents::ordering::Order =
+                serde_json::from_value(doc.payload.clone())
+                    .map_err(|e| StorageError::Internal(format!("deserialize Order: {e}")))?;
+            let peppol = peppol_xml::PeppolDocument {
+                document: order,
+                identity,
+                root_element: "Order",
+                root_namespace: "urn:oasis:names:specification:ubl:schema:xsd:Order-2",
+            };
+            peppol_xml::to_peppol_xml(&peppol)
+                .map_err(|e| StorageError::Internal(format!("peppol xml: {e}")))
         }
         // Future: CreditNote, Order, etc. once ToXml impls exist.
         _ => {
