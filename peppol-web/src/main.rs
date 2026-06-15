@@ -38,30 +38,46 @@ async fn order_list() -> Html<String> {
             let uid = d["id"].as_str().unwrap_or("");
             let date = d["created_at"].as_str().unwrap_or("-");
             let valid = d["validated"].as_bool().unwrap_or(false);
-            let status = if valid { "✓" } else { "✗" };
+            let status = if valid {
+                "<span class=\"or-status ok\">Valid</span>"
+            } else {
+                "<span class=\"or-status fail\">Issues</span>"
+            };
             format!(
-                "<tr><td><a href=\"/orders/{uid}\">{id}</a></td><td>{status}</td><td>{date}</td></tr>",
+                "<a href=\"/orders/{uid}\" class=\"order-row\"><span class=\"or-id\">{id}</span><span class=\"or-date\">{date}</span>{status}</a>",
             )
         })
         .collect();
 
     Html(format!(
-        r#"<!DOCTYPE html><html><head><meta charset="UTF-8"><title>Orders</title>
+        r#"<!DOCTYPE html><html><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Orders</title>
 <style>
-body{{font-family:'Fira Code',monospace;background:#0d1117;color:#c9d1d9;padding:20px;max-width:1000px;margin:0 auto}}
-h1{{color:#58a6ff}} a{{color:#58a6ff;text-decoration:none}}
-table{{width:100%;border-collapse:collapse;margin-top:16px}}
-th,td{{padding:10px 14px;text-align:left;border-bottom:1px solid #30363d}}
-th{{color:#8b949e;font-size:12px;text-transform:uppercase}}
-tr:hover{{background:rgba(255,255,255,.03)}}
-.nav{{margin-bottom:20px}} .nav a{{margin-right:16px}}
-</style></head><body>
-<h1>Orders</h1>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;background:#f5f5f5;color:#1a1a1a}
+.container{max-width:800px;margin:0 auto;padding:24px 16px}
+h1{font-size:22px;margin-bottom:8px}
+.subtitle{color:#888;font-size:13px;margin-bottom:20px}
+.card{background:#fff;border-radius:12px;overflow:hidden;box-shadow:0 1px 3px rgba(0,0,0,.08)}
+.order-row{display:flex;justify-content:space-between;align-items:center;padding:16px 24px;border-bottom:1px solid #f0f0f0;text-decoration:none;color:inherit}
+.order-row:last-child{border-bottom:none}
+.order-row:hover{background:#fafafa}
+.order-row .or-id{font-weight:600;font-size:15px}
+.order-row .or-date{font-size:13px;color:#888}
+.order-row .or-status{font-size:12px;font-weight:600;padding:4px 10px;border-radius:12px}
+.or-status.ok{background:#e6f7e6;color:#1a7a1a}
+.or-status.fail{background:#fde8e8;color:#c41e1e}
+.nav{margin-bottom:16px}
+.nav a{color:#555;text-decoration:none;font-size:14px}
+.nav a:hover{color:#000}
+.empty{text-align:center;padding:48px;color:#999;font-size:14px}
+</style></head><body><div class="container">
 <div class="nav"><a href="/">New Order</a></div>
-<table><tr><th>Order ID</th><th>Valid</th><th>Created</th></tr>
+<h1>Orders</h1>
+<div class="subtitle">Recently created purchase orders</div>
+<div class="card">
 {rows}
-</table>
-</body></html>"#
+</div>
+</div></body></html>"#
     ))
 }
 
@@ -83,139 +99,168 @@ async fn order_detail(Path(id): Path<String>) -> Html<String> {
 }
 
 fn render_order_detail(p: &Value) -> String {
-    let mut html = String::from(r#"<!DOCTYPE html><html><head><meta charset="UTF-8"><title>Order Detail</title>
+    let mut h = String::from(r#"<!DOCTYPE html><html><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Order Detail</title>
 <style>
-body{{font-family:'Fira Code',monospace;background:#0d1117;color:#c9d1d9;padding:20px;max-width:900px;margin:0 auto}}
-h1{{color:#58a6ff;font-size:22px;margin-bottom:4px}}
-h2{{color:#58a6ff;font-size:14px;border-bottom:1px solid #30363d;padding-bottom:4px;margin:24px 0 12px}}
-.doc-header{{display:flex;justify-content:space-between;margin-bottom:20px}}
-.doc-header .id{{font-size:24px;color:#58a6ff}}
-.doc-header .date{{color:#8b949e}}
-.section{{margin-bottom:16px}}
-.row{{display:flex;justify-content:space-between;padding:4px 0;border-bottom:1px solid #161b22}}
-.row .label{{color:#8b949e;font-size:12px}}
-.row .value{{font-size:13px;max-width:60%;text-align:right}}
-.line{{background:#161b22;border-radius:6px;padding:12px;margin-bottom:8px}}
-.line-header{{display:flex;justify-content:space-between;margin-bottom:8px;color:#58a6ff;font-size:13px}}
-.amount{{font-weight:bold;color:#3fb950}}
-.total-row{{display:flex;justify-content:flex-end;padding:8px 0;font-size:16px}}
-.total-row .label{{color:#8b949e;margin-right:16px}}
-.total-row .value{{color:#3fb950;font-weight:bold}}
-.nav{{margin-bottom:20px}} .nav a{{color:#58a6ff;text-decoration:none;margin-right:16px}}
-</style></head><body>
-<div class="nav"><a href="/orders">← Orders</a></div>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;background:#f5f5f5;color:#1a1a1a;line-height:1.5}
+.container{max-width:800px;margin:0 auto;padding:24px 16px}
+.back{color:#555;text-decoration:none;font-size:14px;display:inline-block;margin-bottom:16px}
+.back:hover{color:#000}
+.card{background:#fff;border-radius:12px;padding:24px;margin-bottom:16px;box-shadow:0 1px 3px rgba(0,0,0,.08)}
+.order-header{display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:12px}
+.order-header h1{font-size:22px;font-weight:700}
+.order-id{font-family:'SF Mono',monospace;font-size:13px;color:#888;margin-top:2px}
+.badge{display:inline-block;padding:4px 12px;border-radius:20px;font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:.5px}
+.badge.ok{background:#e6f7e6;color:#1a7a1a}
+.badge.warn{background:#fff8e1;color:#b76e00}
+.parties{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+@media(max-width:600px){.parties{grid-template-columns:1fr}}
+.party-label{font-size:11px;text-transform:uppercase;letter-spacing:1px;color:#999;margin-bottom:8px}
+.party-name{font-weight:600;font-size:15px;margin-bottom:4px}
+.party-detail{font-size:13px;color:#555;line-height:1.6}
+.items-header{display:grid;grid-template-columns:1fr 100px 120px;gap:8px;padding-bottom:8px;border-bottom:2px solid #eee;font-size:11px;text-transform:uppercase;letter-spacing:1px;color:#999}
+.item-row{display:grid;grid-template-columns:1fr 100px 120px;gap:8px;padding:12px 0;border-bottom:1px solid #f0f0f0;align-items:center}
+.item-name{font-weight:600;font-size:14px}
+.item-sku{font-size:12px;color:#888;margin-top:2px}
+.item-desc{font-size:12px;color:#777;margin-top:2px}
+.item-qty{text-align:center;font-size:14px;color:#555}
+.item-total{text-align:right;font-weight:600;font-size:14px}
+.totals{margin-top:8px}
+.total-line{display:flex;justify-content:flex-end;padding:4px 0;font-size:14px;color:#555;gap:24px}
+.total-line.grand{font-size:18px;font-weight:700;color:#000;padding-top:8px;border-top:2px solid #eee;margin-top:8px}
+.total-line .tl{text-align:right}
+.section-title{font-size:14px;font-weight:600;margin-bottom:12px;color:#333}
+.info-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px 24px}
+.info-grid .ig-label{font-size:12px;color:#888}
+.info-grid .ig-value{font-size:14px}
+</style></head><body><div class="container">
+<a href="/orders" class="back">← Back to Orders</a>
 "#);
 
-    // Header
     let order_id = field(p, &["id", "value"]);
     let date = field(p, &["issue_date"]);
     let buyer = field(p, &["buyer_customer_party", "party", "party_name", "0", "name"]);
     let seller = field(p, &["seller_supplier_party", "party", "party_name", "0", "name"]);
     let currency = field(p, &["document_currency_code", "value"]);
 
-    html.push_str(&format!(
-        "<div class=\"doc-header\"><div><div class=\"id\">Order {order_id}</div><div class=\"date\">{date}</div></div><div style=\"text-align:right\"><div>{buyer}</div><div style=\"color:#8b949e\">→</div><div>{seller}</div></div></div>"
-    ));
+    // ── Order header card ──
+    h.push_str(&format!(r#"
+<div class="card">
+  <div class="order-header">
+    <div>
+      <div class="order-id">ORDER</div>
+      <h1>{order_id}</h1>
+      <div style="font-size:13px;color:#888;margin-top:4px">{date}</div>
+    </div>
+    <span class="badge ok">Placed</span>
+  </div>
+</div>"#));
 
-    // Parties
-    html.push_str("<h2>Buyer</h2>");
-    render_party(&mut html, p, "buyer_customer_party");
-    html.push_str("<h2>Seller</h2>");
-    render_party(&mut html, p, "seller_supplier_party");
+    // ── Parties card ──
+    h.push_str(r#"<div class="card"><div class="parties">"#);
+    h.push_str("<div><div class=\"party-label\">Sold By</div>");
+    h.push_str(&format!("<div class=\"party-name\">{seller}</div><div class=\"party-detail\">"));
+    render_party_inline(&mut h, p, "seller_supplier_party");
+    h.push_str("</div></div>");
 
-    // Order Lines
+    h.push_str("<div><div class=\"party-label\">Ship To</div>");
+    h.push_str(&format!("<div class=\"party-name\">{buyer}</div><div class=\"party-detail\">"));
+    render_party_inline(&mut h, p, "buyer_customer_party");
+    h.push_str("</div></div>");
+    h.push_str("</div></div>");
+
+    // ── Items card ──
     if let Some(lines) = p["order_line"].as_array() {
-        html.push_str("<h2>Order Lines</h2>");
-        for (i, line) in lines.iter().enumerate() {
+        h.push_str(&format!(r#"<div class="card">
+<div class="section-title">Items ({})</div>
+<div class="items-header"><span>Item</span><span>Qty</span><span>Amount</span></div>"#, lines.len()));
+
+        for line in lines {
             let li = &line["line_item"];
             let line_id = field(li, &["id", "value"]);
             let qty = field(li, &["quantity", "value"]);
             let unit = field(li, &["quantity", "unit_code"]);
             let price = field(li, &["price", "price_amount", "value"]);
-            let price_cur = field(li, &["price", "price_amount", "currency_id"]);
             let total = field(li, &["line_extension_amount", "value"]);
-            let total_cur = field(li, &["line_extension_amount", "currency_id"]);
             let item_name = field(li, &["item", "name"]);
-            let item_desc = field(li, &["item", "description", "value"]);
             let sku = field(li, &["item", "sellers_item_identification", "id", "value"]);
+            let desc = field(li, &["item", "description", "value"]);
 
-            html.push_str(&format!(
-                "<div class=\"line\"><div class=\"line-header\"><span>#{line_id} — {item_name}</span><span class=\"amount\">{currency} {total}</span></div>"
-            ));
-            html.push_str("<div class=\"row\"><span class=\"label\">Quantity</span><span class=\"value\">{qty} {unit}</span></div>");
-            if !price.is_empty() {
-                html.push_str(&format!("<div class=\"row\"><span class=\"label\">Unit Price</span><span class=\"value\">{price_cur} {price}</span></div>"));
-            }
-            if !sku.is_empty() {
-                html.push_str(&format!("<div class=\"row\"><span class=\"label\">SKU</span><span class=\"value\">{sku}</span></div>"));
-            }
-            if !item_desc.is_empty() && item_desc != "null" {
-                html.push_str(&format!("<div class=\"row\"><span class=\"label\">Description</span><span class=\"value\">{item_desc}</span></div>"));
-            }
-            html.push_str("</div>");
+            h.push_str("<div class=\"item-row\">");
+            h.push_str(&format!("<div><div class=\"item-name\">{item_name}</div>"));
+            if !sku.is_empty() { h.push_str(&format!("<div class=\"item-sku\">SKU: {sku}</div>")); }
+            if !desc.is_empty() && desc != "null" { h.push_str(&format!("<div class=\"item-desc\">{desc}</div>")); }
+            h.push_str("</div>");
+            h.push_str(&format!("<div class=\"item-qty\">{qty} {unit}</div>"));
+            h.push_str(&format!("<div class=\"item-total\">{currency} {total}</div>"));
+            h.push_str("</div>");
         }
+
+        // Totals
+        h.push_str("<div class=\"totals\">");
+        let subtotal = field(&p["anticipated_monetary_total"], &["line_extension_amount", "value"]);
+        let tax = field(&p["anticipated_monetary_total"], &["tax_inclusive_amount", "value"]);
+        let payable = field(&p["anticipated_monetary_total"], &["payable_amount", "value"]);
+        if !subtotal.is_empty() {
+            h.push_str(&format!("<div class=\"total-line\"><span>Subtotal</span><span class=\"tl\">{currency} {subtotal}</span></div>"));
+        }
+        if !tax.is_empty() {
+            let tax_excl = field(&p["anticipated_monetary_total"], &["tax_exclusive_amount", "value"]);
+            if !tax_excl.is_empty() {
+                h.push_str(&format!("<div class=\"total-line\"><span>Net</span><span class=\"tl\">{currency} {tax_excl}</span></div>"));
+            }
+            h.push_str(&format!("<div class=\"total-line\"><span>VAT</span><span class=\"tl\">{currency} {tax}</span></div>"));
+        }
+        if !payable.is_empty() {
+            h.push_str(&format!("<div class=\"total-line grand\"><span>Total</span><span class=\"tl\">{currency} {payable}</span></div>"));
+        }
+        h.push_str("</div></div>");
     }
 
-    // Totals
-    if let Some(mt) = p["anticipated_monetary_total"].as_object() {
-        let total = field(&p["anticipated_monetary_total"], &["payable_amount", "value"]);
-        if !total.is_empty() {
-            html.push_str("<h2>Totals</h2>");
-            html.push_str(&format!("<div class=\"total-row\"><span class=\"label\">Total</span><span class=\"value\">{currency} {total}</span></div>"));
-        }
-    }
-
-    // Delivery
+    // ── Delivery card (only if has data) ──
     if let Some(del) = p["delivery"].get(0) {
         let street = field(del, &["delivery_address", "street_name"]);
         let city = field(del, &["delivery_address", "city_name"]);
+        let postal = field(del, &["delivery_address", "postal_zone", "value"]);
         let country = field(del, &["delivery_address", "country", "identification_code", "value"]);
         if !street.is_empty() || !city.is_empty() {
-            html.push_str("<h2>Delivery</h2>");
-            html.push_str(&format!("<div class=\"row\"><span class=\"label\">Address</span><span class=\"value\">{street}, {city}, {country}</span></div>"));
+            h.push_str("<div class=\"card\"><div class=\"section-title\">Delivery Address</div>");
+            h.push_str(&format!("<div style=\"font-size:14px;color:#444\">{street}<br>{city} {postal}<br>{country}</div>"));
+            h.push_str("</div>");
         }
     }
 
-    // Payment
+    // ── Payment card ──
     if let Some(pm) = p["payment_means"].get(0) {
         let code = field(pm, &["payment_means_code", "value"]);
-        if !code.is_empty() {
-            html.push_str("<h2>Payment</h2>");
-            html.push_str(&format!("<div class=\"row\"><span class=\"label\">Means</span><span class=\"value\">{code}</span></div>"));
+        let terms = field(&p["payment_terms"].get(0).unwrap_or(&Value::Null), &["note", "0", "value"]);
+        if !code.is_empty() || !terms.is_empty() {
+            h.push_str("<div class=\"card\"><div class=\"section-title\">Payment</div>");
+            h.push_str("<div class=\"info-grid\">");
+            let code_label = match code.as_str() { "30" => "Credit Transfer", "10" => "Cash", "42" => "Bank Transfer", "48" => "Bank Card", _ => &code };
+            if !code.is_empty() { h.push_str(&format!("<div><span class=\"ig-label\">Method</span><br><span class=\"ig-value\">{code_label}</span></div>")); }
+            if !terms.is_empty() { h.push_str(&format!("<div><span class=\"ig-label\">Terms</span><br><span class=\"ig-value\">{terms}</span></div>")); }
+            h.push_str("</div></div>");
         }
     }
 
-    html.push_str("</body></html>");
-    html
+    h.push_str("</div></body></html>");
+    h
 }
 
-fn render_party(html: &mut String, p: &Value, prefix: &str) {
+fn render_party_inline(h: &mut String, p: &Value, prefix: &str) {
     let party = &p[prefix]["party"];
-    let name = field(party, &["party_name", "0", "name"]);
     let street = field(party, &["postal_address", "street_name"]);
     let city = field(party, &["postal_address", "city_name"]);
     let postal = field(party, &["postal_address", "postal_zone", "value"]);
-    let country = field(party, &["postal_address", "country", "identification_code", "value"]);
     let vat = field(party, &["party_tax_scheme", "0", "company_id", "value"]);
     let contact = field(party, &["contact", "name"]);
     let email = field(party, &["contact", "electronic_mail", "value"]);
-    let phone = field(party, &["contact", "telephone", "value"]);
 
-    if !name.is_empty() {
-        html.push_str(&format!("<div class=\"row\"><span class=\"label\">Name</span><span class=\"value\">{name}</span></div>"));
-    }
-    if !street.is_empty() || !city.is_empty() {
-        html.push_str(&format!("<div class=\"row\"><span class=\"label\">Address</span><span class=\"value\">{street}, {city} {postal}, {country}</span></div>"));
-    }
-    if !vat.is_empty() {
-        html.push_str(&format!("<div class=\"row\"><span class=\"label\">VAT</span><span class=\"value\">{vat}</span></div>"));
-    }
-    if !contact.is_empty() {
-        html.push_str(&format!("<div class=\"row\"><span class=\"label\">Contact</span><span class=\"value\">{contact}</span></div>"));
-    }
-    if !email.is_empty() {
-        html.push_str(&format!("<div class=\"row\"><span class=\"label\">Email</span><span class=\"value\">{email}</span></div>"));
-    }
+    if !street.is_empty() { h.push_str(&format!("{street}, {city} {postal}<br>")); }
+    if !vat.is_empty() { h.push_str(&format!("VAT: {vat}<br>")); }
+    if !contact.is_empty() { h.push_str(&format!("{contact}<br>")); }
+    if !email.is_empty() { h.push_str(&format!("{email}")); }
 }
 
 fn field(v: &Value, path: &[&str]) -> String {
