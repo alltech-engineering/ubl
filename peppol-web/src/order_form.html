@@ -610,8 +610,6 @@ function setZADefaults() {
   // Set ZA defaults for buyer/seller parties via data-ubl path matching
   document.querySelectorAll('#order-form [data-ubl]').forEach(el => {
     const path = el.dataset.ubl;
-    // Currency ID fields default to ZAR
-    if (path.endsWith('.currency_id') && !el.value) el.value = 'ZAR';
     // Country code fields default to ZA
     if (path.includes('country.identification_code.value') && !el.value) el.value = 'ZA';
     // Party ID scheme defaults to 9933
@@ -620,6 +618,15 @@ function setZADefaults() {
     if (path.includes('tax_scheme.id.value') && !el.value) el.value = 'VAT';
     // Tax category defaults to S
     if (path.includes('tax_category.id.value') && !el.value) el.value = 'S';
+    // Unit code defaults to EA
+    if (path.endsWith('.unit_code') && !el.value) el.value = 'EA';
+  });
+
+  // Set ZAR currency on all amount currency_id fields + "0" on value fields
+  document.querySelectorAll('#order-form [data-ubl]').forEach(el => {
+    const path = el.dataset.ubl;
+    if (path.endsWith('.currency_id') && !el.value) el.value = 'ZAR';
+    if (path.endsWith('.value') && path.includes('amount') && !el.value) el.value = '0';
   });
 }
 </script>
