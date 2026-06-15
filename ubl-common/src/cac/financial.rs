@@ -10,7 +10,9 @@ use serde::{Deserialize, Serialize};
 
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 pub struct FinancialInstitution {
+    #[serde(default)]
     pub id: Option<String>,
+    #[serde(default)]
     pub name: Option<String>,
     // CAC: address: Option<Address>
 }
@@ -21,10 +23,13 @@ pub struct FinancialInstitution {
 
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 pub struct FinancialGuarantee {
+    #[serde(default)]
     pub guarantee_type_code: Option<String>,
     #[serde(default)]
     pub description: Vec<String>,
+    #[serde(default)]
     pub liability_amount: Option<f64>,
+    #[serde(default)]
     pub amount_rate: Option<f64>,
     // CAC: constitution_period: Option<Period>
 }
@@ -37,6 +42,7 @@ pub struct FinancialGuarantee {
 pub struct TradingTerms {
     #[serde(default)]
     pub information: Vec<String>,
+    #[serde(default)]
     pub reference: Option<String>,
     // CAC: applicable_address: Option<Address>
 }

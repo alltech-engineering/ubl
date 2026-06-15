@@ -10,7 +10,9 @@ use serde::{Deserialize, Serialize};
 
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 pub struct CustomsDeclaration {
+    #[serde(default)]
     pub id: Option<String>,
+    #[serde(default)]
     pub function_code: Option<String>,
     // CAC: validity_period: Option<Period>
     // CAC: applicable_territory_address: Option<Address>
@@ -31,13 +33,21 @@ pub struct CustomsDeclaration {
 
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 pub struct LocationCoordinate {
+    #[serde(default)]
     pub coordinate_system_code: Option<String>,
+    #[serde(default)]
     pub latitude_degrees_measure: Option<f64>,
+    #[serde(default)]
     pub latitude_minutes_measure: Option<f64>,
+    #[serde(default)]
     pub latitude_direction_code: Option<String>,
+    #[serde(default)]
     pub longitude_degrees_measure: Option<f64>,
+    #[serde(default)]
     pub longitude_minutes_measure: Option<f64>,
+    #[serde(default)]
     pub longitude_direction_code: Option<String>,
+    #[serde(default)]
     pub altitude_measure: Option<f64>,
 }
 
@@ -47,7 +57,9 @@ pub struct LocationCoordinate {
 
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 pub struct ClassificationCategory {
+    #[serde(default)]
     pub name: Option<String>,
+    #[serde(default)]
     pub code_value: Option<String>,
     #[serde(default)]
     pub description: Vec<String>,

@@ -11,16 +11,25 @@ use serde::{Deserialize, Serialize};
 
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 pub struct MaritimeTransport {
+    #[serde(default)]
     pub vessel_id: Option<String>,
+    #[serde(default)]
     pub vessel_name: Option<String>,
+    #[serde(default)]
     pub radio_call_sign_id: Option<String>,
+    #[serde(default)]
     pub mmsi_registration_id: Option<String>,
     #[serde(default)]
     pub ships_requirements: Vec<String>,
+    #[serde(default)]
     pub gross_tonnage_measure: Option<f64>,
+    #[serde(default)]
     pub net_tonnage_measure: Option<f64>,
+    #[serde(default)]
     pub segregated_ballast_measure: Option<f64>,
+    #[serde(default)]
     pub ship_configuration_code: Option<String>,
+    #[serde(default)]
     pub inf_ship_class_code: Option<String>,
     #[serde(default)]
     pub antenna_locus: Vec<String>,
@@ -35,7 +44,9 @@ pub struct MaritimeTransport {
 
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 pub struct RoadTransport {
+    #[serde(default)]
     pub license_plate_id: Option<String>,
+    #[serde(default)]
     pub trailer_license_plate_id: Option<String>,
 }
 
@@ -45,7 +56,9 @@ pub struct RoadTransport {
 
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 pub struct RailTransport {
+    #[serde(default)]
     pub train_id: Option<String>,
+    #[serde(default)]
     pub rail_car_id: Option<String>,
 }
 
@@ -55,5 +68,6 @@ pub struct RailTransport {
 
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 pub struct AirTransport {
+    #[serde(default)]
     pub aircraft_id: Option<String>,
 }

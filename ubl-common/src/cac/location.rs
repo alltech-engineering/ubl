@@ -10,15 +10,21 @@ use serde::{Deserialize, Serialize};
 
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 pub struct Location {
+    #[serde(default)]
     pub id: Option<String>,
     #[serde(default)]
     pub description: Vec<String>,
     #[serde(default)]
     pub conditions: Vec<String>,
+    #[serde(default)]
     pub country_subentity: Option<String>,
+    #[serde(default)]
     pub country_subentity_code: Option<String>,
+    #[serde(default)]
     pub location_type_code: Option<String>,
+    #[serde(default)]
     pub information_uri: Option<String>,
+    #[serde(default)]
     pub name: Option<String>,
     // CAC: validity_period: Vec<Period>
     // CAC: address: Option<Address>
@@ -34,10 +40,13 @@ pub struct Location {
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 pub struct Dimension {
     pub attribute_id: String, // 1..1 required
+    #[serde(default)]
     pub measure: Option<f64>,
     #[serde(default)]
     pub description: Vec<String>,
+    #[serde(default)]
     pub minimum_measure: Option<f64>,
+    #[serde(default)]
     pub maximum_measure: Option<f64>,
 }
 
@@ -47,8 +56,11 @@ pub struct Dimension {
 
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 pub struct Temperature {
+    #[serde(default)]
     pub attribute_id: Option<String>,
+    #[serde(default)]
     pub measure: Option<f64>,
+    #[serde(default)]
     pub measure_code: Option<String>,
     #[serde(default)]
     pub description: Vec<String>,
@@ -60,6 +72,8 @@ pub struct Temperature {
 
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 pub struct LocationCountry {
+    #[serde(default)]
     pub identification_code: Option<String>,
+    #[serde(default)]
     pub name: Option<String>,
 }

@@ -6,28 +6,45 @@ use serde::{Deserialize, Serialize};
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 pub struct LegalTotal {
     pub line_extension_amount: LineExtensionAmount,
+    #[serde(default)]
     pub tax_exclusive_amount: Option<TaxExclusiveAmount>,
+    #[serde(default)]
     pub tax_inclusive_amount: Option<TaxInclusiveAmount>,
+    #[serde(default)]
     pub allowance_total_amount: Option<AllowanceTotalAmount>,
+    #[serde(default)]
     pub charge_total_amount: Option<ChargeTotalAmount>,
+    #[serde(default)]
     pub prepaid_amount: Option<PrepaidAmount>,
+    #[serde(default)]
     pub payable_rounding_amount: Option<PayableRoundingAmount>,
     pub payable_amount: PayableAmount,
 }
 
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 pub struct MonetaryTotal {
+    #[serde(default)]
     pub line_extension_amount: Option<LineExtensionAmount>,
+    #[serde(default)]
     pub tax_exclusive_amount: Option<TaxExclusiveAmount>,
+    #[serde(default)]
     pub tax_inclusive_amount: Option<TaxInclusiveAmount>,
+    #[serde(default)]
     pub allowance_total_amount: Option<AllowanceTotalAmount>,
+    #[serde(default)]
     pub charge_total_amount: Option<ChargeTotalAmount>,
+    #[serde(default)]
     pub prepaid_amount: Option<PrepaidAmount>,
+    #[serde(default)]
     pub payable_rounding_amount: Option<PayableRoundingAmount>,
     pub payable_amount: PayableAmount,
+    #[serde(default)]
     pub payable_alternative_amount: Option<PayableAmount>,
+    #[serde(default)]
     pub allowance_total_tax_inclusive_amount: Option<AllowanceTotalTaxInclusiveAmount>,
+    #[serde(default)]
     pub charge_total_tax_inclusive_amount: Option<ChargeTotalTaxInclusiveAmount>,
+    #[serde(default)]
     pub withholding_tax_total_amount: Option<WithholdingTaxTotalAmount>,
 }
 

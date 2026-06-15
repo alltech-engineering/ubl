@@ -13,16 +13,24 @@ use serde::{Deserialize, Serialize};
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 pub struct InvoiceLine {
     pub id: ID,
+    #[serde(default)]
     pub uuid: Option<UUID>,
     #[serde(default)]
     pub note: Vec<Note>,
+    #[serde(default)]
     pub invoiced_quantity: Option<InvoicedQuantity>,
     pub line_extension_amount: LineExtensionAmount,
+    #[serde(default)]
     pub tax_inclusive_line_extension_amount: Option<TaxInclusiveLineExtensionAmount>,
+    #[serde(default)]
     pub tax_point_date: Option<TaxPointDate>,
+    #[serde(default)]
     pub accounting_cost_code: Option<AccountingCostCode>,
+    #[serde(default)]
     pub accounting_cost: Option<AccountingCost>,
+    #[serde(default)]
     pub payment_purpose_code: Option<PaymentPurposeCode>,
+    #[serde(default)]
     pub free_of_charge_indicator: Option<FreeOfChargeIndicator>,
     #[serde(default)]
     pub invoice_period: Vec<Period>,
@@ -36,7 +44,9 @@ pub struct InvoiceLine {
     pub billing_reference: Vec<BillingReference>,
     #[serde(default)]
     pub document_reference: Vec<DocumentReference>,
+    #[serde(default)]
     pub pricing_reference: Option<PricingReference>,
+    #[serde(default)]
     pub originator_party: Option<Party>,
     #[serde(default)]
     pub delivery: Vec<Delivery>,
@@ -49,10 +59,13 @@ pub struct InvoiceLine {
     #[serde(default)]
     pub withholding_tax_total: Vec<TaxTotal>,
     pub item: Item,
+    #[serde(default)]
     pub price: Option<Price>,
+    #[serde(default)]
     pub delivery_terms: Option<DeliveryTerms>,
     #[serde(default)]
     pub sub_invoice_line: Vec<Box<InvoiceLine>>,
+    #[serde(default)]
     pub price_adjustment: Option<Price>,
 }
 
@@ -60,16 +73,25 @@ pub struct InvoiceLine {
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 pub struct CreditNoteLine {
     pub id: ID,
+    #[serde(default)]
     pub uuid: Option<UUID>,
     #[serde(default)]
     pub note: Vec<Note>,
+    #[serde(default)]
     pub credited_quantity: Option<CreditedQuantity>,
+    #[serde(default)]
     pub line_extension_amount: Option<LineExtensionAmount>,
+    #[serde(default)]
     pub tax_inclusive_line_extension_amount: Option<TaxInclusiveLineExtensionAmount>,
+    #[serde(default)]
     pub tax_point_date: Option<TaxPointDate>,
+    #[serde(default)]
     pub accounting_cost_code: Option<AccountingCostCode>,
+    #[serde(default)]
     pub accounting_cost: Option<AccountingCost>,
+    #[serde(default)]
     pub payment_purpose_code: Option<PaymentPurposeCode>,
+    #[serde(default)]
     pub free_of_charge_indicator: Option<FreeOfChargeIndicator>,
     #[serde(default)]
     pub invoice_period: Vec<Period>,
@@ -83,7 +105,9 @@ pub struct CreditNoteLine {
     pub billing_reference: Vec<BillingReference>,
     #[serde(default)]
     pub document_reference: Vec<DocumentReference>,
+    #[serde(default)]
     pub pricing_reference: Option<PricingReference>,
+    #[serde(default)]
     pub originator_party: Option<Party>,
     #[serde(default)]
     pub delivery: Vec<Delivery>,
@@ -94,6 +118,7 @@ pub struct CreditNoteLine {
     #[serde(default)]
     pub tax_total: Vec<TaxTotal>,
     pub item: Item,
+    #[serde(default)]
     pub price: Option<Price>,
 }
 
@@ -101,16 +126,25 @@ pub struct CreditNoteLine {
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 pub struct DebitNoteLine {
     pub id: ID,
+    #[serde(default)]
     pub uuid: Option<UUID>,
     #[serde(default)]
     pub note: Vec<Note>,
+    #[serde(default)]
     pub debited_quantity: Option<DebitedQuantity>,
+    #[serde(default)]
     pub line_extension_amount: Option<LineExtensionAmount>,
+    #[serde(default)]
     pub tax_inclusive_line_extension_amount: Option<TaxInclusiveLineExtensionAmount>,
+    #[serde(default)]
     pub tax_point_date: Option<TaxPointDate>,
+    #[serde(default)]
     pub accounting_cost_code: Option<AccountingCostCode>,
+    #[serde(default)]
     pub accounting_cost: Option<AccountingCost>,
+    #[serde(default)]
     pub payment_purpose_code: Option<PaymentPurposeCode>,
+    #[serde(default)]
     pub free_of_charge_indicator: Option<FreeOfChargeIndicator>,
     #[serde(default)]
     pub invoice_period: Vec<Period>,
@@ -124,7 +158,9 @@ pub struct DebitNoteLine {
     pub billing_reference: Vec<BillingReference>,
     #[serde(default)]
     pub document_reference: Vec<DocumentReference>,
+    #[serde(default)]
     pub pricing_reference: Option<PricingReference>,
+    #[serde(default)]
     pub originator_party: Option<Party>,
     #[serde(default)]
     pub delivery: Vec<Delivery>,
@@ -135,6 +171,7 @@ pub struct DebitNoteLine {
     #[serde(default)]
     pub tax_total: Vec<TaxTotal>,
     pub item: Item,
+    #[serde(default)]
     pub price: Option<Price>,
 }
 
@@ -142,11 +179,15 @@ pub struct DebitNoteLine {
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 pub struct DespatchLine {
     pub id: ID,
+    #[serde(default)]
     pub uuid: Option<UUID>,
     #[serde(default)]
     pub note: Vec<Note>,
+    #[serde(default)]
     pub line_status_code: Option<LineStatusCode>,
+    #[serde(default)]
     pub delivered_quantity: Option<DeliveredQuantity>,
+    #[serde(default)]
     pub outstanding_quantity: Option<Quantity>,
     #[serde(default)]
     pub outstanding_reason: Vec<OutstandingReason>,
@@ -163,11 +204,15 @@ pub struct DespatchLine {
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 pub struct ReceiptLine {
     pub id: ID,
+    #[serde(default)]
     pub uuid: Option<UUID>,
     #[serde(default)]
     pub note: Vec<Note>,
+    #[serde(default)]
     pub received_quantity: Option<ReceivedQuantity>,
+    #[serde(default)]
     pub rejected_quantity: Option<RejectedQuantity>,
+    #[serde(default)]
     pub reject_reason_code: Option<RejectReasonCode>,
     #[serde(default)]
     pub reject_reason: Vec<RejectionNote>,
@@ -185,16 +230,22 @@ pub struct ReceiptLine {
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 pub struct LineReference {
     pub line_id: LineID,
+    #[serde(default)]
     pub line_status_code: Option<LineStatusCode>,
+    #[serde(default)]
     pub document_reference: Option<DocumentReference>,
 }
 
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 pub struct OrderLineReference {
     pub line_id: LineID,
+    #[serde(default)]
     pub sales_order_line_id: Option<SalesOrderLineID>,
+    #[serde(default)]
     pub uuid: Option<UUID>,
+    #[serde(default)]
     pub line_status_code: Option<LineStatusCode>,
+    #[serde(default)]
     pub order_reference: Option<OrderReference>,
 }
 
@@ -207,10 +258,15 @@ pub struct OrderedShipment {
 
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 pub struct Package {
+    #[serde(default)]
     pub id: Option<ID>,
+    #[serde(default)]
     pub quantity: Option<Quantity>,
+    #[serde(default)]
     pub returnable_material_indicator: Option<ReturnableMaterialIndicator>,
+    #[serde(default)]
     pub package_level_code: Option<Code>,
+    #[serde(default)]
     pub packaging_type_code: Option<PackagingTypeCode>,
     #[serde(default)]
     pub goods_item: Vec<GoodsItem>,

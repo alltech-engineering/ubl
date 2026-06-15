@@ -19,10 +19,16 @@ pub struct ProjectReference {
 /// A reference to a phase of work within a project.
 #[derive(Debug, Clone, PartialEq, serde::Serialize, serde::Deserialize)]
 pub struct WorkPhaseReference {
+    #[serde(default)]
     pub id: Option<ID>,
+    #[serde(default)]
     pub uuid: Option<UUID>,
+    #[serde(default)]
     pub issue_date: Option<IssueDate>,
+    #[serde(default)]
     pub issue_time: Option<IssueTime>,
+    #[serde(default)]
     pub work_phase_code: Option<WorkPhaseCode>,
+    #[serde(default)]
     pub progress_percent: Option<ProgressPercent>,
 }

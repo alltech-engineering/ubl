@@ -8,11 +8,15 @@ use serde::{Deserialize, Serialize};
 
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 pub struct Response {
+    #[serde(default)]
     pub reference_id: Option<ID>,
+    #[serde(default)]
     pub response_code: Option<ResponseCode>,
     #[serde(default)]
     pub description: Vec<Description>,
+    #[serde(default)]
     pub effective_date: Option<EffectiveDate>,
+    #[serde(default)]
     pub effective_time: Option<Time>,
     #[serde(default)]
     pub status: Vec<Status>,
@@ -20,18 +24,25 @@ pub struct Response {
 
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 pub struct Status {
+    #[serde(default)]
     pub condition_code: Option<ConditionCode>,
+    #[serde(default)]
     pub reference_date: Option<ReferenceDate>,
+    #[serde(default)]
     pub reference_time: Option<ReferenceTime>,
     #[serde(default)]
     pub description: Vec<Description>,
+    #[serde(default)]
     pub status_reason_code: Option<Code>,
     #[serde(default)]
     pub status_reason: Vec<Text>,
+    #[serde(default)]
     pub sequence_id: Option<SequenceID>,
     #[serde(default)]
     pub text: Vec<Text>,
+    #[serde(default)]
     pub indication_indicator: Option<Indicator>,
+    #[serde(default)]
     pub percent: Option<Percent>,
 }
 

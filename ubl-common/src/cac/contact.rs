@@ -5,22 +5,33 @@ use serde::{Deserialize, Serialize};
 
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 pub struct Contact {
+    #[serde(default)]
     pub id: Option<ID>,
+    #[serde(default)]
     pub name: Option<Name>,
+    #[serde(default)]
     pub telephone: Option<Telephone>,
+    #[serde(default)]
     pub telefax: Option<Telephone>,
+    #[serde(default)]
     pub electronic_mail: Option<Text>,
+    #[serde(default)]
     pub note: Option<Note>,
     #[serde(default)]
     pub other_communication: Vec<Communication>,
+    #[serde(default)]
     pub job_title: Option<JobTitle>,
+    #[serde(default)]
     pub department: Option<Department>,
 }
 
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 pub struct Communication {
+    #[serde(default)]
     pub channel_code: Option<ChannelCode>,
+    #[serde(default)]
     pub channel: Option<Channel>,
+    #[serde(default)]
     pub value: Option<Text>,
 }
 

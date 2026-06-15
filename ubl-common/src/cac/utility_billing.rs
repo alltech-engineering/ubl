@@ -7,12 +7,17 @@ use serde::{Deserialize, Serialize};
 /// A class to describe the consumption of a utility by a subscriber.
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 pub struct SubscriberConsumption {
+    #[serde(default)]
     pub consumption_id: Option<ConsumptionID>,
     #[serde(default)]
     pub note: Vec<Note>,
+    #[serde(default)]
     pub utility_statement_type_code: Option<StatementTypeCode>,
+    #[serde(default)]
     pub total_consumed_quantity: Option<TotalConsumedQuantity>,
+    #[serde(default)]
     pub consumption_level_code: Option<Code>,
+    #[serde(default)]
     pub consumption_level: Option<Text>,
     #[serde(default)]
     pub description: Vec<Description>,
@@ -29,6 +34,7 @@ pub struct MainOnAccountPayment {
 /// A class to describe an on-account payment amount.
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 pub struct OnAccountPayment {
+    #[serde(default)]
     pub estimated_consumed_quantity: Option<EstimatedConsumedQuantity>,
     #[serde(default)]
     pub note: Vec<Note>,

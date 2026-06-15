@@ -5,31 +5,57 @@ use serde::{Deserialize, Serialize};
 
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 pub struct Address {
+    #[serde(default)]
     pub id: Option<ID>,
+    #[serde(default)]
     pub address_format_code: Option<AddressFormatCode>,
+    #[serde(default)]
     pub address_type_code: Option<AddressTypeCode>,
+    #[serde(default)]
     pub block_name: Option<BlockName>,
+    #[serde(default)]
     pub building_name: Option<BuildingName>,
+    #[serde(default)]
     pub building_number: Option<BuildingNumber>,
+    #[serde(default)]
     pub city_name: Option<CityName>,
+    #[serde(default)]
     pub city_subdivision_name: Option<CitySubdivisionName>,
+    #[serde(default)]
     pub country_subentity: Option<CountrySubentity>,
+    #[serde(default)]
     pub country_subentity_code: Option<CountrySubentityCode>,
+    #[serde(default)]
     pub department: Option<Department>,
+    #[serde(default)]
     pub description: Option<Description>,
+    #[serde(default)]
     pub district: Option<District>,
+    #[serde(default)]
     pub floor: Option<Floor>,
+    #[serde(default)]
     pub inhouse_mail: Option<InhouseMail>,
+    #[serde(default)]
     pub mark_attention: Option<MarkAttention>,
+    #[serde(default)]
     pub mark_care: Option<MarkCare>,
+    #[serde(default)]
     pub plot_identification: Option<PlotIdentification>,
+    #[serde(default)]
     pub postal_zone: Option<PostalZone>,
+    #[serde(default)]
     pub postbox: Option<Postbox>,
+    #[serde(default)]
     pub region: Option<Region>,
+    #[serde(default)]
     pub room: Option<Room>,
+    #[serde(default)]
     pub street_name: Option<StreetName>,
+    #[serde(default)]
     pub additional_street_name: Option<AdditionalStreetName>,
+    #[serde(default)]
     pub country: Option<Country>,
+    #[serde(default)]
     pub timezone_offset: Option<TimezoneOffset>,
     #[serde(default)]
     pub address_line: Vec<AddressLine>,
@@ -42,31 +68,57 @@ pub struct AddressLine {
 
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 pub struct PostalAddress {
+    #[serde(default)]
     pub id: Option<ID>,
+    #[serde(default)]
     pub address_format_code: Option<AddressFormatCode>,
+    #[serde(default)]
     pub address_type_code: Option<AddressTypeCode>,
+    #[serde(default)]
     pub block_name: Option<BlockName>,
+    #[serde(default)]
     pub building_name: Option<BuildingName>,
+    #[serde(default)]
     pub building_number: Option<BuildingNumber>,
+    #[serde(default)]
     pub city_name: Option<CityName>,
+    #[serde(default)]
     pub city_subdivision_name: Option<CitySubdivisionName>,
+    #[serde(default)]
     pub country_subentity: Option<CountrySubentity>,
+    #[serde(default)]
     pub country_subentity_code: Option<CountrySubentityCode>,
+    #[serde(default)]
     pub department: Option<Department>,
+    #[serde(default)]
     pub description: Option<Description>,
+    #[serde(default)]
     pub district: Option<District>,
+    #[serde(default)]
     pub floor: Option<Floor>,
+    #[serde(default)]
     pub inhouse_mail: Option<InhouseMail>,
+    #[serde(default)]
     pub mark_attention: Option<MarkAttention>,
+    #[serde(default)]
     pub mark_care: Option<MarkCare>,
+    #[serde(default)]
     pub plot_identification: Option<PlotIdentification>,
+    #[serde(default)]
     pub postal_zone: Option<PostalZone>,
+    #[serde(default)]
     pub postbox: Option<Postbox>,
+    #[serde(default)]
     pub region: Option<Region>,
+    #[serde(default)]
     pub room: Option<Room>,
+    #[serde(default)]
     pub street_name: Option<StreetName>,
+    #[serde(default)]
     pub additional_street_name: Option<AdditionalStreetName>,
+    #[serde(default)]
     pub country: Option<Country>,
+    #[serde(default)]
     pub timezone_offset: Option<TimezoneOffset>,
     #[serde(default)]
     pub address_line: Vec<AddressLine>,
@@ -74,7 +126,9 @@ pub struct PostalAddress {
 
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 pub struct Country {
+    #[serde(default)]
     pub identification_code: Option<CountryCode>,
+    #[serde(default)]
     pub name: Option<CountryName>,
 }
 

@@ -10,11 +10,17 @@ use serde::{Deserialize, Serialize};
 
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 pub struct ItemInstance {
+    #[serde(default)]
     pub product_trace_id: Option<String>,
+    #[serde(default)]
     pub manufacture_date: Option<String>,
+    #[serde(default)]
     pub manufacture_time: Option<String>,
+    #[serde(default)]
     pub best_before_date: Option<String>,
+    #[serde(default)]
     pub registration_id: Option<String>,
+    #[serde(default)]
     pub serial_id: Option<String>,
     // CAC: additional_item_property: Vec<ItemProperty>
     // CAC: lot_identification: Option<LotIdentification>
@@ -26,7 +32,9 @@ pub struct ItemInstance {
 
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 pub struct LotIdentification {
+    #[serde(default)]
     pub lot_number_id: Option<String>,
+    #[serde(default)]
     pub expiry_date: Option<String>,
     // CAC: additional_item_property: Vec<ItemProperty>
 }
@@ -37,8 +45,11 @@ pub struct LotIdentification {
 
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 pub struct ItemPropertyGroup {
+    #[serde(default)]
     pub id: Option<String>,
+    #[serde(default)]
     pub name: Option<String>,
+    #[serde(default)]
     pub importance_code: Option<String>,
 }
 
@@ -48,6 +59,8 @@ pub struct ItemPropertyGroup {
 
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 pub struct ItemPropertyRange {
+    #[serde(default)]
     pub minimum_value: Option<String>,
+    #[serde(default)]
     pub maximum_value: Option<String>,
 }

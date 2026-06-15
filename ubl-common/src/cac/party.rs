@@ -58,65 +58,108 @@ pub struct PartyName {
 
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 pub struct Language {
+    #[serde(default)]
     pub id: Option<ID>,
+    #[serde(default)]
     pub name: Option<Name>,
+    #[serde(default)]
     pub locale_code: Option<Code>,
 }
 
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 pub struct Location {
+    #[serde(default)]
     pub id: Option<ID>,
+    #[serde(default)]
     pub description: Option<Description>,
+    #[serde(default)]
     pub conditions: Option<Conditions>,
+    #[serde(default)]
     pub country_subentity: Option<CountrySubentity>,
+    #[serde(default)]
     pub country_subentity_code: Option<Code>,
+    #[serde(default)]
     pub address: Option<Address>,
 }
 
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 pub struct PartyTaxScheme {
+    #[serde(default)]
     pub registration_name: Option<RegistrationName>,
+    #[serde(default)]
     pub company_id: Option<CompanyID>,
+    #[serde(default)]
     pub tax_level_code: Option<TaxLevelCode>,
+    #[serde(default)]
     pub exemption_reason_code: Option<TaxExemptionReasonCode>,
+    #[serde(default)]
     pub exemption_reason: Option<TaxExemptionReason>,
     pub tax_scheme: TaxScheme,
 }
 
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 pub struct PartyLegalEntity {
+    #[serde(default)]
     pub registration_name: Option<RegistrationName>,
+    #[serde(default)]
     pub company_id: Option<CompanyID>,
+    #[serde(default)]
     pub registration_date: Option<RegistrationDate>,
+    #[serde(default)]
     pub registration_expiration_date: Option<RegistrationExpirationDate>,
+    #[serde(default)]
     pub company_legal_form: Option<CompanyLegalForm>,
+    #[serde(default)]
     pub company_legal_form_code: Option<CompanyLegalFormCode>,
+    #[serde(default)]
     pub sole_proprietorship_indicator: Option<SoleProprietorshipIndicator>,
+    #[serde(default)]
     pub corporate_stock_amount: Option<CorporateStockAmount>,
+    #[serde(default)]
     pub fully_paid_shares_indicator: Option<FullyPaidSharesIndicator>,
+    #[serde(default)]
     pub company_liquidation_status_code: Option<CompanyLiquidationStatusCode>,
+    #[serde(default)]
     pub corporate_registration_type_code: Option<CorporateRegistrationTypeCode>,
+    #[serde(default)]
     pub entity_size_code: Option<EntitySizeCode>,
 }
 
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 pub struct Person {
+    #[serde(default)]
     pub id: Option<ID>,
+    #[serde(default)]
     pub first_name: Option<FirstName>,
+    #[serde(default)]
     pub family_name: Option<FamilyName>,
+    #[serde(default)]
     pub title: Option<Title>,
+    #[serde(default)]
     pub middle_name: Option<MiddleName>,
+    #[serde(default)]
     pub other_name: Option<OtherName>,
+    #[serde(default)]
     pub name_suffix: Option<NameSuffix>,
+    #[serde(default)]
     pub job_title: Option<JobTitle>,
+    #[serde(default)]
     pub nationality_id: Option<NationalityID>,
+    #[serde(default)]
     pub national_id: Option<NationalID>,
+    #[serde(default)]
     pub nationality_code: Option<NationalityCode>,
+    #[serde(default)]
     pub birth_date: Option<BirthDate>,
+    #[serde(default)]
     pub birth_place_name: Option<BirthplaceName>,
+    #[serde(default)]
     pub organization_department: Option<OrganizationDepartment>,
+    #[serde(default)]
     pub gender_code: Option<GenderCode>,
+    #[serde(default)]
     pub birthplace_name: Option<BirthplaceName>,
+    #[serde(default)]
     pub role_code: Option<RoleCode>,
 }
 

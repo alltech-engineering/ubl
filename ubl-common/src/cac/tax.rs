@@ -7,9 +7,13 @@ use crate::cac::address::Address;
 
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 pub struct TaxScheme {
+    #[serde(default)]
     pub id: Option<ID>,
+    #[serde(default)]
     pub tax_type_code: Option<TaxTypeCode>,
+    #[serde(default)]
     pub currency_code: Option<CurrencyCode>,
+    #[serde(default)]
     pub name: Option<Name>,
     #[serde(default)]
     pub jurisdiction_region_address: Vec<Address>,
@@ -17,31 +21,49 @@ pub struct TaxScheme {
 
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 pub struct TaxCategory {
+    #[serde(default)]
     pub id: Option<ID>,
+    #[serde(default)]
     pub supply_type_code: Option<SupplyTypeCode>,
+    #[serde(default)]
     pub name: Option<Name>,
+    #[serde(default)]
     pub percent: Option<Percent>,
+    #[serde(default)]
     pub base_unit_measure: Option<BaseUnitMeasure>,
+    #[serde(default)]
     pub per_unit_amount: Option<PerUnitAmount>,
+    #[serde(default)]
     pub tax_exemption_reason_code: Option<TaxExemptionReasonCode>,
     #[serde(default)]
     pub tax_exemption_reason: Vec<TaxExemptionReason>,
+    #[serde(default)]
     pub tier_range: Option<TierRange>,
+    #[serde(default)]
     pub tier_rate_percent: Option<TierRatePercent>,
     pub tax_scheme: TaxScheme,
 }
 
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 pub struct TaxSubtotal {
+    #[serde(default)]
     pub taxable_amount: Option<TaxableAmount>,
     pub tax_amount: TaxAmount,
+    #[serde(default)]
     pub calculation_sequence_numeric: Option<CalculationSequenceNumeric>,
+    #[serde(default)]
     pub transaction_currency_tax_amount: Option<TransactionCurrencyTaxAmount>,
+    #[serde(default)]
     pub percent: Option<Percent>,
+    #[serde(default)]
     pub base_unit_measure: Option<BaseUnitMeasure>,
+    #[serde(default)]
     pub per_unit_amount: Option<PerUnitAmount>,
+    #[serde(default)]
     pub tax_inclusive_amount: Option<TaxInclusiveAmount>,
+    #[serde(default)]
     pub tier_range: Option<TierRange>,
+    #[serde(default)]
     pub tier_rate_percent: Option<TierRatePercent>,
     pub tax_category: TaxCategory,
 }
@@ -49,9 +71,13 @@ pub struct TaxSubtotal {
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 pub struct TaxTotal {
     pub tax_amount: TaxAmount,
+    #[serde(default)]
     pub rounding_amount: Option<RoundingAmount>,
+    #[serde(default)]
     pub tax_evidence_indicator: Option<TaxEvidenceIndicator>,
+    #[serde(default)]
     pub tax_included_indicator: Option<TaxIncludedIndicator>,
+    #[serde(default)]
     pub calculation_sequence_numeric: Option<CalculationSequenceNumeric>,
     #[serde(default)]
     pub tax_subtotal: Vec<TaxSubtotal>,
@@ -59,12 +85,15 @@ pub struct TaxTotal {
 
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 pub struct TierRange {
+    #[serde(default)]
     pub id: Option<ID>,
+    #[serde(default)]
     pub description: Option<Description>,
 }
 
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 pub struct PricingReference {
+    #[serde(default)]
     pub original_item_location_quantity: Option<Quantity>,
     #[serde(default)]
     pub alternative_condition_price: Vec<Price>,

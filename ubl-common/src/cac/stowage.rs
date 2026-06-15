@@ -10,6 +10,7 @@ use serde::{Deserialize, Serialize};
 
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 pub struct Stowage {
+    #[serde(default)]
     pub location_id: Option<String>,
     #[serde(default)]
     pub location: Vec<String>,
@@ -22,9 +23,14 @@ pub struct Stowage {
 
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 pub struct TransportEquipmentSeal {
+    #[serde(default)]
     pub id: Option<String>,
+    #[serde(default)]
     pub seal_issuer_type_code: Option<String>,
+    #[serde(default)]
     pub condition: Option<String>,
+    #[serde(default)]
     pub seal_status_code: Option<String>,
+    #[serde(default)]
     pub sealing_party_type: Option<String>,
 }
