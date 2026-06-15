@@ -114,6 +114,9 @@ const SECTIONS = [
     {label:'Quotation Document Ref ID', ubl:['quotation_document_reference','id','value'], t:'t'},
     {label:'Originator Document Ref ID', ubl:['originator_document_reference','id','value'], t:'t'},
     {label:'Catalogue Reference ID', ubl:['catalogue_reference','id','value'], t:'t'},
+    {label:'Order Document Ref ID', ubl:['order_document_reference',0,'id','value'], t:'t'},
+    {label:'Additional Doc Ref ID', ubl:['additional_document_reference',0,'id','value'], t:'t'},
+    {label:'Additional Doc Type', ubl:['additional_document_reference',0,'document_type_code','value'], t:'t'},
   ]
 },
 {
@@ -144,6 +147,9 @@ const SECTIONS = [
     {label:'Requested Delivery Start', ubl:['delivery',0,'requested_delivery_period','start_date'], t:'d'},
     {label:'Requested Delivery End', ubl:['delivery',0,'requested_delivery_period','end_date'], t:'d'},
     {label:'Latest Delivery Date', ubl:['delivery',0,'latest_delivery_date'], t:'d'},
+    {label:'Delivery Terms ID', ubl:['delivery_terms',0,'id','value'], t:'t'},
+    {label:'Delivery Terms Note', ubl:['delivery_terms',0,'note','value'], t:'t'},
+    {label:'Delivery Terms Loss Risk', ubl:['delivery_terms',0,'loss_risk','value'], t:'t'},
   ]
 },
 {
@@ -152,6 +158,14 @@ const SECTIONS = [
     {label:'Payment Means Code', ubl:['payment_means',0,'payment_means_code','value'], t:'s', opts:['','1=Not defined','10=Cash','20=Cheque','30=Credit transfer','42=Bank transfer','48=Bank card','50=Debit card','58=SEPA','97=Clearing']},
     {label:'Payment Due Date', ubl:['payment_means',0,'payment_due_date'], t:'d'},
     {label:'Payment Terms Note', ubl:['payment_terms',0,'note','value'], t:'t'},
+  ]
+},
+{
+  id: 'transaction_conditions', title: 'Transaction Conditions',
+  fields: [
+    {label:'Transaction Conditions ID', ubl:['transaction_conditions','id','value'], t:'t'},
+    {label:'Action Code', ubl:['transaction_conditions','action_code','value'], t:'t'},
+    {label:'Description', ubl:['transaction_conditions','description','value'], t:'t'},
   ]
 },
 {
