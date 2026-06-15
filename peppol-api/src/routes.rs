@@ -16,10 +16,6 @@ pub fn build_router(state: AppState) -> Router {
         // Document retrieval
         .route("/api/documents", get(handlers::list_documents))
         .route("/api/documents/{id}", get(handlers::get_document))
-        // Order form (HTML)
-        .route("/orders", get(handlers::order_form))
-        // Submit order (JSON)
-        .route("/api/orders", post(handlers::submit_order))
         // Billing
         .route("/api/validate/invoice", post(handlers::validate_invoice))
         .route("/api/validate/credit-note", post(handlers::validate_credit_note))
