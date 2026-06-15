@@ -6,6 +6,7 @@ use serde::{Deserialize, Serialize};
 #[derive(Debug, Clone, PartialEq, Eq, Hash, Serialize, Deserialize)]
 pub struct Text {
     pub value: String,
+    #[serde(default)]
     pub language_id: Option<String>,
 }
 

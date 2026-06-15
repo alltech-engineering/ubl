@@ -1197,6 +1197,7 @@ dependencies = [
 name = "peppol-ordering"
 version = "0.1.0"
 dependencies = [
+ "anyhow",
  "chrono",
  "peppol-common",
  "rust_decimal",
