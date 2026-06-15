@@ -179,6 +179,7 @@ const SECTIONS = [
     {label:'Tax Subtotal: Tax Amount', ubl:['tax_total',0,'tax_subtotal',0,'tax_amount','value'], t:'n'},
     {label:'Tax Subtotal: Tax Currency', ubl:['tax_total',0,'tax_subtotal',0,'tax_amount','currency_id'], t:'t', placeholder:'ZAR'},
     {label:'Tax Category Code', ubl:['tax_total',0,'tax_subtotal',0,'tax_category','id','value'], t:'s', opts:['','S=Standard','Z=Zero','E=Exempt','G=Export','H=Higher','AA=Lower','O=Outside scope']},
+    {label:'Tax Scheme ID', ubl:['tax_total',0,'tax_subtotal',0,'tax_category','tax_scheme','id','value'], t:'t', placeholder:'VAT'},
   ]
 },
 {
@@ -649,6 +650,8 @@ function fillDummyData() {
   setUbl('tax_total.0.tax_subtotal.0.tax_amount.value', '0');
   setUbl('tax_total.0.tax_subtotal.0.tax_amount.currency_id', 'ZAR');
   setUbl('tax_total.0.tax_subtotal.0.tax_category.id.value', 'S');
+  setUbl('tax_total.0.tax_subtotal.0.tax_category.tax_scheme.id.value', 'VAT');
+
 
   // Order Line 1
   setUbl('order_line.0.line_item.id.value', '1');
@@ -695,6 +698,7 @@ function setZADefaults() {
     // Party defaults are set via buildPartyFields path (handled below)
     // Tax category — Standard (S)
     'tax_total_0_tax_subtotal_0_tax_category_id_value': 'S',
+
     // Payment means — Credit transfer (30)
     'payment_means_0_payment_means_code_value': '30',
     // Order type — Purchase Order
@@ -717,9 +721,11 @@ function setZADefaults() {
     // Party ID scheme defaults to 9933
     if (path.includes('party_identification') && path.endsWith('.scheme_id') && !el.value) el.value = '9933';
     // Tax scheme defaults to VAT
-    if (path.includes('tax_scheme.id.value') && !el.value) el.value = 'VAT';
+
     // Tax category defaults to S
     if (path.includes('tax_category.id.value') && !el.value) el.value = 'S';
+    if (path.includes('tax_scheme.id.value') && !el.value) el.value = 'VAT';
+
     // Unit code defaults to EA
     if (path.endsWith('.unit_code') && !el.value) el.value = 'EA';
   });

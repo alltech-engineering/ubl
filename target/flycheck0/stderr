@@ -1,5 +1,13 @@
-   0.095475166s  INFO prepare_target{force=false package_id=peppol-api v0.1.0 (/Users/stephanus/Github/alltech/ubl/peppol-api) target="peppol-api"}: cargo::core::compiler::fingerprint: fingerprint error for peppol-api v0.1.0 (/Users/stephanus/Github/alltech/ubl/peppol-api)/Check { test: false }/TargetInner { name: "peppol-api", doc: true, ..: with_path("/Users/stephanus/Github/alltech/ubl/peppol-api/src/main.rs", Edition2024) }
-   0.095492208s  INFO prepare_target{force=false package_id=peppol-api v0.1.0 (/Users/stephanus/Github/alltech/ubl/peppol-api) target="peppol-api"}: cargo::core::compiler::fingerprint:     err: failed to read `/Users/stephanus/Github/alltech/ubl/target/debug/.fingerprint/peppol-api-06fcae96aef04f28/bin-peppol-api`
+   0.093350500s  INFO prepare_target{force=false package_id=peppol-api v0.1.0 (/Users/stephanus/Github/alltech/ubl/peppol-api) target="peppol_api"}: cargo::core::compiler::fingerprint: stale: changed "/Users/stephanus/Github/alltech/ubl/peppol-api/src/routes.rs"
+   0.093369875s  INFO prepare_target{force=false package_id=peppol-api v0.1.0 (/Users/stephanus/Github/alltech/ubl/peppol-api) target="peppol_api"}: cargo::core::compiler::fingerprint:           (vs) "/Users/stephanus/Github/alltech/ubl/target/debug/.fingerprint/peppol-api-f39f99d42e2f1afa/dep-test-lib-peppol_api"
+   0.093372875s  INFO prepare_target{force=false package_id=peppol-api v0.1.0 (/Users/stephanus/Github/alltech/ubl/peppol-api) target="peppol_api"}: cargo::core::compiler::fingerprint:                FileTime { seconds: 1781515384, nanos: 936324152 } < FileTime { seconds: 1781515387, nanos: 968250813 }
+   0.093614333s  INFO prepare_target{force=false package_id=peppol-api v0.1.0 (/Users/stephanus/Github/alltech/ubl/peppol-api) target="peppol_api"}: cargo::core::compiler::fingerprint: fingerprint dirty for peppol-api v0.1.0 (/Users/stephanus/Github/alltech/ubl/peppol-api)/Check { test: true }/TargetInner { name_inferred: true, ..: lib_target("peppol_api", ["lib"], "/Users/stephanus/Github/alltech/ubl/peppol-api/src/lib.rs", Edition2024) }
+   0.093621792s  INFO prepare_target{force=false package_id=peppol-api v0.1.0 (/Users/stephanus/Github/alltech/ubl/peppol-api) target="peppol_api"}: cargo::core::compiler::fingerprint:     dirty: FsStatusOutdated(StaleItem(ChangedFile { reference: "/Users/stephanus/Github/alltech/ubl/target/debug/.fingerprint/peppol-api-f39f99d42e2f1afa/dep-test-lib-peppol_api", reference_mtime: FileTime { seconds: 1781515384, nanos: 936324152 }, stale: "/Users/stephanus/Github/alltech/ubl/peppol-api/src/routes.rs", stale_mtime: FileTime { seconds: 1781515387, nanos: 968250813 } }))
+   0.094282875s  INFO prepare_target{force=false package_id=peppol-api v0.1.0 (/Users/stephanus/Github/alltech/ubl/peppol-api) target="peppol-api"}: cargo::core::compiler::fingerprint: dependency on `peppol_api` is newer than we are 1781515394.529188087s > 1781515385.385729551s "/Users/stephanus/Github/alltech/ubl/peppol-api"
+   0.094594500s  INFO prepare_target{force=false package_id=peppol-api v0.1.0 (/Users/stephanus/Github/alltech/ubl/peppol-api) target="peppol-api"}: cargo::core::compiler::fingerprint: fingerprint dirty for peppol-api v0.1.0 (/Users/stephanus/Github/alltech/ubl/peppol-api)/Check { test: true }/TargetInner { name: "peppol-api", doc: true, ..: with_path("/Users/stephanus/Github/alltech/ubl/peppol-api/src/main.rs", Edition2024) }
+   0.094599500s  INFO prepare_target{force=false package_id=peppol-api v0.1.0 (/Users/stephanus/Github/alltech/ubl/peppol-api) target="peppol-api"}: cargo::core::compiler::fingerprint:     dirty: FsStatusOutdated(StaleDependency { unit: UnitIndex(169), dep_mtime: FileTime { seconds: 1781515394, nanos: 529188087 }, max_mtime: FileTime { seconds: 1781515385, nanos: 385729551 } })
+   0.095048542s  INFO prepare_target{force=false package_id=peppol-api v0.1.0 (/Users/stephanus/Github/alltech/ubl/peppol-api) target="deser_test"}: cargo::core::compiler::fingerprint: fingerprint error for peppol-api v0.1.0 (/Users/stephanus/Github/alltech/ubl/peppol-api)/Check { test: true }/TargetInner { kind: "test", name: "deser_test", benched: false, ..: with_path("/Users/stephanus/Github/alltech/ubl/peppol-api/tests/deser_test.rs", Edition2024) }
+   0.095057958s  INFO prepare_target{force=false package_id=peppol-api v0.1.0 (/Users/stephanus/Github/alltech/ubl/peppol-api) target="deser_test"}: cargo::core::compiler::fingerprint:     err: failed to read `/Users/stephanus/Github/alltech/ubl/target/debug/.fingerprint/peppol-api-2ec0c841810acc75/test-integration-test-deser_test`
 
 Caused by:
     No such file or directory (os error 2)
@@ -22,31 +30,17 @@ Stack backtrace:
   14: std::rt::lang_start::<()>::{closure#0}
   15: std::rt::lang_start_internal
   16: _main
-   0.098032416s  INFO prepare_target{force=false package_id=peppol-api v0.1.0 (/Users/stephanus/Github/alltech/ubl/peppol-api) target="peppol-api"}: cargo::core::compiler::fingerprint: fingerprint error for peppol-api v0.1.0 (/Users/stephanus/Github/alltech/ubl/peppol-api)/Check { test: true }/TargetInner { name: "peppol-api", doc: true, ..: with_path("/Users/stephanus/Github/alltech/ubl/peppol-api/src/main.rs", Edition2024) }
-   0.098037125s  INFO prepare_target{force=false package_id=peppol-api v0.1.0 (/Users/stephanus/Github/alltech/ubl/peppol-api) target="peppol-api"}: cargo::core::compiler::fingerprint:     err: failed to read `/Users/stephanus/Github/alltech/ubl/target/debug/.fingerprint/peppol-api-9324be7b7bec7b1b/test-bin-peppol-api`
-
-Caused by:
-    No such file or directory (os error 2)
-
-Stack backtrace:
-   0: <std::backtrace::Backtrace>::create
-   1: cargo_util::paths::read_bytes
-   2: cargo_util::paths::read
-   3: cargo::core::compiler::fingerprint::_compare_old_fingerprint
-   4: cargo::core::compiler::fingerprint::prepare_target
-   5: cargo::core::compiler::compile
-   6: <cargo::core::compiler::build_runner::BuildRunner>::compile
-   7: cargo::ops::cargo_compile::compile_ws
-   8: cargo::ops::cargo_compile::compile_with_exec
-   9: cargo::ops::cargo_compile::compile
-  10: cargo::commands::check::exec
-  11: <cargo::cli::Exec>::exec
-  12: cargo::main
-  13: std::sys::backtrace::__rust_begin_short_backtrace::<fn(), ()>
-  14: std::rt::lang_start::<()>::{closure#0}
-  15: std::rt::lang_start_internal
-  16: _main
+   0.098339750s  INFO prepare_target{force=false package_id=peppol-web v0.1.0 (/Users/stephanus/Github/alltech/ubl/peppol-web) target="peppol-web"}: cargo::core::compiler::fingerprint: stale: changed "/Users/stephanus/Github/alltech/ubl/peppol-web/src/order_form.html"
+   0.098342042s  INFO prepare_target{force=false package_id=peppol-web v0.1.0 (/Users/stephanus/Github/alltech/ubl/peppol-web) target="peppol-web"}: cargo::core::compiler::fingerprint:           (vs) "/Users/stephanus/Github/alltech/ubl/target/debug/.fingerprint/peppol-web-7a7b755cad87433b/dep-bin-peppol-web"
+   0.098343458s  INFO prepare_target{force=false package_id=peppol-web v0.1.0 (/Users/stephanus/Github/alltech/ubl/peppol-web) target="peppol-web"}: cargo::core::compiler::fingerprint:                FileTime { seconds: 1781515384, nanos: 778201410 } < FileTime { seconds: 1781516763, nanos: 834219013 }
+   0.098520250s  INFO prepare_target{force=false package_id=peppol-web v0.1.0 (/Users/stephanus/Github/alltech/ubl/peppol-web) target="peppol-web"}: cargo::core::compiler::fingerprint: fingerprint dirty for peppol-web v0.1.0 (/Users/stephanus/Github/alltech/ubl/peppol-web)/Check { test: false }/TargetInner { name: "peppol-web", doc: true, ..: with_path("/Users/stephanus/Github/alltech/ubl/peppol-web/src/main.rs", Edition2024) }
+   0.098524833s  INFO prepare_target{force=false package_id=peppol-web v0.1.0 (/Users/stephanus/Github/alltech/ubl/peppol-web) target="peppol-web"}: cargo::core::compiler::fingerprint:     dirty: FsStatusOutdated(StaleItem(ChangedFile { reference: "/Users/stephanus/Github/alltech/ubl/target/debug/.fingerprint/peppol-web-7a7b755cad87433b/dep-bin-peppol-web", reference_mtime: FileTime { seconds: 1781515384, nanos: 778201410 }, stale: "/Users/stephanus/Github/alltech/ubl/peppol-web/src/order_form.html", stale_mtime: FileTime { seconds: 1781516763, nanos: 834219013 } }))
+   0.098709125s  INFO prepare_target{force=false package_id=peppol-web v0.1.0 (/Users/stephanus/Github/alltech/ubl/peppol-web) target="peppol-web"}: cargo::core::compiler::fingerprint: stale: changed "/Users/stephanus/Github/alltech/ubl/peppol-web/src/order_form.html"
+   0.098711333s  INFO prepare_target{force=false package_id=peppol-web v0.1.0 (/Users/stephanus/Github/alltech/ubl/peppol-web) target="peppol-web"}: cargo::core::compiler::fingerprint:           (vs) "/Users/stephanus/Github/alltech/ubl/target/debug/.fingerprint/peppol-web-7e524424814b3113/dep-test-bin-peppol-web"
+   0.098712500s  INFO prepare_target{force=false package_id=peppol-web v0.1.0 (/Users/stephanus/Github/alltech/ubl/peppol-web) target="peppol-web"}: cargo::core::compiler::fingerprint:                FileTime { seconds: 1781515384, nanos: 778208660 } < FileTime { seconds: 1781516763, nanos: 834219013 }
+   0.098837708s  INFO prepare_target{force=false package_id=peppol-web v0.1.0 (/Users/stephanus/Github/alltech/ubl/peppol-web) target="peppol-web"}: cargo::core::compiler::fingerprint: fingerprint dirty for peppol-web v0.1.0 (/Users/stephanus/Github/alltech/ubl/peppol-web)/Check { test: true }/TargetInner { name: "peppol-web", doc: true, ..: with_path("/Users/stephanus/Github/alltech/ubl/peppol-web/src/main.rs", Edition2024) }
+   0.098842875s  INFO prepare_target{force=false package_id=peppol-web v0.1.0 (/Users/stephanus/Github/alltech/ubl/peppol-web) target="peppol-web"}: cargo::core::compiler::fingerprint:     dirty: FsStatusOutdated(StaleItem(ChangedFile { reference: "/Users/stephanus/Github/alltech/ubl/target/debug/.fingerprint/peppol-web-7e524424814b3113/dep-test-bin-peppol-web", reference_mtime: FileTime { seconds: 1781515384, nanos: 778208660 }, stale: "/Users/stephanus/Github/alltech/ubl/peppol-web/src/order_form.html", stale_mtime: FileTime { seconds: 1781516763, nanos: 834219013 } }))
+    Checking peppol-web v0.1.0 (/Users/stephanus/Github/alltech/ubl/peppol-web)
     Checking peppol-api v0.1.0 (/Users/stephanus/Github/alltech/ubl/peppol-api)
-    Finished `dev` profile [unoptimized + debuginfo] target(s) in 0.22s
-warning: the following packages contain code that will be rejected by a future version of Rust: ubl-documents v0.1.0 (/Users/stephanus/Github/alltech/ubl/ubl-documents)
-note: to see what the problems were, use the option `--future-incompat-report`, or run `cargo report future-incompatibilities --id 20`
+error: could not compile `peppol-api` (test "deser_test") due to 1 previous error; 1 warning emitted
+warning: build failed, waiting for other jobs to finish...
