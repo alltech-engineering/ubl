@@ -3,1149 +3,488 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Peppol Order Form</title>
+<title>Peppol UBL Order — Complete Capture</title>
 <style>
-*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
 :root {
-  --bg: #0d1117;
-  --bg2: #161b22;
-  --bg3: #21262d;
-  --border: #30363d;
-  --text: #c9d1d9;
-  --text2: #8b949e;
-  --accent: #58a6ff;
-  --accent-hover: #79c0ff;
-  --danger: #f85149;
-  --success: #3fb950;
-  --warning: #d2991d;
-  --input-bg: #0d1117;
-  --radius: 6px;
+  --bg: #0d1117; --surface: #161b22; --border: #30363d;
+  --text: #c9d1d9; --muted: #8b949e; --accent: #58a6ff;
+  --danger: #f85149; --warn: #d2991d; --ok: #3fb950;
+  --input-bg: #0d1117; --input-border: #30363d;
 }
-
-body {
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Fira Code', monospace;
-  background: var(--bg);
-  color: var(--text);
-  line-height: 1.5;
-  padding: 20px;
-  max-width: 1100px;
-  margin: 0 auto;
-}
-
-h1 {
-  font-size: 1.6rem;
-  color: var(--accent);
-  margin-bottom: 4px;
-  font-weight: 600;
-}
-.subtitle { color: var(--text2); margin-bottom: 24px; font-size: 0.9rem; }
-
-/* ── Sections ──────────────────────────────── */
-.section {
-  background: var(--bg2);
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
-  margin-bottom: 12px;
-  overflow: hidden;
-}
-.section-header {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  padding: 14px 18px;
-  cursor: pointer;
-  user-select: none;
-  background: var(--bg2);
-  border-bottom: 1px solid transparent;
-  transition: background 0.15s;
-}
-.section-header:hover { background: var(--bg3); }
-.section-header .arrow {
-  font-size: 0.7rem;
-  transition: transform 0.2s;
-  color: var(--text2);
-  min-width: 12px;
-  text-align: center;
-}
-.section.open .section-header .arrow { transform: rotate(90deg); }
-.section-header h2 {
-  font-size: 1rem;
-  font-weight: 600;
-  color: var(--accent);
-}
-.section-header .required-badge {
-  font-size: 0.7rem;
-  background: var(--danger);
-  color: #fff;
-  padding: 1px 6px;
-  border-radius: 3px;
-  font-weight: 600;
-}
-.section-body {
-  display: none;
-  padding: 18px;
-  border-top: 1px solid var(--border);
-}
-.section.open .section-body { display: block; }
-.section.open .section-header { border-bottom-color: var(--border); }
-
-/* ── Form fields ───────────────────────────── */
-.field-row {
-  display: grid;
-  grid-template-columns: 200px 1fr;
-  gap: 12px;
-  align-items: start;
-  margin-bottom: 12px;
-}
-.field-row.span { grid-template-columns: 1fr; }
-.field-row label {
-  padding-top: 8px;
-  font-size: 0.85rem;
-  color: var(--text2);
-  text-align: right;
-}
-.field-row.span label { text-align: left; padding-top: 0; margin-bottom: 4px; }
-.field-row label .req { color: var(--danger); margin-left: 1px; }
-.field-row .input-group { display: flex; flex-direction: column; gap: 4px; }
-.field-row .inline-row { display: flex; gap: 10px; align-items: center; }
-.field-row .inline-row input { flex: 1; }
-.field-row .hint { font-size: 0.72rem; color: var(--text2); }
-
-input, select, textarea {
-  background: var(--input-bg);
-  color: var(--text);
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
-  padding: 8px 10px;
-  font-family: inherit;
-  font-size: 0.88rem;
-  width: 100%;
-  transition: border-color 0.15s;
-}
-input:focus, select:focus, textarea:focus {
-  outline: none;
-  border-color: var(--accent);
-  box-shadow: 0 0 0 2px rgba(88,166,255,0.15);
-}
-textarea { resize: vertical; min-height: 60px; }
-
-.add-btn, .remove-btn, .submit-btn {
-  background: var(--bg3);
-  color: var(--text);
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
-  padding: 6px 14px;
-  cursor: pointer;
-  font-family: inherit;
-  font-size: 0.82rem;
-  transition: all 0.15s;
-}
-.add-btn:hover { background: var(--accent); color: #fff; border-color: var(--accent); }
-.remove-btn:hover { background: var(--danger); color: #fff; border-color: var(--danger); }
-.submit-btn {
-  background: var(--accent);
-  color: #fff;
-  border: none;
-  padding: 12px 32px;
-  font-size: 0.95rem;
-  font-weight: 600;
-  margin-top: 16px;
-}
-.submit-btn:hover { background: var(--accent-hover); }
-.submit-btn:disabled { opacity: 0.5; cursor: not-allowed; }
-
-/* ── Line Items ────────────────────────────── */
-.line-item {
-  background: var(--bg3);
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
-  padding: 16px;
-  margin-bottom: 12px;
-  position: relative;
-}
-.line-item-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 12px;
-}
-.line-item-header h3 { font-size: 0.85rem; color: var(--accent); font-weight: 600; }
-.line-item-fields { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
-
-/* ── Validation results ───────────────────── */
-#validation-results {
-  margin-top: 20px;
-  display: none;
-}
-.result-banner {
-  padding: 12px 16px;
-  border-radius: var(--radius);
-  margin-bottom: 10px;
-  font-weight: 600;
-}
-.result-banner.success { background: rgba(63,185,80,0.15); border: 1px solid var(--success); color: var(--success); }
-.result-banner.error { background: rgba(248,81,73,0.15); border: 1px solid var(--danger); color: var(--danger); }
-.result-list { margin-top: 8px; }
-.result-item {
-  display: flex;
-  align-items: flex-start;
-  gap: 8px;
-  padding: 6px 0;
-  border-bottom: 1px solid var(--border);
-  font-size: 0.83rem;
-}
-.result-item .sev {
-  font-weight: 700;
-  font-size: 0.7rem;
-  padding: 2px 6px;
-  border-radius: 3px;
-  white-space: nowrap;
-  margin-top: 2px;
-}
-.sev-error { background: rgba(248,81,73,0.2); color: var(--danger); }
-.sev-warning { background: rgba(210,153,29,0.2); color: var(--warning); }
-.result-item .msg { flex: 1; }
-.result-item .rid { color: var(--text2); font-size: 0.72rem; }
-
-/* ── Multi-value notes ─────────────────────── */
-.note-list { display: flex; flex-direction: column; gap: 6px; }
-.note-entry { display: flex; gap: 6px; }
-.note-entry input { flex: 1; }
-
-/* ── Responsive ────────────────────────────── */
-@media (max-width: 700px) {
-  .field-row { grid-template-columns: 1fr; }
-  .field-row label { text-align: left; }
-  .line-item-fields { grid-template-columns: 1fr; }
-}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: 'Fira Code', 'SF Mono', monospace; background: var(--bg); color: var(--text); font-size: 13px; line-height: 1.5; padding: 20px; max-width: 1200px; margin: 0 auto; }
+h1 { color: var(--accent); font-size: 18px; margin-bottom: 20px; }
+h2 { font-size: 14px; margin: 0; cursor: pointer; user-select: none; display: flex; align-items: center; gap: 6px; }
+h2 .arrow { display: inline-block; width: 12px; transition: transform .2s; }
+h2 .arrow.open { transform: rotate(90deg); }
+.section { background: var(--surface); border: 1px solid var(--border); border-radius: 6px; margin-bottom: 12px; overflow: hidden; }
+.section-header { padding: 10px 14px; display: flex; justify-content: space-between; align-items: center; cursor: pointer; }
+.section-header:hover { background: rgba(255,255,255,.03); }
+.section-body { padding: 0 14px 14px; display: none; }
+.section-body.open { display: block; }
+.field-group { margin-bottom: 10px; }
+.field-row { display: flex; gap: 10px; align-items: flex-end; flex-wrap: wrap; margin-bottom: 6px; }
+.field { display: flex; flex-direction: column; min-width: 160px; }
+.field label { font-size: 11px; color: var(--muted); margin-bottom: 2px; }
+.field label .req { color: var(--danger); }
+.field input, .field select, .field textarea { background: var(--input-bg); border: 1px solid var(--input-border); border-radius: 4px; color: var(--text); padding: 5px 8px; font-family: inherit; font-size: 12px; }
+.field input:focus, .field select:focus { border-color: var(--accent); outline: none; }
+input[type="checkbox"] { width: auto; }
+.sub-group { border: 1px solid var(--border); border-radius: 4px; padding: 8px; margin: 6px 0; }
+.sub-group-title { color: var(--accent); font-size: 12px; margin-bottom: 6px; }
+.btn { background: var(--surface); border: 1px solid var(--border); color: var(--accent); padding: 6px 14px; border-radius: 4px; cursor: pointer; font-family: inherit; font-size: 12px; }
+.btn:hover { background: rgba(88,166,255,.1); }
+.btn.danger { color: var(--danger); }
+.btn.primary { background: #238636; border-color: #238636; color: #fff; font-weight: bold; }
+.btn.primary:hover { background: #2ea043; }
+.btn-row { display: flex; gap: 8px; margin-top: 10px; }
+#results { margin-top: 16px; padding: 14px; border-radius: 6px; display: none; }
+#results.error { background: rgba(248,81,73,.1); border: 1px solid var(--danger); display: block; }
+#results.warn { background: rgba(210,153,29,.1); border: 1px solid var(--warn); display: block; }
+#results.ok { background: rgba(63,185,80,.1); border: 1px solid var(--ok); display: block; }
+.result-item { padding: 4px 0; font-size: 12px; }
+.result-item.e { color: var(--danger); }
+.result-item.w { color: var(--warn); }
 </style>
 </head>
 <body>
-
-<h1>&#9998; Peppol Order</h1>
-<p class="subtitle">UBL 2.5 Order document &mdash; all fields marked <span style="color:var(--danger)">*</span> are required</p>
-
-<form id="order-form" novalidate>
-
-<!-- ════════════════════════════════════════════ DOCUMENT METADATA ═══════ -->
-<div class="section open" id="sec-metadata">
-  <div class="section-header" onclick="toggleSection('sec-metadata')">
-    <span class="arrow">▶</span>
-    <h2>Document Metadata</h2>
-    <span class="required-badge">REQUIRED</span>
-  </div>
-  <div class="section-body">
-    <div class="field-row">
-      <label>Order ID <span class="req">*</span></label>
-      <div class="input-group">
-        <input type="text" id="order-id" required placeholder="e.g. ORD-2025-001">
-        <span class="hint">Sender-assigned document identifier</span>
-      </div>
-    </div>
-    <div class="field-row">
-      <label>Sales Order ID</label>
-      <input type="text" id="sales-order-id" placeholder="e.g. SO-12345">
-    </div>
-    <div class="field-row">
-      <label>UUID</label>
-      <input type="text" id="order-uuid" placeholder="auto-generated if empty">
-    </div>
-    <div class="field-row">
-      <label>Issue Date <span class="req">*</span></label>
-      <input type="date" id="issue-date" required>
-    </div>
-    <div class="field-row">
-      <label>Issue Time</label>
-      <input type="time" id="issue-time" step="1">
-    </div>
-    <div class="field-row">
-      <label>Order Type Code</label>
-      <input type="text" id="order-type-code" placeholder="e.g. 220 (Purchase Order)">
-    </div>
-    <div class="field-row">
-      <label>UBL Version ID</label>
-      <input type="text" id="ubl-version-id" value="2.5" placeholder="e.g. 2.5">
-    </div>
-    <div class="field-row">
-      <label>Customization ID</label>
-      <input type="text" id="customization-id" placeholder="e.g. urn:fdc:peppol.eu:poacc:trns:order:3">
-    </div>
-    <div class="field-row">
-      <label>Profile ID</label>
-      <input type="text" id="profile-id" placeholder="e.g. urn:fdc:peppol.eu:poacc:bis:order_only:3">
-    </div>
-    <div class="field-row span">
-      <label>Notes</label>
-      <div class="note-list" id="order-notes">
-        <div class="note-entry">
-          <input type="text" placeholder="Enter a note...">
-          <button type="button" class="remove-btn" onclick="removeNoteEntry(this)" style="display:none">✕</button>
-        </div>
-      </div>
-      <button type="button" class="add-btn" style="margin-top:6px" onclick="addNoteEntry('order-notes')">+ Add Note</button>
-    </div>
-  </div>
-</div>
-
-<!-- ════════════════════════════════════════════ CURRENCY ═══════ -->
-<div class="section" id="sec-currency">
-  <div class="section-header" onclick="toggleSection('sec-currency')">
-    <span class="arrow">▶</span>
-    <h2>Currency Codes</h2>
-  </div>
-  <div class="section-body">
-    <div class="field-row">
-      <label>Document Currency</label>
-      <input type="text" id="document-currency-code" maxlength="3" placeholder="EUR">
-    </div>
-    <div class="field-row">
-      <label>Invoice Currency</label>
-      <input type="text" id="requested-invoice-currency-code" maxlength="3" placeholder="EUR">
-    </div>
-    <div class="field-row">
-      <label>Pricing Currency</label>
-      <input type="text" id="pricing-currency-code" maxlength="3" placeholder="EUR">
-    </div>
-    <div class="field-row">
-      <label>Tax Currency</label>
-      <input type="text" id="tax-currency-code" maxlength="3" placeholder="EUR">
-    </div>
-  </div>
-</div>
-
-<!-- ════════════════════════════════════════════ REFERENCES ═══════ -->
-<div class="section" id="sec-references">
-  <div class="section-header" onclick="toggleSection('sec-references')">
-    <span class="arrow">▶</span>
-    <h2>References &amp; Accounting</h2>
-  </div>
-  <div class="section-body">
-    <div class="field-row">
-      <label>Customer Reference</label>
-      <input type="text" id="customer-reference" placeholder="e.g. Project code or PO number">
-    </div>
-    <div class="field-row">
-      <label>Accounting Cost Code</label>
-      <input type="text" id="accounting-cost-code" placeholder="e.g. CC-001">
-    </div>
-    <div class="field-row">
-      <label>Accounting Cost</label>
-      <input type="text" id="accounting-cost" placeholder="e.g. Cost Center East">
-    </div>
-    <div class="field-row">
-      <label>Line Count Numeric</label>
-      <input type="number" id="line-count-numeric" placeholder="e.g. 3" min="1" step="1">
-    </div>
-  </div>
-</div>
-
-<!-- ════════════════════════════════════════════ BUYER PARTY ═══════ -->
-<div class="section" id="sec-buyer">
-  <div class="section-header" onclick="toggleSection('sec-buyer')">
-    <span class="arrow">▶</span>
-    <h2>Buyer Party</h2>
-    <span class="required-badge">REQUIRED</span>
-  </div>
-  <div class="section-body">
-    <div class="field-row">
-      <label>Account ID</label>
-      <input type="text" id="buyer-account-id" placeholder="e.g. BUYER-001">
-    </div>
-    <div class="field-row">
-      <label>Party Name <span class="req">*</span></label>
-      <input type="text" id="buyer-party-name" placeholder="e.g. Buyer Corp" required>
-    </div>
-    <div class="field-row">
-      <label>Party ID</label>
-      <input type="text" id="buyer-party-id" placeholder="e.g. VAT or GLN number">
-    </div>
-    <div class="field-row">
-      <label>Endpoint ID</label>
-      <input type="text" id="buyer-endpoint-id" placeholder="e.g. peppol participant ID">
-    </div>
-    <div class="field-row">
-      <label>Street</label>
-      <input type="text" id="buyer-street" placeholder="e.g. 123 Main St">
-    </div>
-    <div class="field-row">
-      <label>City</label>
-      <input type="text" id="buyer-city" placeholder="e.g. Amsterdam">
-    </div>
-    <div class="field-row">
-      <label>Postal Code</label>
-      <input type="text" id="buyer-postal" placeholder="e.g. 1012 AB">
-    </div>
-    <div class="field-row">
-      <label>Country Code</label>
-      <input type="text" id="buyer-country-code" maxlength="2" placeholder="e.g. NL">
-    </div>
-    <div class="field-row">
-      <label>Country Name</label>
-      <input type="text" id="buyer-country-name" placeholder="e.g. Netherlands">
-    </div>
-    <div class="field-row">
-      <label>Buyer Contact Name</label>
-      <input type="text" id="buyer-contact-name" placeholder="e.g. John Doe">
-    </div>
-    <div class="field-row">
-      <label>Buyer Contact Email</label>
-      <input type="email" id="buyer-contact-email" placeholder="e.g. buyer@example.com">
-    </div>
-    <div class="field-row">
-      <label>Buyer Contact Phone</label>
-      <input type="text" id="buyer-contact-phone" placeholder="e.g. +31 20 123 4567">
-    </div>
-  </div>
-</div>
-
-<!-- ════════════════════════════════════════════ SELLER PARTY ═══════ -->
-<div class="section" id="sec-seller">
-  <div class="section-header" onclick="toggleSection('sec-seller')">
-    <span class="arrow">▶</span>
-    <h2>Seller Party</h2>
-    <span class="required-badge">REQUIRED</span>
-  </div>
-  <div class="section-body">
-    <div class="field-row">
-      <label>Account ID</label>
-      <input type="text" id="seller-account-id" placeholder="e.g. SELLER-001">
-    </div>
-    <div class="field-row">
-      <label>Party Name <span class="req">*</span></label>
-      <input type="text" id="seller-party-name" placeholder="e.g. Supplier Ltd" required>
-    </div>
-    <div class="field-row">
-      <label>Party ID</label>
-      <input type="text" id="seller-party-id" placeholder="e.g. VAT or GLN number">
-    </div>
-    <div class="field-row">
-      <label>Endpoint ID</label>
-      <input type="text" id="seller-endpoint-id" placeholder="e.g. peppol participant ID">
-    </div>
-    <div class="field-row">
-      <label>Street</label>
-      <input type="text" id="seller-street" placeholder="e.g. 456 Trade Ave">
-    </div>
-    <div class="field-row">
-      <label>City</label>
-      <input type="text" id="seller-city" placeholder="e.g. Berlin">
-    </div>
-    <div class="field-row">
-      <label>Postal Code</label>
-      <input type="text" id="seller-postal" placeholder="e.g. 10115">
-    </div>
-    <div class="field-row">
-      <label>Country Code</label>
-      <input type="text" id="seller-country-code" maxlength="2" placeholder="e.g. DE">
-    </div>
-    <div class="field-row">
-      <label>Country Name</label>
-      <input type="text" id="seller-country-name" placeholder="e.g. Germany">
-    </div>
-    <div class="field-row">
-      <label>Seller Contact Name</label>
-      <input type="text" id="seller-contact-name" placeholder="e.g. Jane Smith">
-    </div>
-    <div class="field-row">
-      <label>Seller Contact Email</label>
-      <input type="email" id="seller-contact-email" placeholder="e.g. sales@supplier.com">
-    </div>
-    <div class="field-row">
-      <label>Seller Contact Phone</label>
-      <input type="text" id="seller-contact-phone" placeholder="e.g. +49 30 123456">
-    </div>
-  </div>
-</div>
-
-<!-- ════════════════════════════════════════════ DELIVERY ═══════ -->
-<div class="section" id="sec-delivery">
-  <div class="section-header" onclick="toggleSection('sec-delivery')">
-    <span class="arrow">▶</span>
-    <h2>Delivery</h2>
-  </div>
-  <div class="section-body">
-    <div class="field-row">
-      <label>Delivery ID</label>
-      <input type="text" id="delivery-id" placeholder="e.g. DEL-001">
-    </div>
-    <div class="field-row">
-      <label>Quantity Value</label>
-      <div class="inline-row">
-        <input type="text" id="delivery-qty-value" placeholder="e.g. 100">
-        <select id="delivery-qty-unit" style="max-width:120px">
-          <option value="">-- unit --</option>
-          <option value="KGM">Kilogram (KGM)</option>
-          <option value="MTK">Square metre (MTK)</option>
-          <option value="MTR">Metre (MTR)</option>
-          <option value="LTR">Litre (LTR)</option>
-          <option value="EA">Each (EA)</option>
-          <option value="BX">Box (BX)</option>
-          <option value="PK">Pack (PK)</option>
-        </select>
-      </div>
-    </div>
-    <h4 style="font-size:0.82rem;color:var(--text2);margin:12px 0 8px">Delivery Address</h4>
-    <div class="field-row">
-      <label>Street</label>
-      <input type="text" id="delivery-street" placeholder="e.g. 789 Ship St">
-    </div>
-    <div class="field-row">
-      <label>City</label>
-      <input type="text" id="delivery-city" placeholder="e.g. Rotterdam">
-    </div>
-    <div class="field-row">
-      <label>Postal Code</label>
-      <input type="text" id="delivery-postal" placeholder="e.g. 3011 AA">
-    </div>
-    <div class="field-row">
-      <label>Country Code</label>
-      <input type="text" id="delivery-country-code" maxlength="2" placeholder="e.g. NL">
-    </div>
-    <div class="field-row">
-      <label>Country Name</label>
-      <input type="text" id="delivery-country-name" placeholder="e.g. Netherlands">
-    </div>
-    <h4 style="font-size:0.82rem;color:var(--text2);margin:12px 0 8px">Requested Delivery Period</h4>
-    <div class="field-row">
-      <label>Start Date</label>
-      <input type="date" id="delivery-start-date">
-    </div>
-    <div class="field-row">
-      <label>End Date</label>
-      <input type="date" id="delivery-end-date">
-    </div>
-    <div class="field-row">
-      <label>Latest Delivery Date</label>
-      <input type="date" id="latest-delivery-date">
-    </div>
-  </div>
-</div>
-
-<!-- ════════════════════════════════════════════ PAYMENT ═══════ -->
-<div class="section" id="sec-payment">
-  <div class="section-header" onclick="toggleSection('sec-payment')">
-    <span class="arrow">▶</span>
-    <h2>Payment</h2>
-  </div>
-  <div class="section-body">
-    <div class="field-row">
-      <label>Payment Means Code</label>
-      <select id="payment-means-code" style="max-width:250px">
-        <option value="">-- select --</option>
-        <option value="1">1 - Instrument not defined</option>
-        <option value="30">30 - Credit transfer</option>
-        <option value="31">31 - Debit transfer</option>
-        <option value="42">42 - Payment to bank account</option>
-        <option value="48">48 - Bank card</option>
-        <option value="58">58 - SEPA credit transfer</option>
-        <option value="97">97 - Clearing between partners</option>
-      </select>
-    </div>
-    <div class="field-row">
-      <label>Payment Due Date</label>
-      <input type="date" id="payment-due-date">
-    </div>
-    <div class="field-row">
-      <label>Payment Channel Code</label>
-      <input type="text" id="payment-channel-code" placeholder="e.g. SWIFT">
-    </div>
-    <div class="field-row">
-      <label>Instruction Note</label>
-      <input type="text" id="payment-instruction-note" placeholder="e.g. Pay to IBAN NL91ABNA...">
-    </div>
-    <div class="field-row span">
-      <label>Payment Terms Notes</label>
-      <div class="note-list" id="payment-terms-notes">
-        <div class="note-entry">
-          <input type="text" placeholder="e.g. Net 30 days">
-          <button type="button" class="remove-btn" onclick="removeNoteEntry(this)" style="display:none">✕</button>
-        </div>
-      </div>
-      <button type="button" class="add-btn" style="margin-top:6px" onclick="addNoteEntry('payment-terms-notes')">+ Add Note</button>
-    </div>
-  </div>
-</div>
-
-<!-- ════════════════════════════════════════════ ORDER LINES ═══════ -->
-<div class="section open" id="sec-lines">
-  <div class="section-header" onclick="toggleSection('sec-lines')">
-    <span class="arrow">▶</span>
-    <h2>Order Lines</h2>
-    <span class="required-badge">REQUIRED</span>
-  </div>
-  <div class="section-body">
-    <div id="order-lines-container">
-      <!-- Line items added dynamically -->
-    </div>
-    <button type="button" class="add-btn" onclick="addOrderLine()" style="margin-top:8px">+ Add Line</button>
-  </div>
-</div>
-
-<!-- ── Submit ─────────────────────────────────── -->
-<div style="display:flex; gap:12px; align-items:center; margin-top:16px">
-  <button type="submit" class="submit-btn" id="submit-btn">Validate &amp; Submit Order</button>
-  <span id="submit-status" style="font-size:0.82rem;color:var(--text2)"></span>
-</div>
-
+<h1>UBL Order — Complete Capture</h1>
+<form id="order-form">
+<!-- Sections auto-generated by script below -->
 </form>
+<div id="results"></div>
+<div class="btn-row" style="margin-top:20px">
+  <button type="button" class="btn primary" onclick="submitOrder()">Submit Order</button>
+  <span id="status"></span>
+</div>
 
-<!-- ── Validation results ────────────────────── -->
-<div id="validation-results"></div>
-
-
-<!-- ════════════════════════════════════════════════ SCRIPTS ═══ -->
 <script>
-// ── Section toggle ─────────────────────────────────────────────
-function toggleSection(id) {
-  document.getElementById(id).classList.toggle('open');
+// ============================================================================
+// UBL Order form builder — generates form from field definitions
+// ============================================================================
+
+const API = 'http://localhost:3000/api/validate/order';
+
+// Field types: t=text, d=date, ti=time, n=number, c=checkbox, s=select, ta=textarea
+// ublPath: array path into JSON, e.g. ["id","value"] → {id:{value:"..."}}
+// Required fields marked with *
+
+const SECTIONS = [
+{
+  id: 'metadata', title: 'Document Metadata', open: true,
+  fields: [
+    {label:'ID', ubl:['id','value'], t:'t', req:true},
+    {label:'Sales Order ID', ubl:['sales_order_id','value'], t:'t'},
+    {label:'UUID', ubl:['uuid','value'], t:'t'},
+    {label:'Issue Date', ubl:['issue_date'], t:'d', req:true},
+    {label:'Issue Time', ubl:['issue_time'], t:'ti'},
+    {label:'Order Type Code', ubl:['order_type_code','value'], t:'s', opts:['','220=Purchase Order','221=Blanket Order','222=Release Order','223=Call-off','224=Consignment']},
+    {label:'UBL Version ID', ubl:['ubl_version_id','value'], t:'t', placeholder:'2.5'},
+    {label:'Customization ID', ubl:['customization_id','value'], t:'t'},
+    {label:'Profile ID', ubl:['profile_id','value'], t:'t'},
+    {label:'Profile Execution ID', ubl:['profile_execution_id','value'], t:'t'},
+  ]
+},
+{
+  id: 'notes', title: 'Notes', fields: [
+    {label:'Note', ubl:['note','$','value'], t:'t', array:'note', addBtn:'Add Note'}
+  ]
+},
+{
+  id: 'currency', title: 'Currency Codes',
+  fields: [
+    {label:'Document Currency Code', ubl:['document_currency_code','value'], t:'t', placeholder:'ZAR'},
+    {label:'Requested Invoice Currency', ubl:['requested_invoice_currency_code','value'], t:'t'},
+    {label:'Pricing Currency Code', ubl:['pricing_currency_code','value'], t:'t'},
+    {label:'Tax Currency Code', ubl:['tax_currency_code','value'], t:'t'},
+  ]
+},
+{
+  id: 'accounting', title: 'References & Accounting',
+  fields: [
+    {label:'Customer Reference', ubl:['customer_reference','value'], t:'t'},
+    {label:'Accounting Cost Code', ubl:['accounting_cost_code','value'], t:'t'},
+    {label:'Accounting Cost', ubl:['accounting_cost','value'], t:'t'},
+    {label:'Line Count Numeric', ubl:['line_count_numeric','value'], t:'n'},
+  ]
+},
+{
+  id: 'docrefs', title: 'Document References',
+  fields: [
+    {label:'Quotation Document Ref ID', ubl:['quotation_document_reference','id','value'], t:'t'},
+    {label:'Originator Document Ref ID', ubl:['originator_document_reference','id','value'], t:'t'},
+    {label:'Catalogue Reference ID', ubl:['catalogue_reference','id','value'], t:'t'},
+  ]
+},
+{
+  id: 'validity', title: 'Validity Period',
+  fields: [
+    {label:'Valid From', ubl:['validity_period',0,'start_date'], t:'d'},
+    {label:'Valid To', ubl:['validity_period',0,'end_date'], t:'d'},
+  ]
+},
+{
+  id: 'buyer', title: 'Buyer Customer Party', open: true,
+  fields: buildPartyFields('buyer_customer_party')
+},
+{
+  id: 'seller', title: 'Seller Supplier Party', open: true,
+  fields: buildPartyFields('seller_supplier_party', true)
+},
+{
+  id: 'delivery', title: 'Delivery',
+  fields: [
+    {label:'Delivery ID', ubl:['delivery',0,'id','value'], t:'t'},
+    {label:'Delivery Qty Value', ubl:['delivery',0,'quantity','value'], t:'n'},
+    {label:'Delivery Qty Unit', ubl:['delivery',0,'quantity','unit_code'], t:'t', placeholder:'EA'},
+    {label:'Delivery Street', ubl:['delivery',0,'delivery_address','street_name'], t:'t'},
+    {label:'Delivery City', ubl:['delivery',0,'delivery_address','city_name'], t:'t'},
+    {label:'Delivery Postal', ubl:['delivery',0,'delivery_address','postal_zone','value'], t:'t'},
+    {label:'Delivery Country', ubl:['delivery',0,'delivery_address','country','identification_code','value'], t:'t', placeholder:'ZA'},
+    {label:'Requested Delivery Start', ubl:['delivery',0,'requested_delivery_period','start_date'], t:'d'},
+    {label:'Requested Delivery End', ubl:['delivery',0,'requested_delivery_period','end_date'], t:'d'},
+    {label:'Latest Delivery Date', ubl:['delivery',0,'latest_delivery_date'], t:'d'},
+  ]
+},
+{
+  id: 'payment', title: 'Payment',
+  fields: [
+    {label:'Payment Means Code', ubl:['payment_means',0,'payment_means_code','value'], t:'s', opts:['','1=Not defined','10=Cash','20=Cheque','30=Credit transfer','42=Bank transfer','48=Bank card','50=Debit card','58=SEPA','97=Clearing']},
+    {label:'Payment Due Date', ubl:['payment_means',0,'payment_due_date'], t:'d'},
+    {label:'Payment Terms Note', ubl:['payment_terms',0,'note','value'], t:'t'},
+  ]
+},
+{
+  id: 'tax_total', title: 'Tax Totals',
+  fields: [
+    {label:'Tax Amount', ubl:['tax_total',0,'tax_amount','value'], t:'n'},
+    {label:'Tax Amount Currency', ubl:['tax_total',0,'tax_amount','currency_id'], t:'t', placeholder:'ZAR'},
+    {label:'Tax Subtotal: Taxable Amount', ubl:['tax_total',0,'tax_subtotal',0,'taxable_amount','value'], t:'n'},
+    {label:'Tax Subtotal: Taxable Currency', ubl:['tax_total',0,'tax_subtotal',0,'taxable_amount','currency_id'], t:'t', placeholder:'ZAR'},
+    {label:'Tax Subtotal: Tax Amount', ubl:['tax_total',0,'tax_subtotal',0,'tax_amount','value'], t:'n'},
+    {label:'Tax Subtotal: Tax Currency', ubl:['tax_total',0,'tax_subtotal',0,'tax_amount','currency_id'], t:'t', placeholder:'ZAR'},
+    {label:'Tax Category Code', ubl:['tax_total',0,'tax_subtotal',0,'tax_category','id','value'], t:'s', opts:['','S=Standard','Z=Zero','E=Exempt','G=Export','H=Higher','AA=Lower','O=Outside scope']},
+  ]
+},
+{
+  id: 'monetary_total', title: 'Anticipated Monetary Total',
+  fields: [
+    {label:'Line Extension Amount', ubl:['anticipated_monetary_total','line_extension_amount','value'], t:'n'},
+    {label:'Line Extension Currency', ubl:['anticipated_monetary_total','line_extension_amount','currency_id'], t:'t', placeholder:'ZAR'},
+    {label:'Tax Exclusive Amount', ubl:['anticipated_monetary_total','tax_exclusive_amount','value'], t:'n'},
+    {label:'Tax Inclusive Amount', ubl:['anticipated_monetary_total','tax_inclusive_amount','value'], t:'n'},
+    {label:'Payable Amount', ubl:['anticipated_monetary_total','payable_amount','value'], t:'n'},
+    {label:'Payable Currency', ubl:['anticipated_monetary_total','payable_amount','currency_id'], t:'t', placeholder:'ZAR'},
+  ]
+},
+{
+  id: 'order_lines', title: 'Order Lines', open: true,
+  // Handled separately — dynamic add/remove
+}
+];
+
+function buildPartyFields(prefix, isSupplier=false) {
+  const p = prefix;
+  return [
+    {label:'Party Name', ubl:[p,'party','party_name',0,'name'], t:'t', req:true},
+    {label:'Party ID', ubl:[p,'party','party_identification',0,'id','value'], t:'t'},
+    {label:'Party ID Scheme', ubl:[p,'party','party_identification',0,'id','scheme_id'], t:'s', opts:['','9933=SA VAT','0088=GLN','0002=DUNS','0009=SIRET','0106=VAT','0060=National ID']},
+    {label:'Legal Entity Registration Name', ubl:[p,'party','party_legal_entity',0,'registration_name'], t:'t'},
+    {label:'Legal Entity Company ID', ubl:[p,'party','party_legal_entity',0,'company_id','value'], t:'t'},
+    {label:'Tax Scheme Company ID', ubl:[p,'party','party_tax_scheme',0,'company_id','value'], t:'t'},
+    {label:'Tax Scheme ID', ubl:[p,'party','party_tax_scheme',0,'tax_scheme','id','value'], t:'t', placeholder:'VAT'},
+    {label:'Endpoint ID', ubl:[p,'party','endpoint_id','value'], t:'t'},
+    {label:'Street Name', ubl:[p,'party','postal_address','street_name'], t:'t'},
+    {label:'City Name', ubl:[p,'party','postal_address','city_name'], t:'t'},
+    {label:'Postal Zone', ubl:[p,'party','postal_address','postal_zone','value'], t:'t'},
+    {label:'Country Code', ubl:[p,'party','postal_address','country','identification_code','value'], t:'t', placeholder:'ZA'},
+    {label:'Contact Name', ubl:[p,'party','contact','name'], t:'t'},
+    {label:'Contact Phone', ubl:[p,'party','contact','telephone'], t:'t'},
+    {label:'Contact Email', ubl:[p,'party','contact','electronic_mail'], t:'t'},
+    ...(isSupplier
+      ? [{label:'Despatch Contact Name', ubl:[p,'despatch_contact','name'], t:'t'},{label:'Despatch Contact Phone', ubl:[p,'despatch_contact','telephone'], t:'t'},{label:'Despatch Contact Email', ubl:[p,'despatch_contact','electronic_mail'], t:'t'}]
+      : [{label:'Delivery Contact Name', ubl:[p,'delivery_contact','name'], t:'t'},{label:'Delivery Contact Phone', ubl:[p,'delivery_contact','telephone'], t:'t'},{label:'Delivery Contact Email', ubl:[p,'delivery_contact','electronic_mail'], t:'t'}]
+    ),
+    {label:'Accounting Contact Name', ubl:[p,'accounting_contact','name'], t:'t'},
+    {label:'Accounting Contact Phone', ubl:[p,'accounting_contact','telephone'], t:'t'},
+    {label:'Accounting Contact Email', ubl:[p,'accounting_contact','electronic_mail'], t:'t'},
+  ];
 }
 
-// ── Note helpers ───────────────────────────────────────────────
-function addNoteEntry(containerId) {
-  const container = document.getElementById(containerId);
-  const entry = document.createElement('div');
-  entry.className = 'note-entry';
-  entry.innerHTML = `
-    <input type="text" placeholder="Enter a note...">
-    <button type="button" class="remove-btn" onclick="removeNoteEntry(this)">✕</button>
-  `;
-  container.appendChild(entry);
-  // always show remove button on existing and new entries
-  container.querySelectorAll('.note-entry .remove-btn').forEach(b => b.style.display = '');
+// Build line item fields
+function buildLineItemFields(lineIdx, prefix) {
+  const p = prefix || ['order_line',lineIdx,'line_item'];
+  return [
+    {label:'Line Item ID', ubl:[...p,'id','value'], t:'t', req:true},
+    {label:'Quantity Value', ubl:[...p,'quantity','value'], t:'n', req:true},
+    {label:'Quantity Unit', ubl:[...p,'quantity','unit_code'], t:'s', opts:['','EA=Each','KGM=Kilogram','MTR=Metre','LTR=Litre','PK=Pack','CTN=Carton','NMP=Package','PR=Pair','SET=Set','MGM=Milligram','CMT=Centimetre','MTK=Sq Metre','MTQ=Cubic Metre'], req:true},
+    {label:'Line Ext Amount', ubl:[...p,'line_extension_amount','value'], t:'n', req:true},
+    {label:'Line Ext Currency', ubl:[...p,'line_extension_amount','currency_id'], t:'t', placeholder:'ZAR', req:true},
+    {label:'Total Tax Amount', ubl:[...p,'total_tax_amount','value'], t:'n'},
+    {label:'Total Tax Currency', ubl:[...p,'total_tax_amount','currency_id'], t:'t', placeholder:'ZAR'},
+    {label:'Item Name', ubl:[...p,'item','name'], t:'t', req:true},
+    {label:'Item Description', ubl:[...p,'item','description','value'], t:'ta'},
+    {label:'Seller Item ID', ubl:[...p,'item','sellers_item_identification','id','value'], t:'t'},
+    {label:'Buyer Item ID', ubl:[...p,'item','buyers_item_identification','id','value'], t:'t'},
+    {label:'Standard Item ID', ubl:[...p,'item','standard_item_identification','id','value'], t:'t'},
+    {label:'Commodity Class Code', ubl:[...p,'item','commodity_classification',0,'item_classification_code','value'], t:'t'},
+    {label:'Price Amount', ubl:[...p,'price','price_amount','value'], t:'n', req:true},
+    {label:'Price Currency', ubl:[...p,'price','price_amount','currency_id'], t:'t', placeholder:'ZAR', req:true},
+    {label:'Price Base Qty', ubl:[...p,'price','base_quantity','value'], t:'n'},
+    {label:'Price Base Unit', ubl:[...p,'price','base_quantity','unit_code'], t:'t', placeholder:'EA'},
+    {label:'Min Quantity', ubl:[...p,'minimum_quantity','value'], t:'n'},
+    {label:'Min Qty Unit', ubl:[...p,'minimum_quantity','unit_code'], t:'t', placeholder:'EA'},
+    {label:'Max Quantity', ubl:[...p,'maximum_quantity','value'], t:'n'},
+    {label:'Max Qty Unit', ubl:[...p,'maximum_quantity','unit_code'], t:'t', placeholder:'EA'},
+    {label:'Backorder Allowed', ubl:[...p,'back_order_allowed_indicator'], t:'c'},
+    {label:'Partial Delivery', ubl:[...p,'partial_delivery_indicator'], t:'c'},
+    {label:'Line Status Code', ubl:[...p,'line_status_code','value'], t:'t'},
+    {label:'Accounting Cost', ubl:[...p,'accounting_cost','value'], t:'t'},
+    {label:'Accounting Cost Code', ubl:[...p,'accounting_cost_code','value'], t:'t'},
+    {label:'Line Note', ubl:[...p,'note',0,'value'], t:'t'},
+  ];
 }
 
-function removeNoteEntry(btn) {
-  const container = btn.closest('.note-list');
-  const entries = container.querySelectorAll('.note-entry');
-  if (entries.length <= 1) {
-    // last one: clear it instead of removing
-    entries[0].querySelector('input').value = '';
-    btn.style.display = 'none';
+// ============================================================================
+// RENDER
+// ============================================================================
+
+let lineCounter = 1;
+
+function renderField(f) {
+  const uid = f.ubl.join('_').replace(/[\[\].'$]/g,'');
+  let html = '<div class="field">';
+  html += `<label for="${uid}">${f.req?'<span class="req">*</span> ':''}${f.label}</label>`;
+  if (f.t === 'c') {
+    html += `<input type="checkbox" id="${uid}" data-ubl="${f.ubl.join('.')}">`;
+  } else if (f.t === 's') {
+    html += `<select id="${uid}" data-ubl="${f.ubl.join('.')}">`;
+    for (const o of (f.opts||[])) {
+      const [val, label] = o.includes('=') ? o.split('=',2) : [o,o];
+      html += `<option value="${val}">${label||val}</option>`;
+    }
+    html += '</select>';
+  } else if (f.t === 'ta') {
+    html += `<textarea id="${uid}" data-ubl="${f.ubl.join('.')}" rows="2" placeholder="${f.placeholder||''}"></textarea>`;
   } else {
-    btn.closest('.note-entry').remove();
+    html += `<input type="${f.t==='d'?'date':f.t==='ti'?'time':f.t==='n'?'number':f.t==='text'?'text':'text'}" id="${uid}" data-ubl="${f.ubl.join('.')}" placeholder="${f.placeholder||''}">`;
   }
+  html += '</div>';
+  return html;
 }
 
-// ── Order Lines ────────────────────────────────────────────────
-let lineCounter = 0;
+function renderSection(sec) {
+  let html = `<div class="section" id="sec-${sec.id}">`;
+  html += `<div class="section-header" onclick="toggleSection('sec-${sec.id}')">`;
+  html += `<h2><span class="arrow ${sec.open?'open':''}" id="arrow-${sec.id}">▶</span> ${sec.title}</h2>`;
+  html += '</div>';
+  html += `<div class="section-body ${sec.open?'open':''}" id="body-${sec.id}">`;
 
-function createLineTemplate(index) {
-  return `
-  <div class="line-item" data-line-index="${index}">
-    <div class="line-item-header">
-      <h3>Line #${index + 1}</h3>
-      <button type="button" class="remove-btn" onclick="removeOrderLine(this)">✕ Remove</button>
-    </div>
-    <div class="line-item-fields">
-      <div class="input-group">
-        <label style="color:var(--text2);font-size:0.75rem">Line Item ID <span class="req">*</span></label>
-        <input type="text" class="line-id" placeholder="e.g. 1" required>
-      </div>
-      <div class="input-group">
-        <label style="color:var(--text2);font-size:0.75rem">Item Name <span class="req">*</span></label>
-        <input type="text" class="line-item-name" placeholder="e.g. Widget A" required>
-      </div>
-      <div class="input-group">
-        <label style="color:var(--text2);font-size:0.75rem">Quantity Value <span class="req">*</span></label>
-        <input type="text" class="line-qty-value" placeholder="e.g. 10" required>
-      </div>
-      <div class="input-group">
-        <label style="color:var(--text2);font-size:0.75rem">Unit Code <span class="req">*</span></label>
-        <select class="line-qty-unit" required style="max-width:none">
-          <option value="">-- select --</option>
-          <option value="EA">Each (EA)</option>
-          <option value="KGM">Kilogram (KGM)</option>
-          <option value="MTR">Metre (MTR)</option>
-          <option value="LTR">Litre (LTR)</option>
-          <option value="BX">Box (BX)</option>
-          <option value="PK">Pack (PK)</option>
-          <option value="HUR">Hour (HUR)</option>
-          <option value="DAY">Day (DAY)</option>
-          <option value="MTK">Square metre (MTK)</option>
-        </select>
-      </div>
-      <div class="input-group">
-        <label style="color:var(--text2);font-size:0.75rem">Line Extension Amount <span class="req">*</span></label>
-        <input type="text" class="line-ext-value" placeholder="e.g. 500.00" required>
-      </div>
-      <div class="input-group">
-        <label style="color:var(--text2);font-size:0.75rem">Extension Currency</label>
-        <input type="text" class="line-ext-currency" maxlength="3" placeholder="EUR">
-      </div>
-      <div class="input-group">
-        <label style="color:var(--text2);font-size:0.75rem">Price Amount <span class="req">*</span></label>
-        <input type="text" class="line-price-value" placeholder="e.g. 100.00" required>
-      </div>
-      <div class="input-group">
-        <label style="color:var(--text2);font-size:0.75rem">Price Currency</label>
-        <input type="text" class="line-price-currency" maxlength="3" placeholder="EUR">
-      </div>
-    </div>
-  </div>`;
+  if (sec.id === 'order_lines') {
+    html += renderOrderLines();
+  } else {
+    html += '<div class="field-row">';
+    for (const f of sec.fields) {
+      html += renderField(f);
+    }
+    html += '</div>';
+  }
+
+  html += '</div></div>';
+  return html;
 }
 
-function addOrderLine() {
-  const container = document.getElementById('order-lines-container');
-  container.insertAdjacentHTML('beforeend', createLineTemplate(lineCounter));
+function renderOrderLines() {
+  let html = '<div id="lines-container">';
+  for (let i = 0; i < lineCounter; i++) {
+    html += renderOneLine(i);
+  }
+  html += '</div>';
+  html += `<button type="button" class="btn" onclick="addLine()">+ Add Order Line</button>`;
+  return html;
+}
+
+function renderOneLine(idx) {
+  const fields = buildLineItemFields(idx);
+  let html = `<div class="sub-group" id="line-${idx}">`;
+  html += `<div class="sub-group-title">Order Line ${idx+1}`;
+  if (lineCounter > 1) html += ` <button type="button" class="btn danger" onclick="removeLine(${idx})" style="float:right;font-size:11px;padding:2px 8px">Remove</button>`;
+  html += '</div>';
+
+  // OrderLine container fields
+  html += '<div class="field-row">';
+  html += renderField({label:'Substitution Status', ubl:['order_line',idx,'substitution_status_code','value'], t:'s', opts:['','original','substitution']});
+  html += renderField({label:'Line Note', ubl:['order_line',idx,'note',0,'value'], t:'t'});
+  html += '</div>';
+
+  // LineItem fields
+  html += '<div style="color:var(--muted);font-size:11px;margin:4px 0">Line Item</div>';
+  html += '<div class="field-row">';
+  for (const f of fields) {
+    html += renderField(f);
+  }
+  html += '</div>';
+
+  // Substitute line items
+  html += '<div style="color:var(--muted);font-size:11px;margin:6px 0">Substitute Line Items (seller/buyer proposed alternatives)</div>';
+  html += '<div class="field-row">';
+  html += renderField({label:'Seller Proposed Item Name', ubl:['order_line',idx,'seller_proposed_substitute_line_item','item','name'], t:'t'});
+  html += renderField({label:'Seller Proposed Item ID', ubl:['order_line',idx,'seller_proposed_substitute_line_item','item','sellers_item_identification','id','value'], t:'t'});
+  html += renderField({label:'Seller Substituted Item Name', ubl:['order_line',idx,'seller_substituted_line_item','item','name'], t:'t'});
+  html += renderField({label:'Buyer Proposed Item Name', ubl:['order_line',idx,'buyer_proposed_substitute_line_item','item','name'], t:'t'});
+  html += '</div>';
+
+  // Order line references
+  html += '<div style="color:var(--muted);font-size:11px;margin:4px 0">Order Line References</div>';
+  html += '<div class="field-row">';
+  html += renderField({label:'Quotation Line Ref ID', ubl:['order_line',idx,'quotation_line_reference',0,'line_id','value'], t:'t'});
+  html += renderField({label:'Order Line Ref ID', ubl:['order_line',idx,'order_line_reference',0,'line_id','value'], t:'t'});
+  html += renderField({label:'Document Ref ID', ubl:['order_line',idx,'document_reference',0,'id','value'], t:'t'});
+  html += renderField({label:'Document Type Code', ubl:['order_line',idx,'document_reference',0,'document_type_code','value'], t:'t'});
+  html += '</div>';
+
+  html += '</div>';
+  return html;
+}
+
+function addLine() {
   lineCounter++;
-  updateRemoveButtons();
+  rebuildLines();
 }
 
-function removeOrderLine(btn) {
-  const container = document.getElementById('order-lines-container');
-  const items = container.querySelectorAll('.line-item');
-  if (items.length <= 1) {
-    // keep at least one, just clear fields
-    const inputs = items[0].querySelectorAll('input');
-    inputs.forEach(inp => inp.value = '');
-    const selects = items[0].querySelectorAll('select');
-    selects.forEach(sel => sel.selectedIndex = 0);
+function removeLine(idx) {
+  if (lineCounter <= 1) return;
+  // Remove that index
+  lineCounter--;
+  rebuildLines();
+}
+
+function rebuildLines() {
+  const container = document.getElementById('lines-container');
+  let html = '';
+  for (let i = 0; i < lineCounter; i++) {
+    html += renderOneLine(i);
+  }
+  container.innerHTML = html;
+}
+
+// ============================================================================
+// RENDER ALL SECTIONS
+// ============================================================================
+
+function renderAll() {
+  const form = document.getElementById('order-form');
+  let html = '';
+  for (const sec of SECTIONS) {
+    html += renderSection(sec);
+  }
+  form.innerHTML = html;
+}
+
+function toggleSection(id) {
+  const body = document.getElementById('body-' + id.replace('sec-',''));
+  const arrow = document.getElementById('arrow-' + id.replace('sec-',''));
+  if (body) { body.classList.toggle('open'); arrow.classList.toggle('open'); }
+}
+
+// ============================================================================
+// JSON BUILDER — walks data-ubl attributes to construct nested JSON
+// ============================================================================
+
+function setPath(obj, path, value) {
+  // Path like "buyer_customer_party.party.party_name.0.name"
+  const parts = path.split('.');
+  let cur = obj;
+  for (let i = 0; i < parts.length - 1; i++) {
+    const key = parts[i];
+    if (key === '$increment') {
+      // find first null index in array
+      let idx = 0;
+      while (cur[idx] !== undefined) idx++;
+      cur = cur[idx] = {};
+    } else if (/^\d+$/.test(key)) {
+      const idx = parseInt(key);
+      if (!cur[idx]) cur[idx] = {};
+      cur = cur[idx];
+    } else {
+      if (!cur[key]) {
+        // next part determines type
+        const next = parts[i+1];
+        cur[key] = /^\d+$/.test(next) || next === '$increment' ? [] : {};
+      }
+      cur = cur[key];
+    }
+  }
+  const last = parts[parts.length-1];
+  if (last === '$increment') {
+    let idx = 0;
+    while (cur[idx] !== undefined) idx++;
+    cur[idx] = value;
+  } else if (/^\d+$/.test(last)) {
+    cur[parseInt(last)] = value;
   } else {
-    btn.closest('.line-item').remove();
+    cur[last] = value;
   }
-  updateRemoveButtons();
 }
 
-function updateRemoveButtons() {
-  const container = document.getElementById('order-lines-container');
-  const items = container.querySelectorAll('.line-item');
-  items.forEach(item => {
-    const btn = item.querySelector('.remove-btn');
-    if (items.length <= 1) {
-      btn.style.display = 'none';
+function collectJSON() {
+  const obj = {};
+  const inputs = document.querySelectorAll('#order-form [data-ubl]');
+  for (const el of inputs) {
+    let value;
+    if (el.type === 'checkbox') {
+      if (!el.checked) continue;
+      value = true;
     } else {
-      btn.style.display = '';
+      value = el.value.trim();
+      if (!value) continue;
+      if (el.type === 'number') value = value.includes('.') ? value : value; // keep as string for Decimal
     }
-  });
-}
-
-// ── Build JSON payload ────────────────────────────────────────
-function valOf(id) {
-  const el = document.getElementById(id);
-  return el ? el.value.trim() : '';
-}
-
-function maybeCbc(value) {
-  // Wrap a non-empty string in {value: "..."}
-  return value ? { value: value } : undefined;
-}
-
-function maybeCbcNum(value) {
-  // Attempt numeric conversion for types expecting numeric values
-  if (!value) return undefined;
-  const n = parseFloat(value);
-  if (isNaN(n)) return { value: value };
-  return { value: n };
-}
-
-function buildTextList(containerId) {
-  const container = document.getElementById(containerId);
-  const inputs = container.querySelectorAll('input');
-  const notes = [];
-  inputs.forEach(inp => {
-    if (inp.value.trim()) {
-      notes.push({ value: inp.value.trim() });
-    }
-  });
-  return notes.length > 0 ? notes : undefined;
-}
-
-function buildParty(side) {
-  // side = 'buyer' or 'seller'
-  const partyName = valOf(side + '-party-name');
-  if (!partyName) return undefined;
-
-  const party = {};
-
-  const accountId = valOf(side + '-account-id');
-  if (accountId) {
-    if (side === 'buyer') {
-      party.customer_assigned_account_id = { value: accountId };
-    } else {
-      party.customer_assigned_account_id = { value: accountId };
-    }
+    setPath(obj, el.dataset.ubl, value);
   }
-
-  const partyId = valOf(side + '-party-id');
-  const endpointId = valOf(side + '-endpoint-id');
-
-  const partyObj = {};
-
-  if (partyId) {
-    partyObj.party_identification = [{ id: { value: partyId } }];
-  }
-
-  partyObj.party_name = [{ name: { value: partyName } }];
-
-  if (endpointId) {
-    partyObj.endpoint_id = { value: endpointId };
-  }
-
-  // postal address
-  const street = valOf(side + '-street');
-  const city = valOf(side + '-city');
-  const postal = valOf(side + '-postal');
-  const countryCode = valOf(side + '-country-code');
-  const countryName = valOf(side + '-country-name');
-
-  if (street || city || postal || countryCode || countryName) {
-    const addr = {};
-    if (street) addr.street_name = { value: street };
-    if (city) addr.city_name = { value: city };
-    if (postal) addr.postal_zone = { value: postal };
-    if (countryCode || countryName) {
-      addr.country = {};
-      if (countryCode) addr.country.identification_code = { value: countryCode };
-      if (countryName) addr.country.name = { value: countryName };
-    }
-    partyObj.postal_address = addr;
-  }
-
-  party.party = partyObj;
-
-  // contacts
-  const contactName = valOf(side + '-contact-name');
-  const contactEmail = valOf(side + '-contact-email');
-  const contactPhone = valOf(side + '-contact-phone');
-
-  if (contactName || contactEmail || contactPhone) {
-    const contact = {};
-    if (contactName) contact.name = { value: contactName };
-    if (contactEmail) contact.electronic_mail = { value: contactEmail };
-    if (contactPhone) contact.telephone = { value: contactPhone };
-
-    if (side === 'buyer') {
-      party.buyer_contact = contact;
-    } else {
-      party.seller_contact = contact;
-    }
-  }
-
-  return party;
+  return obj;
 }
 
-function buildDelivery() {
-  const id = valOf('delivery-id');
-  const qtyVal = valOf('delivery-qty-value');
-  const qtyUnit = valOf('delivery-qty-unit');
-  const street = valOf('delivery-street');
-  const city = valOf('delivery-city');
-  const postal = valOf('delivery-postal');
-  const countryCode = valOf('delivery-country-code');
-  const countryName = valOf('delivery-country-name');
-  const startDate = valOf('delivery-start-date');
-  const endDate = valOf('delivery-end-date');
-  const latestDate = valOf('latest-delivery-date');
+// ============================================================================
+// SUBMIT
+// ============================================================================
 
-  if (!id && !qtyVal && !street && !city && !startDate && !endDate && !latestDate) {
-    return undefined; // no delivery data
-  }
+async function submitOrder() {
+  const status = document.getElementById('status');
+  const results = document.getElementById('results');
+  status.textContent = 'Validating...';
+  results.style.display = 'none';
 
-  const delivery = {};
-
-  if (id) delivery.id = { value: id };
-  if (qtyVal) {
-    delivery.quantity = { value: qtyVal };
-    if (qtyUnit) delivery.quantity.unit_code = qtyUnit;
-  }
-
-  if (street || city || postal || countryCode || countryName) {
-    const addr = {};
-    if (street) addr.street_name = { value: street };
-    if (city) addr.city_name = { value: city };
-    if (postal) addr.postal_zone = { value: postal };
-    if (countryCode || countryName) {
-      addr.country = {};
-      if (countryCode) addr.country.identification_code = { value: countryCode };
-      if (countryName) addr.country.name = { value: countryName };
-    }
-    delivery.delivery_address = addr;
-  }
-
-  if (startDate || endDate) {
-    const period = {};
-    if (startDate) period.start_date = startDate;
-    if (endDate) period.end_date = endDate;
-    delivery.requested_delivery_period = period;
-  }
-
-  if (latestDate) {
-    delivery.latest_delivery_date = latestDate;
-  }
-
-  return delivery;
-}
-
-function buildPaymentMeans() {
-  const code = valOf('payment-means-code');
-  const dueDate = valOf('payment-due-date');
-  const channel = valOf('payment-channel-code');
-  const instruction = valOf('payment-instruction-note');
-
-  if (!code && !dueDate && !channel && !instruction) return undefined;
-
-  const pm = {};
-  if (code) pm.payment_means_code = { value: code };
-  if (dueDate) pm.payment_due_date = dueDate;
-  if (channel) pm.payment_channel_code = { value: channel };
-  if (instruction) pm.instruction_note = [{ value: instruction }];
-
-  return [pm];
-}
-
-function buildPaymentTerms() {
-  const notes = buildTextList('payment-terms-notes');
-  if (!notes) return undefined;
-  return [{ note: notes }];
-}
-
-function buildOrderLines() {
-  const container = document.getElementById('order-lines-container');
-  const items = container.querySelectorAll('.line-item');
-  const lines = [];
-
-  items.forEach(item => {
-    const id = item.querySelector('.line-id').value.trim();
-    const name = item.querySelector('.line-item-name').value.trim();
-    const qtyValue = item.querySelector('.line-qty-value').value.trim();
-    const qtyUnit = item.querySelector('.line-qty-unit').value;
-    const extValue = item.querySelector('.line-ext-value').value.trim();
-    const extCurrency = item.querySelector('.line-ext-currency').value.trim();
-    const priceValue = item.querySelector('.line-price-value').value.trim();
-    const priceCurrency = item.querySelector('.line-price-currency').value.trim();
-
-    if (!id && !name && !qtyValue && !extValue && !priceValue) return; // skip empty
-
-    const lineItem = {};
-
-    if (id) lineItem.id = { value: id };
-
-    if (qtyValue) {
-      lineItem.quantity = { value: qtyValue };
-      if (qtyUnit) lineItem.quantity.unit_code = qtyUnit;
-    }
-
-    if (extValue) {
-      lineItem.line_extension_amount = {
-        value: extValue,
-        currency_id: extCurrency || 'EUR'
-      };
-    }
-
-    if (name) {
-      lineItem.item = { name: { value: name } };
-    }
-
-    if (priceValue) {
-      lineItem.price = {
-        price_amount: {
-          value: priceValue,
-          currency_id: priceCurrency || 'EUR'
-        }
-      };
-    }
-
-    const orderLine = { line_item: lineItem };
-    lines.push(orderLine);
-  });
-
-  return lines;
-}
-
-function buildOrderJson() {
-  const order = {};
-
-  // ── Metadata ──
-  order.id = { value: valOf('order-id') };
-  const soid = valOf('sales-order-id');
-  if (soid) order.sales_order_id = { value: soid };
-  const uuid = valOf('order-uuid');
-  if (uuid) order.uuid = { value: uuid };
-
-  order.issue_date = valOf('issue-date');
-  const issueTime = valOf('issue-time');
-  if (issueTime) order.issue_time = issueTime;
-
-  const otc = valOf('order-type-code');
-  if (otc) order.order_type_code = { value: otc };
-
-  const ublv = valOf('ubl-version-id');
-  if (ublv) order.ubl_version_id = { value: ublv };
-  const custId = valOf('customization-id');
-  if (custId) order.customization_id = { value: custId };
-  const profId = valOf('profile-id');
-  if (profId) order.profile_id = { value: profId };
-
-  const notes = buildTextList('order-notes');
-  if (notes) order.note = notes;
-
-  // ── Currency ──
-  const docCurr = valOf('document-currency-code');
-  if (docCurr) order.document_currency_code = { value: docCurr };
-  const invCurr = valOf('requested-invoice-currency-code');
-  if (invCurr) order.requested_invoice_currency_code = { value: invCurr };
-  const priceCurr = valOf('pricing-currency-code');
-  if (priceCurr) order.pricing_currency_code = { value: priceCurr };
-  const taxCurr = valOf('tax-currency-code');
-  if (taxCurr) order.tax_currency_code = { value: taxCurr };
-
-  // ── References ──
-  const custRef = valOf('customer-reference');
-  if (custRef) order.customer_reference = { value: custRef };
-  const accCode = valOf('accounting-cost-code');
-  if (accCode) order.accounting_cost_code = { value: accCode };
-  const accCost = valOf('accounting-cost');
-  if (accCost) order.accounting_cost = { value: accCost };
-  const lineCount = valOf('line-count-numeric');
-  if (lineCount) order.line_count_numeric = { value: parseInt(lineCount) || lineCount };
-
-  // ── Parties ──
-  const buyer = buildParty('buyer');
-  if (buyer) order.buyer_customer_party = buyer;
-
-  const seller = buildParty('seller');
-  if (seller) order.seller_supplier_party = seller;
-
-  // ── Delivery ──
-  const delivery = buildDelivery();
-  if (delivery) order.delivery = [delivery];
-
-  // ── Payment ──
-  const paymentMeans = buildPaymentMeans();
-  if (paymentMeans) order.payment_means = paymentMeans;
-
-  const paymentTerms = buildPaymentTerms();
-  if (paymentTerms) order.payment_terms = paymentTerms;
-
-  // ── Order Lines ──
-  order.order_line = buildOrderLines();
-
-  return order;
-}
-
-// ── Form submission ───────────────────────────────────────────
-document.getElementById('order-form').addEventListener('submit', async function(e) {
-  e.preventDefault();
-
-  const submitBtn = document.getElementById('submit-btn');
-  const statusEl = document.getElementById('submit-status');
-  const resultsDiv = document.getElementById('validation-results');
-  resultsDiv.style.display = 'none';
-
-  // Basic client-side validation
-  const errors = [];
-
-  const orderId = valOf('order-id');
-  if (!orderId) errors.push('Order ID is required');
-
-  const issueDate = valOf('issue-date');
-  if (!issueDate) errors.push('Issue Date is required');
-
-  const buyerName = valOf('buyer-party-name');
-  if (!buyerName) errors.push('Buyer Party Name is required');
-
-  const sellerName = valOf('seller-party-name');
-  if (!sellerName) errors.push('Seller Party Name is required');
-
-  const lines = document.getElementById('order-lines-container').querySelectorAll('.line-item');
-  let hasValidLine = false;
-  lines.forEach(line => {
-    const id = line.querySelector('.line-id').value.trim();
-    const name = line.querySelector('.line-item-name').value.trim();
-    if (id && name) hasValidLine = true;
-  });
-  if (!hasValidLine) errors.push('At least one Order Line with ID and Item Name is required');
-
-  if (errors.length > 0) {
-    resultsDiv.style.display = 'block';
-    resultsDiv.innerHTML = `
-      <div class="result-banner error">⚠ Validation Failed</div>
-      <div class="result-list">
-        ${errors.map(e => `<div class="result-item"><span class="sev sev-error">ERROR</span><span class="msg">${e}</span></div>`).join('')}
-      </div>
-    `;
+  const json = collectJSON();
+  // Ensure order_line exists
+  if (!json.order_line || json.order_line.length === 0) {
+    status.textContent = 'Error: At least one order line required';
     return;
   }
 
-  const payload = buildOrderJson();
-
-  submitBtn.disabled = true;
-  statusEl.textContent = 'Submitting...';
-
   try {
-    const response = await fetch('/api/validate/order', {
+    const resp = await fetch(API, {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(payload)
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify(json),
     });
+    const data = await resp.json();
 
-    const result = await response.json();
+    results.style.display = 'block';
+    results.className = data.valid ? 'ok' : (data.errors && data.errors.length ? 'error' : 'warn');
 
-    resultsDiv.style.display = 'block';
-
-    if (result.valid) {
-      resultsDiv.innerHTML = `
-        <div class="result-banner success">✓ Order validated successfully</div>
-        <div class="result-list">
-          <div class="result-item">
-            <span class="msg">Stored ID: <code>${escapeHtml(result.stored_id)}</code></span>
-          </div>
-        </div>
-      `;
-      statusEl.textContent = '✓ Submitted';
-    } else {
-      let html = `<div class="result-banner error">✗ Validation failed</div><div class="result-list">`;
-
-      if (result.errors && result.errors.length > 0) {
-        result.errors.forEach(err => {
-          html += `<div class="result-item"><span class="sev sev-error">ERROR</span><span class="rid">[${escapeHtml(err.rule_id)}]</span><span class="msg">${escapeHtml(err.message)}</span></div>`;
-        });
-      }
-
-      if (result.warnings && result.warnings.length > 0) {
-        result.warnings.forEach(warn => {
-          html += `<div class="result-item"><span class="sev sev-warning">WARN</span><span class="rid">[${escapeHtml(warn.rule_id)}]</span><span class="msg">${escapeHtml(warn.message)}</span></div>`;
-        });
-      }
-
-      html += '</div>';
-      resultsDiv.innerHTML = html;
-      statusEl.textContent = '✗ Failed validation';
-    }
-
-    // scroll to results
-    resultsDiv.scrollIntoView({ behavior: 'smooth', block: 'start' });
-
-  } catch (err) {
-    resultsDiv.style.display = 'block';
-    resultsDiv.innerHTML = `
-      <div class="result-banner error">⚠ Network Error</div>
-      <div class="result-list">
-        <div class="result-item"><span class="msg">${escapeHtml(err.message)}</span></div>
-      </div>
-    `;
-    statusEl.textContent = '✗ Error';
-  } finally {
-    submitBtn.disabled = false;
+    let html = `<strong>${data.valid ? 'PASSED' : 'FAILED'}</strong> — stored: ${data.stored_id}<br>`;
+    if (data.errors) for (const e of data.errors) html += `<div class="result-item e">✗ ${e.rule_id}: ${e.message}</div>`;
+    if (data.warnings) for (const w of data.warnings) html += `<div class="result-item w">⚠ ${w.rule_id}: ${w.message}</div>`;
+    results.innerHTML = html;
+    status.textContent = data.valid ? 'Valid' : 'Has errors — see below';
+  } catch(e) {
+    status.textContent = 'Network error: ' + e.message;
   }
-});
-
-function escapeHtml(str) {
-  if (!str) return '';
-  const div = document.createElement('div');
-  div.textContent = str;
-  return div.innerHTML;
 }
 
-// ── Initialise ─────────────────────────────────────────────────
-document.addEventListener('DOMContentLoaded', function() {
-  // Set default issue date to today
-  document.getElementById('issue-date').value = new Date().toISOString().split('T')[0];
-  // Add first order line
-  addOrderLine();
-});
+// Init
+renderAll();
 </script>
-
 </body>
 </html>
