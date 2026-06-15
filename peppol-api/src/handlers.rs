@@ -6,7 +6,7 @@
 use axum::Json;
 use axum::extract::{Path, State};
 use axum::http::StatusCode;
-use axum::response::{Html, IntoResponse};
+use axum::response::IntoResponse;
 use chrono::Utc;
 use peppol_common::rules::Severity;
 use peppol_storage::StoredDocument;
