@@ -55,6 +55,7 @@ input[type="checkbox"] { width: auto; }
 <div id="results"></div>
 <div class="btn-row" style="margin-top:20px">
   <button type="button" class="btn primary" onclick="submitOrder()">Submit Order</button>
+  <button type="button" class="btn" onclick="fillDummyData()">Fill with Dummy Data</button>
   <span id="status"></span>
 </div>
 
@@ -573,6 +574,107 @@ async function submitOrder() {
   } catch(e) {
     status.textContent = 'Network error: ' + e.message;
   }
+}
+
+// Helper: set a field value by its data-ubl path suffix
+function setByPath(suffix, value) {
+  document.querySelectorAll('#order-form [data-ubl]').forEach(el => {
+    if (el.dataset.ubl.endsWith(suffix) && !el.value) el.value = value;
+  });
+}
+
+// Quick test helper: set an element by full data-ubl path
+function setUbl(path, value) {
+  const el = document.querySelector(`#order-form [data-ubl="${path}"]`);
+  if (el) el.value = value;
+}
+
+function fillDummyData() {
+  const today = new Date().toISOString().slice(0,10);
+  document.getElementById('status').textContent = 'Filling dummy data...';
+
+  // Metadata
+  setUbl('id.value', 'ORD-2026-001');
+  setUbl('issue_date', today);
+  setUbl('order_type_code.value', '220');
+  setUbl('ubl_version_id.value', '2.5');
+  setUbl('customer_reference.value', 'PO-REF-001');
+
+  // Buyer — Acme Buyer Pty Ltd
+  setUbl('buyer_customer_party.party.party_name.0.name', 'Acme Buyer Pty Ltd');
+  setUbl('buyer_customer_party.party.party_identification.0.id.value', '4123456789');
+  setUbl('buyer_customer_party.party.party_identification.0.id.scheme_id', '9933');
+  setUbl('buyer_customer_party.party.party_legal_entity.0.registration_name', 'Acme Buyer Pty Ltd');
+  setUbl('buyer_customer_party.party.party_legal_entity.0.company_id.value', '2022/123456/07');
+  setUbl('buyer_customer_party.party.party_tax_scheme.0.company_id.value', '4123456789');
+  setUbl('buyer_customer_party.party.party_tax_scheme.0.tax_scheme.id.value', 'VAT');
+  setUbl('buyer_customer_party.party.postal_address.street_name', '100 Main Street');
+  setUbl('buyer_customer_party.party.postal_address.city_name', 'Cape Town');
+  setUbl('buyer_customer_party.party.postal_address.postal_zone.value', '8001');
+  setUbl('buyer_customer_party.party.postal_address.country.identification_code.value', 'ZA');
+  setUbl('buyer_customer_party.party.contact.name', 'John Buyer');
+  setUbl('buyer_customer_party.party.contact.telephone', '+27215551234');
+  setUbl('buyer_customer_party.party.contact.electronic_mail', 'john@acme.co.za');
+  setUbl('buyer_customer_party.party.endpoint_id.value', '9933:4123456789');
+
+  // Seller — ZA Supplies Pty Ltd
+  setUbl('seller_supplier_party.party.party_name.0.name', 'ZA Supplies Pty Ltd');
+  setUbl('seller_supplier_party.party.party_identification.0.id.value', '4987654321');
+  setUbl('seller_supplier_party.party.party_identification.0.id.scheme_id', '9933');
+  setUbl('seller_supplier_party.party.party_legal_entity.0.registration_name', 'ZA Supplies Pty Ltd');
+  setUbl('seller_supplier_party.party.party_legal_entity.0.company_id.value', '2020/654321/07');
+  setUbl('seller_supplier_party.party.party_tax_scheme.0.company_id.value', '4987654321');
+  setUbl('seller_supplier_party.party.party_tax_scheme.0.tax_scheme.id.value', 'VAT');
+  setUbl('seller_supplier_party.party.postal_address.street_name', '200 Industrial Road');
+  setUbl('seller_supplier_party.party.postal_address.city_name', 'Johannesburg');
+  setUbl('seller_supplier_party.party.postal_address.postal_zone.value', '2000');
+  setUbl('seller_supplier_party.party.postal_address.country.identification_code.value', 'ZA');
+  setUbl('seller_supplier_party.party.contact.name', 'Jane Seller');
+  setUbl('seller_supplier_party.party.contact.telephone', '+27115559876');
+  setUbl('seller_supplier_party.party.contact.electronic_mail', 'jane@zasupplies.co.za');
+  setUbl('seller_supplier_party.party.endpoint_id.value', '9933:4987654321');
+
+  // Quotation reference (prevents ORD-R006 fatal)
+  setUbl('quotation_document_reference.id.value', 'QUOT-2026-042');
+
+  // Payment
+  setUbl('payment_means.0.payment_means_code.value', '30');
+  setUbl('payment_terms.0.note.value', 'Net 30 days from invoice date');
+
+  // Tax — Standard rate, zero amounts
+  setUbl('tax_total.0.tax_amount.value', '0');
+  setUbl('tax_total.0.tax_amount.currency_id', 'ZAR');
+  setUbl('tax_total.0.tax_subtotal.0.taxable_amount.value', '0');
+  setUbl('tax_total.0.tax_subtotal.0.taxable_amount.currency_id', 'ZAR');
+  setUbl('tax_total.0.tax_subtotal.0.tax_amount.value', '0');
+  setUbl('tax_total.0.tax_subtotal.0.tax_amount.currency_id', 'ZAR');
+  setUbl('tax_total.0.tax_subtotal.0.tax_category.id.value', 'S');
+
+  // Order Line 1
+  setUbl('order_line.0.line_item.id.value', '1');
+  setUbl('order_line.0.line_item.quantity.value', '10');
+  setUbl('order_line.0.line_item.quantity.unit_code', 'EA');
+  setUbl('order_line.0.line_item.line_extension_amount.value', '1599.50');
+  setUbl('order_line.0.line_item.line_extension_amount.currency_id', 'ZAR');
+  setUbl('order_line.0.line_item.item.name', 'HP EliteBook 840 G10');
+  setUbl('order_line.0.line_item.item.description.value', '14 inch business laptop, Intel Core i7, 16GB RAM, 512GB SSD');
+  setUbl('order_line.0.line_item.item.sellers_item_identification.id.value', 'HP-840-G10');
+  setUbl('order_line.0.line_item.item.standard_item_identification.id.value', '0196337175246');
+  setUbl('order_line.0.line_item.item.standard_item_identification.id.scheme_id', 'GTIN');
+  setUbl('order_line.0.line_item.item.commodity_classification.0.item_classification_code.value', '84713000');
+  setUbl('order_line.0.line_item.price.price_amount.value', '159.95');
+  setUbl('order_line.0.line_item.price.price_amount.currency_id', 'ZAR');
+  setUbl('order_line.0.line_item.price.base_quantity.value', '1');
+  setUbl('order_line.0.line_item.price.base_quantity.unit_code', 'EA');
+
+  // Default all amount values to 0 and currency to ZAR
+  setByPath('.currency_id', 'ZAR');
+  document.querySelectorAll('#order-form [data-ubl]').forEach(el => {
+    if (el.dataset.ubl.endsWith('.value') && el.dataset.ubl.includes('amount') && !el.value) el.value = '0';
+  });
+  setByPath('.unit_code', 'EA');
+
+  document.getElementById('status').textContent = 'Dummy data loaded — fill in details and submit';
 }
 
 // Init
