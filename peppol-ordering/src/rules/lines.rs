@@ -215,11 +215,11 @@ pub fn add_rules(engine: &mut RuleEngine, inv: &Arc<Order>) {
             Box::new(move || {
                 for (i, line) in inv.order_line.iter().enumerate() {
                     if let Some(ref li) = line.line_item {
-                        if let (Some(ref qty), Some(ref line_ext), Some(ref price)) =
+                        if let (Some(qty), Some(line_ext), Some(price)) =
                             (&li.quantity, &li.line_extension_amount, &li.price)
                         {
                             let expected = qty.value * price.price_amount.value();
-                            let diff = (*line_ext.value - expected).abs();
+                            let diff = (line_ext.value - expected).abs();
                             if diff > rust_decimal::Decimal::new(2, 2) {
                                 return Err(format!(
                                     "Order line {} line total {} does not match quantity {} * price {} = {}",
@@ -331,7 +331,7 @@ pub fn add_rules(engine: &mut RuleEngine, inv: &Arc<Order>) {
             Box::new(move || {
                 for (i, line) in inv.order_line.iter().enumerate() {
                     if let Some(ref li) = line.line_item {
-                        if let (Some(ref qty), Some(ref price)) = (&li.quantity, &li.price) {
+                        if let (Some(qty), Some(price)) = (&li.quantity, &li.price) {
                             if let Some(ref base_qty) = price.base_quantity {
                                 let qty_unit = qty.unit_code.as_deref().unwrap_or("");
                                 let base_unit = base_qty.0.unit_code.as_deref().unwrap_or("");

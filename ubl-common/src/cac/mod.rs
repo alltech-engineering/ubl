@@ -2,7 +2,6 @@
 //
 // Reusable complex structures (ABIEs) that compose CBC types into
 // business-meaningful aggregates.
-#![allow(ambiguous_glob_reexports)]
 
 pub mod address;
 pub mod allowance;

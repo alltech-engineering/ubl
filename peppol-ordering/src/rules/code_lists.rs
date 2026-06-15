@@ -180,21 +180,23 @@ pub fn add_rules(engine: &mut RuleEngine, inv: &Arc<Order>) {
             let inv = Arc::clone(inv);
             Box::new(move || {
                 for (i, line) in inv.order_line.iter().enumerate() {
-                    if let Some(qty) = &line.quantity {
-                        match &qty.unit_code {
-                            None => {
-                                return Err(format!(
-                                    "Order line {} quantity has no unit code — unit should be specified from UN/ECE Rec.20",
-                                    i + 1
-                                ));
+                    if let Some(ref li) = line.line_item {
+                        if let Some(ref qty) = li.quantity {
+                            match &qty.unit_code {
+                                None => {
+                                    return Err(format!(
+                                        "Order line {} quantity has no unit code — unit should be specified from UN/ECE Rec.20",
+                                        i + 1
+                                    ));
+                                }
+                                Some(unit) if unit.is_empty() => {
+                                    return Err(format!(
+                                        "Order line {} quantity has an empty unit code — unit should be from UN/ECE Rec.20",
+                                        i + 1
+                                    ));
+                                }
+                                Some(_) => {}
                             }
-                            Some(unit) if unit.is_empty() => {
-                                return Err(format!(
-                                    "Order line {} quantity has an empty unit code — unit should be from UN/ECE Rec.20",
-                                    i + 1
-                                ));
-                            }
-                            Some(_) => {}
                         }
                     }
                 }
