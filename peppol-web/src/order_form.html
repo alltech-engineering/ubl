@@ -243,7 +243,7 @@ const SECTIONS = [
 {
   id: 'allowance_charges', title: 'Allowances & Charges',
   fields: [
-    {label:'Is Charge', ubl:['allowance_charge',0,'charge_indicator'], t:'c'},
+    {label:'Is Charge', ubl:['allowance_charge',0,'charge_indicator','value'], t:'s', opts:['false=No','true=Yes']},
     {label:'Reason Code', ubl:['allowance_charge',0,'allowance_charge_reason_code','value'], t:'t'},
     {label:'Amount', ubl:['allowance_charge',0,'amount','value'], t:'n'},
     {label:'Amount Currency', ubl:['allowance_charge',0,'amount','currency_id'], t:'t', placeholder:'ZAR'},
@@ -529,8 +529,7 @@ function collectJSON() {
   for (const el of inputs) {
     let value;
     if (el.type === 'checkbox') {
-      if (!el.checked) continue;
-      value = true;
+      value = el.checked ? 'true' : 'false';
     } else {
       value = el.value.trim();
       if (!value) continue;
@@ -729,6 +728,7 @@ function setZADefaults() {
     if (path.includes('tax_scheme.id.value') && !el.value) el.value = 'VAT';
 
     // Unit code defaults to EA
+    if (path.includes('charge_indicator.value') && !el.value) el.value = 'false';
     if (path.endsWith('.unit_code') && !el.value) el.value = 'EA';
   });
 
