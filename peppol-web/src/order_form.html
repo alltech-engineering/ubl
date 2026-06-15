@@ -328,21 +328,22 @@ let lineCounter = 1;
 
 function renderField(f) {
   const uid = f.ubl.join('_').replace(/[\[\].'$]/g,'');
+  const dubl = f.ubl.map(x => x === '$' ? 0 : x).join('.');
   let html = '<div class="field">';
   html += `<label for="${uid}">${f.req?'<span class="req">*</span> ':''}${f.label}</label>`;
   if (f.t === 'c') {
-    html += `<input type="checkbox" id="${uid}" data-ubl="${f.ubl.join('.')}">`;
+    html += `<input type="checkbox" id="${uid}" data-ubl="${dubl}">`;
   } else if (f.t === 's') {
-    html += `<select id="${uid}" data-ubl="${f.ubl.join('.')}">`;
+    html += `<select id="${uid}" data-ubl="${dubl}">`;
     for (const o of (f.opts||[])) {
       const [val, label] = o.includes('=') ? o.split('=',2) : [o,o];
       html += `<option value="${val}">${label||val}</option>`;
     }
     html += '</select>';
   } else if (f.t === 'ta') {
-    html += `<textarea id="${uid}" data-ubl="${f.ubl.join('.')}" rows="2" placeholder="${f.placeholder||''}"></textarea>`;
+    html += `<textarea id="${uid}" data-ubl="${dubl}" rows="2" placeholder="${f.placeholder||''}"></textarea>`;
   } else {
-    html += `<input type="${f.t==='d'?'date':f.t==='ti'?'time':f.t==='n'?'number':f.t==='text'?'text':'text'}" id="${uid}" data-ubl="${f.ubl.join('.')}" placeholder="${f.placeholder||''}">`;
+    html += `<input type="${f.t==='d'?'date':f.t==='ti'?'time':f.t==='n'?'number':f.t==='text'?'text':'text'}" id="${uid}" data-ubl="${dubl}" placeholder="${f.placeholder||''}">`;
   }
   html += '</div>';
   return html;
