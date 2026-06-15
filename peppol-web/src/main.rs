@@ -52,7 +52,7 @@ async fn order_list() -> Html<String> {
     Html(format!(
         r#"<!DOCTYPE html><html><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Orders</title>
 <style>
-*{margin:0;padding:0;box-sizing:border-box}
+*{{margin:0;padding:0;box-sizing:border-box}}
 body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;background:#f5f5f5;color:#1a1a1a}
 .container{max-width:800px;margin:0 auto;padding:24px 16px}
 h1{font-size:22px;margin-bottom:8px}
@@ -101,7 +101,7 @@ async fn order_detail(Path(id): Path<String>) -> Html<String> {
 fn render_order_detail(p: &Value) -> String {
     let mut h = String::from(r#"<!DOCTYPE html><html><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Order Detail</title>
 <style>
-*{margin:0;padding:0;box-sizing:border-box}
+*{{margin:0;padding:0;box-sizing:border-box}}
 body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;background:#f5f5f5;color:#1a1a1a;line-height:1.5}
 .container{max-width:800px;margin:0 auto;padding:24px 16px}
 .back{color:#555;text-decoration:none;font-size:14px;display:inline-block;margin-bottom:16px}
