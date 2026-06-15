@@ -728,7 +728,7 @@ function setZADefaults() {
   document.querySelectorAll('#order-form [data-ubl]').forEach(el => {
     const path = el.dataset.ubl;
     if (path.endsWith('.currency_id') && !el.value) el.value = 'ZAR';
-    if (path.endsWith('.value') && path.includes('amount') && !el.value) el.value = '0';
+    if (path.endsWith('.value') && path.includes('amount') || path.includes('quantity') && !el.value) el.value = '0';
   });
 }
 </script>
