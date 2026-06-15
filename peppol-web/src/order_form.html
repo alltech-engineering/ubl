@@ -576,6 +576,51 @@ async function submitOrder() {
 
 // Init
 renderAll();
+setZADefaults();
+
+// South African sane defaults
+function setZADefaults() {
+  const defaults = {
+    // Currency — all ZAR
+    'document_currency_code_value': 'ZAR',
+    'requested_invoice_currency_code_value': 'ZAR',
+    'pricing_currency_code_value': 'ZAR',
+    'tax_currency_code_value': 'ZAR',
+    // Country — ZA everywhere
+    'delivery_0_delivery_address_country_identification_code_value': 'ZA',
+    'destination_country_identification_code_value': 'ZA',
+    // Party defaults are set via buildPartyFields path (handled below)
+    // Tax category — Standard (S)
+    'tax_total_0_tax_subtotal_0_tax_category_id_value': 'S',
+    // Payment means — Credit transfer (30)
+    'payment_means_0_payment_means_code_value': '30',
+    // Order type — Purchase Order
+    'order_type_code_value': '220',
+    // UBL version
+    'ubl_version_id_value': '2.5',
+  };
+
+  // Set all text/number/select defaults
+  for (const [id, val] of Object.entries(defaults)) {
+    const el = document.getElementById(id);
+    if (el) el.value = val;
+  }
+
+  // Set ZA defaults for buyer/seller parties via data-ubl path matching
+  document.querySelectorAll('#order-form [data-ubl]').forEach(el => {
+    const path = el.dataset.ubl;
+    // Currency ID fields default to ZAR
+    if (path.endsWith('.currency_id') && !el.value) el.value = 'ZAR';
+    // Country code fields default to ZA
+    if (path.includes('country.identification_code.value') && !el.value) el.value = 'ZA';
+    // Party ID scheme defaults to 9933
+    if (path.includes('party_identification') && path.endsWith('.scheme_id') && !el.value) el.value = '9933';
+    // Tax scheme defaults to VAT
+    if (path.includes('tax_scheme.id.value') && !el.value) el.value = 'VAT';
+    // Tax category defaults to S
+    if (path.includes('tax_category.id.value') && !el.value) el.value = 'S';
+  });
+}
 </script>
 </body>
 </html>
