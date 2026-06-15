@@ -180,7 +180,64 @@ const SECTIONS = [
 {
   id: 'order_lines', title: 'Order Lines', open: true,
   // Handled separately — dynamic add/remove
-}
+},
+{
+  id: 'exchange_rates', title: 'Exchange Rates',
+  fields: [
+    {label:'Tax: Source Currency', ubl:['tax_exchange_rate','source_currency_code','value'], t:'t'},
+    {label:'Tax: Target Currency', ubl:['tax_exchange_rate','target_currency_code','value'], t:'t'},
+    {label:'Tax: Calculation Rate', ubl:['tax_exchange_rate','calculation_rate'], t:'n'},
+    {label:'Pricing: Source Currency', ubl:['pricing_exchange_rate','source_currency_code','value'], t:'t'},
+    {label:'Pricing: Target Currency', ubl:['pricing_exchange_rate','target_currency_code','value'], t:'t'},
+    {label:'Pricing: Calculation Rate', ubl:['pricing_exchange_rate','calculation_rate'], t:'n'},
+    {label:'Payment: Source Currency', ubl:['payment_exchange_rate','source_currency_code','value'], t:'t'},
+    {label:'Payment: Target Currency', ubl:['payment_exchange_rate','target_currency_code','value'], t:'t'},
+    {label:'Payment: Calculation Rate', ubl:['payment_exchange_rate','calculation_rate'], t:'n'},
+  ]
+},
+{
+  id: 'destination', title: 'Destination Country',
+  fields: [
+    {label:'Destination Country Code', ubl:['destination_country','identification_code','value'], t:'t', placeholder:'ZA'},
+  ]
+},
+{
+  id: 'contract', title: 'Contract & Signatures',
+  fields: [
+    {label:'Contract ID', ubl:['contract',0,'id','value'], t:'t'},
+    {label:'Contract Type Code', ubl:['contract',0,'contract_type_code','value'], t:'t'},
+    {label:'Contract Issue Date', ubl:['contract',0,'issue_date'], t:'d'},
+    {label:'Signature ID', ubl:['signature',0,'id','value'], t:'t'},
+    {label:'Signatory Party Name', ubl:['signature',0,'signatory_party','party_name',0,'name'], t:'t'},
+  ]
+},
+{
+  id: 'additional_parties', title: 'Additional Parties',
+  fields: [
+    {label:'Originator Party Name', ubl:['originator_customer_party','party','party_name',0,'name'], t:'t'},
+    {label:'Originator Party ID', ubl:['originator_customer_party','party','party_identification',0,'id','value'], t:'t'},
+    {label:'Freight Forwarder Name', ubl:['freight_forwarder_party','party_name',0,'name'], t:'t'},
+    {label:'Freight Forwarder ID', ubl:['freight_forwarder_party','party_identification',0,'id','value'], t:'t'},
+    {label:'Accounting Customer Name', ubl:['accounting_customer_party','party','party_name',0,'name'], t:'t'},
+    {label:'Accounting Supplier Name', ubl:['accounting_supplier_party','party','party_name',0,'name'], t:'t'},
+  ]
+},
+{
+  id: 'allowance_charges', title: 'Allowances & Charges',
+  fields: [
+    {label:'Is Charge', ubl:['allowance_charge',0,'charge_indicator'], t:'c'},
+    {label:'Reason Code', ubl:['allowance_charge',0,'allowance_charge_reason_code','value'], t:'t'},
+    {label:'Amount', ubl:['allowance_charge',0,'amount','value'], t:'n'},
+    {label:'Amount Currency', ubl:['allowance_charge',0,'amount','currency_id'], t:'t', placeholder:'ZAR'},
+  ]
+},
+{
+  id: 'project', title: 'Project & Beneficiaries',
+  fields: [
+    {label:'Project Ref ID', ubl:['project_reference',0,'id','value'], t:'t'},
+    {label:'Beneficiary Name', ubl:['beneficiary_party',0,'party_name',0,'name'], t:'t'},
+  ]
+},
 ];
 
 function buildPartyFields(prefix, isSupplier=false) {
@@ -225,8 +282,12 @@ function buildLineItemFields(lineIdx, prefix) {
     {label:'Item Name', ubl:[...p,'item','name'], t:'t', req:true},
     {label:'Item Description', ubl:[...p,'item','description','value'], t:'ta'},
     {label:'Seller Item ID', ubl:[...p,'item','sellers_item_identification','id','value'], t:'t'},
+    {label:'Seller ID Scheme', ubl:[...p,'item','sellers_item_identification','id','scheme_id'], t:'t', placeholder:'GTIN'},
     {label:'Buyer Item ID', ubl:[...p,'item','buyers_item_identification','id','value'], t:'t'},
+    {label:'Buyer ID Scheme', ubl:[...p,'item','buyers_item_identification','id','scheme_id'], t:'t', placeholder:'GTIN'},
     {label:'Standard Item ID', ubl:[...p,'item','standard_item_identification','id','value'], t:'t'},
+    {label:'Standard ID Scheme', ubl:[...p,'item','standard_item_identification','id','scheme_id'], t:'t', placeholder:'GTIN'},
+    {label:'Standard ID Agency', ubl:[...p,'item','standard_item_identification','id','scheme_agency_id'], t:'t', placeholder:'6'},
     {label:'Commodity Class Code', ubl:[...p,'item','commodity_classification',0,'item_classification_code','value'], t:'t'},
     {label:'Price Amount', ubl:[...p,'price','price_amount','value'], t:'n', req:true},
     {label:'Price Currency', ubl:[...p,'price','price_amount','currency_id'], t:'t', placeholder:'ZAR', req:true},
@@ -325,6 +386,10 @@ function renderOneLine(idx) {
   }
   html += '</div>';
 
+  // Additional Item Properties (dynamic key-value)
+  html += `<div style="color:var(--muted);font-size:11px;margin:6px 0">Additional Item Properties <button type="button" class="btn" style="padding:2px 8px;font-size:11px" onclick="addItemProp(${idx})">+ Add</button></div>`;
+  html += `<div id="item-props-${idx}"></div>`;
+
   // Substitute line items
   html += '<div style="color:var(--muted);font-size:11px;margin:6px 0">Substitute Line Items (seller/buyer proposed alternatives)</div>';
   html += '<div class="field-row">';
@@ -385,6 +450,18 @@ function toggleSection(id) {
   const body = document.getElementById('body-' + id.replace('sec-',''));
   const arrow = document.getElementById('arrow-' + id.replace('sec-',''));
   if (body) { body.classList.toggle('open'); arrow.classList.toggle('open'); }
+}
+
+// Additional Item Properties — dynamic key-value pairs
+function addItemProp(lineIdx) {
+  const container = document.getElementById('item-props-' + lineIdx);
+  const idx = container.children.length;
+  const html = `<div class="field-row" id="iprop-${lineIdx}-${idx}">
+    ${renderField({label:'Property Name', ubl:['order_line',lineIdx,'line_item','item','additional_item_property',idx,'name'], t:'t'})}
+    ${renderField({label:'Property Value', ubl:['order_line',lineIdx,'line_item','item','additional_item_property',idx,'value','value'], t:'t'})}
+    <button type="button" class="btn danger" style="padding:2px 8px;font-size:11px;align-self:flex-end" onclick="document.getElementById('iprop-${lineIdx}-${idx}').remove()">×</button>
+  </div>`;
+  container.insertAdjacentHTML('beforeend', html);
 }
 
 // ============================================================================
