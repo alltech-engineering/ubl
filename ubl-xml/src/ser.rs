@@ -293,12 +293,39 @@ impl ToXml for cac::LegalTotal {
 
 impl ToXml for cac::Item {
     fn to_xml(&self, w: &mut Writer<Cursor<Vec<u8>>>) -> Result<()> {
-        el_opt(
-            w,
-            "description",
-            self.description.as_ref().map(|d| d.value()),
-        )?;
+        el_opt(w, "description", self.description.as_ref().map(|d| d.value()))?;
         el_opt(w, "name", self.name.as_ref().map(|n| n.0.as_str()))?;
+        // SellersItemIdentification
+        if let Some(ref sid) = self.sellers_item_identification {
+            open(w, "SellersItemIdentification")?;
+            el(w, "id", sid.id.value())?;
+            close(w, "SellersItemIdentification")?;
+        }
+        // BuyersItemIdentification
+        if let Some(ref bid) = self.buyers_item_identification {
+            open(w, "BuyersItemIdentification")?;
+            el(w, "id", bid.id.value())?;
+            close(w, "BuyersItemIdentification")?;
+        }
+        // StandardItemIdentification
+        if let Some(ref std) = self.standard_item_identification {
+            open(w, "StandardItemIdentification")?;
+            el(w, "id", std.id.value())?;
+            close(w, "StandardItemIdentification")?;
+        }
+        // CommodityClassification
+        for cc in &self.commodity_classification {
+            open(w, "CommodityClassification")?;
+            el(w, "item_classification_code", cc.item_classification_code.as_ref().map(|c| c.value()).unwrap_or(""))?;
+            close(w, "CommodityClassification")?;
+        }
+        // AdditionalItemProperty (item_property field)
+        for ip in &self.item_property {
+            open(w, "AdditionalItemProperty")?;
+            el(w, "name", ip.name.value.as_str())?;
+            el(w, "value", ip.value.value.as_str())?;
+            close(w, "AdditionalItemProperty")?;
+        }
         Ok(())
     }
 }

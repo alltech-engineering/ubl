@@ -476,8 +476,8 @@ function addItemProp(lineIdx) {
   const container = document.getElementById('item-props-' + lineIdx);
   const idx = container.children.length;
   const html = `<div class="field-row" id="iprop-${lineIdx}-${idx}">
-    ${renderField({label:'Property Name', ubl:['order_line',lineIdx,'line_item','item','additional_item_property',idx,'name'], t:'t'})}
-    ${renderField({label:'Property Value', ubl:['order_line',lineIdx,'line_item','item','additional_item_property',idx,'value','value'], t:'t'})}
+    ${renderField({label:'Property Name', ubl:['order_line',lineIdx,'line_item','item','item_property',idx,'name'], t:'t'})}
+    ${renderField({label:'Property Value', ubl:['order_line',lineIdx,'line_item','item','item_property',idx,'value','value'], t:'t'})}
     <button type="button" class="btn danger" style="padding:2px 8px;font-size:11px;align-self:flex-end" onclick="document.getElementById('iprop-${lineIdx}-${idx}').remove()">×</button>
   </div>`;
   container.insertAdjacentHTML('beforeend', html);
