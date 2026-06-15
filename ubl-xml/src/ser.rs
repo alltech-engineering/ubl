@@ -672,13 +672,12 @@ impl ToXml for Order {
         for ac in &self.allowance_charge {
             open(w, "AllowanceCharge")?;
             let ci = &ac.charge_indicator;
-                el(w, "charge_indicator", if ci.0 { "true" } else { "false" })?;
-            }
-            el_attr(w, "amount", &format!("{:.2}", ac.amount.value), &[("currencyID", ac.amount.currency_id())])?;
+            el(w, "charge_indicator", if ci.0 { "true" } else { "false" })?;
+            el_attr(w, "amount", &format!("{:.2}", ac.amount.value), &[("currencyID", &ac.amount.currency_id)])?;
             if let Some(ref ba) = ac.base_amount {
-                el_attr(w, "base_amount", &format!("{:.2}", ba.value), &[("currencyID", ba.currency_id())])?;
+                el_attr(w, "base_amount", &format!("{:.2}", ba.0.value), &[("currencyID", &ba.0.currency_id)])?;
             }
-            el_opt(w, "multiplier_factor_numeric", ac.multiplier_factor_numeric.as_ref().map(|m| m.value()))?;
+            el_opt(w, "multiplier_factor_numeric", ac.multiplier_factor_numeric.as_ref().map(|m| m.value().to_string()).as_deref().as_deref())?;
             close(w, "AllowanceCharge")?;
         }
         // 15. cac:TaxExchangeRate?, cac:PricingExchangeRate?, cac:PaymentExchangeRate?
