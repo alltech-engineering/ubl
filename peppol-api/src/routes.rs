@@ -4,12 +4,18 @@
 
 use axum::Router;
 use axum::routing::{get, post};
+use tower_http::cors::{CorsLayer, Any};
 
 use crate::handlers;
 use crate::state::AppState;
 
 /// Build the complete Axum router with all Peppol endpoints.
 pub fn build_router(state: AppState) -> Router {
+    let cors = CorsLayer::new()
+        .allow_origin(Any)
+        .allow_methods(Any)
+        .allow_headers(Any);
+
     Router::new()
         // Health check
         .route("/api/health", get(handlers::health))
@@ -30,6 +36,7 @@ pub fn build_router(state: AppState) -> Router {
         .route("/api/validate/imr", post(handlers::validate_imr))
         // Catalogue
         .route("/api/validate/catalogue", post(handlers::validate_catalogue))
-        // Attach shared state
+        // CORS + state
+        .layer(cors)
         .with_state(state)
 }
