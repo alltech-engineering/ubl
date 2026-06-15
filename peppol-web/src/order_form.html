@@ -270,16 +270,16 @@ function buildPartyFields(prefix, isSupplier=false) {
     {label:'City Name', ubl:[p,'party','postal_address','city_name'], t:'t'},
     {label:'Postal Zone', ubl:[p,'party','postal_address','postal_zone','value'], t:'t'},
     {label:'Country Code', ubl:[p,'party','postal_address','country','identification_code','value'], t:'t', placeholder:'ZA'},
-    {label:'Contact Name', ubl:[p,'party','contact','name'], t:'t'},
-    {label:'Contact Phone', ubl:[p,'party','contact','telephone'], t:'t'},
-    {label:'Contact Email', ubl:[p,'party','contact','electronic_mail'], t:'t'},
+    {label:'Contact Name', ubl:[p,'party','contact','name','value'], t:'t'},
+    {label:'Contact Phone', ubl:[p,'party','contact','telephone','value'], t:'t'},
+    {label:'Contact Email', ubl:[p,'party','contact','electronic_mail','value'], t:'t'},
     ...(isSupplier
-      ? [{label:'Despatch Contact Name', ubl:[p,'despatch_contact','name'], t:'t'},{label:'Despatch Contact Phone', ubl:[p,'despatch_contact','telephone'], t:'t'},{label:'Despatch Contact Email', ubl:[p,'despatch_contact','electronic_mail'], t:'t'}]
-      : [{label:'Delivery Contact Name', ubl:[p,'delivery_contact','name'], t:'t'},{label:'Delivery Contact Phone', ubl:[p,'delivery_contact','telephone'], t:'t'},{label:'Delivery Contact Email', ubl:[p,'delivery_contact','electronic_mail'], t:'t'}]
+      ? [{label:'Despatch Contact Name', ubl:[p,'despatch_contact','name','value'], t:'t'},{label:'Despatch Contact Phone', ubl:[p,'despatch_contact','telephone','value'], t:'t'},{label:'Despatch Contact Email', ubl:[p,'despatch_contact','electronic_mail','value'], t:'t'}]
+      : [{label:'Delivery Contact Name', ubl:[p,'delivery_contact','name','value'], t:'t'},{label:'Delivery Contact Phone', ubl:[p,'delivery_contact','telephone','value'], t:'t'},{label:'Delivery Contact Email', ubl:[p,'delivery_contact','electronic_mail','value'], t:'t'}]
     ),
-    {label:'Accounting Contact Name', ubl:[p,'accounting_contact','name'], t:'t'},
-    {label:'Accounting Contact Phone', ubl:[p,'accounting_contact','telephone'], t:'t'},
-    {label:'Accounting Contact Email', ubl:[p,'accounting_contact','electronic_mail'], t:'t'},
+    {label:'Accounting Contact Name', ubl:[p,'accounting_contact','name','value'], t:'t'},
+    {label:'Accounting Contact Phone', ubl:[p,'accounting_contact','telephone','value'], t:'t'},
+    {label:'Accounting Contact Email', ubl:[p,'accounting_contact','electronic_mail','value'], t:'t'},
   ];
 }
 
@@ -612,9 +612,9 @@ function fillDummyData() {
   setUbl('buyer_customer_party.party.postal_address.city_name', 'Cape Town');
   setUbl('buyer_customer_party.party.postal_address.postal_zone.value', '8001');
   setUbl('buyer_customer_party.party.postal_address.country.identification_code.value', 'ZA');
-  setUbl('buyer_customer_party.party.contact.name', 'John Buyer');
-  setUbl('buyer_customer_party.party.contact.telephone', '+27215551234');
-  setUbl('buyer_customer_party.party.contact.electronic_mail', 'john@acme.co.za');
+  setUbl('buyer_customer_party.party.contact.name.value', 'John Buyer');
+  setUbl('buyer_customer_party.party.contact.telephone.value', '+27215551234');
+  setUbl('buyer_customer_party.party.contact.electronic_mail.value', 'john@acme.co.za');
   setUbl('buyer_customer_party.party.endpoint_id.value', '9933:4123456789');
 
   // Seller — ZA Supplies Pty Ltd
@@ -629,9 +629,9 @@ function fillDummyData() {
   setUbl('seller_supplier_party.party.postal_address.city_name', 'Johannesburg');
   setUbl('seller_supplier_party.party.postal_address.postal_zone.value', '2000');
   setUbl('seller_supplier_party.party.postal_address.country.identification_code.value', 'ZA');
-  setUbl('seller_supplier_party.party.contact.name', 'Jane Seller');
-  setUbl('seller_supplier_party.party.contact.telephone', '+27115559876');
-  setUbl('seller_supplier_party.party.contact.electronic_mail', 'jane@zasupplies.co.za');
+  setUbl('seller_supplier_party.party.contact.name.value', 'Jane Seller');
+  setUbl('seller_supplier_party.party.contact.telephone.value', '+27115559876');
+  setUbl('seller_supplier_party.party.contact.electronic_mail.value', 'jane@zasupplies.co.za');
   setUbl('seller_supplier_party.party.endpoint_id.value', '9933:4987654321');
 
   // Quotation reference (prevents ORD-R006 fatal)
