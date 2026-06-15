@@ -166,7 +166,7 @@ pub fn add_rules(engine: &mut RuleEngine, inv: &Arc<Order>) {
             Box::new(move || {
                 // Check if order type code indicates a change order (code "220" per UNCL 1001)
                 let is_change_order = inv.order_type_code.as_ref()
-                    .map(|c| c.value() == "220")
+                    .map(|c| c.value() == "230")
                     .unwrap_or(false);
                 if is_change_order && inv.order_document_reference.is_empty() {
                     Err("Order is a change order but no OrderDocumentReference is provided — must reference the original order".into())
