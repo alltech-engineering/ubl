@@ -21,38 +21,10 @@ async fn order_form() -> Html<&'static str> {
 
 // ── Order List ───────────────────────────────────────────────────────
 
-async fn order_list() -> Html<String> {
-    let url = format!("{}/api/documents", *API);
-    let resp = match reqwest::get(&url).await {
-        Ok(r) => r,
-        Err(e) => return Html(format!("<p>API error: {e}</p>")),
-    };
-    let body: Value = resp.json().await.unwrap_or_default();
-    let docs = body["documents"].as_array().cloned().unwrap_or_default();
+// ── CSS Constants ────────────────────────────────────────────────────
 
-    let rows: String = docs
-        .iter()
-        .filter(|d| d["document_type"].as_str() == Some("Order"))
-        .map(|d| {
-            let id = d["document_id"].as_str().unwrap_or("-");
-            let uid = d["id"].as_str().unwrap_or("");
-            let date = d["created_at"].as_str().unwrap_or("-");
-            let valid = d["validated"].as_bool().unwrap_or(false);
-            let status = if valid {
-                "<span class=\"or-status ok\">Valid</span>"
-            } else {
-                "<span class=\"or-status fail\">Issues</span>"
-            };
-            format!(
-                "<a href=\"/orders/{uid}\" class=\"order-row\"><span class=\"or-id\">{id}</span><span class=\"or-date\">{date}</span>{status}</a>",
-            )
-        })
-        .collect();
-
-    Html(format!(
-        r#"<!DOCTYPE html><html><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Orders</title>
-<style>
-*{{margin:0;padding:0;box-sizing:border-box}}
+const CSS_LIST: &str = r##"
+*{margin:0;padding:0;box-sizing:border-box}
 body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;background:#f5f5f5;color:#1a1a1a}
 .container{max-width:800px;margin:0 auto;padding:24px 16px}
 h1{font-size:22px;margin-bottom:8px}
@@ -70,15 +42,79 @@ h1{font-size:22px;margin-bottom:8px}
 .nav a{color:#555;text-decoration:none;font-size:14px}
 .nav a:hover{color:#000}
 .empty{text-align:center;padding:48px;color:#999;font-size:14px}
-</style></head><body><div class="container">
+"##;
+
+const CSS_DETAIL: &str = r##"
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;background:#f5f5f5;color:#1a1a1a;line-height:1.5}
+.container{max-width:800px;margin:0 auto;padding:24px 16px}
+.back{color:#555;text-decoration:none;font-size:14px;display:inline-block;margin-bottom:16px}
+.back:hover{color:#000}
+.card{background:#fff;border-radius:12px;padding:24px;margin-bottom:16px;box-shadow:0 1px 3px rgba(0,0,0,.08)}
+.order-header{display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:12px}
+.order-header h1{font-size:22px;font-weight:700}
+.order-id{font-family:'SF Mono',monospace;font-size:13px;color:#888;margin-top:2px}
+.badge{display:inline-block;padding:4px 12px;border-radius:20px;font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:.5px}
+.badge.ok{background:#e6f7e6;color:#1a7a1a}
+.badge.warn{background:#fff8e1;color:#b76e00}
+.parties{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+@media(max-width:600px){.parties{grid-template-columns:1fr}}
+.party-label{font-size:11px;text-transform:uppercase;letter-spacing:1px;color:#999;margin-bottom:8px}
+.party-name{font-weight:600;font-size:15px;margin-bottom:4px}
+.party-detail{font-size:13px;color:#555;line-height:1.6}
+.items-header{display:grid;grid-template-columns:1fr 100px 120px;gap:8px;padding-bottom:8px;border-bottom:2px solid #eee;font-size:11px;text-transform:uppercase;letter-spacing:1px;color:#999}
+.item-row{display:grid;grid-template-columns:1fr 100px 120px;gap:8px;padding:12px 0;border-bottom:1px solid #f0f0f0;align-items:center}
+.item-name{font-weight:600;font-size:14px}
+.item-sku{font-size:12px;color:#888;margin-top:2px}
+.item-desc{font-size:12px;color:#777;margin-top:2px}
+.item-qty{text-align:center;font-size:14px;color:#555}
+.item-total{text-align:right;font-weight:600;font-size:14px}
+.totals{margin-top:8px}
+.total-line{display:flex;justify-content:flex-end;padding:4px 0;font-size:14px;color:#555;gap:24px}
+.total-line.grand{font-size:18px;font-weight:700;color:#000;padding-top:8px;border-top:2px solid #eee;margin-top:8px}
+.total-line .tl{text-align:right}
+.section-title{font-size:14px;font-weight:600;margin-bottom:12px;color:#333}
+.info-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px 24px}
+.info-grid .ig-label{font-size:12px;color:#888}
+.info-grid .ig-value{font-size:14px}
+"##;
+
+
+async fn order_list() -> Html<String> {
+    let url = format!("{}/api/documents", *API);
+    let resp = match reqwest::get(&url).await {
+        Ok(r) => r,
+        Err(e) => return Html(format!("<p>API error: {e}</p>")),
+    };
+    let body: Value = resp.json().await.unwrap_or_default();
+    let docs = body["documents"].as_array().cloned().unwrap_or_default();
+
+    let mut h = String::from(r##"<!DOCTYPE html><html><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Orders</title>
+<style>"##);
+    h.push_str(CSS_LIST);
+    h.push_str(r##"</style></head><body><div class="container">
 <div class="nav"><a href="/">New Order</a></div>
 <h1>Orders</h1>
 <div class="subtitle">Recently created purchase orders</div>
 <div class="card">
-{rows}
-</div>
-</div></body></html>"#
-    ))
+"##);
+
+    let mut rows = String::new();
+    for d in docs.iter().filter(|d| d["document_type"].as_str() == Some("Order")) {
+        let id = d["document_id"].as_str().unwrap_or("-");
+        let uid = d["id"].as_str().unwrap_or("");
+        let date = d["created_at"].as_str().unwrap_or("-");
+        let valid = d["validated"].as_bool().unwrap_or(false);
+        let status = if valid { "<span class=\"or-status ok\">Valid</span>" } else { "<span class=\"or-status fail\">Issues</span>" };
+        rows.push_str(&format!("<a href=\"/orders/{uid}\" class=\"order-row\"><span class=\"or-id\">{id}</span><span class=\"or-date\">{date}</span>{status}</a>"));
+    }
+    if rows.is_empty() {
+        h.push_str("<div class=\"empty\">No orders yet. <a href=\"/\">Create one</a>.</div>");
+    } else {
+        h.push_str(&rows);
+    }
+    h.push_str("</div></div></body></html>");
+    Html(h)
 }
 
 // ── Order Detail ──────────────────────────────────────────────────────
