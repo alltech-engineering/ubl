@@ -1,141 +1,141 @@
-1|// Peppol Web Frontend — Order Capture, List, and Detail Views
-2|//
-3|// Serves the UBL Order form on :3001.
-4|// Calls peppol-api on :3000 for data.
-5|
-6|use axum::extract::Path;
-7|use axum::response::Html;
-8|use axum::routing::get;
-9|use axum::Router;
-10|use serde_json::Value;
-11|use std::net::SocketAddr;
-12|use std::sync::LazyLock;
-13|
-14|static API: LazyLock<String> = LazyLock::new(|| {
-15|    std::env::var("PEPPOL_API_URL").unwrap_or_else(|_| "http://localhost:3000".into())
-16|});
-17|
-18|async fn order_form() -> Html<&'static str> {
-19|    Html(include_str!("order_form.html"))
-20|}
-21|
-22|// ── Order List ───────────────────────────────────────────────────────
-23|
-24|// ── CSS Constants ────────────────────────────────────────────────────
-25|
-26|const CSS_LIST: &str = r##"
-27|*{margin:0;padding:0;box-sizing:border-box}
-28|body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;background:#f5f5f5;color:#1a1a1a}
-29|.container{max-width:800px;margin:0 auto;padding:24px 16px}
-30|h1{font-size:22px;margin-bottom:8px}
-31|.subtitle{color:#888;font-size:13px;margin-bottom:20px}
-32|.card{background:#fff;border-radius:12px;overflow:hidden;box-shadow:0 1px 3px rgba(0,0,0,.08)}
-33|.order-row{display:flex;justify-content:space-between;align-items:center;padding:16px 24px;border-bottom:1px solid #f0f0f0;text-decoration:none;color:inherit}
-34|.order-row:last-child{border-bottom:none}
-35|.order-row:hover{background:#fafafa}
-36|.order-row .or-id{font-weight:600;font-size:15px}
-37|.order-row .or-date{font-size:13px;color:#888}
-38|.order-row .or-status{font-size:12px;font-weight:600;padding:4px 10px;border-radius:12px}
-39|.or-status.ok{background:#e6f7e6;color:#1a7a1a}
-40|.or-status.fail{background:#fde8e8;color:#c41e1e}
-41|.nav{margin-bottom:16px}
-42|.nav a{color:#555;text-decoration:none;font-size:14px}
-43|.nav a:hover{color:#000}
-44|.empty{text-align:center;padding:48px;color:#999;font-size:14px}
-45|"##;
-46|
-47|const CSS_DETAIL: &str = r##"
-48|*{margin:0;padding:0;box-sizing:border-box}
-49|body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;background:#f5f5f5;color:#1a1a1a;line-height:1.5}
-50|.container{max-width:800px;margin:0 auto;padding:24px 16px}
-51|.back{color:#555;text-decoration:none;font-size:14px;display:inline-block;margin-bottom:16px}
-52|.back:hover{color:#000}
-53|.card{background:#fff;border-radius:12px;padding:24px;margin-bottom:16px;box-shadow:0 1px 3px rgba(0,0,0,.08)}
-54|.order-header{display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:12px}
-55|.order-header h1{font-size:22px;font-weight:700}
-56|.order-id{font-family:'SF Mono',monospace;font-size:13px;color:#888;margin-top:2px}
-57|.badge{display:inline-block;padding:4px 12px;border-radius:20px;font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:.5px}
-58|.badge.ok{background:#e6f7e6;color:#1a7a1a}
-59|.badge.warn{background:#fff8e1;color:#b76e00}
-60|.parties{display:grid;grid-template-columns:1fr 1fr;gap:16px}
-61|@media(max-width:600px){.parties{grid-template-columns:1fr}}
-62|.party-label{font-size:11px;text-transform:uppercase;letter-spacing:1px;color:#999;margin-bottom:8px}
-63|.party-name{font-weight:600;font-size:15px;margin-bottom:4px}
-64|.party-detail{font-size:13px;color:#555;line-height:1.6}
-65|.items-header{display:grid;grid-template-columns:1fr 100px 120px;gap:8px;padding-bottom:8px;border-bottom:2px solid #eee;font-size:11px;text-transform:uppercase;letter-spacing:1px;color:#999}
-66|.item-row{display:grid;grid-template-columns:1fr 100px 120px;gap:8px;padding:12px 0;border-bottom:1px solid #f0f0f0;align-items:center}
-67|.item-name{font-weight:600;font-size:14px}
-68|.item-sku{font-size:12px;color:#888;margin-top:2px}
-69|.item-desc{font-size:12px;color:#777;margin-top:2px}
-70|.item-qty{text-align:center;font-size:14px;color:#555}
-71|.item-total{text-align:right;font-weight:600;font-size:14px}
-72|.totals{margin-top:8px}
-73|.total-line{display:flex;justify-content:flex-end;padding:4px 0;font-size:14px;color:#555;gap:24px}
-74|.total-line.grand{font-size:18px;font-weight:700;color:#000;padding-top:8px;border-top:2px solid #eee;margin-top:8px}
-75|.total-line .tl{text-align:right}
-76|.section-title{font-size:14px;font-weight:600;margin-bottom:12px;color:#333}
-77|.info-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px 24px}
-78|.info-grid .ig-label{font-size:12px;color:#888}
-79|.info-grid .ig-value{font-size:14px}
+// Peppol Web Frontend — Order Capture, List, and Detail Views
+//
+// Serves the UBL Order form on :3001.
+// Calls peppol-api on :3000 for data.
+
+use axum::extract::Path;
+use axum::response::Html;
+use axum::routing::get;
+use axum::Router;
+use serde_json::Value;
+use std::net::SocketAddr;
+use std::sync::LazyLock;
+
+static API: LazyLock<String> = LazyLock::new(|| {
+    std::env::var("PEPPOL_API_URL").unwrap_or_else(|_| "http://localhost:3000".into())
+});
+
+async fn order_form() -> Html<&'static str> {
+    Html(include_str!("order_form.html"))
+}
+
+// ── Order List ───────────────────────────────────────────────────────
+
+// ── CSS Constants ────────────────────────────────────────────────────
+
+const CSS_LIST: &str = r##"
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;background:#f5f5f5;color:#1a1a1a}
+.container{max-width:800px;margin:0 auto;padding:24px 16px}
+h1{font-size:22px;margin-bottom:8px}
+.subtitle{color:#888;font-size:13px;margin-bottom:20px}
+.card{background:#fff;border-radius:12px;overflow:hidden;box-shadow:0 1px 3px rgba(0,0,0,.08)}
+.order-row{display:flex;justify-content:space-between;align-items:center;padding:16px 24px;border-bottom:1px solid #f0f0f0;text-decoration:none;color:inherit}
+.order-row:last-child{border-bottom:none}
+.order-row:hover{background:#fafafa}
+.order-row .or-id{font-weight:600;font-size:15px}
+.order-row .or-date{font-size:13px;color:#888}
+.order-row .or-status{font-size:12px;font-weight:600;padding:4px 10px;border-radius:12px}
+.or-status.ok{background:#e6f7e6;color:#1a7a1a}
+.or-status.fail{background:#fde8e8;color:#c41e1e}
+.nav{margin-bottom:16px}
+.nav a{color:#555;text-decoration:none;font-size:14px}
+.nav a:hover{color:#000}
+.empty{text-align:center;padding:48px;color:#999;font-size:14px}
+"##;
+
+const CSS_DETAIL: &str = r##"
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;background:#f5f5f5;color:#1a1a1a;line-height:1.5}
+.container{max-width:800px;margin:0 auto;padding:24px 16px}
+.back{color:#555;text-decoration:none;font-size:14px;display:inline-block;margin-bottom:16px}
+.back:hover{color:#000}
+.card{background:#fff;border-radius:12px;padding:24px;margin-bottom:16px;box-shadow:0 1px 3px rgba(0,0,0,.08)}
+.order-header{display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:12px}
+.order-header h1{font-size:22px;font-weight:700}
+.order-id{font-family:'SF Mono',monospace;font-size:13px;color:#888;margin-top:2px}
+.badge{display:inline-block;padding:4px 12px;border-radius:20px;font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:.5px}
+.badge.ok{background:#e6f7e6;color:#1a7a1a}
+.badge.warn{background:#fff8e1;color:#b76e00}
+.parties{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+@media(max-width:600px){.parties{grid-template-columns:1fr}}
+.party-label{font-size:11px;text-transform:uppercase;letter-spacing:1px;color:#999;margin-bottom:8px}
+.party-name{font-weight:600;font-size:15px;margin-bottom:4px}
+.party-detail{font-size:13px;color:#555;line-height:1.6}
+.items-header{display:grid;grid-template-columns:1fr 100px 120px;gap:8px;padding-bottom:8px;border-bottom:2px solid #eee;font-size:11px;text-transform:uppercase;letter-spacing:1px;color:#999}
+.item-row{display:grid;grid-template-columns:1fr 100px 120px;gap:8px;padding:12px 0;border-bottom:1px solid #f0f0f0;align-items:center}
+.item-name{font-weight:600;font-size:14px}
+.item-sku{font-size:12px;color:#888;margin-top:2px}
+.item-desc{font-size:12px;color:#777;margin-top:2px}
+.item-qty{text-align:center;font-size:14px;color:#555}
+.item-total{text-align:right;font-weight:600;font-size:14px}
+.totals{margin-top:8px}
+.total-line{display:flex;justify-content:flex-end;padding:4px 0;font-size:14px;color:#555;gap:24px}
+.total-line.grand{font-size:18px;font-weight:700;color:#000;padding-top:8px;border-top:2px solid #eee;margin-top:8px}
+.total-line .tl{text-align:right}
+.section-title{font-size:14px;font-weight:600;margin-bottom:12px;color:#333}
+.info-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px 24px}
+.info-grid .ig-label{font-size:12px;color:#888}
+.info-grid .ig-value{font-size:14px}
 .monospace{font-family:"SF Mono",monospace}
-80|"##;
-81|
-82|
-83|async fn order_list() -> Html<String> {
-84|    let url = format!("{}/api/documents", *API);
-85|    let resp = match reqwest::get(&url).await {
-86|        Ok(r) => r,
-87|        Err(e) => return Html(format!("<p>API error: {e}</p>")),
-88|    };
-89|    let body: Value = resp.json().await.unwrap_or_default();
-90|    let docs = body["documents"].as_array().cloned().unwrap_or_default();
-91|
-92|    let mut h = String::from(r##"<!DOCTYPE html><html><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Orders</title>
-93|<style>"##);
-94|    h.push_str(CSS_LIST);
-95|    h.push_str(r##"</style></head><body><div class="container">
-96|<div class="nav"><a href="/">New Order</a></div>
-97|<h1>Orders</h1>
-98|<div class="subtitle">Recently created purchase orders</div>
-99|<div class="card">
-100|"##);
-101|
-102|    let mut rows = String::new();
-103|    for d in docs.iter().filter(|d| d["document_type"].as_str() == Some("Order")) {
-104|        let id = d["document_id"].as_str().unwrap_or("-");
-105|        let uid = d["id"].as_str().unwrap_or("");
-106|        let date = d["created_at"].as_str().unwrap_or("-");
-107|        let valid = d["validated"].as_bool().unwrap_or(false);
-108|        let status = if valid { "<span class=\"or-status ok\">Valid</span>" } else { "<span class=\"or-status fail\">Issues</span>" };
-109|        rows.push_str(&format!("<a href=\"/orders/{uid}\" class=\"order-row\"><span class=\"or-id\">{id}</span><span class=\"or-date\">{date}</span>{status}</a>"));
-110|    }
-111|    if rows.is_empty() {
-112|        h.push_str("<div class=\"empty\">No orders yet. <a href=\"/\">Create one</a>.</div>");
-113|    } else {
-114|        h.push_str(&rows);
-115|    }
-116|    h.push_str("</div></div></body></html>");
-117|    Html(h)
-118|}
-119|
-120|// ── Order Detail ──────────────────────────────────────────────────────
-121|
-122|async fn order_detail(Path(id): Path<String>) -> Html<String> {
-123|    let url = format!("{}/api/documents/{}", *API, id);
-124|    let resp = match reqwest::get(&url).await {
-125|        Ok(r) => r,
-126|        Err(e) => return Html(format!("<p>Error: {e}</p>")),
-127|    };
-128|    if resp.status().as_u16() == 404 {
-129|        return Html("<h1>Order not found</h1>".into());
-130|    }
-131|    let doc: Value = resp.json().await.unwrap_or_default();
-132|    let payload = &doc["payload"];
-133|
-134|    Html(render_order_detail(payload))
-135|}
-136|
-137|fn render_order_detail(p: &Value) -> String {
+"##;
+
+
+async fn order_list() -> Html<String> {
+    let url = format!("{}/api/documents", *API);
+    let resp = match reqwest::get(&url).await {
+        Ok(r) => r,
+        Err(e) => return Html(format!("<p>API error: {e}</p>")),
+    };
+    let body: Value = resp.json().await.unwrap_or_default();
+    let docs = body["documents"].as_array().cloned().unwrap_or_default();
+
+    let mut h = String::from(r##"<!DOCTYPE html><html><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Orders</title>
+<style>"##);
+    h.push_str(CSS_LIST);
+    h.push_str(r##"</style></head><body><div class="container">
+<div class="nav"><a href="/">New Order</a></div>
+<h1>Orders</h1>
+<div class="subtitle">Recently created purchase orders</div>
+<div class="card">
+"##);
+
+    let mut rows = String::new();
+    for d in docs.iter().filter(|d| d["document_type"].as_str() == Some("Order")) {
+        let id = d["document_id"].as_str().unwrap_or("-");
+        let uid = d["id"].as_str().unwrap_or("");
+        let date = d["created_at"].as_str().unwrap_or("-");
+        let valid = d["validated"].as_bool().unwrap_or(false);
+        let status = if valid { "<span class=\"or-status ok\">Valid</span>" } else { "<span class=\"or-status fail\">Issues</span>" };
+        rows.push_str(&format!("<a href=\"/orders/{uid}\" class=\"order-row\"><span class=\"or-id\">{id}</span><span class=\"or-date\">{date}</span>{status}</a>"));
+    }
+    if rows.is_empty() {
+        h.push_str("<div class=\"empty\">No orders yet. <a href=\"/\">Create one</a>.</div>");
+    } else {
+        h.push_str(&rows);
+    }
+    h.push_str("</div></div></body></html>");
+    Html(h)
+}
+
+// ── Order Detail ──────────────────────────────────────────────────────
+
+async fn order_detail(Path(id): Path<String>) -> Html<String> {
+    let url = format!("{}/api/documents/{}", *API, id);
+    let resp = match reqwest::get(&url).await {
+        Ok(r) => r,
+        Err(e) => return Html(format!("<p>Error: {e}</p>")),
+    };
+    if resp.status().as_u16() == 404 {
+        return Html("<h1>Order not found</h1>".into());
+    }
+    let doc: Value = resp.json().await.unwrap_or_default();
+    let payload = &doc["payload"];
+
+    Html(render_order_detail(payload))
+}
+
+fn render_order_detail(p: &Value) -> String {
     let mut h = String::from(r##"<!DOCTYPE html><html><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Order Detail</title>
 <style>"## + CSS_DETAIL + r##"</style></head><body><div class="container">
 <a href="/orders" class="back">← Back to Orders</a>
