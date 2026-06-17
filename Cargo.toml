@@ -1,20 +1,9 @@
 [workspace]
 resolver = "2"
 members = [
-    "ubl-common",
-    "ubl-documents",
-    "ubl-xml",
-    "peppol-common",
-    "peppol-billing",
-    "peppol-ordering",
-    "peppol-despatch",
-    "peppol-catalogue",
-    "peppol-mlr",
-    "peppol-imr",
-    "peppol-xml",
-    "peppol-storage",
-    "peppol-api",
-    "peppol-web",
+    "common",
+    "maindoc",
+    "xml",
 ]
 
 [workspace.dependencies]
