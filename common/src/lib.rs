@@ -21,12 +21,11 @@ pub mod xs;
 
 // Signature-related types from UBL-CommonSignatureComponents
 // (these live at the schema root level, not inside a submodule)
-pub type UblDocumentSignatures = UblDocumentSignaturesType;
 
 #[derive(Debug, Deserialize, Serialize)]
-pub struct UblDocumentSignaturesType {
+pub struct UblDocumentSignatures {
     #[serde(default, rename = "SignatureInformation")]
-    pub signature_information: ::std::vec::Vec<sac::SignatureInformationType>,
+    pub signature_information: Vec<sac::SignatureInformation>,
 }
 
 pub type ArchiveTimeStamp = xades::GenericTimeStampType;
@@ -36,59 +35,56 @@ pub type AttributeCertificateRefsV2 = CompleteCertificateRefsTypeV2Type;
 #[derive(Debug, Deserialize, Serialize)]
 pub struct CompleteCertificateRefsTypeV2Type {
     #[serde(default, rename = "@Id")]
-    pub id: ::core::option::Option<::std::string::String>,
+    pub id: Option<String>,
     #[serde(rename = "CertRefs")]
     pub cert_refs: xades::CertIdListV2Type,
 }
 
 pub type CompleteCertificateRefsV2 = CompleteCertificateRefsTypeV2Type;
 
-pub type RecomputedDigestValue = RecomputedDigestValueType;
 
 #[derive(Debug, Deserialize, Serialize)]
-pub struct RecomputedDigestValueType {
+pub struct RecomputedDigestValue {
     #[serde(rename = "@Order")]
-    pub order: ::core::primitive::i32,
+    pub order: i32,
     #[serde(rename = "$text")]
     pub content: std::string::String,
 }
 
 pub type RefsOnlyTimeStampV2 = xades::GenericTimeStampType;
 
-pub type RenewedDigests = RenewedDigestsType;
 
 #[derive(Debug, Deserialize, Serialize)]
-pub struct RenewedDigestsType {
+pub struct RenewedDigests {
     #[serde(default, rename = "@Id")]
-    pub id: ::core::option::Option<::std::string::String>,
+    pub id: Option<String>,
     #[serde(rename = "DigestMethod")]
-    pub digest_method: ds::ubl_xmldsig_core_schema_25::DigestMethodType,
+    pub digest_method: ds::DigestMethod,
     #[serde(default, rename = "RecomputedDigestValue")]
-    pub recomputed_digest_value: ::std::vec::Vec<RecomputedDigestValueType>,
+    pub recomputed_digest_value: Vec<RecomputedDigestValue>,
 }
 
-pub type SpDocSpecification = xades::ObjectIdentifierType;
+pub type SpDocSpecification = xades::ObjectIdentifier;
 
 pub type SigAndRefsTimeStampV2 = xades::GenericTimeStampType;
 
-pub type SignaturePolicyStore = SignaturePolicyStoreType;
 
 #[derive(Debug, Deserialize, Serialize)]
-pub struct SignaturePolicyStoreType {
+pub struct SignaturePolicyStore {
     #[serde(default, rename = "@Id")]
-    pub id: ::core::option::Option<::std::string::String>,
+    pub id: Option<String>,
     #[serde(rename = "$value")]
-    pub content: ::std::vec::Vec<SignaturePolicyStoreTypeContent>,
+    pub content: Vec<SignaturePolicyStoreTypeContent>,
 }
 
 #[derive(Debug, Deserialize, Serialize)]
 pub enum SignaturePolicyStoreTypeContent {
     #[serde(rename = "SPDocSpecification")]
-    SpDocSpecification(xades::ObjectIdentifierType),
+    SpDocSpecification(xades::ObjectIdentifier),
     #[serde(rename = "SignaturePolicyDocument")]
     SignaturePolicyDocument(std::string::String),
     #[serde(rename = "SigPolDocLocalURI")]
-    SigPolDocLocalUri(::std::string::String),
+    SigPolDocLocalUri(String),
 }
 
 pub type TimeStampValidationData = ValidationDataType;
@@ -96,12 +92,11 @@ pub type TimeStampValidationData = ValidationDataType;
 #[derive(Debug, Deserialize, Serialize)]
 pub struct ValidationDataType {
     #[serde(default, rename = "@Id")]
-    pub id: ::core::option::Option<::std::string::String>,
+    pub id: Option<String>,
     #[serde(default, rename = "@URI")]
-    pub uri: ::core::option::Option<::std::string::String>,
+    pub uri: Option<String>,
     #[serde(default, rename = "CertificateValues")]
-    pub certificate_values: ::core::option::Option<xades::CertificateValuesType>,
+    pub certificate_values: Option<xades::CertificateValues>,
     #[serde(default, rename = "RevocationValues")]
-    pub revocation_values: ::core::option::Option<xades::RevocationValuesType>,
+    pub revocation_values: Option<xades::RevocationValues>,
 }
-

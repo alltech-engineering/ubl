@@ -1,0 +1,11 @@
+[package]
+name = "roles"
+version = "0.1.0"
+edition = "2024"
+description = "UBL business role aliases — contextual type names grouped by domain"
+
+[lib]
+name = "roles"
+
+[dependencies]
+common = { path = "../common" }

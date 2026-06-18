@@ -1,0 +1,1 @@
+pub type CryptoBinaryType = String;

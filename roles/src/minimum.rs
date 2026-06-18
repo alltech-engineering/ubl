@@ -1,0 +1,4 @@
+#![allow(unused_imports, dead_code, non_snake_case, clippy::all)]
+
+pub type DeliveryUnit = common::cac::DeliveryUnit;
+pub type Temperature = common::cac::Temperature;

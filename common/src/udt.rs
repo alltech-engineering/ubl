@@ -5,7 +5,7 @@ pub type CodeType = super::cct::CodeType;
 #[derive(Debug, Deserialize, Serialize)]
 pub struct DateTimeType {
     #[serde(default, rename = "$text")]
-    pub content: ::std::string::String,
+    pub content: String,
 }
 pub type DateType = DateTimeType;
 pub type GraphicType = super::cct::BinaryObjectType;
@@ -13,7 +13,7 @@ pub type IdentifierType = super::cct::IdentifierType;
 #[derive(Debug, Deserialize, Serialize)]
 pub struct IndicatorType {
     #[serde(rename = "$text")]
-    pub content: ::core::primitive::bool,
+    pub content: bool,
 }
 pub type MeasureType = super::cct::MeasureType;
 pub type NameType = super::cct::TextType;

@@ -1,0 +1,5 @@
+#![allow(unused_imports, dead_code, non_snake_case, clippy::all)]
+
+pub type OfficerPerson = common::cac::Person;
+pub type Party = common::cac::Party;
+pub type TransportServiceProviderParty = common::cac::Party;

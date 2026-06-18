@@ -4,6 +4,7 @@ members = [
     "common",
     "maindoc",
     "xsd-gen",
+    "roles",
 ]
 
 [workspace.dependencies]

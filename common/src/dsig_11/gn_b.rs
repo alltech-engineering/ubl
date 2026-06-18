@@ -1,0 +1,1 @@
+pub type GnB = CharTwoFieldParamsType;

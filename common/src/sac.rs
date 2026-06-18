@@ -1,11 +1,10 @@
 use serde::{Deserialize, Serialize};
-pub type SignatureInformation = SignatureInformationType;
 #[derive(Debug, Deserialize, Serialize)]
-pub struct SignatureInformationType {
+pub struct SignatureInformation {
     #[serde(default, rename = "ID")]
-    pub id: ::core::option::Option<super::cct::IdentifierType>,
+    pub id: Option<super::cct::IdentifierType>,
     #[serde(default, rename = "ReferencedSignatureID")]
-    pub referenced_signature_id: ::core::option::Option<super::cct::IdentifierType>,
+    pub referenced_signature_id: Option<super::cct::IdentifierType>,
     #[serde(default, rename = "Signature")]
-    pub signature: ::core::option::Option<super::ds::ubl_xmldsig_core_schema_25::SignatureType>,
+    pub signature: Option<super::ds::Signature>,
 }

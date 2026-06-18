@@ -1,51 +1,52 @@
+use std::num::{NonZeroUsize, NonZeroIsize};
 use serde::{Deserialize, Serialize};
 #[derive(Debug, Default, Deserialize, Serialize)]
-pub struct EntitiesType(pub ::std::vec::Vec<::std::string::String>);
-pub type EntityType = ::std::string::String;
-pub type IdType = ::std::string::String;
-pub type IdrefType = ::std::string::String;
+pub struct EntitiesType(pub Vec<String>);
+pub type EntityType = String;
+pub type IdType = String;
+pub type IdrefType = String;
 pub type IdrefsType = EntitiesType;
-pub type NcNameType = ::std::string::String;
-pub type NmtokenType = ::std::string::String;
+pub type NcNameType = String;
+pub type NmtokenType = String;
 pub type NmtokensType = EntitiesType;
-pub type NotationType = ::std::string::String;
-pub type NameType = ::std::string::String;
-pub type QNameType = ::std::string::String;
+pub type NotationType = String;
+pub type NameType = String;
+pub type QNameType = String;
 #[derive(Debug, Deserialize, Serialize)]
 pub struct AnySimpleType {
     #[serde(default, rename = "@type")]
-    pub type_: ::core::option::Option<::std::string::String>,
+    pub type_: Option<String>,
     #[serde(default, rename = "$text")]
-    pub content: ::std::string::String,
+    pub content: String,
 }
-pub type AnyUriType = ::std::string::String;
-pub type BooleanType = ::core::primitive::bool;
-pub type ByteType = ::core::primitive::i8;
-pub type DateType = ::std::string::String;
-pub type DateTimeType = ::std::string::String;
-pub type DecimalType = ::core::primitive::f64;
-pub type DoubleType = ::core::primitive::f64;
-pub type DurationType = ::std::string::String;
-pub type FloatType = ::core::primitive::f32;
-pub type GDayType = ::std::string::String;
-pub type GMonthType = ::std::string::String;
-pub type GMonthDayType = ::std::string::String;
-pub type GYearType = ::std::string::String;
-pub type GYearMonthType = ::std::string::String;
-pub type IntType = ::core::primitive::i32;
-pub type IntegerType = ::core::primitive::i32;
-pub type LanguageType = ::std::string::String;
-pub type LongType = ::core::primitive::i64;
-pub type NegativeIntegerType = ::core::num::NonZeroIsize;
-pub type NonNegativeIntegerType = ::core::primitive::usize;
-pub type NonPositiveIntegerType = ::core::primitive::isize;
-pub type NormalizedStringType = ::std::string::String;
-pub type PositiveIntegerType = ::core::num::NonZeroUsize;
-pub type ShortType = ::core::primitive::i16;
-pub type StringType = ::std::string::String;
-pub type TimeType = ::std::string::String;
-pub type TokenType = ::std::string::String;
-pub type UnsignedByteType = ::core::primitive::u8;
-pub type UnsignedIntType = ::core::primitive::u32;
-pub type UnsignedLongType = ::core::primitive::u64;
-pub type UnsignedShortType = ::core::primitive::u16;
+pub type AnyUriType = String;
+pub type BooleanType = bool;
+pub type ByteType = i8;
+pub type DateType = String;
+pub type DateTimeType = String;
+pub type DecimalType = f64;
+pub type DoubleType = f64;
+pub type DurationType = String;
+pub type FloatType = f32;
+pub type GDayType = String;
+pub type GMonthType = String;
+pub type GMonthDayType = String;
+pub type GYearType = String;
+pub type GYearMonthType = String;
+pub type IntType = i32;
+pub type IntegerType = i32;
+pub type Language = String;
+pub type LongType = i64;
+pub type NegativeIntegerType = NonZeroIsize;
+pub type NonNegativeIntegerType = usize;
+pub type NonPositiveIntegerType = isize;
+pub type NormalizedStringType = String;
+pub type PositiveIntegerType = NonZeroUsize;
+pub type ShortType = i16;
+pub type StringType = String;
+pub type TimeType = String;
+pub type TokenType = String;
+pub type UnsignedByteType = u8;
+pub type UnsignedIntType = u32;
+pub type UnsignedLongType = u64;
+pub type UnsignedShortType = u16;
