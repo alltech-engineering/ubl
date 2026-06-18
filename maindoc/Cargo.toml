@@ -2,13 +2,11 @@
 name = "maindoc"
 version = "0.1.0"
 edition = "2024"
-description = "UBL 2.5 Document Types — all 101 business document type definitions"
+description = "UBL 2.5 document types — all business document definitions generated from the OASIS XSD schemas with xsd-parser"
 
 [dependencies]
-ubl-common = { path = "../common" }
+common = { path = "../common" }
 serde = { version = "1", features = ["derive"] }
 
 [dev-dependencies]
 serde_json = "1"
-rust_decimal = { version = "1", features = ["serde"] }
-chrono = { version = "0.4", features = ["serde"] }

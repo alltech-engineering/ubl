@@ -1,0 +1,2 @@
+pub mod ubl_common_extension_components_25;
+pub mod ubl_extension_content_data_type_25;

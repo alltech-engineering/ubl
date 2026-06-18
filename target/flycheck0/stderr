@@ -1,3 +1,62 @@
-error: no matching package named `ubl-common` found
-location searched: /Users/stephanus/Github/alltech/ubl/common
-required by package `maindoc v0.1.0 (/Users/stephanus/Github/alltech/ubl/maindoc)`
+   0.045776916s  INFO prepare_target{force=false package_id=common v0.1.0 (/Users/stephanus/Github/alltech/ubl/common) target="common"}: cargo::core::compiler::fingerprint: stale: changed "/Users/stephanus/Github/alltech/ubl/common/src/lib.rs"
+   0.045786166s  INFO prepare_target{force=false package_id=common v0.1.0 (/Users/stephanus/Github/alltech/ubl/common) target="common"}: cargo::core::compiler::fingerprint:           (vs) "/Users/stephanus/Github/alltech/ubl/target/debug/.fingerprint/common-117e17f258a51fca/dep-lib-common"
+   0.045788666s  INFO prepare_target{force=false package_id=common v0.1.0 (/Users/stephanus/Github/alltech/ubl/common) target="common"}: cargo::core::compiler::fingerprint:                FileTime { seconds: 1781780322, nanos: 694429171 } < FileTime { seconds: 1781792961, nanos: 525320347 }
+   0.045843458s  INFO prepare_target{force=false package_id=common v0.1.0 (/Users/stephanus/Github/alltech/ubl/common) target="common"}: cargo::core::compiler::fingerprint: fingerprint dirty for common v0.1.0 (/Users/stephanus/Github/alltech/ubl/common)/Check { test: false }/TargetInner { name_inferred: true, ..: lib_target("common", ["lib"], "/Users/stephanus/Github/alltech/ubl/common/src/lib.rs", Edition2024) }
+   0.045850875s  INFO prepare_target{force=false package_id=common v0.1.0 (/Users/stephanus/Github/alltech/ubl/common) target="common"}: cargo::core::compiler::fingerprint:     dirty: FsStatusOutdated(StaleItem(ChangedFile { reference: "/Users/stephanus/Github/alltech/ubl/target/debug/.fingerprint/common-117e17f258a51fca/dep-lib-common", reference_mtime: FileTime { seconds: 1781780322, nanos: 694429171 }, stale: "/Users/stephanus/Github/alltech/ubl/common/src/lib.rs", stale_mtime: FileTime { seconds: 1781792961, nanos: 525320347 } }))
+   0.047232291s  INFO prepare_target{force=false package_id=common v0.1.0 (/Users/stephanus/Github/alltech/ubl/common) target="common"}: cargo::core::compiler::fingerprint: stale: changed "/Users/stephanus/Github/alltech/ubl/common/src/lib.rs"
+   0.047234833s  INFO prepare_target{force=false package_id=common v0.1.0 (/Users/stephanus/Github/alltech/ubl/common) target="common"}: cargo::core::compiler::fingerprint:           (vs) "/Users/stephanus/Github/alltech/ubl/target/debug/.fingerprint/common-fadf2ea7393cce61/dep-test-lib-common"
+   0.047236291s  INFO prepare_target{force=false package_id=common v0.1.0 (/Users/stephanus/Github/alltech/ubl/common) target="common"}: cargo::core::compiler::fingerprint:                FileTime { seconds: 1781780322, nanos: 694571551 } < FileTime { seconds: 1781792961, nanos: 525320347 }
+   0.047271750s  INFO prepare_target{force=false package_id=common v0.1.0 (/Users/stephanus/Github/alltech/ubl/common) target="common"}: cargo::core::compiler::fingerprint: fingerprint dirty for common v0.1.0 (/Users/stephanus/Github/alltech/ubl/common)/Check { test: true }/TargetInner { name_inferred: true, ..: lib_target("common", ["lib"], "/Users/stephanus/Github/alltech/ubl/common/src/lib.rs", Edition2024) }
+   0.047275833s  INFO prepare_target{force=false package_id=common v0.1.0 (/Users/stephanus/Github/alltech/ubl/common) target="common"}: cargo::core::compiler::fingerprint:     dirty: FsStatusOutdated(StaleItem(ChangedFile { reference: "/Users/stephanus/Github/alltech/ubl/target/debug/.fingerprint/common-fadf2ea7393cce61/dep-test-lib-common", reference_mtime: FileTime { seconds: 1781780322, nanos: 694571551 }, stale: "/Users/stephanus/Github/alltech/ubl/common/src/lib.rs", stale_mtime: FileTime { seconds: 1781792961, nanos: 525320347 } }))
+   0.047660791s  INFO prepare_target{force=false package_id=maindoc v0.1.0 (/Users/stephanus/Github/alltech/ubl/maindoc) target="maindoc"}: cargo::core::compiler::fingerprint: fingerprint error for maindoc v0.1.0 (/Users/stephanus/Github/alltech/ubl/maindoc)/Check { test: false }/TargetInner { name_inferred: true, ..: lib_target("maindoc", ["lib"], "/Users/stephanus/Github/alltech/ubl/maindoc/src/lib.rs", Edition2024) }
+   0.047664541s  INFO prepare_target{force=false package_id=maindoc v0.1.0 (/Users/stephanus/Github/alltech/ubl/maindoc) target="maindoc"}: cargo::core::compiler::fingerprint:     err: failed to read `/Users/stephanus/Github/alltech/ubl/target/debug/.fingerprint/maindoc-0d574c0381c47d51/lib-maindoc`
+
+Caused by:
+    No such file or directory (os error 2)
+
+Stack backtrace:
+   0: <std::backtrace::Backtrace>::create
+   1: cargo_util::paths::read_bytes
+   2: cargo_util::paths::read
+   3: cargo::core::compiler::fingerprint::_compare_old_fingerprint
+   4: cargo::core::compiler::fingerprint::prepare_target
+   5: cargo::core::compiler::compile
+   6: <cargo::core::compiler::build_runner::BuildRunner>::compile
+   7: cargo::ops::cargo_compile::compile_ws
+   8: cargo::ops::cargo_compile::compile_with_exec
+   9: cargo::ops::cargo_compile::compile
+  10: cargo::commands::check::exec
+  11: <cargo::cli::Exec>::exec
+  12: cargo::main
+  13: std::sys::backtrace::__rust_begin_short_backtrace::<fn(), ()>
+  14: std::rt::lang_start::<()>::{closure#0}
+  15: std::rt::lang_start_internal
+  16: _main
+   0.050042041s  INFO prepare_target{force=false package_id=maindoc v0.1.0 (/Users/stephanus/Github/alltech/ubl/maindoc) target="maindoc"}: cargo::core::compiler::fingerprint: fingerprint error for maindoc v0.1.0 (/Users/stephanus/Github/alltech/ubl/maindoc)/Check { test: true }/TargetInner { name_inferred: true, ..: lib_target("maindoc", ["lib"], "/Users/stephanus/Github/alltech/ubl/maindoc/src/lib.rs", Edition2024) }
+   0.050045541s  INFO prepare_target{force=false package_id=maindoc v0.1.0 (/Users/stephanus/Github/alltech/ubl/maindoc) target="maindoc"}: cargo::core::compiler::fingerprint:     err: failed to read `/Users/stephanus/Github/alltech/ubl/target/debug/.fingerprint/maindoc-97855d1c21fb39fa/test-lib-maindoc`
+
+Caused by:
+    No such file or directory (os error 2)
+
+Stack backtrace:
+   0: <std::backtrace::Backtrace>::create
+   1: cargo_util::paths::read_bytes
+   2: cargo_util::paths::read
+   3: cargo::core::compiler::fingerprint::_compare_old_fingerprint
+   4: cargo::core::compiler::fingerprint::prepare_target
+   5: cargo::core::compiler::compile
+   6: <cargo::core::compiler::build_runner::BuildRunner>::compile
+   7: cargo::ops::cargo_compile::compile_ws
+   8: cargo::ops::cargo_compile::compile_with_exec
+   9: cargo::ops::cargo_compile::compile
+  10: cargo::commands::check::exec
+  11: <cargo::cli::Exec>::exec
+  12: cargo::main
+  13: std::sys::backtrace::__rust_begin_short_backtrace::<fn(), ()>
+  14: std::rt::lang_start::<()>::{closure#0}
+  15: std::rt::lang_start_internal
+  16: _main
+    Checking common v0.1.0 (/Users/stephanus/Github/alltech/ubl/common)
+error: could not compile `common` (lib) due to 20 previous errors; 2 warnings emitted
+warning: build failed, waiting for other jobs to finish...
+error: could not compile `common` (lib test) due to 20 previous errors; 2 warnings emitted

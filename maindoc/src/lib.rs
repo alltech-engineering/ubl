@@ -1,24 +1,21 @@
-// UBL 2.5 Document Types
-//
-// Reference: https://docs.oasis-open.org/ubl/cs01-UBL-2.5/UBL-2.5.html
-#![allow(ambiguous_glob_imports)]
-#![allow(ambiguous_glob_reexports)]
+//! UBL 2.5 document types — all business document definitions generated from
+//! the OASIS UBL 2.5 XSD schemas via `xsd-parser`.
+//! Do not edit by hand; regenerate with `cargo run -p xsd-gen` then run the split script.
 
-pub mod billing;
-pub mod catalogue;
-pub mod despatch;
-pub mod ordering;
-pub mod quotation;
-pub mod tendering;
-pub mod transportation;
+#![allow(unused_imports, dead_code, non_snake_case, clippy::all)]
 
-mod application_response;
-pub use application_response::ApplicationResponse;
+// Re-export common's modules at crate root so generated document types
+// can reference them with bare paths (cac::PartyType, cct::AmountType, etc.)
+pub use common::{
+    cac, cbc, cct, ds, dsig_11, ext, qdt, sac, sbc, udt, xades, xs,
+    UblDocumentSignatures, UblDocumentSignaturesType,
+    ArchiveTimeStamp, AttributeCertificateRefsV2,
+    CompleteCertificateRefsTypeV2Type, CompleteCertificateRefsV2,
+    RecomputedDigestValue, RecomputedDigestValueType,
+    RefsOnlyTimeStampV2, RenewedDigests, RenewedDigestsType,
+    SpDocSpecification, SigAndRefsTimeStampV2,
+    SignaturePolicyStore, SignaturePolicyStoreType, SignaturePolicyStoreTypeContent,
+    TimeStampValidationData, ValidationDataType,
+};
 
-// P8: Remaining Documents — 34 types across 6 categories
-pub mod customs;
-pub mod directory;
-pub mod inventory;
-pub mod other;
-pub mod status;
-pub mod waste;
+mod documents;

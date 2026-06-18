@@ -1,0 +1,9 @@
+[package]
+name = "xsd-gen"
+version = "0.1.0"
+edition = "2021"
+description = "Code generator — converts OASIS UBL 2.5 XSD schemas to Rust types via xsd-parser"
+
+[dependencies]
+xsd-parser = { git = "https://github.com/Bergmann89/xsd-parser", features = ["base64"] }
+anyhow = "1"

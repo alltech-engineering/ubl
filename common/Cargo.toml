@@ -2,12 +2,11 @@
 name = "common"
 version = "0.1.0"
 edition = "2024"
-description = "UBL 2.5 Common Basic Components (CBC) and Common Aggregate Components (CAC)"
+description = "UBL 2.5 common components (cbc, cac, signature, datatypes) generated from the OASIS XSD schemas with xsd-parser"
 
 [dependencies]
 serde = { version = "1", features = ["derive"] }
-rust_decimal = { version = "1", features = ["serde"] }
-chrono = { version = "0.4", features = ["serde"] }
+xsd-parser-types = { version = "0.2.1", features = ["serde", "xml", "quick-xml"] }
 
 [dev-dependencies]
 serde_json = "1"

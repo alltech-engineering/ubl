@@ -13,3 +13,6 @@ target/
 # Hermes
 .hermes/
 orders/
+
+# XSD code generation staging
+_generated/
