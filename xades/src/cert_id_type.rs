@@ -5,5 +5,5 @@ pub struct CertIdType {
     #[serde(rename = "CertDigest")]
     pub cert_digest: DigestAlgAndValueType,
     #[serde(rename = "IssuerSerial")]
-    pub issuer_serial: ds::X509IssuerSerialType,
+    pub issuer_serial: ds::X509IssuerSerial,
 }
