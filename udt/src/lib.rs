@@ -3,6 +3,11 @@ pub type Amount = cct::Amount;
 pub type BinaryObject = cct::BinaryObject;
 pub type Code = cct::Code;
 #[derive(Debug, Deserialize, Serialize)]
+/// A particular point in the progression of time, together with relevant supplementary information.
+///
+/// UBL Dictionary Entry Name: `Date Time. Type`
+///
+/// Generated from XSD type `DateTimeType`.
 pub struct DateTime {
     #[serde(default, rename = "$text")]
     pub content: String,
@@ -11,6 +16,11 @@ pub type Date = DateTime;
 pub type Graphic = cct::BinaryObject;
 pub type Identifier = cct::Identifier;
 #[derive(Debug, Deserialize, Serialize)]
+/// A list of two mutually exclusive Boolean values that express the only possible states of a property.
+///
+/// UBL Dictionary Entry Name: `Indicator. Type`
+///
+/// Generated from XSD type `IndicatorType`.
 pub struct Indicator {
     #[serde(rename = "$text")]
     pub content: bool,
