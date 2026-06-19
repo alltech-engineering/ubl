@@ -1,0 +1,9 @@
+#[derive(Debug, Deserialize, Serialize)]
+pub struct CrewPersonEffect {
+    #[serde(default, rename = "UBLExtensions")]
+    pub ubl_extensions: Option<ext::ubl_common_extension_components_25::UblExtensions>,
+    #[serde(default, rename = "EffectDescription")]
+    pub effect_description: Vec<cct::Text>,
+    #[serde(default, rename = "CrewPerson")]
+    pub crew_person: Option<Person>,
+}

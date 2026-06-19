@@ -4,29 +4,29 @@ pub struct TenderStatusRequest {
     pub ubl_extensions:
         Option<ext::ubl_common_extension_components_25::UblExtensions>,
     #[serde(default, rename = "UBLVersionID")]
-    pub ubl_version_id: Option<cct::IdentifierType>,
+    pub ubl_version_id: Option<cct::Identifier>,
     #[serde(default, rename = "CustomizationID")]
-    pub customization_id: Option<cct::IdentifierType>,
+    pub customization_id: Option<cct::Identifier>,
     #[serde(default, rename = "ProfileID")]
-    pub profile_id: Option<cct::IdentifierType>,
+    pub profile_id: Option<cct::Identifier>,
     #[serde(default, rename = "ProfileExecutionID")]
-    pub profile_execution_id: Option<cct::IdentifierType>,
+    pub profile_execution_id: Option<cct::Identifier>,
     #[serde(default, rename = "ID")]
-    pub id: Option<cct::IdentifierType>,
+    pub id: Option<cct::Identifier>,
     #[serde(default, rename = "CopyIndicator")]
-    pub copy_indicator: Option<udt::IndicatorType>,
+    pub copy_indicator: Option<udt::Indicator>,
     #[serde(default, rename = "UUID")]
-    pub uuid: Option<cct::IdentifierType>,
+    pub uuid: Option<cct::Identifier>,
     #[serde(default, rename = "ContractFolderID")]
-    pub contract_folder_id: Option<cct::IdentifierType>,
+    pub contract_folder_id: Option<cct::Identifier>,
     #[serde(rename = "IssueDate")]
-    pub issue_date: udt::DateTimeType,
+    pub issue_date: udt::DateTime,
     #[serde(default, rename = "IssueTime")]
-    pub issue_time: Option<udt::DateTimeType>,
+    pub issue_time: Option<udt::DateTime>,
     #[serde(default, rename = "ContractName")]
-    pub contract_name: Vec<cct::TextType>,
+    pub contract_name: Vec<cct::Text>,
     #[serde(default, rename = "Note")]
-    pub note: Vec<cct::TextType>,
+    pub note: Vec<cct::Text>,
     #[serde(default, rename = "Signature")]
     pub signature: Vec<cac::Signature>,
     #[serde(default, rename = "ContractingParty")]

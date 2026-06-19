@@ -4,25 +4,25 @@ pub struct WasteNotification {
     pub ubl_extensions:
         Option<ext::ubl_common_extension_components_25::UblExtensions>,
     #[serde(default, rename = "UBLVersionID")]
-    pub ubl_version_id: Option<cct::IdentifierType>,
+    pub ubl_version_id: Option<cct::Identifier>,
     #[serde(default, rename = "CustomizationID")]
-    pub customization_id: Option<cct::IdentifierType>,
+    pub customization_id: Option<cct::Identifier>,
     #[serde(default, rename = "ProfileID")]
-    pub profile_id: Option<cct::IdentifierType>,
+    pub profile_id: Option<cct::Identifier>,
     #[serde(default, rename = "ProfileExecutionID")]
-    pub profile_execution_id: Option<cct::IdentifierType>,
+    pub profile_execution_id: Option<cct::Identifier>,
     #[serde(rename = "ID")]
-    pub id: cct::IdentifierType,
+    pub id: cct::Identifier,
     #[serde(default, rename = "UUID")]
-    pub uuid: Option<cct::IdentifierType>,
+    pub uuid: Option<cct::Identifier>,
     #[serde(rename = "IssueDate")]
-    pub issue_date: udt::DateTimeType,
+    pub issue_date: udt::DateTime,
     #[serde(default, rename = "IssueTime")]
-    pub issue_time: Option<udt::DateTimeType>,
+    pub issue_time: Option<udt::DateTime>,
     #[serde(default, rename = "WasteNotificationTypeCode")]
-    pub waste_notification_type_code: Option<cct::CodeType>,
+    pub waste_notification_type_code: Option<cct::Code>,
     #[serde(default, rename = "ConsignmentQuantity")]
-    pub consignment_quantity: Option<cct::QuantityType>,
+    pub consignment_quantity: Option<cct::Quantity>,
     #[serde(default, rename = "Signature")]
     pub signature: Vec<cac::Signature>,
     #[serde(rename = "SenderParty")]

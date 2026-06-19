@@ -1,0 +1,9 @@
+#[derive(Debug, Deserialize, Serialize)]
+pub struct Clause {
+    #[serde(default, rename = "UBLExtensions")]
+    pub ubl_extensions: Option<ext::ubl_common_extension_components_25::UblExtensions>,
+    #[serde(default, rename = "ID")]
+    pub id: Option<cct::Identifier>,
+    #[serde(default, rename = "Content")]
+    pub content: Vec<cct::Text>,
+}

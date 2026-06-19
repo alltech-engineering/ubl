@@ -4,41 +4,41 @@ pub struct ContractAwardNotice {
     pub ubl_extensions:
         Option<ext::ubl_common_extension_components_25::UblExtensions>,
     #[serde(default, rename = "UBLVersionID")]
-    pub ubl_version_id: Option<cct::IdentifierType>,
+    pub ubl_version_id: Option<cct::Identifier>,
     #[serde(default, rename = "CustomizationID")]
-    pub customization_id: Option<cct::IdentifierType>,
+    pub customization_id: Option<cct::Identifier>,
     #[serde(default, rename = "ProfileID")]
-    pub profile_id: Option<cct::IdentifierType>,
+    pub profile_id: Option<cct::Identifier>,
     #[serde(default, rename = "ProfileExecutionID")]
-    pub profile_execution_id: Option<cct::IdentifierType>,
+    pub profile_execution_id: Option<cct::Identifier>,
     #[serde(default, rename = "ID")]
-    pub id: Option<cct::IdentifierType>,
+    pub id: Option<cct::Identifier>,
     #[serde(default, rename = "CopyIndicator")]
-    pub copy_indicator: Option<udt::IndicatorType>,
+    pub copy_indicator: Option<udt::Indicator>,
     #[serde(default, rename = "UUID")]
-    pub uuid: Option<cct::IdentifierType>,
+    pub uuid: Option<cct::Identifier>,
     #[serde(rename = "ContractFolderID")]
-    pub contract_folder_id: cct::IdentifierType,
+    pub contract_folder_id: cct::Identifier,
     #[serde(rename = "IssueDate")]
-    pub issue_date: udt::DateTimeType,
+    pub issue_date: udt::DateTime,
     #[serde(default, rename = "IssueTime")]
-    pub issue_time: Option<udt::DateTimeType>,
+    pub issue_time: Option<udt::DateTime>,
     #[serde(default, rename = "Note")]
-    pub note: Vec<cct::TextType>,
+    pub note: Vec<cct::Text>,
     #[serde(default, rename = "VersionID")]
-    pub version_id: Option<cct::IdentifierType>,
+    pub version_id: Option<cct::Identifier>,
     #[serde(default, rename = "PreviousVersionID")]
-    pub previous_version_id: Option<cct::IdentifierType>,
+    pub previous_version_id: Option<cct::Identifier>,
     #[serde(default, rename = "RequestedPublicationDate")]
-    pub requested_publication_date: Option<udt::DateTimeType>,
+    pub requested_publication_date: Option<udt::DateTime>,
     #[serde(default, rename = "RegulatoryDomain")]
-    pub regulatory_domain: Vec<cct::TextType>,
+    pub regulatory_domain: Vec<cct::Text>,
     #[serde(default, rename = "NoticeTypeCode")]
-    pub notice_type_code: Option<cct::CodeType>,
+    pub notice_type_code: Option<cct::Code>,
     #[serde(default, rename = "PublishAwardIndicator")]
-    pub publish_award_indicator: Option<udt::IndicatorType>,
+    pub publish_award_indicator: Option<udt::Indicator>,
     #[serde(default, rename = "NoticeLanguageCode")]
-    pub notice_language_code: Option<cct::CodeType>,
+    pub notice_language_code: Option<cct::Code>,
     #[serde(default, rename = "AdditionalNoticeLanguage")]
     pub additional_notice_language: Vec<cac::Language>,
     #[serde(default, rename = "PreviousDocumentReference")]

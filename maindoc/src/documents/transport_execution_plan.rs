@@ -4,37 +4,37 @@ pub struct TransportExecutionPlan {
     pub ubl_extensions:
         Option<ext::ubl_common_extension_components_25::UblExtensions>,
     #[serde(default, rename = "UBLVersionID")]
-    pub ubl_version_id: Option<cct::IdentifierType>,
+    pub ubl_version_id: Option<cct::Identifier>,
     #[serde(default, rename = "CustomizationID")]
-    pub customization_id: Option<cct::IdentifierType>,
+    pub customization_id: Option<cct::Identifier>,
     #[serde(default, rename = "ProfileID")]
-    pub profile_id: Option<cct::IdentifierType>,
+    pub profile_id: Option<cct::Identifier>,
     #[serde(default, rename = "ProfileExecutionID")]
-    pub profile_execution_id: Option<cct::IdentifierType>,
+    pub profile_execution_id: Option<cct::Identifier>,
     #[serde(rename = "ID")]
-    pub id: cct::IdentifierType,
+    pub id: cct::Identifier,
     #[serde(default, rename = "VersionID")]
-    pub version_id: Option<cct::IdentifierType>,
+    pub version_id: Option<cct::Identifier>,
     #[serde(default, rename = "CopyIndicator")]
-    pub copy_indicator: Option<udt::IndicatorType>,
+    pub copy_indicator: Option<udt::Indicator>,
     #[serde(default, rename = "UUID")]
-    pub uuid: Option<cct::IdentifierType>,
+    pub uuid: Option<cct::Identifier>,
     #[serde(default, rename = "IssueDate")]
-    pub issue_date: Option<udt::DateTimeType>,
+    pub issue_date: Option<udt::DateTime>,
     #[serde(default, rename = "IssueTime")]
-    pub issue_time: Option<udt::DateTimeType>,
+    pub issue_time: Option<udt::DateTime>,
     #[serde(default, rename = "DocumentStatusCode")]
-    pub document_status_code: Option<cct::CodeType>,
+    pub document_status_code: Option<cct::Code>,
     #[serde(default, rename = "DocumentStatusReasonCode")]
-    pub document_status_reason_code: Option<cct::CodeType>,
+    pub document_status_reason_code: Option<cct::Code>,
     #[serde(default, rename = "DocumentStatusReasonDescription")]
-    pub document_status_reason_description: Vec<cct::TextType>,
+    pub document_status_reason_description: Vec<cct::Text>,
     #[serde(default, rename = "Note")]
-    pub note: Vec<cct::TextType>,
+    pub note: Vec<cct::Text>,
     #[serde(default, rename = "TransportUserRemarks")]
-    pub transport_user_remarks: Vec<cct::TextType>,
+    pub transport_user_remarks: Vec<cct::Text>,
     #[serde(default, rename = "TransportServiceProviderRemarks")]
-    pub transport_service_provider_remarks: Vec<cct::TextType>,
+    pub transport_service_provider_remarks: Vec<cct::Text>,
     #[serde(default, rename = "SenderParty")]
     pub sender_party: Option<cac::Party>,
     #[serde(default, rename = "ReceiverParty")]

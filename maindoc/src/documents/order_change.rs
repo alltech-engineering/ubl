@@ -4,45 +4,45 @@ pub struct OrderChange {
     pub ubl_extensions:
         Option<ext::ubl_common_extension_components_25::UblExtensions>,
     #[serde(default, rename = "UBLVersionID")]
-    pub ubl_version_id: Option<cct::IdentifierType>,
+    pub ubl_version_id: Option<cct::Identifier>,
     #[serde(default, rename = "CustomizationID")]
-    pub customization_id: Option<cct::IdentifierType>,
+    pub customization_id: Option<cct::Identifier>,
     #[serde(default, rename = "ProfileID")]
-    pub profile_id: Option<cct::IdentifierType>,
+    pub profile_id: Option<cct::Identifier>,
     #[serde(default, rename = "ProfileExecutionID")]
-    pub profile_execution_id: Option<cct::IdentifierType>,
+    pub profile_execution_id: Option<cct::Identifier>,
     #[serde(default, rename = "ID")]
-    pub id: Option<cct::IdentifierType>,
+    pub id: Option<cct::Identifier>,
     #[serde(default, rename = "SalesOrderID")]
-    pub sales_order_id: Option<cct::IdentifierType>,
+    pub sales_order_id: Option<cct::Identifier>,
     #[serde(default, rename = "CopyIndicator")]
-    pub copy_indicator: Option<udt::IndicatorType>,
+    pub copy_indicator: Option<udt::Indicator>,
     #[serde(default, rename = "UUID")]
-    pub uuid: Option<cct::IdentifierType>,
+    pub uuid: Option<cct::Identifier>,
     #[serde(rename = "IssueDate")]
-    pub issue_date: udt::DateTimeType,
+    pub issue_date: udt::DateTime,
     #[serde(default, rename = "IssueTime")]
-    pub issue_time: Option<udt::DateTimeType>,
+    pub issue_time: Option<udt::DateTime>,
     #[serde(rename = "SequenceNumberID")]
-    pub sequence_number_id: cct::IdentifierType,
+    pub sequence_number_id: cct::Identifier,
     #[serde(default, rename = "Note")]
-    pub note: Vec<cct::TextType>,
+    pub note: Vec<cct::Text>,
     #[serde(default, rename = "RequestedInvoiceCurrencyCode")]
-    pub requested_invoice_currency_code: Option<cct::CodeType>,
+    pub requested_invoice_currency_code: Option<cct::Code>,
     #[serde(default, rename = "DocumentCurrencyCode")]
-    pub document_currency_code: Option<cct::CodeType>,
+    pub document_currency_code: Option<cct::Code>,
     #[serde(default, rename = "PricingCurrencyCode")]
-    pub pricing_currency_code: Option<cct::CodeType>,
+    pub pricing_currency_code: Option<cct::Code>,
     #[serde(default, rename = "TaxCurrencyCode")]
-    pub tax_currency_code: Option<cct::CodeType>,
+    pub tax_currency_code: Option<cct::Code>,
     #[serde(default, rename = "CustomerReference")]
-    pub customer_reference: Option<cct::TextType>,
+    pub customer_reference: Option<cct::Text>,
     #[serde(default, rename = "AccountingCostCode")]
-    pub accounting_cost_code: Option<cct::CodeType>,
+    pub accounting_cost_code: Option<cct::Code>,
     #[serde(default, rename = "AccountingCost")]
-    pub accounting_cost: Option<cct::TextType>,
+    pub accounting_cost: Option<cct::Text>,
     #[serde(default, rename = "LineCountNumeric")]
-    pub line_count_numeric: Option<cct::NumericType>,
+    pub line_count_numeric: Option<cct::Numeric>,
     #[serde(default, rename = "ValidityPeriod")]
     pub validity_period: Vec<cac::Period>,
     #[serde(rename = "OrderReference")]
