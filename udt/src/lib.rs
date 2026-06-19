@@ -1,5 +1,5 @@
 use serde::{Deserialize, Serialize};
-pub type AmountType = cct::Amount;
+pub type Amount = cct::Amount;
 pub type BinaryObject = cct::BinaryObject;
 pub type Code = cct::Code;
 #[derive(Debug, Deserialize, Serialize)]
@@ -7,8 +7,8 @@ pub struct DateTime {
     #[serde(default, rename = "$text")]
     pub content: String,
 }
-pub type DateType = DateTime;
-pub type GraphicType = cct::BinaryObject;
+pub type Date = DateTime;
+pub type Graphic = cct::BinaryObject;
 pub type Identifier = cct::Identifier;
 #[derive(Debug, Deserialize, Serialize)]
 pub struct Indicator {
@@ -16,14 +16,14 @@ pub struct Indicator {
     pub content: bool,
 }
 pub type Measure = cct::Measure;
-pub type NameType = cct::Text;
+pub type Name = cct::Text;
 pub type Numeric = cct::Numeric;
-pub type PercentType = cct::Numeric;
-pub type PictureType = cct::BinaryObject;
+pub type Percent = cct::Numeric;
+pub type Picture = cct::BinaryObject;
 pub type Quantity = cct::Quantity;
-pub type RateType = cct::Numeric;
-pub type SoundType = cct::BinaryObject;
+pub type Rate = cct::Numeric;
+pub type Sound = cct::BinaryObject;
 pub type Text = cct::Text;
-pub type TimeType = DateTime;
-pub type ValueType = cct::Numeric;
-pub type VideoType = cct::BinaryObject;
+pub type Time = DateTime;
+pub type Value = cct::Numeric;
+pub type Video = cct::BinaryObject;

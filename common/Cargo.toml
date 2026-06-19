@@ -7,6 +7,10 @@ description = "UBL 2.5 common components (cbc, cac, signature, datatypes) genera
 [dependencies]
 serde = { version = "1", features = ["derive"] }
 xsd-parser-types = { version = "0.2.1", features = ["serde", "xml", "quick-xml"] }
+udt = { path = "../udt" }
+cct = { path = "../cct" }
+xades = { path = "../xades" }
+ds = { path = "../ds" }
 
 [dev-dependencies]
 serde_json = "1"

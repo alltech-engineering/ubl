@@ -54,7 +54,7 @@ pub struct BusinessInformation {
     #[serde(default, rename = "BusinessPartyGroup")]
     pub business_party_group: Vec<cac::PartyGroup>,
     #[serde(default, rename = "OperationType")]
-    pub operation_type: Vec<cac::OperationType>,
+    pub operation_type: Vec<cac::Operation>,
     #[serde(default, rename = "NoticeSubType")]
-    pub notice_sub_type: Option<cac::NoticeSubType>,
+    pub notice_sub_type: Option<cac::NoticeSubCategory>,
 }

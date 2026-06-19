@@ -6,17 +6,10 @@
 
 use serde::{Deserialize, Serialize};
 
-pub mod cac;
 pub mod cbc;
-pub mod cct;
-pub mod ds;
-pub mod dsig_11;
-pub mod ext;
 pub mod qdt;
 pub mod sac;
 pub mod sbc;
-pub mod udt;
-pub mod xades;
 pub mod xs;
 
 // Signature-related types from UBL-CommonSignatureComponents
@@ -42,7 +35,6 @@ pub struct CompleteCertificateRefsTypeV2Type {
 
 pub type CompleteCertificateRefsV2 = CompleteCertificateRefsTypeV2Type;
 
-
 #[derive(Debug, Deserialize, Serialize)]
 pub struct RecomputedDigestValue {
     #[serde(rename = "@Order")]
@@ -52,7 +44,6 @@ pub struct RecomputedDigestValue {
 }
 
 pub type RefsOnlyTimeStampV2 = xades::GenericTimeStampType;
-
 
 #[derive(Debug, Deserialize, Serialize)]
 pub struct RenewedDigests {
@@ -67,7 +58,6 @@ pub struct RenewedDigests {
 pub type SpDocSpecification = xades::ObjectIdentifier;
 
 pub type SigAndRefsTimeStampV2 = xades::GenericTimeStampType;
-
 
 #[derive(Debug, Deserialize, Serialize)]
 pub struct SignaturePolicyStore {

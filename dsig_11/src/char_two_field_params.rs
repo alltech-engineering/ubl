@@ -1,7 +1,5 @@
 #[derive(Debug, Deserialize, Serialize)]
-pub struct TnBFieldParamsType {
+pub struct CharTwoFieldParams {
     #[serde(rename = "M")]
     pub m: NonZeroUsize,
-    #[serde(rename = "K")]
-    pub k: NonZeroUsize,
 }

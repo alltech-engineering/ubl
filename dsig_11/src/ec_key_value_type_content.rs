@@ -1,9 +1,9 @@
 #[derive(Debug, Deserialize, Serialize)]
 pub enum EcKeyValueTypeContent {
     #[serde(rename = "ECParameters")]
-    EcParameters(EcParametersType),
+    EcParameters(EcParameters),
     #[serde(rename = "NamedCurve")]
-    NamedCurve(NamedCurveType),
+    NamedCurve(NamedCurve),
     #[serde(rename = "PublicKey")]
     PublicKey(String),
 }

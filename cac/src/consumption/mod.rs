@@ -12,7 +12,7 @@ include!("point.rs");
 #[derive(Debug, Deserialize, Serialize)]
 pub struct Consumption {
     #[serde(default, rename = "UBLExtensions")]
-    pub ubl_extensions: Option<ext::ubl_common_extension_components_25::UblExtensions>,
+    pub ubl_extensions: Option<ext::UblExtensions>,
     #[serde(default, rename = "UtilityStatementTypeCode")]
     pub utility_statement_type_code: Option<cct::Code>,
     #[serde(default, rename = "MainPeriod")]

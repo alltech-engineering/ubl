@@ -1,7 +1,7 @@
 #[derive(Debug, Deserialize, Serialize)]
 pub struct NotificationRequirement {
     #[serde(default, rename = "UBLExtensions")]
-    pub ubl_extensions: Option<ext::ubl_common_extension_components_25::UblExtensions>,
+    pub ubl_extensions: Option<ext::UblExtensions>,
     #[serde(rename = "NotificationTypeCode")]
     pub notification_type_code: cct::Code,
     #[serde(default, rename = "PostEventNotificationDurationMeasure")]

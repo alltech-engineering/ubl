@@ -1,7 +1,7 @@
 #[derive(Debug, Deserialize, Serialize)]
 pub struct ConsumptionHistory {
     #[serde(default, rename = "UBLExtensions")]
-    pub ubl_extensions: Option<ext::ubl_common_extension_components_25::UblExtensions>,
+    pub ubl_extensions: Option<ext::UblExtensions>,
     #[serde(default, rename = "MeterNumber")]
     pub meter_number: Option<cct::Text>,
     #[serde(rename = "Quantity")]

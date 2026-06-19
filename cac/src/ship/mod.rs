@@ -7,7 +7,7 @@ include!("to_ship_activity_record.rs");
 pub struct ShipStoreArticle {
     #[serde(default, rename = "UBLExtensions")]
     pub ubl_extensions:
-        Option<ext::ubl_common_extension_components_25::UblExtensions>,
+        Option<ext::UblExtensions>,
     #[serde(rename = "ID")]
     pub id: cct::Identifier,
     #[serde(default, rename = "Name")]

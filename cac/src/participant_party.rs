@@ -1,8 +1,7 @@
 #[derive(Debug, Deserialize, Serialize)]
 pub struct ParticipantParty {
     #[serde(default, rename = "UBLExtensions")]
-    pub ubl_extensions:
-        Option<ext::ubl_common_extension_components_25::UblExtensions>,
+    pub ubl_extensions: Option<ext::UblExtensions>,
     #[serde(default, rename = "InitiatingPartyIndicator")]
     pub initiating_party_indicator: Option<udt::Indicator>,
     #[serde(default, rename = "PrivatePartyIndicator")]

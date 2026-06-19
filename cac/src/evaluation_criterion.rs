@@ -2,7 +2,7 @@
 pub struct EvaluationCriterion {
     #[serde(default, rename = "UBLExtensions")]
     pub ubl_extensions:
-        Option<ext::ubl_common_extension_components_25::UblExtensions>,
+        Option<ext::UblExtensions>,
     #[serde(default, rename = "EvaluationCriterionTypeCode")]
     pub evaluation_criterion_type_code: Option<cct::Code>,
     #[serde(default, rename = "Description")]

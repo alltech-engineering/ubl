@@ -1,6 +1,5 @@
-use serde::{Deserialize, Serialize};
 #[derive(Debug, Deserialize, Serialize)]
-pub struct ExtensionContentType {
+pub struct ExtensionContent {
     #[serde(rename = "any125")]
     pub any: String,
 }

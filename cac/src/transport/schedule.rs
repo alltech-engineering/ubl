@@ -2,7 +2,7 @@
 pub struct TransportSchedule {
     #[serde(default, rename = "UBLExtensions")]
     pub ubl_extensions:
-        Option<ext::ubl_common_extension_components_25::UblExtensions>,
+        Option<ext::UblExtensions>,
     #[serde(rename = "SequenceNumeric")]
     pub sequence_numeric: cct::Numeric,
     #[serde(default, rename = "ReferenceDate")]

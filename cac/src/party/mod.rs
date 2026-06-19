@@ -10,7 +10,7 @@ include!("group.rs");
 #[derive(Debug, Deserialize, Serialize)]
 pub struct Party {
     #[serde(default, rename = "UBLExtensions")]
-    pub ubl_extensions: Option<ext::ubl_common_extension_components_25::UblExtensions>,
+    pub ubl_extensions: Option<ext::UblExtensions>,
     #[serde(default, rename = "MarkCareIndicator")]
     pub mark_care_indicator: Option<udt::Indicator>,
     #[serde(default, rename = "MarkAttentionIndicator")]

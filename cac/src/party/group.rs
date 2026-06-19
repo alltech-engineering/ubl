@@ -1,8 +1,7 @@
 #[derive(Debug, Deserialize, Serialize)]
 pub struct PartyGroup {
     #[serde(default, rename = "UBLExtensions")]
-    pub ubl_extensions:
-        Option<ext::ubl_common_extension_components_25::UblExtensions>,
+    pub ubl_extensions: Option<ext::UblExtensions>,
     #[serde(default, rename = "GroupTypeCode")]
     pub group_type_code: Option<cct::Code>,
     #[serde(default, rename = "GroupType")]

@@ -3,12 +3,12 @@ use serde::{Deserialize, Serialize};
 
 include!("project_lot.rs");
 include!("project_lot_reference.rs");
-include!("additional_type.rs");
+include!("additional.rs");
 
 #[derive(Debug, Deserialize, Serialize)]
 pub struct ProcurementProject {
     #[serde(default, rename = "UBLExtensions")]
-    pub ubl_extensions: Option<ext::ubl_common_extension_components_25::UblExtensions>,
+    pub ubl_extensions: Option<ext::UblExtensions>,
     #[serde(default, rename = "ID")]
     pub id: Option<cct::Identifier>,
     #[serde(default, rename = "Name")]
@@ -34,7 +34,7 @@ pub struct ProcurementProject {
     #[serde(default, rename = "SMESuitableIndicator")]
     pub sme_suitable_indicator: Option<udt::Indicator>,
     #[serde(default, rename = "ProcurementAdditionalType")]
-    pub procurement_additional_type: Vec<ProcurementAdditionalType>,
+    pub procurement_additional_type: Vec<ProcurementAdditional>,
     #[serde(default, rename = "RequestedTenderTotal")]
     pub requested_tender_total: Option<crate::RequestedTenderTotal>,
     #[serde(default, rename = "MainCommodityClassification")]

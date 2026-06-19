@@ -1,12 +1,11 @@
 #![allow(unused_imports, dead_code, non_snake_case, clippy::all)]
 use serde::{Deserialize, Serialize};
 include!("canonicalization_method.rs");
-include!("crypto_binary_type.rs");
+include!("crypto_binary.rs");
 include!("digest_method.rs");
 include!("digest_value.rs");
-include!("digest_value_type.rs");
 include!("dsa_key_value.rs");
-include!("hmac_output_length_type.rs");
+include!("hmac_output_length.rs");
 include!("key_info.rs");
 include!("key_info_type_content.rs");
 include!("key_name.rs");
@@ -35,4 +34,4 @@ include!("transform_type_content.rs");
 include!("transforms.rs");
 include!("x509_data.rs");
 include!("x509_data_type_content.rs");
-include!("x509_issuer_serial_type.rs");
+include!("x509_issuer_serial.rs");

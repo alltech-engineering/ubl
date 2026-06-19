@@ -1,9 +1,9 @@
 #[derive(Debug, Deserialize, Serialize)]
-pub struct EcParametersType {
+pub struct EcParameters {
     #[serde(rename = "FieldID")]
-    pub field_id: FieldIdType,
+    pub field_id: FieldId,
     #[serde(rename = "Curve")]
-    pub curve: CurveType,
+    pub curve: Curve,
     #[serde(rename = "Base")]
     pub base: String,
     #[serde(rename = "Order")]
@@ -11,5 +11,5 @@ pub struct EcParametersType {
     #[serde(default, rename = "CoFactor")]
     pub co_factor: Option<i32>,
     #[serde(default, rename = "ValidationData")]
-    pub validation_data: Option<EcValidationDataType>,
+    pub validation_data: Option<EcValidationData>,
 }

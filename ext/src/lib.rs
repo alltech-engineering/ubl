@@ -1,2 +1,4 @@
-pub mod ubl_common_extension_components_25;
-pub mod ubl_extension_content_data_type_25;
+use serde::{Deserialize, Serialize};
+
+include!["ubl_common_extension_components_25.rs"];
+include!["ubl_extension_content_25.rs"];

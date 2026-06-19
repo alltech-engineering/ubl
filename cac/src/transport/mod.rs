@@ -13,7 +13,7 @@ include!("equipment_seal.rs");
 pub struct TransportMeans {
     #[serde(default, rename = "UBLExtensions")]
     pub ubl_extensions:
-        Option<ext::ubl_common_extension_components_25::UblExtensions>,
+        Option<ext::UblExtensions>,
     #[serde(default, rename = "JourneyID")]
     pub journey_id: Option<cct::Identifier>,
     #[serde(default, rename = "RegistrationNationalityID")]

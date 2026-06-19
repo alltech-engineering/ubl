@@ -1,4 +1,3 @@
-use serde::{Deserialize, Serialize};
 #[derive(Debug, Deserialize, Serialize)]
 pub struct ExtensionAgencyId {
     #[serde(default, rename = "@schemeID")]
@@ -28,9 +27,6 @@ pub struct ExtensionAgencyName {
     pub content: String,
 }
 pub type ExtensionAgencyUri = ExtensionAgencyId;
-pub type ExtensionAgencyUriType = ExtensionAgencyId;
-pub type ExtensionContent = super::ubl_extension_content_data_type_25::ExtensionContentType;
-pub type ExtensionReason = ExtensionAgencyName;
 #[derive(Debug, Deserialize, Serialize)]
 pub struct ExtensionReasonCode {
     #[serde(default, rename = "@listID")]
@@ -54,11 +50,7 @@ pub struct ExtensionReasonCode {
     #[serde(default, rename = "$text")]
     pub content: String,
 }
-pub type ExtensionReasonType = ExtensionAgencyName;
-pub type ExtensionUri = ExtensionAgencyId;
-pub type ExtensionUriType = ExtensionAgencyId;
 pub type ExtensionVersionId = ExtensionAgencyId;
-pub type ExtensionVersionIdType = ExtensionAgencyId;
 #[derive(Debug, Deserialize, Serialize)]
 pub struct UblExtension {
     #[serde(default, rename = "ID")]
@@ -80,7 +72,7 @@ pub struct UblExtension {
     #[serde(default, rename = "ExtensionReason")]
     pub extension_reason: Option<ExtensionAgencyName>,
     #[serde(rename = "ExtensionContent")]
-    pub extension_content: super::ubl_extension_content_data_type_25::ExtensionContentType,
+    pub extension_content: ExtensionContent,
 }
 #[derive(Debug, Deserialize, Serialize)]
 pub struct UblExtensions {

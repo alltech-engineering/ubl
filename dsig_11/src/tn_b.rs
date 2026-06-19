@@ -1,1 +1,1 @@
-pub type TnB = TnBFieldParamsType;
+pub type TnB = TnBFieldParams;

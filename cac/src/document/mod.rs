@@ -10,7 +10,7 @@ include!("reference.rs");
 pub struct DocumentResponse {
     #[serde(default, rename = "UBLExtensions")]
     pub ubl_extensions:
-        Option<ext::ubl_common_extension_components_25::UblExtensions>,
+        Option<ext::UblExtensions>,
     #[serde(rename = "Response")]
     pub response: crate::Response,
     #[serde(default, rename = "DocumentReference")]

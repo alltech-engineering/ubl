@@ -1,5 +1,5 @@
 #[derive(Debug, Deserialize, Serialize)]
-pub struct X509IssuerSerialType {
+pub struct X509IssuerSerial {
     #[serde(rename = "X509IssuerName")]
     pub x509_issuer_name: String,
     #[serde(rename = "X509SerialNumber")]

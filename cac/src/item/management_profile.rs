@@ -1,7 +1,7 @@
 #[derive(Debug, Deserialize, Serialize)]
 pub struct ItemManagementProfile {
     #[serde(default, rename = "UBLExtensions")]
-    pub ubl_extensions: Option<ext::ubl_common_extension_components_25::UblExtensions>,
+    pub ubl_extensions: Option<ext::UblExtensions>,
     #[serde(default, rename = "FrozenPeriodDaysNumeric")]
     pub frozen_period_days_numeric: Option<cct::Numeric>,
     #[serde(default, rename = "MinimumInventoryQuantity")]

@@ -2,7 +2,7 @@
 pub struct EventTacticEnumeration {
     #[serde(default, rename = "UBLExtensions")]
     pub ubl_extensions:
-        Option<ext::ubl_common_extension_components_25::UblExtensions>,
+        Option<ext::UblExtensions>,
     #[serde(default, rename = "ConsumerIncentiveTacticTypeCode")]
     pub consumer_incentive_tactic_type_code: Option<cct::Code>,
     #[serde(default, rename = "DisplayTacticTypeCode")]

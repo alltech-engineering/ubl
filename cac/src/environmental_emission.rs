@@ -2,7 +2,7 @@
 pub struct EnvironmentalEmission {
     #[serde(default, rename = "UBLExtensions")]
     pub ubl_extensions:
-        Option<ext::ubl_common_extension_components_25::UblExtensions>,
+        Option<ext::UblExtensions>,
     #[serde(rename = "EnvironmentalEmissionTypeCode")]
     pub environmental_emission_type_code: cct::Code,
     #[serde(rename = "ValueMeasure")]

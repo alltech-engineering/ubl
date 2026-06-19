@@ -1,7 +1,7 @@
 #[derive(Debug, Deserialize, Serialize)]
 pub struct ExternalReference {
     #[serde(default, rename = "UBLExtensions")]
-    pub ubl_extensions: Option<ext::ubl_common_extension_components_25::UblExtensions>,
+    pub ubl_extensions: Option<ext::UblExtensions>,
     #[serde(default, rename = "URI")]
     pub uri: Option<cct::Identifier>,
     #[serde(default, rename = "DocumentHash")]

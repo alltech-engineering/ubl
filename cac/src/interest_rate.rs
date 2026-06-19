@@ -1,7 +1,7 @@
 #[derive(Debug, Deserialize, Serialize)]
 pub struct InterestRate {
     #[serde(default, rename = "UBLExtensions")]
-    pub ubl_extensions: Option<ext::ubl_common_extension_components_25::UblExtensions>,
+    pub ubl_extensions: Option<ext::UblExtensions>,
     #[serde(rename = "InterestRatePercent")]
     pub interest_rate_percent: cct::Numeric,
     #[serde(default, rename = "TimeBasisCode")]

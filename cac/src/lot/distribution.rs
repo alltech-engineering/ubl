@@ -1,8 +1,7 @@
 #[derive(Debug, Deserialize, Serialize)]
 pub struct LotDistribution {
     #[serde(default, rename = "UBLExtensions")]
-    pub ubl_extensions:
-        Option<ext::ubl_common_extension_components_25::UblExtensions>,
+    pub ubl_extensions: Option<ext::UblExtensions>,
     #[serde(default, rename = "MaximumLotsAwardedNumeric")]
     pub maximum_lots_awarded_numeric: Option<cct::Numeric>,
     #[serde(default, rename = "MaximumLotsSubmittedNumeric")]

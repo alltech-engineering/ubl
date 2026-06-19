@@ -1,1 +1,1 @@
-pub type Prime = PrimeFieldParamsType;
+pub type Prime = PrimeFieldParams;

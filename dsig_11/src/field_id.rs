@@ -1,13 +1,13 @@
 #[derive(Debug, Deserialize, Serialize)]
-pub enum FieldIdType {
+pub enum FieldId {
     #[serde(rename = "Prime")]
-    Prime(PrimeFieldParamsType),
+    Prime(PrimeFieldParams),
     #[serde(rename = "TnB")]
-    TnB(TnBFieldParamsType),
+    TnB(TnBFieldParams),
     #[serde(rename = "PnB")]
-    PnB(PnBFieldParamsType),
+    PnB(PnBFieldParams),
     #[serde(rename = "GnB")]
-    GnB(CharTwoFieldParamsType),
+    GnB(CharTwoFieldParams),
     #[serde(rename = "any44")]
     Any(String),
 }

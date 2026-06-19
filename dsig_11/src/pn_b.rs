@@ -1,1 +1,1 @@
-pub type PnB = PnBFieldParamsType;
+pub type PnB = PnBFieldParams;

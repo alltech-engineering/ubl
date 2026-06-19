@@ -1,5 +1,5 @@
 #[derive(Debug, Deserialize, Serialize)]
-pub struct PrimeFieldParamsType {
+pub struct PrimeFieldParams {
     #[serde(rename = "P")]
     pub p: String,
 }

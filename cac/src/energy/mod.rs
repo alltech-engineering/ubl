@@ -6,7 +6,7 @@ include!("tax_report.rs");
 #[derive(Debug, Deserialize, Serialize)]
 pub struct EnergyConsumptionAllocation {
     #[serde(default, rename = "UBLExtensions")]
-    pub ubl_extensions: Option<ext::ubl_common_extension_components_25::UblExtensions>,
+    pub ubl_extensions: Option<ext::UblExtensions>,
     #[serde(rename = "EnergySourceTypeCode")]
     pub energy_source_type_code: cct::Code,
     #[serde(rename = "AllocatedEnergyMeasure")]

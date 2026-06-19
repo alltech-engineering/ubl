@@ -8,6 +8,7 @@ members = [
     "dsig_11",
     "xades",
     "udt",
+    "common",
 ]
 
 [workspace.dependencies]

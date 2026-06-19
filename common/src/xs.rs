@@ -1,52 +1,56 @@
-use std::num::{NonZeroUsize, NonZeroIsize};
 use serde::{Deserialize, Serialize};
+use std::num::{NonZeroIsize, NonZeroUsize};
+
 #[derive(Debug, Default, Deserialize, Serialize)]
-pub struct EntitiesType(pub Vec<String>);
-pub type EntityType = String;
-pub type IdType = String;
-pub type IdrefType = String;
-pub type IdrefsType = EntitiesType;
-pub type NcNameType = String;
-pub type NmtokenType = String;
-pub type NmtokensType = EntitiesType;
-pub type NotationType = String;
-pub type NameType = String;
-pub type QNameType = String;
+pub struct Entities(pub Vec<String>);
+
+pub type Entity = String;
+pub type Id = String;
+pub type Idref = String;
+pub type Idrefs = Entities;
+pub type NcName = String;
+pub type Nmtoken = String;
+pub type Nmtokens = Entities;
+pub type Notation = String;
+pub type Name = String;
+pub type QName = String;
+
 #[derive(Debug, Deserialize, Serialize)]
-pub struct AnySimpleType {
+pub struct AnySimple {
     #[serde(default, rename = "@type")]
     pub type_: Option<String>,
     #[serde(default, rename = "$text")]
     pub content: String,
 }
-pub type AnyUriType = String;
-pub type BooleanType = bool;
-pub type ByteType = i8;
-pub type DateType = String;
+
+pub type AnyUri = String;
+pub type Boolean = bool;
+pub type Byte = i8;
+pub type Date = String;
 pub type DateTime = String;
-pub type DecimalType = f64;
-pub type DoubleType = f64;
-pub type DurationType = String;
-pub type FloatType = f32;
-pub type GDayType = String;
-pub type GMonthType = String;
-pub type GMonthDayType = String;
+pub type Decimal = f64;
+pub type Double = f64;
+pub type Duration = String;
+pub type Float = f32;
+pub type GDay = String;
+pub type GMonth = String;
+pub type GMonthDay = String;
 pub type GYearType = String;
-pub type GYearMonthType = String;
-pub type IntType = i32;
-pub type IntegerType = i32;
+pub type GYearMonth = String;
+pub type Int = i32;
+pub type Integer = i32;
 pub type Language = String;
-pub type LongType = i64;
-pub type NegativeIntegerType = NonZeroIsize;
-pub type NonNegativeIntegerType = usize;
-pub type NonPositiveIntegerType = isize;
-pub type NormalizedStringType = String;
-pub type PositiveIntegerType = NonZeroUsize;
-pub type ShortType = i16;
-pub type StringType = String;
-pub type TimeType = String;
-pub type TokenType = String;
-pub type UnsignedByteType = u8;
-pub type UnsignedIntType = u32;
-pub type UnsignedLongType = u64;
-pub type UnsignedShortType = u16;
+pub type Long = i64;
+pub type NegativeInteger = NonZeroIsize;
+pub type NonNegativeInteger = usize;
+pub type NonPositiveInteger = isize;
+pub type NormalizedString = String;
+pub type PositiveInteger = NonZeroUsize;
+pub type Short = i16;
+// pub type String = String;
+pub type Time = String;
+pub type Token = String;
+pub type UnsignedByte = u8;
+pub type UnsignedInt = u32;
+pub type UnsignedLong = u64;
+pub type UnsignedShort = u16;

@@ -5,8 +5,7 @@ include!("notification_line.rs");
 #[derive(Debug, Deserialize, Serialize)]
 pub struct ExceptionCriteriaLine {
     #[serde(default, rename = "UBLExtensions")]
-    pub ubl_extensions:
-        Option<ext::ubl_common_extension_components_25::UblExtensions>,
+    pub ubl_extensions: Option<ext::UblExtensions>,
     #[serde(rename = "ID")]
     pub id: cct::Identifier,
     #[serde(default, rename = "Note")]
@@ -30,6 +29,5 @@ pub struct ExceptionCriteriaLine {
     #[serde(default, rename = "SupplyItem")]
     pub supply_item: Vec<crate::Item>,
     #[serde(default, rename = "ForecastExceptionCriterionLine")]
-    pub forecast_exception_criterion_line:
-        Option<crate::ForecastExceptionCriterionLine>,
+    pub forecast_exception_criterion_line: Option<crate::ForecastExceptionCriterionLine>,
 }

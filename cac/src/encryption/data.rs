@@ -1,7 +1,7 @@
 #[derive(Debug, Deserialize, Serialize)]
 pub struct EncryptionData {
     #[serde(default, rename = "UBLExtensions")]
-    pub ubl_extensions: Option<ext::ubl_common_extension_components_25::UblExtensions>,
+    pub ubl_extensions: Option<ext::UblExtensions>,
     #[serde(rename = "MessageFormat")]
     pub message_format: cct::Text,
     #[serde(default, rename = "EncryptionCertificateAttachment")]

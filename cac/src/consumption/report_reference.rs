@@ -2,7 +2,7 @@
 pub struct ConsumptionReportReference {
     #[serde(default, rename = "UBLExtensions")]
     pub ubl_extensions:
-        Option<ext::ubl_common_extension_components_25::UblExtensions>,
+        Option<ext::UblExtensions>,
     #[serde(rename = "ConsumptionReportID")]
     pub consumption_report_id: cct::Identifier,
     #[serde(default, rename = "ConsumptionType")]

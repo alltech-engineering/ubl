@@ -6,7 +6,7 @@ include!("health_declaration.rs");
 #[derive(Debug, Deserialize, Serialize)]
 pub struct MaritimeTransport {
     #[serde(default, rename = "UBLExtensions")]
-    pub ubl_extensions: Option<ext::ubl_common_extension_components_25::UblExtensions>,
+    pub ubl_extensions: Option<ext::UblExtensions>,
     #[serde(default, rename = "VesselID")]
     pub vessel_id: Option<cct::Identifier>,
     #[serde(default, rename = "VesselName")]

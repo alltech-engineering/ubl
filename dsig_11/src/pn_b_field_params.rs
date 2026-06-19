@@ -1,5 +1,5 @@
 #[derive(Debug, Deserialize, Serialize)]
-pub struct PnBFieldParamsType {
+pub struct PnBFieldParams {
     #[serde(rename = "M")]
     pub m: NonZeroUsize,
     #[serde(rename = "K1")]
