@@ -1,27 +1,40 @@
-    Checking memchr v2.8.2
-    Checking itoa v1.0.18
-    Checking cfg-if v1.0.4
-    Checking regex-syntax v0.8.11
-    Checking hashbrown v0.17.1
-    Checking equivalent v1.0.2
-    Checking serde_core v1.0.228
-    Checking zmij v1.0.21
-    Checking thiserror v2.0.18
-    Checking encoding_rs v0.8.35
-    Checking aho-corasick v1.1.4
-    Checking indexmap v2.14.0
-    Checking quick-xml v0.38.4
-    Checking regex-automata v0.4.14
-    Checking serde v1.0.228
-    Checking serde_json v1.0.150
-    Checking cct v0.1.0 (/Users/stephanus/Github/alltech/ubl/cct)
-    Checking ds v0.1.0 (/Users/stephanus/Github/alltech/ubl/ds)
-    Checking dsig_11 v0.1.0 (/Users/stephanus/Github/alltech/ubl/dsig_11)
-    Checking udt v0.1.0 (/Users/stephanus/Github/alltech/ubl/udt)
-    Checking ext v0.1.0 (/Users/stephanus/Github/alltech/ubl/ext)
-    Checking cac v0.1.0 (/Users/stephanus/Github/alltech/ubl/cac)
-    Checking xades v0.1.0 (/Users/stephanus/Github/alltech/ubl/xades)
-    Checking regex v1.12.4
-    Checking xsd-parser-types v0.2.1
-    Checking common v0.1.0 (/Users/stephanus/Github/alltech/ubl/common)
-    Finished `dev` profile [unoptimized + debuginfo] target(s) in 5.24s
+warning: unused workspace dependency `chrono`
+  --> Cargo.toml:16:1
+   |
+16 | chrono = { version = "0.4", features = ["serde"] }
+   | ^^^^^^
+   |
+   = note: `cargo::unused_workspace_dependencies` is set to `warn` by default
+help: consider removing the workspace dependency `chrono`
+warning: unused workspace dependency `rust_decimal`
+  --> Cargo.toml:17:1
+   |
+17 | rust_decimal = { version = "1", features = ["serde"] }
+   | ^^^^^^^^^^^^
+   |
+help: consider removing the workspace dependency `rust_decimal`
+warning: unused workspace dependency `serde`
+  --> Cargo.toml:15:1
+   |
+15 | serde = { version = "1", features = ["derive"] }
+   | ^^^^^
+   |
+help: consider removing the workspace dependency `serde`
+warning: unused workspace dependency `thiserror`
+  --> Cargo.toml:18:1
+   |
+18 | thiserror = "2"
+   | ^^^^^^^^^
+   |
+help: consider removing the workspace dependency `thiserror`
+warning: workspace (manifest) generated 4 warnings
+warning: unused dependency `xsd-parser-types`
+ --> common/Cargo.toml:9:1
+  |
+9 | xsd-parser-types = { version = "0.2.1", features = ["serde", "xml", "quick-xml"] }
+  | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  |
+  = note: `cargo::unused_dependencies` is set to `warn` by default
+help: consider removing the dependency on `xsd-parser-types`
+warning: `common` (manifest) generated 1 warning
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 0.02s

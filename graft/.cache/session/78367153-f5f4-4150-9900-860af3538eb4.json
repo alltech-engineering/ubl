@@ -1,0 +1,9 @@
+{
+  "lastQuery": "The following files have unresolved merge conflicts. Please open each file, find the conflict markers (`<<<<<<<` / `=======` / `>>>>>>>`), and resolve every conflict by editing the files directly.\n\nChoose resolutions that best preserve the intent of both changes, or combine them if appropriate.\n\nFiles with conflicts:\n\n[@OrderLine-Type.xsd](file:///common/spec/common/OrderLine-Type.xsd)\n\n\n[@stderr](file:///target/flycheck0/stderr)",
+  "perAgentQuery": {},
+  "graftReads": 0,
+  "sourceReads": 0,
+  "savedTokens": 0,
+  "injectedPointers": [],
+  "nudges": 0
+}
